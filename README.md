@@ -46,7 +46,6 @@ Now we have a backend servers in Spring Boot running at http://localhost:xxxx an
     <td align="center"><a href="https://github.com/ivanabrkic"><img src="https://avatars3.githubusercontent.com/u/37486199?v=4" width="100px;" alt=""/><br /><sub><b>Ivana Brkic</b></sub></a><br /><a href="https://github.com/joooooooj/literary-association/commits?author=ivanabrkic" title="Code">💻</a></td>
   </tr>
 </table>
-
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
