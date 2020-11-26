@@ -29,8 +29,8 @@ This will open a web browser on your desktop and navigate you to http://localhos
 Now we have a backend servers in Spring Boot running at http://localhost:xxxx and a frontend in React running at http://localhost:3000.
 
 ## Tech/framework used
--  **React.js** / Create React App
--  **Java** / Spring Boot
+-   **React.js** / Create React App
+-   **Java** / Spring Boot
 ## License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/joooooooj/literary-association/blob/main/LICENSE)
 ## Contributors
