@@ -1,8 +1,6 @@
 # Literary Association
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/08e0d6891c3e4bf68701e81a9e3f9990)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=joooooooj/literary-association&amp;utm_campaign=Badge_Grade)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)<!-- ALL-CONTRIBUTORS-BADGE:END --> [![Codacy Badge](https://app.codacy.com/project/badge/Grade/08e0d6891c3e4bf68701e81a9e3f9990)](https://www.codacy.comutm_source=github.com&amp;utm_medium=referral&amp;utm_content=joooooooj/literary-association&amp;utm_campaign=Badge_Grade)
 
 **Literary Association (LU) is a system that enables:**
 
