@@ -1,1 +1,1 @@
-# sep
+# Literary society
