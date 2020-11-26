@@ -32,7 +32,4 @@ Now we have a backend servers in Spring Boot running at http://localhost:xxxx an
 ## License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/joooooooj/literary-association/blob/main/LICENSE)
 ## Contributors
-- [Nikolina Gašić](https://github.com/nikolinagasic)
-- [Igor Malešević](https://github.com/igorMales98)
-- [Ivana Brkić](https://github.com/ivanabrkic)
 
