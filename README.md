@@ -1,1 +1,1 @@
-# Literary society
+# Literary Association
