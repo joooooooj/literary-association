@@ -1,4 +1,7 @@
 # Literary Association
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 **Literary Association (LU) is a system that enables:**
 
@@ -33,3 +36,16 @@ Now we have a backend servers in Spring Boot running at http://localhost:xxxx an
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/joooooooj/literary-association/blob/main/LICENSE)
 ## Contributors
 
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/nikolinagasic"><img src="https://avatars3.githubusercontent.com/u/48239322?v=4" width="100px;" alt=""/><br /><sub><b>nikolinagasic</b></sub></a><br /><a href="https://github.com/joooooooj/literary-association/commits?author=nikolinagasic" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->

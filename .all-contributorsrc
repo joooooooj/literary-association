@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "nikolinagasic",
+      "name": "nikolinagasic",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/48239322?v=4",
+      "profile": "https://github.com/nikolinagasic",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "literary-association",
+  "projectOwner": "joooooooj",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
