@@ -21,7 +21,6 @@ export default function WelcomeCard() {
           your request and we will contact you soon!
         </p>
         <button
-          variant="success"
           className="Button Green"
           onClick={showFormClickHandler}
         >
