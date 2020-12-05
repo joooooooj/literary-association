@@ -1,5 +1,6 @@
 import React from "react";
 import {Button, Card, Form} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 export default function Pricing() {
     return (
@@ -11,11 +12,13 @@ export default function Pricing() {
                         <Card.Subtitle className="mb-2 text-white-50 font-weight-bold">10$/year</Card.Subtitle>
                         <Card.Text>
                             Get access to 10 free book previews per year. As a writer you can publish one book per year and
-                            get a chance to buy a book with 75% discount.
+                            get a chance to buy a book with 30% discount.
                         </Card.Text>
-                        <Button variant="primary" type="submit" className="w-50 mt-3">
-                            Buy
-                        </Button>
+                        <Link to="/">
+                            <Button variant="primary" type="submit" className="w-50 mt-3">
+                                Buy
+                            </Button>
+                        </Link>
                     </Card.Body>
                 </Card>
             </div>
@@ -28,9 +31,11 @@ export default function Pricing() {
                             Get access to 50 free book previews per year. As a writer you can publish 3 books per year and
                             get a chance to buy a book with 50% discount.
                         </Card.Text>
-                        <Button variant="primary" type="submit" className="w-50 mt-3">
-                            Buy
-                        </Button>
+                        <Link to="/">
+                            <Button variant="primary" type="submit" className="w-50 mt-3">
+                                Buy
+                            </Button>
+                        </Link>
                     </Card.Body>
                 </Card>
             </div>
@@ -41,11 +46,13 @@ export default function Pricing() {
                         <Card.Subtitle className="mb-2 text-white-50 font-weight-bold">50$/year</Card.Subtitle>
                         <Card.Text>
                             Get access to unlimited free book previews per year. As a writer you can publish unlimited number of books per year and
-                            get a chance to buy a book with 30% discount.
+                            get a chance to buy a book with 75% discount.
                         </Card.Text>
-                        <Button variant="primary" type="submit" className="w-50 mt-3">
-                            Buy
-                        </Button>
+                        <Link to="/">
+                            <Button variant="primary" type="submit" className="w-50 mt-3">
+                                Buy
+                            </Button>
+                        </Link>
                     </Card.Body>
                 </Card>
             </div>

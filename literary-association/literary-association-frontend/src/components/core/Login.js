@@ -7,6 +7,7 @@ export default function Login() {
     return (
         <div className="m-5 custom-form border-light border pb-5">
             <Form className="mt-5 mb-5 w-50">
+                <h3 className="text-left pb-3">Login</h3>
                 <Form.Group controlId="formBasicEmail" className="text-left">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control type="email" placeholder="Enter email" />
@@ -19,7 +20,7 @@ export default function Login() {
                     <Link to="/reset-password">Forgot your password?</Link>
                 </Form.Text>
                 <Form.Text className="text-muted text-left">
-                    <Link to="/registration">Don't have an account? Sign up.</Link>
+                    <Link to="/register">Don't have an account? Sign up.</Link>
                 </Form.Text>
                 <Button variant="primary" type="submit" className="float-right w-100 mt-3">
                     Login

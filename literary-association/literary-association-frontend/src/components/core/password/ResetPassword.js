@@ -7,6 +7,7 @@ export default function ResetPassword() {
         <div className="col-4 content bg-dark h-100 p-1">
             <div className="m-5 custom-form border-light border">
                 <Form className="m-5 w-75">
+                    <h3 className="text-left w-75 pb-3">Reset password</h3>
                     <Form.Group controlId="formBasicEmail" className="text-left w-75">
                         <Form.Label>Email address</Form.Label>
                         <Form.Control type="email" placeholder="Enter email" />
