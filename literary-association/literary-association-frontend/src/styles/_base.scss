@@ -1,0 +1,25 @@
+.html, body {
+  font-family: 'Roboto', sans-serif;
+  background-image: url("images/Vx5wk3.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  max-width: 100%;
+  max-height: 100%;
+
+  .container-fluid {
+    text-align: -webkit-center;
+
+    .content {
+
+      .custom-form {
+        color: white;
+      }
+
+      a {
+        color: #bbc0c4;
+      }
+    }
+  }
+}
