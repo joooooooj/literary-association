@@ -3,6 +3,7 @@ import { Carousel } from "react-bootstrap";
 import BankIcon from "../../images/bank2.png";
 import PayPalIcon from "../../images/paypal.png";
 import BitcoinIcon from "../../images/bitcoin.png";
+import "./PaymentMethods.css";
 
 export default function paymentMehtodsComponent() {
   return (
@@ -10,17 +11,17 @@ export default function paymentMehtodsComponent() {
       <Carousel.Item interval={5000}>
         <img
           src={BankIcon}
-          width="500px"
+          width="400px"
           height="400px"
           alt="First slide"
           style={{
-            marginTop: "10%",
-            marginBottom: "10%",
+            marginTop: "5%",
             marginLeft: "37%",
+            backgroundColor: "#f8f9fa",
           }}
         />
 
-        <Carousel.Caption>
+        <Carousel.Caption style={{ display: "contents" }}>
           <h3>Bank</h3>
           <p>
             We offer service of paying for items via bank. All you need to have
@@ -34,10 +35,14 @@ export default function paymentMehtodsComponent() {
           width="500px"
           height="400px"
           alt="First slide"
-          style={{ marginTop: "10%", marginBottom: "10%", marginLeft: "37%" }}
+          style={{
+            marginTop: "5%",
+            marginLeft: "35%",
+            backgroundColor: "#f8f9fa",
+          }}
         />
 
-        <Carousel.Caption>
+        <Carousel.Caption style={{ display: "contents" }}>
           <h3>PayPal</h3>
           <p>
             We offer service of paying for items via paypal. All you need to
@@ -51,11 +56,15 @@ export default function paymentMehtodsComponent() {
           width="500px"
           height="400px"
           alt="First slide"
-          style={{ marginTop: "10%", marginBottom: "10%", marginLeft: "37%" }}
+          style={{
+            marginTop: "5%",
+            marginLeft: "33%",
+            backgroundColor: "#f8f9fa",
+          }}
         />
 
-        <Carousel.Caption>
-          <h3>Bank</h3>
+        <Carousel.Caption style={{ display: "contents" }}>
+          <h3>Bitcoin</h3>
           <p>
             We offer service of paying for items via bitcoin. All you need to
             have is a bitcoin wallet.

@@ -2,12 +2,12 @@ import React from "react";
 import { Nav, Navbar } from "react-bootstrap";
 import Logo from "../../../images/payment.png";
 import LoginIcon from "@material-ui/icons/AccountCircleSharp";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export default function navbar() {
   return (
     <Navbar bg="light" variant="light">
-      <Navbar.Brand href="/">
+      <Navbar.Brand>
         <img
           alt=""
           src={Logo}
@@ -15,7 +15,7 @@ export default function navbar() {
           height="30"
           className="d-inline-block align-top"
         />{" "}
-        Payment Center
+        <Link to="/">Payment Center </Link>
       </Navbar.Brand>
       <Nav className="mr-auto">
         <NavLink to="/payment-methods">Payment methods</NavLink>
