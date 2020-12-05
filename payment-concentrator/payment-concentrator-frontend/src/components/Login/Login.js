@@ -18,7 +18,9 @@ export default function LoginComponent() {
           <PassIcon />
         </i>
       </div>
-      <button type="submit">Log In</button>
+      <button type="submit" className="Button">
+        Log In
+      </button>
     </div>
   );
 }

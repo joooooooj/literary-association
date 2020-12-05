@@ -7,7 +7,7 @@ import WelcomeCard from "./components/WelcomeCard/WelcomeCard";
 
 function App() {
   return (
-    <div className="App" className="bg">
+    <div className="bg">
       <Navbar />
       <Switch>
         <Route component={WelcomeCard} path="/" exact />
