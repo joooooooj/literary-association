@@ -46,6 +46,10 @@ public class User implements UserDetails {
         return permissions;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
     @Override
     public String getPassword() {
         return password;
