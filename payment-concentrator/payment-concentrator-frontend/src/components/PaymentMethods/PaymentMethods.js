@@ -1,6 +1,6 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
-import BankIcon from "../../images/bank.jpg";
+import BankIcon from "../../images/bank2.png";
 import PayPalIcon from "../../images/paypal.png";
 import BitcoinIcon from "../../images/bitcoin.png";
 
