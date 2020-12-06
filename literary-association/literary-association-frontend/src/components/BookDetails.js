@@ -6,7 +6,7 @@ export default function BookDetails(props) {
 
     const handleClose = () => {
         props.onHide();
-    }
+    };
 
     return (
         <Modal centered show={props.show} onHide={handleClose} className="w-100">
