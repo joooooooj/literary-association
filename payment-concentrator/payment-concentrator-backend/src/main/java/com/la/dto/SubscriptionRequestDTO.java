@@ -11,6 +11,6 @@ public class SubscriptionRequestDTO {
     private Long id;
     private String organizationName;
     private String organizationDescription;
-    private String email;
+    private String organizationEmail;
     private Set<PaymentMethodDTO> paymentMethods;
 }
