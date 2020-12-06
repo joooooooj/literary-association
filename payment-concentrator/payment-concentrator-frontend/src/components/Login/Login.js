@@ -21,10 +21,10 @@ export default function LoginComponent(props) {
     }
 
     const login = () => {
-        fetch('http://localhost:8081/api/auth/login', {
-            method: 'POST',
+        fetch("http://localhost:8081/api/auth/login", {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({username, password}),
         })
@@ -54,7 +54,7 @@ export default function LoginComponent(props) {
                     <PassIcon/>
                 </i>
             </div>
-            <button type="submit" className="Button" onClick={() => login()}>
+            <button type="submit" className="ButtonLogin" onClick={() => login()}>
                 Log In
             </button>
         </div>
