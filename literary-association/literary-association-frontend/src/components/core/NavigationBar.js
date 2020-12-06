@@ -10,12 +10,9 @@ export default function NavigationBar(){
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
                     <Link className="nav-link" to="/home">Home</Link>
+                    <Link className="nav-link" to="/books">Books</Link>
                     <Link className="nav-link" to="/pricing">Pricing</Link>
                 </Nav>
-                {/*<Nav>*/}
-                {/*    <Nav.Link href="#deets">Login</Nav.Link>*/}
-                {/*    <Nav.Link href="#deets">Register</Nav.Link>*/}
-                {/*</Nav>*/}
             </Navbar.Collapse>
         </Navbar>
     );

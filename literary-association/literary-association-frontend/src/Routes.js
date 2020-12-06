@@ -7,6 +7,7 @@ import ResetPassword from "./components/core/password/ResetPassword";
 import RegisterSuccess from "./components/core/registration/RegisterSuccess";
 import RegisterReader from "./components/core/registration/RegisterReader";
 import RegisterBetaReader from "./components/core/registration/RegisterBetaReader";
+import Books from "./components/Books";
 
 export default function Routes() {
     return (
@@ -22,6 +23,9 @@ export default function Routes() {
             </Route>
             <Route exact path="/pricing">
                 <Pricing/>
+            </Route>
+            <Route exact path="/books">
+                <Books/>
             </Route>
             <Route exact path="/reset-password">
                 <ResetPassword/>
