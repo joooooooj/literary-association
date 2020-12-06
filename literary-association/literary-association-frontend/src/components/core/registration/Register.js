@@ -1,15 +1,15 @@
 import React from "react";
 import {Button, Form} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import Select from 'react-select'
+import Select from "react-select";
 
 export default function Register() {
 
     const options = [
-        { value: 'Madrid_Spain', label: 'Madrid, Spain' },
-        { value: 'Mahuma_Aruba', label: 'Mahuma, Aruba' },
-        { value: 'Toronto_Canada', label: 'Toronto, Canada' }
-    ]
+        { value: "Madrid_Spain", label: "Madrid, Spain" },
+        { value: "Mahuma_Aruba", label: "Mahuma, Aruba" },
+        { value: "Toronto_Canada", label: "Toronto, Canada" }
+    ];
 
     return (
         <div className="col-4 content bg-dark p-1">

@@ -6,10 +6,10 @@ import {Link} from "react-router-dom";
 export default function RegisterReader() {
 
     const genres = [
-        { value: 'fantasy', label: 'Fantasy' },
-        { value: 'romance', label: 'Romance' },
-        { value: 'thriller', label: 'Thriller' }
-    ]
+        { value: "fantasy", label: "Fantasy" },
+        { value: "romance", label: "Romance" },
+        { value: "thriller", label: "Thriller" }
+    ];
 
     return (
         <div className="col-4 content bg-dark p-1">

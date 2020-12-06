@@ -1,6 +1,6 @@
 import React from "react";
 import {Carousel} from "react-bootstrap";
-import Login from "./Login.js"
+import Login from "./Login.js";
 
 export default function Home() {
     return (
@@ -9,7 +9,7 @@ export default function Home() {
                 <Carousel.Item interval={4000}>
                     <img
                         className="d-block w-100"
-                        src={'../images/c1.jpg'}
+                        src={"../images/c1.jpg"}
                         alt="First slide"
                     />
                     <Carousel.Caption>
@@ -20,7 +20,7 @@ export default function Home() {
                 <Carousel.Item interval={4000}>
                     <img
                         className="d-block w-100"
-                        src={'../images/c2.jpg'}
+                        src={"../images/c2.jpg"}
                         alt="Second slide"
                     />
                     <Carousel.Caption>
@@ -31,7 +31,7 @@ export default function Home() {
                 <Carousel.Item interval={4000}>
                     <img
                         className="d-block w-100"
-                        src={'../images/c3.jpg'}
+                        src={"../images/c3.jpg"}
                         alt="Third slide"
                     />
                     <Carousel.Caption>

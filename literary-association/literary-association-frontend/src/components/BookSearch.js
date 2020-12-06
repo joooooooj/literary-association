@@ -5,10 +5,10 @@ import Select from "react-select";
 export default function BookSearch() {
 
     const genres = [
-        { value: 'fantasy', label: 'Fantasy' },
-        { value: 'romance', label: 'Romance' },
-        { value: 'thriller', label: 'Thriller' }
-    ]
+        { value: "fantasy", label: "Fantasy" },
+        { value: "romance", label: "Romance" },
+        { value: "thriller", label: "Thriller" }
+    ];
 
     return (
         <div className="book-search container-fluid bg-dark h-100 text-light text-left p-4">
