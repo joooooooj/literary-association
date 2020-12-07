@@ -3,7 +3,7 @@ import {Route, Switch} from "react-router";
 import WelcomeCard from "./components/WelcomeCard/WelcomeCard";
 import LoginComponent from "./components/Login/Login";
 import PaymentMethodsComponent from "./components/PaymentMethods/PaymentMethods";
-import SubscriptionRequests from "./components/SubscriptionRequests/SubscriptionRequests";
+import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
 
 export default function Routes() {
     return (<Switch>
@@ -14,6 +14,6 @@ export default function Routes() {
             path="/payment-methods"
             exact
         />
-        <Route component={SubscriptionRequests} path="/requests" exact/>
+        <Route component={AdminDashboard} path="/dashboard" exact/>
     </Switch>);
 }

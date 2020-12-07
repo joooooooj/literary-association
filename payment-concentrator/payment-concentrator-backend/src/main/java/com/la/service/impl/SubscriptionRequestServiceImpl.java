@@ -35,6 +35,11 @@ public class SubscriptionRequestServiceImpl implements SubscriptionRequestServic
     private PasswordEncoder encoder;
 
     @Override
+    public List<SubscriptionRequest> getAll() {
+        return subscriptionRequestRepository.findAll();
+    }
+
+    @Override
     public Long createRequest(SubscriptionRequestDTO requestDTO) throws ParseException {
         return (subscriptionRequestRepository.saveAndFlush(mapper.toEntity(requestDTO))).getId();
     }

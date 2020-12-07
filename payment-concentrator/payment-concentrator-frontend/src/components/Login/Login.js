@@ -33,7 +33,7 @@ export default function LoginComponent(props) {
                 localStorage.setItem("token", data.accessToken);
                 localStorage.setItem("roles", data.roles);
                 console.log(localStorage.getItem("roles"));
-                nextPath("/requests");
+                nextPath("/dashboard");
             })
             .catch((error) => {
                 console.error('Error:', error);

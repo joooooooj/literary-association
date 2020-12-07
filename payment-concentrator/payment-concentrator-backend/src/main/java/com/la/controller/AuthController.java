@@ -1,19 +1,22 @@
 package com.la.controller;
 
+import com.la.dto.PaymentMethodDTO;
 import com.la.dto.SubscriptionRequestDTO;
+import com.la.mapper.PaymentMethodDTOMapper;
 import com.la.security.UserTokenState;
 import com.la.security.auth.JwtAuthenticationRequest;
 import com.la.service.AuthService;
+import com.la.service.PaymentMethodService;
 import com.la.service.SubscriptionRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api/auth")
@@ -24,6 +27,12 @@ public class AuthController {
 
     @Autowired
     private SubscriptionRequestService subscriptionService;
+
+    @Autowired
+    private PaymentMethodService paymentMethodService;
+
+    @Autowired
+    private PaymentMethodDTOMapper mapper;
 
     @PostMapping(value = "/login")
     public ResponseEntity<?> login(@RequestBody JwtAuthenticationRequest authenticationRequest) {
@@ -48,6 +57,28 @@ public class AuthController {
         try {
             Long id = subscriptionService.createRequest(requestDTO);
             return new ResponseEntity<>(id, HttpStatus.CREATED);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(value = "/payment-method")
+    public ResponseEntity<List<PaymentMethodDTO>> getAll() {
+        try {
+            return new ResponseEntity<>(paymentMethodService.getAll().stream().map(mapper::toDto)
+                    .collect(Collectors.toList()), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(value = "/payment-method/other")
+    public ResponseEntity<List<PaymentMethodDTO>> getAllWithoutFirstThree() {
+        try {
+            return new ResponseEntity<>(paymentMethodService.getAllWithoutFirstThree().stream().map(mapper::toDto)
+                    .collect(Collectors.toList()), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
