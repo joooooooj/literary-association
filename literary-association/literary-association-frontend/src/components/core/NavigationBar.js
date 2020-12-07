@@ -13,6 +13,11 @@ export default function NavigationBar(){
                     <Link className="nav-link" to="/books">Books</Link>
                     <Link className="nav-link" to="/pricing">Pricing</Link>
                 </Nav>
+                <Nav className="">
+                    <Link className="nav-link" to="/registration-requests">Registration requests (Board)</Link>
+                    <Link className="nav-link" to="/publish-book">Publish book (Writer)</Link>
+                    <Link className="nav-link" to="/submitted-work">Submitted work (Writer)</Link>
+                </Nav>
             </Navbar.Collapse>
         </Navbar>
     );

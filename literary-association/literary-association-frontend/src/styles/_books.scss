@@ -25,6 +25,11 @@
       height: 580px;
       width: 800px;
 
+      .book-synopsys {
+        height: 190px;
+        overflow-y: scroll;
+      }
+
       .add-remove-button {
         padding: 0;
 
