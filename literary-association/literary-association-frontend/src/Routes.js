@@ -7,7 +7,11 @@ import ResetPassword from "./components/core/password/ResetPassword";
 import RegisterSuccess from "./components/core/registration/RegisterSuccess";
 import RegisterReader from "./components/core/registration/RegisterReader";
 import RegisterBetaReader from "./components/core/registration/RegisterBetaReader";
-import Books from "./components/Books";
+import Books from "./components/books/Books";
+import SubmittedWork from "./components/writer/registration/SubmittedWork";
+import RegistrationRequest from "./components/board/RegistrationRequests";
+import RegistrationRequests from "./components/board/RegistrationRequests";
+import PublishBook from "./components/writer/publishing/PublishBook";
 
 export default function Routes() {
     return (
@@ -38,6 +42,15 @@ export default function Routes() {
             </Route>
             <Route exact path="/register-beta">
                 <RegisterBetaReader/>
+            </Route>
+            <Route exact path="/submitted-work">
+                <SubmittedWork/>
+            </Route>
+            <Route exact path="/registration-requests">
+                <RegistrationRequests/>
+            </Route>
+            <Route exact path="/publish-book">
+                <PublishBook/>
             </Route>
             <Route>
                 <Home/>
