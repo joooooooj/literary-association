@@ -12,6 +12,10 @@ html {
     .container-fluid {
       text-align: -webkit-center;
 
+      .hidden {
+        display: none;
+      }
+
       .content {
         .custom-form {
           color: white;
@@ -21,6 +25,18 @@ html {
           color: #bbc0c4;
         }
       }
+    }
+  }
+}
+
+.confirmation {
+  .modal-content {
+    width: 500px;
+    height: fit-content;
+
+    .modal-body {
+      height: fit-content;
+
     }
   }
 }
