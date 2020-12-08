@@ -14,9 +14,14 @@ export default function NavigationBar(){
                     <Link className="nav-link" to="/pricing">Pricing</Link>
                 </Nav>
                 <Nav className="">
-                    <Link className="nav-link" to="/registration-requests">Registration requests (Board)</Link>
-                    <Link className="nav-link" to="/publish-book">Publish book (Writer)</Link>
-                    <Link className="nav-link" to="/submitted-work">Submitted work (Writer)</Link>
+                    <Link className="nav-link text-info" to="/registration-requests">Registration requests (Board)</Link>
+                    <Link className="nav-link text-info" to="/submitted-work">Submitted work (Writer)</Link>
+                </Nav>
+                <Nav className="">
+                    <Link className="nav-link text-danger" to="/publish-book">Publish book (Writer)</Link>
+                    <Link className="nav-link text-danger" to="/publish-requests">Publish requests(Editor)</Link>
+                    <Link className="nav-link text-danger" to="/corrections-scripts">Correction requests(Lector)</Link>
+                    <Link className="nav-link text-danger" to="/comments-scripts">Review scripts(Beta)</Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
