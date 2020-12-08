@@ -7,4 +7,5 @@ public class LiteraryAssociationApp {
     public static void main(String[] args) {
         SpringApplication.run(LiteraryAssociationApp.class, args);
     }
+
 }
