@@ -1,0 +1,27 @@
+.explanation {
+  .modal-content {
+    width: 500px;
+    height: 100px;
+
+    .modal-body {
+    }
+  }
+}
+
+.plagiarism-check-results {
+  .modal-content {
+    width: 600px;
+    height: 50vh;
+
+    .modal-body {
+      overflow-y: scroll;
+    }
+  }
+}
+
+.choose-beta-readers {
+  .modal-content {
+    width: 500px;
+    height: 25vh;
+  }
+}

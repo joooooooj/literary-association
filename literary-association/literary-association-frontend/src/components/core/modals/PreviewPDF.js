@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Document, Page } from 'react-pdf';
-import {Modal} from "react-bootstrap";
+import {Button, ButtonGroup, Modal} from "react-bootstrap";
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import { pdfjs } from 'react-pdf';
 
@@ -25,7 +25,17 @@ export default function PreviewPDF(props) {
                     className="center-document mt-0 pt-0"
                     file={"../docs/Encyclopedia_of_Comic_Books_and_Graphic_Novels.pdf"}
                     onLoadSuccess={onDocumentLoadSuccess}>
-                    <div className="row controls-center">
+                    {   props.status === "WAITING_READING" &&
+                        <ButtonGroup className="mb-3 mt-2">
+                            <Button variant="success" onClick={() => {props.setStatus("WAITING_AFTER_READING"); handleClose()}}>
+                                APPROVE
+                            </Button>
+                            <Button variant="danger" onClick={() => {props.handleShowExplanation(); handleClose();}}>
+                                REJECT
+                            </Button>
+                        </ButtonGroup>
+                    }
+                    <div className="row controls-center mt-2">
                         <i onClick={() => setPageNumber(pageNumber - 1)} className="material-icons">keyboard_arrow_left</i>
                         <p>Page {pageNumber} of {numPages}</p>
                         <i onClick={() => setPageNumber(pageNumber + 1)} className="material-icons">keyboard_arrow_right</i>
@@ -36,6 +46,9 @@ export default function PreviewPDF(props) {
                         <p>Page {pageNumber} of {numPages}</p>
                         <i onClick={() => setPageNumber(pageNumber + 1)} className="material-icons">keyboard_arrow_right</i>
                     </div>
+                    <Button variant="info">
+                        DOWNLOAD
+                    </Button>
                 </Document>
             </Modal.Body>
         </Modal>

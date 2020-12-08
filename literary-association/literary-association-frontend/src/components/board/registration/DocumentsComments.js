@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Button, Form, Modal, Table} from "react-bootstrap";
-import PreviewPDF from "../core/modals/PreviewPDF";
+import PreviewPDF from "../../core/modals/PreviewPDF";
 
 export default function DocumentsComments(props) {
 
