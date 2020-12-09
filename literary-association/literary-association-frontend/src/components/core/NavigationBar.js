@@ -19,9 +19,15 @@ export default function NavigationBar(){
                 </Nav>
                 <Nav className="">
                     <Link className="nav-link text-danger" to="/publish-book">Publish book (Writer)</Link>
-                    <Link className="nav-link text-danger" to="/publish-requests">Publish requests(Editor)</Link>
-                    <Link className="nav-link text-danger" to="/corrections-scripts">Correction requests(Lector)</Link>
-                    <Link className="nav-link text-danger" to="/comments-scripts">Review scripts(Beta)</Link>
+                    <Link className="nav-link text-danger" to="/publish-requests">Publish requests (Editor)</Link>
+                    <Link className="nav-link text-danger" to="/corrections-scripts">Correction requests (Lector)</Link>
+                    <Link className="nav-link text-danger" to="/comments-scripts">Review scripts (Beta)</Link>
+                </Nav>
+                <Nav className="">
+                    <Link className="nav-link text-success" to="/plagiarism-complaint">Plagiarism complaint (Writer)</Link>
+                    <Link className="nav-link text-success" to="/main-editor-complaints">Main editor complaints (Main editor)</Link>
+                    <Link className="nav-link text-success" to="/notes-complaints">Complaint note requests (Editor)</Link>
+                    <Link className="nav-link text-success" to="/review-notes">Review notes (Board)</Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
