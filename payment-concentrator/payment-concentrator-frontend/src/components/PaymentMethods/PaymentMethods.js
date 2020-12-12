@@ -8,10 +8,10 @@ import "./PaymentMethods.css";
 import PaymentMethodsService from "../../services/PaymentMethodsService";
 
 export default function PaymentMethodsComponent() {
-    const [otherMethods, setOtherMehtods] = useState([]);
+    const [otherMethods, setOtherMethods] = useState([]);
 
     useEffect(() => {
-        PaymentMethodsService.getAllWithoutFirstThree().then((data) => setOtherMehtods(data));
+        PaymentMethodsService.getAllWithoutFirstThree().then((data) => setOtherMethods(data));
     }, []);
 
     return (
@@ -80,7 +80,7 @@ export default function PaymentMethodsComponent() {
                 </Carousel.Caption>
             </Carousel.Item>
             {otherMethods.map(method => {
-                return (<Carousel.Item interval={5000}>
+                return (<Carousel.Item interval={5000} key={method.id}>
                     <img
                         src={NewPaymentIcon}
                         width="500px"

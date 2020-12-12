@@ -2,11 +2,12 @@ import React, {useState} from "react";
 import "./Login.scss";
 import LoginIcon from "@material-ui/icons/AccountCircleSharp";
 import PassIcon from "@material-ui/icons/LockSharp";
+import {Redirect} from "react-router";
 
 export default function LoginComponent(props) {
-
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
+    const [redirect, setRedirect] = useState(false);
 
     const usernameOnChangeHandler = (value) => {
         setUsername(value);
@@ -16,8 +17,8 @@ export default function LoginComponent(props) {
         setPassword(value);
     }
 
-    const nextPath = (path) => {
-        props.history.push(path);
+    const a = (value) => {
+        props.log(value);
     }
 
     const login = () => {
@@ -30,17 +31,27 @@ export default function LoginComponent(props) {
         })
             .then(response => response.json())
             .then(data => {
-                localStorage.setItem("token", data.accessToken);
-                localStorage.setItem("roles", data.roles);
-                console.log(localStorage.getItem("roles"));
-                nextPath("/dashboard");
+                // localStorage.setItem("token", data.accessToken);
+                // localStorage.setItem("roles", data.roles);
+                a(data.accessToken);
+                setRedirect(true);
             })
             .catch((error) => {
                 console.error('Error:', error);
             });
     }
 
+    // const logout = () => {
+    //     a(false);
+    //     setRedirect(false);
+    // }
+
+    if (redirect) {
+        return <Redirect to="/dashboard"/>
+    }
+
     return (
+
         <div className="Login">
             <div className="input-container">
                 <input type="text" placeholder="Username" onChange={e => usernameOnChangeHandler(e.target.value)}/>

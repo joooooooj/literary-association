@@ -16,7 +16,7 @@ const getAll = () =>
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer " + localStorage.getItem("token")
+            "Authorization": "Bearer " + JSON.parse(localStorage.getItem("token"))
         }
     })
         .then(response => response.json())

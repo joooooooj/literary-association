@@ -3,7 +3,6 @@ import {Button, Table, Modal} from "react-bootstrap";
 import "./SubscriptionRequests.css";
 
 export default function SubscriptionRequests(props) {
-    console.log(props.requests);
     const [show, setShow] = useState(false);
     const [selectedRequestMethods, setSelectedRequestMethods] = useState([]);
 
