@@ -5,15 +5,16 @@ import {Link} from "react-router-dom";
 
 export default function navbar(props) {
     const logout = () => {
-        props.log(false);
-        localStorage.removeItem("token");
-        localStorage.removeItem("roles");
+        props.log(null);
+        // localStorage.removeItem("token");
+        // localStorage.removeItem("roles");
+
     }
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="mb-5">
             <Navbar.Brand>Payment Concentrator</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
-            {(props.loggedIn === false && localStorage.getItem("token") === null)?
+            {(props.loggedIn === null)?
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="w-100">
                         <Link className="nav-link" to="/">Home</Link>

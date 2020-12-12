@@ -31,9 +31,9 @@ export default function LoginComponent(props) {
         })
             .then(response => response.json())
             .then(data => {
-                localStorage.setItem("token", data.accessToken);
-                localStorage.setItem("roles", data.roles);
-                a(true);
+                // localStorage.setItem("token", data.accessToken);
+                // localStorage.setItem("roles", data.roles);
+                a(data.accessToken);
                 setRedirect(true);
             })
             .catch((error) => {

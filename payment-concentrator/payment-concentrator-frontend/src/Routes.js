@@ -14,7 +14,7 @@ export default function Routes(props) {
             path="/payment-methods"
             exact
         />
-        {(props.loggedIn === true || localStorage.getItem("token") !== null) ?
+        {props.loggedIn !== null ?
             <Route component={AdminDashboard} path="/dashboard" exact/> : <Redirect to="/"/>}
     </Switch>);
 }
