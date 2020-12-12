@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {Table, Button, ButtonGroup} from "react-bootstrap";
-import PreviewPDF from "../core/modals/PreviewPDF";
 import DocumentsComments from "./DocumentsComments";
 
 export default function RegistrationRequests() {

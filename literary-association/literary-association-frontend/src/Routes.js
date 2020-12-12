@@ -9,9 +9,12 @@ import RegisterReader from "./components/core/registration/RegisterReader";
 import RegisterBetaReader from "./components/core/registration/RegisterBetaReader";
 import Books from "./components/books/Books";
 import SubmittedWork from "./components/writer/registration/SubmittedWork";
-import RegistrationRequest from "./components/board/RegistrationRequests";
-import RegistrationRequests from "./components/board/RegistrationRequests";
+import RegistrationRequest from "./components/board/registration/RegistrationRequests";
+import RegistrationRequests from "./components/board/registration/RegistrationRequests";
 import PublishBook from "./components/writer/publishing/PublishBook";
+import PublishRequests from "./components/editor/publishing/PublishRequests";
+import CorrectionsScripts from "./components/lector/CorrectionsScripts";
+import CommentsScripts from "./components/reader/publishing/CommentsScripts";
 
 export default function Routes() {
     return (
@@ -51,6 +54,15 @@ export default function Routes() {
             </Route>
             <Route exact path="/publish-book">
                 <PublishBook/>
+            </Route>
+            <Route exact path="/publish-requests">
+                <PublishRequests/>
+            </Route>
+            <Route exact path="/corrections-scripts">
+                <CorrectionsScripts/>
+            </Route>
+            <Route exact path="/comments-scripts">
+                <CommentsScripts/>
             </Route>
             <Route>
                 <Home/>

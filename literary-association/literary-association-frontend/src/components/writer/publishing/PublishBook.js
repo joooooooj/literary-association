@@ -1,9 +1,6 @@
 import React, {useState} from "react";
-import PreviewComments from "../registration/PreviewComments";
-import PreviewPDF from "../../core/modals/PreviewPDF";
 import Confirmation from "../../core/modals/Confirmation";
 import {Button, ButtonGroup, Form, Table} from "react-bootstrap";
-import {Link} from "react-router-dom";
 import Select from "react-select";
 
 export default function PublishBook(){
@@ -56,7 +53,137 @@ export default function PublishBook(){
         handleShowConfirmation();
     };
 
-    return (
+    const renderStatus = (status) => {
+        switch (status) {
+            case "WAITING_PLAGIARISM_CHECK" :
+                return (
+                    <h5 className="text-danger mb-3">
+                        Waiting for plagiarism check ...
+                    </h5>
+                )
+            case "WAITING_READING" :
+                return (
+                    <>
+                        <h5 className="text-success mb-3">
+                            Your script has passed plagiarism check!
+                        </h5>
+                        <h5 className="text-danger mb-3">
+                            Waiting for editor reading ...
+                        </h5>
+                    </>
+                )
+            case "WAITING_BETA_READERS" :
+                return (
+                    <>
+                        <h5 className="text-success mb-3">
+                            Your script has been read!
+                        </h5>
+                        <h5 className="text-danger mb-3">
+                            Waiting for beta readers to comment ...
+                        </h5>
+                    </>
+                )
+            case "WAITING_LECTOR_REVIEW" :
+                return (
+                    <>
+                        <h5 className="text-success mb-3">
+                            Almost there...
+                        </h5>
+                        <h5 className="text-danger mb-3">
+                            Waiting for lector review ...
+                        </h5>
+                    </>
+                )
+            case "WAITING_SUGGESTIONS" :
+                return (
+                    <>
+                        <h5 className="text-danger mb-3">
+                            Waiting for editor suggestions ...
+                        </h5>
+                    </>
+                )
+            case "WAITING_CORRECTIONS" :
+                return (
+                    <>
+                        <h5 className="text-danger mb-3">
+                            Please correct capital letter on "united states"!
+                        </h5>
+                    </>
+                )
+            case "WAITING_CHANGES" :
+                return (
+                    <>
+                        <h5 className="text-danger mb-3">
+                            You should change conclusion to be more specific.
+                        </h5>
+                    </>
+                )
+            case "WAITING_COMMENT_CHECK" :
+                return (
+                    <>
+                        <Table striped bordered hover variant="dark">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Comment</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>
+                                    It's gonna take a lot to take me away from you There's nothing that a hundred men or
+                                    more could ever do I bless the rains down in Africa Gonna take some time to do the
+                                    things we never have.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>
+                                    You can find me in the club, bottle full of bub Look mami I got the X if you into
+                                    taking drugs I'm into having sex, I ain't into makin love So come give me a hug if
+                                    you into getting rubbed.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>
+                                    Don't want to close my eyes I don't want to fall asleep Cause I'd miss you babe And
+                                    I don't want to miss a thing Cause even when I dream of you The sweetest dream will
+                                    never do I'd still miss you babe And I don't want to miss a thing.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>
+                                    I see trees of green........ red roses too I see em bloom..... for me and for you
+                                    And I think to myself.... what a wonderful world.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>
+                                    Buddy you're a young man hard man Shoutin' in the street gonna take on the world
+                                    some day You got blood on yo' face You big disgrace Wavin' your banner all over the
+                                    place.
+                                </td>
+                            </tr>
+                            </tbody>
+                        </Table>
+                    </>
+                )
+            case "DONE" :
+                return (
+                    <>
+                        <h5 className="text-success mb-3">
+                            All good, your book is sent to printing!
+                        </h5>
+                    </>
+                )
+        }
+    }
+
+        return (
         <div className="bg-dark p-5">
             <Confirmation show={showConfirmation} onHide={(confirmed) => handleCloseConfirmation(confirmed)}/>
             <div className="bg-dark p-5 border border-light text-left text-light">
@@ -75,7 +202,7 @@ export default function PublishBook(){
                         </Form.Group>
                         <Form.Group controlId="synopsys" className="text-left">
                             <Form.Label>Synopsys</Form.Label>
-                            <Form.Control as="textarea" rows={5} placeholder="Password"/>
+                            <Form.Control as="textarea" rows={5} placeholder="Synopsys"/>
                         </Form.Group>
                         <Button variant="outline-success" type="" onClick={() => setStatus("WAITING_SUBMIT")}
                                 className="mt-3">
@@ -120,112 +247,7 @@ export default function PublishBook(){
                         </Form>
                     </>
                 }
-                {status === "WAITING_PLAGIARISM_CHECK" &&
-                    <h5 className="text-danger mb-3">
-                        Waiting for plagiarism check ...
-                    </h5>
-                }
-                {status === "WAITING_READING" &&
-                    <>
-                        <h5 className="text-success mb-3">
-                            Your script has passed plagiarism check!
-                        </h5>
-                        <h5 className="text-danger mb-3">
-                            Waiting for editor reading ...
-                        </h5>
-                    </>
-                }
-                {status === "WAITING_BETA_READERS" &&
-                    <>
-                        <h5 className="text-success mb-3">
-                            Your script has been read!
-                        </h5>
-                        <h5 className="text-danger mb-3">
-                            Waiting for beta readers to comment ...
-                        </h5>
-                    </>
-                }
-                {status === "WAITING_LECTOR_REVIEW" &&
-                    <>
-                        <h5 className="text-success mb-3">
-                            Almost there...
-                        </h5>
-                        <h5 className="text-danger mb-3">
-                            Waiting for lector review ...
-                        </h5>
-                    </>
-                }
-                {status === "WAITING_SUGGESTIONS" &&
-                <>
-                    <h5 className="text-danger mb-3">
-                        Waiting for editor suggestions ...
-                    </h5>
-                </>
-                }
-                {status === "WAITING_CORRECTIONS" &&
-                <>
-                    <h5 className="text-danger mb-3">
-                        Please correct capital letter on "united states"!
-                    </h5>
-                </>
-                }
-                {status === "WAITING_CHANGES" &&
-                <>
-                    <h5 className="text-danger mb-3">
-                        You should change conclusion to be more specific.
-                    </h5>
-                </>
-                }
-                {status === "WAITING_COMMENT_CHECK" &&
-                <>
-                    <Table striped bordered hover variant="dark">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Comment</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>
-                                It's gonna take a lot to take me away from you There's nothing that a hundred men or more could ever do I bless the rains down in Africa Gonna take some time to do the things we never have.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>
-                                You can find me in the club, bottle full of bub Look mami I got the X if you into taking drugs I'm into having sex, I ain't into makin love So come give me a hug if you into getting rubbed.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>
-                                Don't want to close my eyes I don't want to fall asleep Cause I'd miss you babe And I don't want to miss a thing Cause even when I dream of you The sweetest dream will never do I'd still miss you babe And I don't want to miss a thing.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>
-                                I see trees of green........ red roses too I see em bloom..... for me and for you And I think to myself.... what a wonderful world.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>
-                                Buddy you're a young man hard man Shoutin' in the street gonna take on the world some day You got blood on yo' face You big disgrace Wavin' your banner all over the place.</td>
-                        </tr>
-                        </tbody>
-                    </Table>
-                </>
-                }
-                {status === "DONE" &&
-                <>
-                    <h5 className="text-success mb-3">
-                        All good, your book is sent to printing!
-                    </h5>
-                </>
-                }
+                {renderStatus(status)}
                 {/*Delete testing elements from here*/}
                 <div className="row ml-1">
                     <ButtonGroup>
