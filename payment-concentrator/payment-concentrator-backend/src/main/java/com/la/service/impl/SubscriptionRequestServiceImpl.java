@@ -52,7 +52,7 @@ public class SubscriptionRequestServiceImpl implements SubscriptionRequestServic
         // TO DO: send mail
 
         Subscriber newSubscriber = new Subscriber(request.getOrganizationName().toLowerCase(),
-                encoder.encode(generatePassword()), request.getEmail(), m);
+                encoder.encode(generatePassword()), request.getOrganizationEmail(), m);
         newSubscriber.setRoles(new HashSet<>(Collections.singletonList(roleRepository.findByName("ROLE_SUBSCRIBER"))));
 
         userRepository.save(newSubscriber);

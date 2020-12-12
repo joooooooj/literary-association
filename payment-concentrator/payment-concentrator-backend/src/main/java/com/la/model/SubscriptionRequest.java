@@ -24,7 +24,7 @@ public class SubscriptionRequest {
     private String organizationDescription;
 
     @Column
-    private String email;
+    private String organizationEmail;
 
     @ManyToMany()
     @JoinTable(name = "subscription_requests_payment_methods",
@@ -48,7 +48,7 @@ public class SubscriptionRequest {
         return paymentMethods;
     }
 
-    public String getEmail() {
-        return email;
+    public String getOrganizationEmail() {
+        return organizationEmail;
     }
 }
