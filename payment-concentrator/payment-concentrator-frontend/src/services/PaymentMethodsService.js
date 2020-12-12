@@ -24,8 +24,38 @@ const getAllWithoutFirstThree = () =>
             console.error('Error:', error);
         });
 
+const deletePaymentMethod = (paymentMethodId) =>
+    fetch("http://localhost:8081/payment-method/" + paymentMethodId, {
+        method: "Delete",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        }
+    })
+        .then(response => response.json())
+        .catch((error) => {
+            console.error("Error", error);
+        })
+
+const createPaymentMethod = (name) =>
+    fetch("http://localhost:8081/payment-method", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        },
+        body: JSON.stringify({name})
+    })
+        .then(response => response.json())
+        .catch((error) => {
+            console.error("Error", error);
+        })
+
+
 const service = {
     getAll,
-    getAllWithoutFirstThree
+    getAllWithoutFirstThree,
+    deletePaymentMethod,
+    createPaymentMethod
 }
 export default service;

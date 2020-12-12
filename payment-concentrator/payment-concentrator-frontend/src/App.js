@@ -1,14 +1,19 @@
 import "./App.css";
 import Navbar from "./components/UI/Navbar/Navbar";
 import Routes from "./Routes"
+import {useState} from "react";
 
-function App() {
+export default function App() {
+    const [loggedIn, setLoggedIn] = useState(false);
+
+    const log = (value) => {
+        setLoggedIn(value);
+    }
+
     return (
         <div>
-            <Navbar/>
-            <Routes/>
+            <Navbar loggedIn={loggedIn} log={log}/>
+            <Routes loggedIn={loggedIn} log={log}/>
         </div>
     );
 }
-
-export default App;
