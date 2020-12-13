@@ -1,58 +1,73 @@
---memberships
+/*memberships*/
 INSERT INTO `la`.`membership` (`id`, `name`, `duration`, `price`) VALUES ('1','Basic','30','50');
 INSERT INTO `la`.`membership` (`id`, `name`, `duration`, `price`) VALUES ('2','Premium','90','110');
 
---users
-INSERT INTO `la`.`users` (`type`, `id`, `city`, `state`, `email`, `active`, `password`, `username`, `last_name`, `first_name`, `deleted`) VALUES ('ADMINISTRATOR', '1', 'Novi Sad', 'Srbija', 'marko@gmail.com', b'1', '123123', 'markomarkovic', 'Markovic', 'Marko', b'0');
-INSERT INTO `la`.`users` (`type`, `id`, `city`, `state`, `email`, `active`, `password`, `username`, `last_name`, `first_name`, `deleted`) VALUES ('BOARD_MEMBER', '2', 'Beograd', 'Srbija', 'jovan@gmail.com', b'1', '123123', 'jovanjovic', 'Jovic', 'Jovan', b'0');
-INSERT INTO `la`.`users` (`type`, `id`, `city`, `state`, `email`, `active`, `password`, `username`, `last_name`, `first_name`, `deleted`) VALUES ('EDITOR', '3', 'Novi Sad', 'Srbija', 'jovana@gmail.com', b'1', '123123', 'jovanajovanovic', 'Jovanovic', 'Jovana', b'0');
-INSERT INTO `la`.`users` (`type`, `id`, `city`, `state`, `email`, `active`, `password`, `username`, `last_name`, `first_name`, `deleted`, `membership_id`) VALUES ('WRITER', '4', 'Kragujevac', 'Srbija', 'jelena@gmail.com', b'1', '123123', 'jelenajelic', 'Jelic', 'Jelena', b'0', '1');
-INSERT INTO `la`.`users` (`type`, `id`, `city`, `state`, `email`, `active`, `password`, `username`, `last_name`, `first_name`, `deleted`) VALUES ('LECTOR', '5', 'Indjija', 'Srbija', 'igor@gmail.com', b'1', '123123', 'igormalesevic', 'Malesevic', 'Igor', b'0');
-INSERT INTO `la`.`users` (`type`, `id`, `city`, `state`, `email`, `active`, `password`, `username`, `last_name`, `first_name`, `deleted`, `membership_id`, `is_beta`) VALUES ('READER', '6', 'Backa Palanka', 'Srbija', 'ivana@gmail.com', b'1', '123123', 'ivanabrkic', 'Brkic', 'Ivana', b'0', '2', b'0');
-INSERT INTO `la`.`users` (`type`, `id`, `city`, `state`, `email`, `active`, `password`, `username`, `last_name`, `first_name`, `deleted`, `activated`, `payment_deadline`) VALUES ('WRITER_MEMBERSHIP_REQUEST', '7', 'Novi Sad', 'Srbija', 'ana@gmail.com', b'1', '123123', 'anaanic', 'Anic', 'Ana', b'0', b'0', '2020-12-12');
-INSERT INTO `la`.`users` (`type`, `id`, `city`, `state`, `email`, `active`, `password`, `username`, `last_name`, `first_name`, `deleted`, `is_beta`) VALUES ('READER', '8', 'Subotica', 'Srbija', 'boza@gmail.com', b'1', '123123', 'bozabozic', 'Bozic', 'Boza', b'0', b'1');
+/*users*/
+INSERT INTO `la`.`users` (`type`, `id`, `city`, `state`, `email`, `active`, `password`, `username`, `last_name`, `first_name`, `deleted`) VALUES ('ADMINISTRATOR', '1', 'Novi Sad', 'Srbija', 'marko@gmail.com', b'1', '$2a$10$xBbFGBwJcF9H3V/s2GfcnuVpM9niJ9oVrhY6CQjrrHZJYzYA6Z5nS', 'markomarkovic', 'Markovic', 'Marko', b'0');
+INSERT INTO `la`.`users` (`type`, `id`, `city`, `state`, `email`, `active`, `password`, `username`, `last_name`, `first_name`, `deleted`) VALUES ('BOARD_MEMBER', '2', 'Beograd', 'Srbija', 'jovan@gmail.com', b'1', '$2a$10$xBbFGBwJcF9H3V/s2GfcnuVpM9niJ9oVrhY6CQjrrHZJYzYA6Z5nS', 'jovanjovic', 'Jovic', 'Jovan', b'0');
+INSERT INTO `la`.`users` (`type`, `id`, `city`, `state`, `email`, `active`, `password`, `username`, `last_name`, `first_name`, `deleted`) VALUES ('EDITOR', '3', 'Novi Sad', 'Srbija', 'jovana@gmail.com', b'1', '$2a$10$xBbFGBwJcF9H3V/s2GfcnuVpM9niJ9oVrhY6CQjrrHZJYzYA6Z5nS', 'jovanajovanovic', 'Jovanovic', 'Jovana', b'0');
+INSERT INTO `la`.`users` (`type`, `id`, `city`, `state`, `email`, `active`, `password`, `username`, `last_name`, `first_name`, `deleted`, `membership_id`) VALUES ('WRITER', '4', 'Kragujevac', 'Srbija', 'jelena@gmail.com', b'1', '$2a$10$xBbFGBwJcF9H3V/s2GfcnuVpM9niJ9oVrhY6CQjrrHZJYzYA6Z5nS', 'jelenajelic', 'Jelic', 'Jelena', b'0', '1');
+INSERT INTO `la`.`users` (`type`, `id`, `city`, `state`, `email`, `active`, `password`, `username`, `last_name`, `first_name`, `deleted`) VALUES ('LECTOR', '5', 'Indjija', 'Srbija', 'igor@gmail.com', b'1', '$2a$10$xBbFGBwJcF9H3V/s2GfcnuVpM9niJ9oVrhY6CQjrrHZJYzYA6Z5nS', 'igormalesevic', 'Malesevic', 'Igor', b'0');
+INSERT INTO `la`.`users` (`type`, `id`, `city`, `state`, `email`, `active`, `password`, `username`, `last_name`, `first_name`, `deleted`, `membership_id`, `is_beta`) VALUES ('READER', '6', 'Backa Palanka', 'Srbija', 'ivana@gmail.com', b'1', '$2a$10$xBbFGBwJcF9H3V/s2GfcnuVpM9niJ9oVrhY6CQjrrHZJYzYA6Z5nS', 'ivanabrkic', 'Brkic', 'Ivana', b'0', '2', b'0');
+INSERT INTO `la`.`users` (`type`, `id`, `city`, `state`, `email`, `active`, `password`, `username`, `last_name`, `first_name`, `deleted`, `activated`, `payment_deadline`) VALUES ('WRITER_MEMBERSHIP_REQUEST', '7', 'Novi Sad', 'Srbija', 'ana@gmail.com', b'1', '$2a$10$xBbFGBwJcF9H3V/s2GfcnuVpM9niJ9oVrhY6CQjrrHZJYzYA6Z5nS', 'anaanic', 'Anic', 'Ana', b'0', b'0', '2020-12-12');
+INSERT INTO `la`.`users` (`type`, `id`, `city`, `state`, `email`, `active`, `password`, `username`, `last_name`, `first_name`, `deleted`, `is_beta`) VALUES ('READER', '8', 'Subotica', 'Srbija', 'boza@gmail.com', b'1', '$2a$10$xBbFGBwJcF9H3V/s2GfcnuVpM9niJ9oVrhY6CQjrrHZJYzYA6Z5nS', 'bozabozic', 'Bozic', 'Boza', b'0', b'1');
 
---membership_request
+/*roles*/
+INSERT INTO `la`.`role` (`id`, `name`) VALUES ('1', 'ROLE_ADMIN');
+INSERT INTO `la`.`role` (`id`, `name`) VALUES ('2', 'ROLE_BOARD_MEMBER');
+INSERT INTO `la`.`role` (`id`, `name`) VALUES ('3', 'ROLE_EDITOR');
+INSERT INTO `la`.`role` (`id`, `name`) VALUES ('4', 'ROLE_WRITER');
+INSERT INTO `la`.`role` (`id`, `name`) VALUES ('5', 'ROLE_LECTOR');
+INSERT INTO `la`.`role` (`id`, `name`) VALUES ('6', 'ROLE_READER');
+
+/*user-roles*/
+INSERT INTO `la`.`user_roles` (`user_id`, `role_id`) VALUES ('1', '1');
+
+/*permissions*/
+
+/*role-permissions*/
+
+/*membership_request*/
 INSERT INTO `la`.`membership_request` (`id`, `status`, `reader_id`) VALUES ('1', '1', '7');
 
---submitted_work
+/*submitted_work*/
 INSERT INTO `la`.`submitted_work` (`id`, `reviewed`, `path`, `request_id`) VALUES ('1', b'0', 'path', '7');
 
---board_member_comment
+/*board_member_comment*/
 INSERT INTO `la`.`board_member_comment` (`id`, `text`, `date`, `opinion`, `submitted_work_id`, `board_member_id`) VALUES ('1', 'komentar', '2020-12-12', '1','1','6');
 
---publisher
+/*publisher*/
 INSERT INTO `la`.`publisher` (`id`, `account_number`, `city`, `state`, `name`) VALUES ('1', '12827228828282', 'Beograd', 'Srbija','laguna');
 
---genre
+/*genre*/
 INSERT INTO `la`.`genre` (`id`, `code`, `name`) VALUES ('1', 'hr', 'Horor');
 INSERT INTO `la`.`genre` (`id`, `code`, `name`) VALUES ('2', 'km', 'Komedija');
 INSERT INTO `la`.`genre` (`id`, `code`, `name`) VALUES ('3', 'dr', 'Drama');
 
---reader_genre
+/*reader_genre*/
 INSERT INTO `la`.`reader_genre` (`reader_id`, `genre_id`) VALUES ('6','1');
 INSERT INTO `la`.`reader_genre` (`reader_id`, `genre_id`) VALUES ('6','2');
 INSERT INTO `la`.`reader_genre` (`reader_id`, `genre_id`) VALUES ('8','1');
 INSERT INTO `la`.`reader_genre` (`reader_id`, `genre_id`) VALUES ('8','3');
 
---beta_reader_genre
+/*beta_reader_genre*/
 INSERT INTO `la`.`beta_reader_genre` (`beta_reader_id`, `genre_id`) VALUES ('8','1');
 
---script
+/*script*/
 INSERT INTO `la`.`script` (`id`, `path`) VALUES ('1','path');
 
---publish_book_request
+/*publish_book_request*/
 INSERT INTO `la`.`publish_book_request` (`id`, `synopsis`, `title`, `editor_id`, `genre_id`, `writer_id`) VALUES ('1', 'synopsis', 'Knjiga', '3', '2', '4');
 
---script_request
+/*script_request*/
 INSERT INTO `la`.`script_request` (`id`, `changes_deadline`, `corrections`, `status`, `submit_deadline`, `suggestions`, `lector_id`, `script_id`, `publish_book_request_id`) VALUES ('1', null, null, '2', '2020-12-20', null, '5', '1', '1');
 
---book
+/*book*/
 INSERT INTO `la`.`book` (`id`, `isbn`, `pages_number`, `price`, `published_year`, `synopsis`, `title`, `genre_id`, `lector_id`, `publisher_id`, `script_id`) VALUES ('1', '3434734', '256', '10', '2020', 'blabla', 'Kuvar', '1', '5', '1', '1');
 
---book_key_words
+/*book_key_words*/
 INSERT INTO `la`.book_key_words (`book_id`, `key_words`) VALUES ('1', 'mleko');
 INSERT INTO `la`.book_key_words (`book_id`, `key_words`) VALUES ('1', 'sos');
 
---beta_reader_comment
+/*beta_reader_comment*/
 INSERT INTO `la`.`beta_reader_comment` (`id`, `deadline`, `text`, `reader_id`, `script_request_id`) VALUES ('1', '2020-12-20 00:00:00.000000', 'Lepo', '8', '1');
