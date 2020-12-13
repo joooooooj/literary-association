@@ -3,6 +3,7 @@ import {Button, Card, Form} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
 export default function Pricing() {
+
     return (
         <div className="row ml-5 pricing">
             <div className="col-3 ml-5 bg-dark mt-5">

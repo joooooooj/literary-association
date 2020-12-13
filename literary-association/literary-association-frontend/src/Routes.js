@@ -15,6 +15,10 @@ import PublishBook from "./components/writer/publishing/PublishBook";
 import PublishRequests from "./components/editor/publishing/PublishRequests";
 import CorrectionsScripts from "./components/lector/CorrectionsScripts";
 import CommentsScripts from "./components/reader/publishing/CommentsScripts";
+import PlagiarismComplaint from "./components/writer/plagiarism/PlagiarismComplaint";
+import MainEditorComplaints from "./components/editor/plagiarism/MainEditorComplaints";
+import NotesComplaints from "./components/editor/plagiarism/NotesComplaints";
+import ReviewNotes from "./components/board/plagiarism/ReviewNotes";
 
 export default function Routes() {
     return (
@@ -63,6 +67,18 @@ export default function Routes() {
             </Route>
             <Route exact path="/comments-scripts">
                 <CommentsScripts/>
+            </Route>
+            <Route exact path="/plagiarism-complaint">
+                <PlagiarismComplaint/>
+            </Route>
+            <Route exact path="/main-editor-complaints">
+                <MainEditorComplaints/>
+            </Route>
+            <Route exact path="/notes-complaints">
+                <NotesComplaints/>
+            </Route>
+            <Route exact path="/review-notes">
+                <ReviewNotes/>
             </Route>
             <Route>
                 <Home/>
