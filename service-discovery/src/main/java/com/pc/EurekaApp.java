@@ -1,12 +1,15 @@
-package com.la;
+package com.pc;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 @SpringBootApplication
-@EnableEurekaClient
-public class BitcoinApp {
+@EnableEurekaServer
+public class EurekaApp {
+
     public static void main(String[] args) {
-        SpringApplication.run(BitcoinApp.class, args);
+        SpringApplication.run(EurekaApp.class, args);
     }
 }
+

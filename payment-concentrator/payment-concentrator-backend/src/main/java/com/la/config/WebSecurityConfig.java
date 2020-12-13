@@ -57,7 +57,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and()
 
-                .authorizeRequests().antMatchers("/api/auth/**").permitAll()
+                .authorizeRequests().antMatchers("/api/auth/**").permitAll().and()
+
+                .authorizeRequests().antMatchers("/payment-concentrator/**").permitAll().and()
+
+                .authorizeRequests().antMatchers("/bank-a/**").permitAll().and()
+
+                .authorizeRequests().antMatchers("/bank-b/**").permitAll().and()
+
+                .authorizeRequests().antMatchers("/pcc/**").permitAll().and()
+
+                .authorizeRequests().antMatchers("/bitcoin/**").permitAll().and()
+
+                .authorizeRequests().antMatchers("/pay-pal/**").permitAll()
 
                 .anyRequest().authenticated().and()
 
