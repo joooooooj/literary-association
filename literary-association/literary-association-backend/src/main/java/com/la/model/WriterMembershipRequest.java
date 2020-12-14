@@ -24,6 +24,9 @@ public class WriterMembershipRequest extends User {
     @Column
     private Date submissionDeadline;
 
+    public WriterMembershipRequest() {
+    }
+
     public WriterMembershipRequest(String username, String password, String firstName, String lastName, String state, String city, String email) {
         super(username, password, firstName, lastName, state, city, email);
     }

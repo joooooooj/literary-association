@@ -1,0 +1,513 @@
+13-12-2020 21:26:15.003 INFO  [main] com.la.LiteraryAssociationApp - Starting LiteraryAssociationApp on DESKTOP-S8EDMMJ with PID 6956 (C:\Users\Ika\Desktop\literary-association\literary-association\literary-association-backend\target\classes started by Ika in C:\Users\Ika\Desktop\literary-association\literary-association\literary-association-backend)
+13-12-2020 21:26:15.011 INFO  [main] com.la.LiteraryAssociationApp - No active profile set, falling back to default profiles: default
+13-12-2020 21:26:17.219 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+13-12-2020 21:26:17.495 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 255ms. Found 13 JPA repository interfaces.
+13-12-2020 21:26:18.072 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:26:18.077 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:26:18.082 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@15723761' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:26:18.085 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:26:18.090 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:26:18.556 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+13-12-2020 21:26:18.569 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+13-12-2020 21:26:18.570 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+13-12-2020 21:26:18.572 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.33]
+13-12-2020 21:26:18.847 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+13-12-2020 21:26:18.847 INFO  [main] o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3662 ms
+13-12-2020 21:26:19.417 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+13-12-2020 21:26:19.559 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.12.Final
+13-12-2020 21:26:19.846 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+13-12-2020 21:26:20.038 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+13-12-2020 21:26:23.252 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+13-12-2020 21:26:24.557 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Editor (class must be instantiated by Interceptor)
+13-12-2020 21:26:24.606 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Lector (class must be instantiated by Interceptor)
+13-12-2020 21:26:24.671 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.BoardMember (class must be instantiated by Interceptor)
+13-12-2020 21:26:24.755 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Reader (class must be instantiated by Interceptor)
+13-12-2020 21:26:24.850 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.WriterMembershipRequest (class must be instantiated by Interceptor)
+13-12-2020 21:26:24.959 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Writer (class must be instantiated by Interceptor)
+13-12-2020 21:26:25.329 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+13-12-2020 21:26:28.375 INFO  [main] o.a.catalina.core.StandardService - Stopping service [Tomcat]
+13-12-2020 21:26:28.401 INFO  [main] o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+13-12-2020 21:26:57.926 INFO  [main] com.la.LiteraryAssociationApp - Starting LiteraryAssociationApp on DESKTOP-S8EDMMJ with PID 2636 (C:\Users\Ika\Desktop\literary-association\literary-association\literary-association-backend\target\classes started by Ika in C:\Users\Ika\Desktop\literary-association\literary-association\literary-association-backend)
+13-12-2020 21:26:57.933 INFO  [main] com.la.LiteraryAssociationApp - No active profile set, falling back to default profiles: default
+13-12-2020 21:26:59.740 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+13-12-2020 21:27:00.007 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 247ms. Found 13 JPA repository interfaces.
+13-12-2020 21:27:00.517 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:27:00.523 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:27:00.526 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@6f012914' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:27:00.529 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:27:00.536 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:27:00.994 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+13-12-2020 21:27:01.005 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+13-12-2020 21:27:01.006 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+13-12-2020 21:27:01.007 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.33]
+13-12-2020 21:27:01.313 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+13-12-2020 21:27:01.313 INFO  [main] o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3216 ms
+13-12-2020 21:27:01.881 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+13-12-2020 21:27:01.986 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.12.Final
+13-12-2020 21:27:02.176 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+13-12-2020 21:27:02.320 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+13-12-2020 21:27:05.451 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+13-12-2020 21:27:06.467 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Editor (class must be instantiated by Interceptor)
+13-12-2020 21:27:06.528 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Lector (class must be instantiated by Interceptor)
+13-12-2020 21:27:06.594 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.BoardMember (class must be instantiated by Interceptor)
+13-12-2020 21:27:06.696 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Reader (class must be instantiated by Interceptor)
+13-12-2020 21:27:06.770 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.WriterMembershipRequest (class must be instantiated by Interceptor)
+13-12-2020 21:27:06.891 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Writer (class must be instantiated by Interceptor)
+13-12-2020 21:27:07.259 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+13-12-2020 21:27:10.293 INFO  [main] o.a.catalina.core.StandardService - Stopping service [Tomcat]
+13-12-2020 21:27:10.314 INFO  [main] o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+13-12-2020 21:35:53.400 INFO  [main] com.la.LiteraryAssociationApp - Starting LiteraryAssociationApp on DESKTOP-S8EDMMJ with PID 4868 (C:\Users\Ika\Desktop\literary-association\literary-association\literary-association-backend\target\classes started by Ika in C:\Users\Ika\Desktop\literary-association\literary-association\literary-association-backend)
+13-12-2020 21:35:53.406 INFO  [main] com.la.LiteraryAssociationApp - No active profile set, falling back to default profiles: default
+13-12-2020 21:35:55.515 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+13-12-2020 21:35:55.838 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 296ms. Found 13 JPA repository interfaces.
+13-12-2020 21:35:56.531 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:35:56.537 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:35:56.543 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@693e4d19' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:35:56.546 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:35:56.558 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:35:57.198 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+13-12-2020 21:35:57.213 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+13-12-2020 21:35:57.214 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+13-12-2020 21:35:57.215 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.33]
+13-12-2020 21:35:57.569 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+13-12-2020 21:35:57.569 INFO  [main] o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 4015 ms
+13-12-2020 21:35:57.965 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+13-12-2020 21:35:58.195 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.12.Final
+13-12-2020 21:35:58.478 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+13-12-2020 21:35:58.653 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+13-12-2020 21:36:01.942 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+13-12-2020 21:36:03.026 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Editor (class must be instantiated by Interceptor)
+13-12-2020 21:36:03.072 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Lector (class must be instantiated by Interceptor)
+13-12-2020 21:36:03.120 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.BoardMember (class must be instantiated by Interceptor)
+13-12-2020 21:36:03.199 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Reader (class must be instantiated by Interceptor)
+13-12-2020 21:36:03.276 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.WriterMembershipRequest (class must be instantiated by Interceptor)
+13-12-2020 21:36:03.365 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Writer (class must be instantiated by Interceptor)
+13-12-2020 21:36:03.664 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+13-12-2020 21:36:06.707 INFO  [main] o.a.catalina.core.StandardService - Stopping service [Tomcat]
+13-12-2020 21:36:06.731 INFO  [main] o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+13-12-2020 21:41:36.805 INFO  [main] com.la.LiteraryAssociationApp - Starting LiteraryAssociationApp on DESKTOP-S8EDMMJ with PID 5988 (C:\Users\Ika\Desktop\literary-association\literary-association\literary-association-backend\target\classes started by Ika in C:\Users\Ika\Desktop\literary-association\literary-association\literary-association-backend)
+13-12-2020 21:41:36.811 INFO  [main] com.la.LiteraryAssociationApp - No active profile set, falling back to default profiles: default
+13-12-2020 21:41:38.434 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+13-12-2020 21:41:38.653 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 206ms. Found 13 JPA repository interfaces.
+13-12-2020 21:41:39.395 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:41:39.400 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:41:39.404 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@16fe9c29' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:41:39.407 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:41:39.432 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:41:39.811 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+13-12-2020 21:41:39.822 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+13-12-2020 21:41:39.823 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+13-12-2020 21:41:39.824 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.33]
+13-12-2020 21:41:40.082 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+13-12-2020 21:41:40.082 INFO  [main] o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3183 ms
+13-12-2020 21:41:40.558 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+13-12-2020 21:41:40.657 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.12.Final
+13-12-2020 21:41:40.825 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+13-12-2020 21:41:40.992 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+13-12-2020 21:41:44.139 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+13-12-2020 21:41:45.246 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Editor (class must be instantiated by Interceptor)
+13-12-2020 21:41:45.289 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Lector (class must be instantiated by Interceptor)
+13-12-2020 21:41:45.342 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.BoardMember (class must be instantiated by Interceptor)
+13-12-2020 21:41:45.411 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Reader (class must be instantiated by Interceptor)
+13-12-2020 21:41:45.468 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.WriterMembershipRequest (class must be instantiated by Interceptor)
+13-12-2020 21:41:45.593 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Writer (class must be instantiated by Interceptor)
+13-12-2020 21:41:45.928 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+13-12-2020 21:41:48.954 INFO  [main] o.a.catalina.core.StandardService - Stopping service [Tomcat]
+13-12-2020 21:41:48.995 INFO  [main] o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+13-12-2020 21:45:10.815 INFO  [main] com.la.LiteraryAssociationApp - Starting LiteraryAssociationApp on DESKTOP-S8EDMMJ with PID 8044 (C:\Users\Ika\Desktop\literary-association\literary-association\literary-association-backend\target\classes started by Ika in C:\Users\Ika\Desktop\literary-association\literary-association\literary-association-backend)
+13-12-2020 21:45:10.824 INFO  [main] com.la.LiteraryAssociationApp - No active profile set, falling back to default profiles: default
+13-12-2020 21:45:12.795 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+13-12-2020 21:45:13.064 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 253ms. Found 13 JPA repository interfaces.
+13-12-2020 21:45:13.665 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:45:13.695 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:45:13.700 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@c3fa05a' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:45:13.702 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:45:13.710 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:45:14.128 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+13-12-2020 21:45:14.145 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+13-12-2020 21:45:14.147 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+13-12-2020 21:45:14.147 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.33]
+13-12-2020 21:45:14.437 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+13-12-2020 21:45:14.437 INFO  [main] o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3489 ms
+13-12-2020 21:45:14.985 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+13-12-2020 21:45:15.180 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.12.Final
+13-12-2020 21:45:15.628 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+13-12-2020 21:45:15.854 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+13-12-2020 21:45:19.018 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+13-12-2020 21:45:20.371 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Editor (class must be instantiated by Interceptor)
+13-12-2020 21:45:20.488 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Lector (class must be instantiated by Interceptor)
+13-12-2020 21:45:20.584 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.BoardMember (class must be instantiated by Interceptor)
+13-12-2020 21:45:20.716 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Reader (class must be instantiated by Interceptor)
+13-12-2020 21:45:20.810 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.WriterMembershipRequest (class must be instantiated by Interceptor)
+13-12-2020 21:45:20.973 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Writer (class must be instantiated by Interceptor)
+13-12-2020 21:45:21.622 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+13-12-2020 21:45:24.654 INFO  [main] o.a.catalina.core.StandardService - Stopping service [Tomcat]
+13-12-2020 21:45:24.684 INFO  [main] o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+13-12-2020 21:58:30.038 INFO  [main] com.la.LiteraryAssociationApp - Starting LiteraryAssociationApp on DESKTOP-S8EDMMJ with PID 19692 (C:\Users\Ika\Desktop\literary-association\literary-association\literary-association-backend\target\classes started by Ika in C:\Users\Ika\Desktop\literary-association\literary-association\literary-association-backend)
+13-12-2020 21:58:30.044 INFO  [main] com.la.LiteraryAssociationApp - No active profile set, falling back to default profiles: default
+13-12-2020 21:58:32.437 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+13-12-2020 21:58:32.706 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 250ms. Found 13 JPA repository interfaces.
+13-12-2020 21:58:33.464 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:58:33.471 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:58:33.476 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@2e52fb3e' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:58:33.480 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:58:33.485 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 21:58:33.930 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+13-12-2020 21:58:33.951 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+13-12-2020 21:58:33.952 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+13-12-2020 21:58:33.953 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.33]
+13-12-2020 21:58:34.299 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+13-12-2020 21:58:34.300 INFO  [main] o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 4143 ms
+13-12-2020 21:58:34.928 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+13-12-2020 21:58:35.062 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.12.Final
+13-12-2020 21:58:35.488 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+13-12-2020 21:58:35.806 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+13-12-2020 21:58:36.068 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+13-12-2020 21:58:36.098 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+13-12-2020 21:58:37.858 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Editor (class must be instantiated by Interceptor)
+13-12-2020 21:58:37.915 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Lector (class must be instantiated by Interceptor)
+13-12-2020 21:58:37.982 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.BoardMember (class must be instantiated by Interceptor)
+13-12-2020 21:58:38.077 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Reader (class must be instantiated by Interceptor)
+13-12-2020 21:58:38.145 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.WriterMembershipRequest (class must be instantiated by Interceptor)
+13-12-2020 21:58:38.272 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Writer (class must be instantiated by Interceptor)
+13-12-2020 21:58:49.480 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+13-12-2020 21:58:49.501 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+13-12-2020 21:58:52.306 INFO  [main] org.camunda.bpm.spring.boot - STARTER-SB040 Setting up jobExecutor with corePoolSize=3, maxPoolSize:10
+13-12-2020 21:58:52.308 INFO  [main] o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'camundaTaskExecutor'
+13-12-2020 21:58:52.456 INFO  [main] org.camunda.bpm.engine.cfg - ENGINE-12003 Plugin 'CompositeProcessEnginePlugin[genericPropertiesConfiguration, camundaProcessEngineConfiguration, camundaDatasourceConfiguration, camundaJpaConfiguration, camundaJobConfiguration, camundaHistoryConfiguration, camundaMetricsConfiguration, camundaAuthorizationConfiguration, camundaDeploymentConfiguration, failedJobConfiguration]' activated on process engine 'default'
+13-12-2020 21:58:57.723 INFO  [main] org.camunda.bpm.spring.boot - STARTER-SB021 Auto-Deploying resources: []
+13-12-2020 21:59:19.621 INFO  [main] org.camunda.bpm.engine.persistence - ENGINE-03016 Performing database operation 'create' on component 'engine' with resource 'org/camunda/bpm/engine/db/create/activiti.mysql.create.engine.sql'
+13-12-2020 21:59:29.305 INFO  [main] org.camunda.bpm.engine.persistence - ENGINE-03016 Performing database operation 'create' on component 'history' with resource 'org/camunda/bpm/engine/db/create/activiti.mysql.create.history.sql'
+13-12-2020 21:59:31.317 INFO  [main] org.camunda.bpm.engine.persistence - ENGINE-03016 Performing database operation 'create' on component 'identity' with resource 'org/camunda/bpm/engine/db/create/activiti.mysql.create.identity.sql'
+13-12-2020 21:59:35.503 INFO  [main] org.camunda.bpm.engine.persistence - ENGINE-03016 Performing database operation 'create' on component 'case.engine' with resource 'org/camunda/bpm/engine/db/create/activiti.mysql.create.case.engine.sql'
+13-12-2020 21:59:36.380 INFO  [main] org.camunda.bpm.engine.persistence - ENGINE-03016 Performing database operation 'create' on component 'case.history' with resource 'org/camunda/bpm/engine/db/create/activiti.mysql.create.case.history.sql'
+13-12-2020 21:59:37.208 INFO  [main] org.camunda.bpm.engine.persistence - ENGINE-03016 Performing database operation 'create' on component 'decision.engine' with resource 'org/camunda/bpm/engine/db/create/activiti.mysql.create.decision.engine.sql'
+13-12-2020 21:59:39.567 INFO  [main] org.camunda.bpm.engine.persistence - ENGINE-03016 Performing database operation 'create' on component 'decision.history' with resource 'org/camunda/bpm/engine/db/create/activiti.mysql.create.decision.history.sql'
+13-12-2020 21:59:39.608 INFO  [main] org.camunda.bpm.engine.persistence - ENGINE-03067 No history level property found in database
+13-12-2020 21:59:39.609 INFO  [main] org.camunda.bpm.engine.persistence - ENGINE-03065 Creating historyLevel property in database for level: HistoryLevelFull(name=full, id=3)
+13-12-2020 21:59:39.791 INFO  [main] org.camunda.bpm.engine - ENGINE-00001 Process Engine default created.
+13-12-2020 21:59:40.666 INFO  [main] o.c.b.s.b.s.w.f.LazyInitRegistration - lazy initialized org.camunda.bpm.spring.boot.starter.webapp.filter.LazyProcessEnginesFilter@573284a5
+13-12-2020 21:59:40.921 INFO  [main] o.c.b.s.b.s.w.f.LazyInitRegistration - lazy initialized org.camunda.bpm.spring.boot.starter.webapp.filter.LazySecurityFilter@507b79f7
+13-12-2020 21:59:41.257 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/auth/**', POST], []
+13-12-2020 21:59:41.257 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/auth', PUT], []
+13-12-2020 21:59:41.257 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/', GET], []
+13-12-2020 21:59:41.258 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/webjars/**', GET], []
+13-12-2020 21:59:41.258 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/*.html', GET], []
+13-12-2020 21:59:41.258 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/favicon.ico', GET], []
+13-12-2020 21:59:41.258 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.html', GET], []
+13-12-2020 21:59:41.258 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.css', GET], []
+13-12-2020 21:59:41.259 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.js', GET], []
+13-12-2020 21:59:41.259 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/assets/**', GET], []
+13-12-2020 21:59:41.373 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@56351c02, org.springframework.security.web.context.SecurityContextPersistenceFilter@7f53b345, org.springframework.security.web.header.HeaderWriterFilter@7df23848, org.springframework.web.filter.CorsFilter@51097500, org.springframework.security.web.authentication.logout.LogoutFilter@14d513ca, com.la.security.auth.TokenAuthenticationFilter@386f88b3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@71817f66, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4d4bac56, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@662e5590, org.springframework.security.web.session.SessionManagementFilter@703eead0, org.springframework.security.web.access.ExceptionTranslationFilter@44df834c, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@38394e76]
+13-12-2020 21:59:41.496 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+13-12-2020 21:59:41.564 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+13-12-2020 21:59:41.570 INFO  [main] com.la.LiteraryAssociationApp - Started LiteraryAssociationApp in 72.74 seconds (JVM running for 76.081)
+13-12-2020 21:59:41.575 INFO  [main] org.camunda.bpm.engine.jobexecutor - ENGINE-14014 Starting up the JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor].
+13-12-2020 21:59:41.578 INFO  [JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] org.camunda.bpm.engine.jobexecutor - ENGINE-14018 JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor] starting to acquire jobs
+13-12-2020 22:20:32.812 INFO  [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+13-12-2020 22:20:32.820 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+13-12-2020 22:20:32.931 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Completed initialization in 111 ms
+13-12-2020 22:29:04.854 INFO  [main] com.la.LiteraryAssociationApp - Starting LiteraryAssociationApp on DESKTOP-S8EDMMJ with PID 12444 (C:\Users\Ika\Desktop\literary-association\literary-association\literary-association-backend\target\classes started by Ika in C:\Users\Ika\Desktop\literary-association\literary-association\literary-association-backend)
+13-12-2020 22:29:04.870 INFO  [main] com.la.LiteraryAssociationApp - No active profile set, falling back to default profiles: default
+13-12-2020 22:29:07.344 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+13-12-2020 22:29:07.563 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 208ms. Found 13 JPA repository interfaces.
+13-12-2020 22:29:08.187 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 22:29:08.187 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 22:29:08.187 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@27f1bbe0' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 22:29:08.203 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 22:29:08.219 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 22:29:08.578 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+13-12-2020 22:29:08.594 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+13-12-2020 22:29:08.594 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+13-12-2020 22:29:08.594 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.33]
+13-12-2020 22:29:08.859 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+13-12-2020 22:29:08.859 INFO  [main] o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3895 ms
+13-12-2020 22:29:09.468 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+13-12-2020 22:29:09.625 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.12.Final
+13-12-2020 22:29:09.843 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+13-12-2020 22:29:09.999 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+13-12-2020 22:29:10.203 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+13-12-2020 22:29:10.234 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+13-12-2020 22:29:11.532 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Editor (class must be instantiated by Interceptor)
+13-12-2020 22:29:11.579 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Lector (class must be instantiated by Interceptor)
+13-12-2020 22:29:11.626 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.BoardMember (class must be instantiated by Interceptor)
+13-12-2020 22:29:11.766 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.WriterMembershipRequest (class must be instantiated by Interceptor)
+13-12-2020 22:29:11.829 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Writer (class must be instantiated by Interceptor)
+13-12-2020 22:29:24.659 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+13-12-2020 22:29:24.674 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+13-12-2020 22:29:27.392 INFO  [main] org.camunda.bpm.spring.boot - STARTER-SB040 Setting up jobExecutor with corePoolSize=3, maxPoolSize:10
+13-12-2020 22:29:27.392 INFO  [main] o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'camundaTaskExecutor'
+13-12-2020 22:29:27.517 INFO  [main] org.camunda.bpm.engine.cfg - ENGINE-12003 Plugin 'CompositeProcessEnginePlugin[genericPropertiesConfiguration, camundaProcessEngineConfiguration, camundaDatasourceConfiguration, camundaJpaConfiguration, camundaJobConfiguration, camundaHistoryConfiguration, camundaMetricsConfiguration, camundaAuthorizationConfiguration, camundaDeploymentConfiguration, failedJobConfiguration]' activated on process engine 'default'
+13-12-2020 22:29:32.761 INFO  [main] org.camunda.bpm.spring.boot - STARTER-SB021 Auto-Deploying resources: []
+13-12-2020 22:29:40.720 INFO  [main] org.camunda.bpm.engine - ENGINE-00001 Process Engine default created.
+13-12-2020 22:29:41.063 INFO  [main] o.c.b.s.b.s.w.f.LazyInitRegistration - lazy initialized org.camunda.bpm.spring.boot.starter.webapp.filter.LazySecurityFilter@100c567f
+13-12-2020 22:29:41.063 INFO  [main] o.c.b.s.b.s.w.f.LazyInitRegistration - lazy initialized org.camunda.bpm.spring.boot.starter.webapp.filter.LazyProcessEnginesFilter@1de9d54
+13-12-2020 22:29:41.266 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/auth/**', POST], []
+13-12-2020 22:29:41.266 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/auth', PUT], []
+13-12-2020 22:29:41.266 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/', GET], []
+13-12-2020 22:29:41.266 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/webjars/**', GET], []
+13-12-2020 22:29:41.266 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/*.html', GET], []
+13-12-2020 22:29:41.266 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/favicon.ico', GET], []
+13-12-2020 22:29:41.266 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.html', GET], []
+13-12-2020 22:29:41.266 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.css', GET], []
+13-12-2020 22:29:41.266 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.js', GET], []
+13-12-2020 22:29:41.266 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/assets/**', GET], []
+13-12-2020 22:29:41.376 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@38c1b1a7, org.springframework.security.web.context.SecurityContextPersistenceFilter@3293030b, org.springframework.security.web.header.HeaderWriterFilter@37f627d0, org.springframework.web.filter.CorsFilter@73230721, org.springframework.security.web.authentication.logout.LogoutFilter@34d3409d, com.la.security.auth.TokenAuthenticationFilter@10bcbbce, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@391e2a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@263e512e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@27234b7c, org.springframework.security.web.session.SessionManagementFilter@3e24bab6, org.springframework.security.web.access.ExceptionTranslationFilter@21d48c40, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5b643d6e]
+13-12-2020 22:29:41.516 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+13-12-2020 22:29:41.594 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+13-12-2020 22:29:41.594 INFO  [main] com.la.LiteraryAssociationApp - Started LiteraryAssociationApp in 37.884 seconds (JVM running for 41.258)
+13-12-2020 22:29:41.610 INFO  [main] org.camunda.bpm.engine.jobexecutor - ENGINE-14014 Starting up the JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor].
+13-12-2020 22:29:41.610 INFO  [JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] org.camunda.bpm.engine.jobexecutor - ENGINE-14018 JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor] starting to acquire jobs
+13-12-2020 22:29:45.318 INFO  [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+13-12-2020 22:29:45.319 INFO  [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+13-12-2020 22:29:45.339 INFO  [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet - Completed initialization in 20 ms
+13-12-2020 23:19:31.652 INFO  [main] com.la.LiteraryAssociationApp - Starting LiteraryAssociationApp on DESKTOP-S8EDMMJ with PID 8544 (C:\Users\Ika\Desktop\literary-association\literary-association\literary-association-backend\target\classes started by Ika in C:\Users\Ika\Desktop\literary-association\literary-association\literary-association-backend)
+13-12-2020 23:19:31.668 INFO  [main] com.la.LiteraryAssociationApp - No active profile set, falling back to default profiles: default
+13-12-2020 23:19:33.074 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+13-12-2020 23:19:33.294 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 194ms. Found 13 JPA repository interfaces.
+13-12-2020 23:19:33.747 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 23:19:33.762 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 23:19:33.778 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@349d0836' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 23:19:33.778 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 23:19:33.778 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 23:19:34.153 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+13-12-2020 23:19:34.168 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+13-12-2020 23:19:34.168 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+13-12-2020 23:19:34.168 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.33]
+13-12-2020 23:19:34.450 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+13-12-2020 23:19:34.450 INFO  [main] o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2657 ms
+13-12-2020 23:19:34.965 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+13-12-2020 23:19:35.074 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.12.Final
+13-12-2020 23:19:35.293 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+13-12-2020 23:19:35.465 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+13-12-2020 23:19:35.652 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+13-12-2020 23:19:35.668 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+13-12-2020 23:19:36.699 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Editor (class must be instantiated by Interceptor)
+13-12-2020 23:19:36.746 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Lector (class must be instantiated by Interceptor)
+13-12-2020 23:19:36.777 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.BoardMember (class must be instantiated by Interceptor)
+13-12-2020 23:19:36.918 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.WriterMembershipRequest (class must be instantiated by Interceptor)
+13-12-2020 23:19:37.011 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Writer (class must be instantiated by Interceptor)
+13-12-2020 23:19:49.544 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+13-12-2020 23:19:49.544 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+13-12-2020 23:19:54.545 INFO  [main] org.camunda.bpm.spring.boot - STARTER-SB040 Setting up jobExecutor with corePoolSize=3, maxPoolSize:10
+13-12-2020 23:19:54.560 INFO  [main] o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'camundaTaskExecutor'
+13-12-2020 23:19:54.807 INFO  [main] org.camunda.bpm.engine.cfg - ENGINE-12003 Plugin 'CompositeProcessEnginePlugin[genericPropertiesConfiguration, camundaProcessEngineConfiguration, camundaDatasourceConfiguration, camundaJpaConfiguration, camundaJobConfiguration, camundaHistoryConfiguration, camundaMetricsConfiguration, camundaAuthorizationConfiguration, camundaDeploymentConfiguration, failedJobConfiguration]' activated on process engine 'default'
+13-12-2020 23:20:01.613 INFO  [main] org.camunda.bpm.spring.boot - STARTER-SB021 Auto-Deploying resources: []
+13-12-2020 23:20:09.542 INFO  [main] org.camunda.bpm.engine - ENGINE-00001 Process Engine default created.
+13-12-2020 23:20:09.757 INFO  [main] o.c.b.s.b.s.w.f.LazyInitRegistration - lazy initialized org.camunda.bpm.spring.boot.starter.webapp.filter.LazyProcessEnginesFilter@64b7225f
+13-12-2020 23:20:09.884 INFO  [main] o.c.b.s.b.s.w.f.LazyInitRegistration - lazy initialized org.camunda.bpm.spring.boot.starter.webapp.filter.LazySecurityFilter@6e8a9c30
+13-12-2020 23:20:10.128 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/auth/**', POST], []
+13-12-2020 23:20:10.143 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/auth', PUT], []
+13-12-2020 23:20:10.143 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/', GET], []
+13-12-2020 23:20:10.143 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/webjars/**', GET], []
+13-12-2020 23:20:10.143 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/*.html', GET], []
+13-12-2020 23:20:10.143 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/favicon.ico', GET], []
+13-12-2020 23:20:10.143 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.html', GET], []
+13-12-2020 23:20:10.143 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.css', GET], []
+13-12-2020 23:20:10.143 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.js', GET], []
+13-12-2020 23:20:10.143 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/assets/**', GET], []
+13-12-2020 23:20:10.206 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@37f627d0, org.springframework.security.web.context.SecurityContextPersistenceFilter@32c8d67, org.springframework.security.web.header.HeaderWriterFilter@42ac309, org.springframework.web.filter.CorsFilter@2a7392a3, org.springframework.security.web.authentication.logout.LogoutFilter@6f7a65e, com.la.security.auth.TokenAuthenticationFilter@2fc0ad21, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2a2815cc, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7bc6b117, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@639cb0c8, org.springframework.security.web.session.SessionManagementFilter@28100232, org.springframework.security.web.access.ExceptionTranslationFilter@f472245, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@71135794]
+13-12-2020 23:20:10.284 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+13-12-2020 23:20:10.346 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+13-12-2020 23:20:10.346 INFO  [main] com.la.LiteraryAssociationApp - Started LiteraryAssociationApp in 39.661 seconds (JVM running for 42.982)
+13-12-2020 23:20:10.362 INFO  [main] org.camunda.bpm.engine.jobexecutor - ENGINE-14014 Starting up the JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor].
+13-12-2020 23:20:10.362 INFO  [JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] org.camunda.bpm.engine.jobexecutor - ENGINE-14018 JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor] starting to acquire jobs
+13-12-2020 23:20:15.815 INFO  [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+13-12-2020 23:20:15.815 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+13-12-2020 23:20:15.835 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Completed initialization in 20 ms
+13-12-2020 23:25:15.891 INFO  [main] com.la.LiteraryAssociationApp - Starting LiteraryAssociationApp on DESKTOP-S8EDMMJ with PID 11548 (C:\Users\Ika\Desktop\literary-association\literary-association\literary-association-backend\target\classes started by Ika in C:\Users\Ika\Desktop\literary-association\literary-association\literary-association-backend)
+13-12-2020 23:25:15.906 INFO  [main] com.la.LiteraryAssociationApp - No active profile set, falling back to default profiles: default
+13-12-2020 23:25:17.484 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+13-12-2020 23:25:17.671 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 178ms. Found 13 JPA repository interfaces.
+13-12-2020 23:25:18.187 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 23:25:18.187 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 23:25:18.187 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@278f8425' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 23:25:18.187 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 23:25:18.203 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 23:25:18.693 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+13-12-2020 23:25:18.713 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+13-12-2020 23:25:18.716 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+13-12-2020 23:25:18.717 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.33]
+13-12-2020 23:25:19.069 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+13-12-2020 23:25:19.069 INFO  [main] o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3007 ms
+13-12-2020 23:25:19.569 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+13-12-2020 23:25:19.678 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.12.Final
+13-12-2020 23:25:19.897 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+13-12-2020 23:25:20.100 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+13-12-2020 23:25:20.303 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+13-12-2020 23:25:20.334 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+13-12-2020 23:25:21.397 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Editor (class must be instantiated by Interceptor)
+13-12-2020 23:25:21.428 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Lector (class must be instantiated by Interceptor)
+13-12-2020 23:25:21.475 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.BoardMember (class must be instantiated by Interceptor)
+13-12-2020 23:25:21.600 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.WriterMembershipRequest (class must be instantiated by Interceptor)
+13-12-2020 23:25:21.693 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Writer (class must be instantiated by Interceptor)
+13-12-2020 23:25:33.775 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+13-12-2020 23:25:33.790 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+13-12-2020 23:25:33.900 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+13-12-2020 23:25:33.915 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+13-12-2020 23:25:33.915 INFO  [main] o.a.catalina.core.StandardService - Stopping service [Tomcat]
+13-12-2020 23:25:33.947 INFO  [main] o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+13-12-2020 23:26:03.429 INFO  [main] com.la.LiteraryAssociationApp - Starting LiteraryAssociationApp on DESKTOP-S8EDMMJ with PID 2628 (C:\Users\Ika\Desktop\literary-association\literary-association\literary-association-backend\target\classes started by Ika in C:\Users\Ika\Desktop\literary-association\literary-association\literary-association-backend)
+13-12-2020 23:26:03.444 INFO  [main] com.la.LiteraryAssociationApp - No active profile set, falling back to default profiles: default
+13-12-2020 23:26:05.018 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+13-12-2020 23:26:05.325 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 286ms. Found 13 JPA repository interfaces.
+13-12-2020 23:26:05.802 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 23:26:05.802 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 23:26:05.802 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@4bdcaf36' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 23:26:05.818 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 23:26:05.833 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13-12-2020 23:26:06.161 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+13-12-2020 23:26:06.177 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+13-12-2020 23:26:06.177 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+13-12-2020 23:26:06.177 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.33]
+13-12-2020 23:26:06.474 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+13-12-2020 23:26:06.474 INFO  [main] o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2936 ms
+13-12-2020 23:26:07.036 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+13-12-2020 23:26:07.130 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.12.Final
+13-12-2020 23:26:07.286 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+13-12-2020 23:26:07.427 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+13-12-2020 23:26:07.598 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+13-12-2020 23:26:07.614 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+13-12-2020 23:26:08.536 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Editor (class must be instantiated by Interceptor)
+13-12-2020 23:26:08.567 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Lector (class must be instantiated by Interceptor)
+13-12-2020 23:26:08.614 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.BoardMember (class must be instantiated by Interceptor)
+13-12-2020 23:26:08.754 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.WriterMembershipRequest (class must be instantiated by Interceptor)
+13-12-2020 23:26:08.833 INFO  [main] org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.la.model.Writer (class must be instantiated by Interceptor)
+13-12-2020 23:26:21.770 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+13-12-2020 23:26:21.770 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+13-12-2020 23:26:24.419 INFO  [main] org.camunda.bpm.spring.boot - STARTER-SB040 Setting up jobExecutor with corePoolSize=3, maxPoolSize:10
+13-12-2020 23:26:24.434 INFO  [main] o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'camundaTaskExecutor'
+13-12-2020 23:26:24.622 INFO  [main] org.camunda.bpm.engine.cfg - ENGINE-12003 Plugin 'CompositeProcessEnginePlugin[genericPropertiesConfiguration, camundaProcessEngineConfiguration, camundaDatasourceConfiguration, camundaJpaConfiguration, camundaJobConfiguration, camundaHistoryConfiguration, camundaMetricsConfiguration, camundaAuthorizationConfiguration, camundaDeploymentConfiguration, failedJobConfiguration]' activated on process engine 'default'
+13-12-2020 23:26:30.008 INFO  [main] org.camunda.bpm.spring.boot - STARTER-SB021 Auto-Deploying resources: []
+13-12-2020 23:26:35.687 INFO  [main] org.camunda.bpm.engine - ENGINE-00001 Process Engine default created.
+13-12-2020 23:26:35.890 INFO  [main] o.c.b.s.b.s.w.f.LazyInitRegistration - lazy initialized org.camunda.bpm.spring.boot.starter.webapp.filter.LazySecurityFilter@504e1599
+13-12-2020 23:26:35.890 INFO  [main] o.c.b.s.b.s.w.f.LazyInitRegistration - lazy initialized org.camunda.bpm.spring.boot.starter.webapp.filter.LazyProcessEnginesFilter@3b90a30a
+13-12-2020 23:26:36.077 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/auth/**', POST], []
+13-12-2020 23:26:36.077 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/auth', PUT], []
+13-12-2020 23:26:36.077 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/', GET], []
+13-12-2020 23:26:36.077 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/webjars/**', GET], []
+13-12-2020 23:26:36.077 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/*.html', GET], []
+13-12-2020 23:26:36.077 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/favicon.ico', GET], []
+13-12-2020 23:26:36.077 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.html', GET], []
+13-12-2020 23:26:36.077 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.css', GET], []
+13-12-2020 23:26:36.077 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.js', GET], []
+13-12-2020 23:26:36.077 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/assets/**', GET], []
+13-12-2020 23:26:36.140 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@52d01430, org.springframework.security.web.context.SecurityContextPersistenceFilter@3055f310, org.springframework.security.web.header.HeaderWriterFilter@4e3d36c2, org.springframework.web.filter.CorsFilter@3fdede3a, org.springframework.security.web.authentication.logout.LogoutFilter@123d0816, com.la.security.auth.TokenAuthenticationFilter@41948c13, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@25b402ea, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@149238fe, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3085befb, org.springframework.security.web.session.SessionManagementFilter@78b2d29e, org.springframework.security.web.access.ExceptionTranslationFilter@391e2a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@125a8ab6]
+13-12-2020 23:26:36.202 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+13-12-2020 23:26:36.249 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+13-12-2020 23:26:36.249 INFO  [main] com.la.LiteraryAssociationApp - Started LiteraryAssociationApp in 33.737 seconds (JVM running for 36.473)
+13-12-2020 23:26:36.265 INFO  [main] org.camunda.bpm.engine.jobexecutor - ENGINE-14014 Starting up the JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor].
+13-12-2020 23:26:36.265 INFO  [JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] org.camunda.bpm.engine.jobexecutor - ENGINE-14018 JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor] starting to acquire jobs
+13-12-2020 23:26:53.881 INFO  [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+13-12-2020 23:26:53.881 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+13-12-2020 23:26:53.897 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Completed initialization in 16 ms
+14-12-2020 01:31:18.258 INFO  [main] com.la.LiteraryAssociationApp - Starting LiteraryAssociationApp on DESKTOP-S8EDMMJ with PID 17964 (C:\Users\Ika\Desktop\literary-association\literary-association\literary-association-backend\target\classes started by Ika in C:\Users\Ika\Desktop\literary-association\literary-association\literary-association-backend)
+14-12-2020 01:31:18.268 INFO  [main] com.la.LiteraryAssociationApp - No active profile set, falling back to default profiles: default
+14-12-2020 01:31:20.494 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+14-12-2020 01:31:20.998 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 468ms. Found 13 JPA repository interfaces.
+14-12-2020 01:31:21.649 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+14-12-2020 01:31:21.665 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+14-12-2020 01:31:21.681 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@40021799' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+14-12-2020 01:31:21.681 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+14-12-2020 01:31:21.681 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+14-12-2020 01:31:22.277 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+14-12-2020 01:31:22.297 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+14-12-2020 01:31:22.297 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+14-12-2020 01:31:22.305 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.33]
+14-12-2020 01:31:23.034 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+14-12-2020 01:31:23.034 INFO  [main] o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 4574 ms
+14-12-2020 01:31:23.670 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+14-12-2020 01:31:23.786 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.12.Final
+14-12-2020 01:31:24.055 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+14-12-2020 01:31:24.319 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+14-12-2020 01:31:24.596 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+14-12-2020 01:31:24.611 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+14-12-2020 01:31:38.850 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+14-12-2020 01:31:38.865 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+14-12-2020 01:31:41.521 INFO  [main] org.camunda.bpm.spring.boot - STARTER-SB040 Setting up jobExecutor with corePoolSize=3, maxPoolSize:10
+14-12-2020 01:31:41.521 INFO  [main] o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'camundaTaskExecutor'
+14-12-2020 01:31:41.662 INFO  [main] org.camunda.bpm.engine.cfg - ENGINE-12003 Plugin 'CompositeProcessEnginePlugin[genericPropertiesConfiguration, camundaProcessEngineConfiguration, camundaDatasourceConfiguration, camundaJpaConfiguration, camundaJobConfiguration, camundaHistoryConfiguration, camundaMetricsConfiguration, camundaAuthorizationConfiguration, camundaDeploymentConfiguration, failedJobConfiguration]' activated on process engine 'default'
+14-12-2020 01:31:46.082 INFO  [main] org.camunda.bpm.spring.boot - STARTER-SB021 Auto-Deploying resources: []
+14-12-2020 01:31:51.597 INFO  [main] org.camunda.bpm.engine - ENGINE-00001 Process Engine default created.
+14-12-2020 01:31:51.675 INFO  [main] o.c.b.s.b.s.w.f.LazyInitRegistration - lazy initialized org.camunda.bpm.spring.boot.starter.webapp.filter.LazyProcessEnginesFilter@15e0fe05
+14-12-2020 01:31:51.784 INFO  [main] o.c.b.s.b.s.w.f.LazyInitRegistration - lazy initialized org.camunda.bpm.spring.boot.starter.webapp.filter.LazySecurityFilter@bdd2027
+14-12-2020 01:31:51.956 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/auth/**', POST], []
+14-12-2020 01:31:51.956 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/auth', PUT], []
+14-12-2020 01:31:51.956 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/', GET], []
+14-12-2020 01:31:51.956 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/webjars/**', GET], []
+14-12-2020 01:31:51.956 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/*.html', GET], []
+14-12-2020 01:31:51.956 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/favicon.ico', GET], []
+14-12-2020 01:31:51.972 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.html', GET], []
+14-12-2020 01:31:51.972 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.css', GET], []
+14-12-2020 01:31:51.972 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.js', GET], []
+14-12-2020 01:31:51.972 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/assets/**', GET], []
+14-12-2020 01:31:52.019 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@57fec63f, org.springframework.security.web.context.SecurityContextPersistenceFilter@5382a35f, org.springframework.security.web.header.HeaderWriterFilter@34ff08c6, org.springframework.web.filter.CorsFilter@7a2fd94c, org.springframework.security.web.authentication.logout.LogoutFilter@309e7215, com.la.security.auth.TokenAuthenticationFilter@637c8632, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7f9d40b3, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1b53e6fc, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@156eeff1, org.springframework.security.web.session.SessionManagementFilter@639cb0c8, org.springframework.security.web.access.ExceptionTranslationFilter@74e175c7, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7d60bd5a]
+14-12-2020 01:31:52.128 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+14-12-2020 01:31:52.222 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+14-12-2020 01:31:52.222 INFO  [main] com.la.LiteraryAssociationApp - Started LiteraryAssociationApp in 35.181 seconds (JVM running for 38.901)
+14-12-2020 01:31:52.237 INFO  [main] org.camunda.bpm.engine.jobexecutor - ENGINE-14014 Starting up the JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor].
+14-12-2020 01:31:52.237 INFO  [JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] org.camunda.bpm.engine.jobexecutor - ENGINE-14018 JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor] starting to acquire jobs
+14-12-2020 01:33:09.730 INFO  [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+14-12-2020 01:33:09.730 INFO  [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+14-12-2020 01:33:09.733 INFO  [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+14-12-2020 01:46:34.685 INFO  [main] com.la.LiteraryAssociationApp - Starting LiteraryAssociationApp on DESKTOP-S8EDMMJ with PID 7172 (C:\Users\Ika\Desktop\literary-association\literary-association\literary-association-backend\target\classes started by Ika in C:\Users\Ika\Desktop\literary-association\literary-association\literary-association-backend)
+14-12-2020 01:46:34.700 INFO  [main] com.la.LiteraryAssociationApp - No active profile set, falling back to default profiles: default
+14-12-2020 01:46:36.750 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+14-12-2020 01:46:36.938 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 175ms. Found 13 JPA repository interfaces.
+14-12-2020 01:46:37.447 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+14-12-2020 01:46:37.447 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+14-12-2020 01:46:37.463 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@312afbc7' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+14-12-2020 01:46:37.463 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+14-12-2020 01:46:37.463 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+14-12-2020 01:46:37.807 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+14-12-2020 01:46:37.807 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+14-12-2020 01:46:37.807 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+14-12-2020 01:46:37.807 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.33]
+14-12-2020 01:46:38.057 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+14-12-2020 01:46:38.057 INFO  [main] o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3201 ms
+14-12-2020 01:46:38.649 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+14-12-2020 01:46:38.789 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.12.Final
+14-12-2020 01:46:39.024 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+14-12-2020 01:46:39.180 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+14-12-2020 01:46:39.602 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+14-12-2020 01:46:39.633 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+14-12-2020 01:46:53.843 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+14-12-2020 01:46:53.859 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+14-12-2020 01:46:57.006 INFO  [main] org.camunda.bpm.spring.boot - STARTER-SB040 Setting up jobExecutor with corePoolSize=3, maxPoolSize:10
+14-12-2020 01:46:57.006 INFO  [main] o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'camundaTaskExecutor'
+14-12-2020 01:46:57.186 INFO  [main] org.camunda.bpm.engine.cfg - ENGINE-12003 Plugin 'CompositeProcessEnginePlugin[genericPropertiesConfiguration, camundaProcessEngineConfiguration, camundaDatasourceConfiguration, camundaJpaConfiguration, camundaJobConfiguration, camundaHistoryConfiguration, camundaMetricsConfiguration, camundaAuthorizationConfiguration, camundaDeploymentConfiguration, failedJobConfiguration]' activated on process engine 'default'
+14-12-2020 01:47:02.168 INFO  [main] org.camunda.bpm.spring.boot - STARTER-SB021 Auto-Deploying resources: []
+14-12-2020 01:47:08.146 INFO  [main] org.camunda.bpm.engine - ENGINE-00001 Process Engine default created.
+14-12-2020 01:47:08.224 INFO  [main] o.c.b.s.b.s.w.f.LazyInitRegistration - lazy initialized org.camunda.bpm.spring.boot.starter.webapp.filter.LazyProcessEnginesFilter@35178483
+14-12-2020 01:47:08.318 INFO  [main] o.c.b.s.b.s.w.f.LazyInitRegistration - lazy initialized org.camunda.bpm.spring.boot.starter.webapp.filter.LazySecurityFilter@64412d34
+14-12-2020 01:47:08.646 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/auth/**', POST], []
+14-12-2020 01:47:08.646 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/auth', PUT], []
+14-12-2020 01:47:08.646 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/', GET], []
+14-12-2020 01:47:08.646 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/webjars/**', GET], []
+14-12-2020 01:47:08.646 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/*.html', GET], []
+14-12-2020 01:47:08.646 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/favicon.ico', GET], []
+14-12-2020 01:47:08.647 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.html', GET], []
+14-12-2020 01:47:08.647 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.css', GET], []
+14-12-2020 01:47:08.647 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.js', GET], []
+14-12-2020 01:47:08.647 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/assets/**', GET], []
+14-12-2020 01:47:08.740 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3aa8c337, org.springframework.security.web.context.SecurityContextPersistenceFilter@7c50709a, org.springframework.security.web.header.HeaderWriterFilter@351d726c, org.springframework.web.filter.CorsFilter@78e7b83, org.springframework.security.web.authentication.logout.LogoutFilter@b6b746b, com.la.security.auth.TokenAuthenticationFilter@6761f75b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@a20898c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@281963c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7c8a91e2, org.springframework.security.web.session.SessionManagementFilter@74ee97cb, org.springframework.security.web.access.ExceptionTranslationFilter@7c523bdd, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@62871522]
+14-12-2020 01:47:08.872 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+14-12-2020 01:47:08.946 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+14-12-2020 01:47:08.951 INFO  [main] com.la.LiteraryAssociationApp - Started LiteraryAssociationApp in 35.213 seconds (JVM running for 37.827)
+14-12-2020 01:47:08.958 INFO  [main] org.camunda.bpm.engine.jobexecutor - ENGINE-14014 Starting up the JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor].
+14-12-2020 01:47:08.964 INFO  [JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] org.camunda.bpm.engine.jobexecutor - ENGINE-14018 JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor] starting to acquire jobs
+14-12-2020 01:47:11.267 INFO  [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+14-12-2020 01:47:11.268 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+14-12-2020 01:47:11.286 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Completed initialization in 16 ms

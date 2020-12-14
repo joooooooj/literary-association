@@ -2,7 +2,7 @@ import React from "react";
 import {Button, Card, Form} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
-export default function Pricing() {
+export default function Pricing(props) {
 
     return (
         <div className="row ml-5 pricing">

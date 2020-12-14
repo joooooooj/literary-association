@@ -8,81 +8,108 @@ import RegisterSuccess from "./components/core/registration/RegisterSuccess";
 import RegisterReader from "./components/core/registration/RegisterReader";
 import RegisterBetaReader from "./components/core/registration/RegisterBetaReader";
 import Books from "./components/books/Books";
-import SubmittedWork from "./components/writer/registration/SubmittedWork";
-import RegistrationRequest from "./components/board/registration/RegistrationRequests";
-import RegistrationRequests from "./components/board/registration/RegistrationRequests";
-import PublishBook from "./components/writer/publishing/PublishBook";
-import PublishRequests from "./components/editor/publishing/PublishRequests";
-import CorrectionsScripts from "./components/lector/CorrectionsScripts";
-import CommentsScripts from "./components/reader/publishing/CommentsScripts";
-import PlagiarismComplaint from "./components/writer/plagiarism/PlagiarismComplaint";
-import MainEditorComplaints from "./components/editor/plagiarism/MainEditorComplaints";
-import NotesComplaints from "./components/editor/plagiarism/NotesComplaints";
-import ReviewNotes from "./components/board/plagiarism/ReviewNotes";
+import SubmittedWork from "./components/roles/writer/registration/SubmittedWork";
+import RegistrationRequests from "./components/roles/board/registration/RegistrationRequests";
+import PublishBook from "./components/roles/writer/publishing/PublishBook";
+import PublishRequests from "./components/roles/editor/publishing/PublishRequests";
+import CorrectionsScripts from "./components/roles/lector/CorrectionsScripts";
+import CommentsScripts from "./components/roles/reader/publishing/CommentsScripts";
+import PlagiarismComplaint from "./components/roles/writer/plagiarism/PlagiarismComplaint";
+import MainEditorComplaints from "./components/roles/editor/plagiarism/MainEditorComplaints";
+import NotesComplaints from "./components/roles/editor/plagiarism/NotesComplaints";
+import ReviewNotes from "./components/roles/board/plagiarism/ReviewNotes";
+import {USER_ROLES} from "./Enums";
 
-export default function Routes() {
+export default function Routes(props) {
+
     return (
         <Switch>
             <Route exact path="/">
-                <Home/>
+                <Home loggedIn={props.loggedIn} login={props.login} logout={props.logout}/>
             </Route>
             <Route exact path="/home">
-                <Home/>
-            </Route>
-            <Route exact path="/register">
-                <Register/>
+                <Home loggedIn={props.loggedIn} login={props.login} logout={props.logout}/>
             </Route>
             <Route exact path="/pricing">
-                <Pricing/>
+                <Pricing loggedIn={props.loggedIn} roles={props.roles}/>
             </Route>
             <Route exact path="/books">
-                <Books/>
-            </Route>
-            <Route exact path="/reset-password">
-                <ResetPassword/>
-            </Route>
-            <Route exact path="/register-success">
-                <RegisterSuccess/>
-            </Route>
-            <Route exact path="/register-reader">
-                <RegisterReader/>
-            </Route>
-            <Route exact path="/register-beta">
-                <RegisterBetaReader/>
-            </Route>
-            <Route exact path="/submitted-work">
-                <SubmittedWork/>
-            </Route>
-            <Route exact path="/registration-requests">
-                <RegistrationRequests/>
-            </Route>
-            <Route exact path="/publish-book">
-                <PublishBook/>
-            </Route>
-            <Route exact path="/publish-requests">
-                <PublishRequests/>
-            </Route>
-            <Route exact path="/corrections-scripts">
-                <CorrectionsScripts/>
-            </Route>
-            <Route exact path="/comments-scripts">
-                <CommentsScripts/>
-            </Route>
-            <Route exact path="/plagiarism-complaint">
-                <PlagiarismComplaint/>
-            </Route>
-            <Route exact path="/main-editor-complaints">
-                <MainEditorComplaints/>
-            </Route>
-            <Route exact path="/notes-complaints">
-                <NotesComplaints/>
-            </Route>
-            <Route exact path="/review-notes">
-                <ReviewNotes/>
+                <Books loggedIn={props.loggedIn}/>
             </Route>
             <Route>
-                <Home/>
+                <Home loggedIn={props.loggedIn} login={props.login} logout={props.logout}/>
             </Route>
+            {   !props.loggedIn &&
+                <>
+                    <Route exact path="/reset-password">
+                        <ResetPassword/>
+                    </Route>
+                    <Route exact path="/register">
+                        <Register/>
+                    </Route>
+                    <Route exact path="/register-success">
+                        <RegisterSuccess/>
+                    </Route>
+                    <Route exact path="/register-reader">
+                        <RegisterReader/>
+                    </Route>
+                    <Route exact path="/register-beta">
+                        <RegisterBetaReader/>
+                    </Route>
+                </>
+            }
+            { props.loggedIn &&
+                <>
+                {   props.roles[0] === USER_ROLES.WRITER_MEMBERSHIP_REQUEST &&
+                    <Route exact path="/submitted-work">
+                        <SubmittedWork/>
+                    </Route>
+                }
+                {  props.roles[0] === USER_ROLES.WRITER &&
+                    <>
+                        <Route exact path="/publish-book">
+                            <PublishBook/>
+                        </Route>
+                        <Route exact path="/plagiarism-complaint">
+                            <PlagiarismComplaint/>
+                        </Route>
+                    </>
+                }
+                {   props.roles[0] === USER_ROLES.READER &&
+                    <Route exact path="/comments-scripts">
+                        <CommentsScripts/>
+                    </Route>
+                }
+                {   props.roles[0] === USER_ROLES.BOARD_MEMBER &&
+                    <>
+                        <Route exact path="/registration-requests">
+                            <RegistrationRequests/>
+                        </Route>
+                        <Route exact path="/review-notes">
+                            <ReviewNotes/>
+                        </Route>
+                    </>
+                }
+                {   props.roles[0] === USER_ROLES.LECTOR &&
+                    <Route exact path="/corrections-scripts">
+                        <CorrectionsScripts/>
+                    </Route>
+                }
+                {   props.roles[0] === USER_ROLES.EDITOR &&
+                    <>
+                        <Route exact path="/publish-requests">
+                            <PublishRequests/>
+                        </Route>
+                        <Route exact path="/main-editor-complaints">
+                            <MainEditorComplaints/>
+                        </Route>
+                        <Route exact path="/notes-complaints">
+                            <NotesComplaints/>
+                        </Route>
+                    </>
+                }
+                </>
+            }
         </Switch>
     );
 }

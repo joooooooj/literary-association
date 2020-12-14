@@ -30,6 +30,9 @@ public class Reader extends User{
     @JoinColumn(name = "membership_id")
     private Membership membership;
 
+    public Reader() {
+    }
+
     public Reader(String username, String password, String firstName, String lastName, String state, String city, String email, boolean isBeta, Integer penaltyPoints) {
         super(username, password, firstName, lastName, state, city, email);
         this.isBeta = isBeta;
