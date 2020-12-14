@@ -3,7 +3,7 @@ import {Card, Button} from "react-bootstrap";
 import BookDetails from "./BookDetails";
 import BookSearch from "./BookSearch";
 
-export default function Books() {
+export default function Books(props) {
 
     const [show, setShow] = useState(false);
 
@@ -12,7 +12,7 @@ export default function Books() {
 
     return (
         <div className="row">
-            <BookDetails show={show} onHide={handleClose}/>
+            <BookDetails show={show} onHide={handleClose} loggedIn={props.loggedIn}/>
             <div className="col-3">
                 <BookSearch/>
             </div>

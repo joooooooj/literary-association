@@ -13,6 +13,9 @@ public class Writer extends User{
     @JoinColumn(name = "membership_id")
     private Membership membership;
 
+    public Writer() {
+    }
+
     public Writer(String username, String password, String firstName, String lastName, String state, String city, String email, Membership membership) {
         super(username, password, firstName, lastName, state, city, email);
         this.membership = membership;

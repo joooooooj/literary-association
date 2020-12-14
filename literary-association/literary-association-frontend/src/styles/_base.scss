@@ -29,6 +29,19 @@ html {
   }
 }
 
+.adjust-carousel {
+
+  .carousel-caption {
+    border: 2px white solid;
+    background-color: #212529;
+    margin-bottom: 2rem;
+  }
+
+  img {
+    opacity: 0.9;
+  }
+}
+
 .confirmation {
   .modal-content {
     width: 500px;
@@ -39,4 +52,8 @@ html {
 
     }
   }
+}
+
+.border-danger {
+  border-width: 3px !important;
 }

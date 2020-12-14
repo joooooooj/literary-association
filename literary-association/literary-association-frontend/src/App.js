@@ -1,18 +1,33 @@
-import React from "react";
+import React, {useState} from "react";
 
 import "./styles/app.scss";
 import NavigationBar from "./components/core/NavigationBar";
 import Routes from "./Routes";
+import UseLocalStorage from "./UseLocalStorage";
 
 function App() {
-  return (
-    <div className="app">
-      <NavigationBar/>
-      <div className="container-fluid mb-5">
-          <Routes/>
-      </div>
-    </div>
-  );
+
+    const [loggedIn, setLoggedIn] = UseLocalStorage("token", null);
+    const [roles, setRoles] = UseLocalStorage("roles", null);
+
+    const logout = () => {
+        setLoggedIn(null);
+        setRoles([]);
+    }
+
+    const login = (token, roles) => {
+        setLoggedIn(token);
+        setRoles(roles);
+    }
+
+      return (
+        <div className="app">
+          <NavigationBar loggedIn={loggedIn} logout={logout} roles={roles}/>
+          <div className="container-fluid mb-5">
+              <Routes loggedIn={loggedIn} login={login} logout={logout} roles={roles}/>
+          </div>
+        </div>
+      );
 }
 
 export default App;

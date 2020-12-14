@@ -1,11 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import {Carousel} from "react-bootstrap";
 import Login from "./Login.js";
+import Logout from "./Logout";
 
-export default function Home() {
+export default function Home(props) {
+
     return (
         <div className="row ml-4 mr-5">
-            <Carousel className="adjust-carousel col-6 h-100">
+            <Carousel className={"adjust-carousel col-6 h-100"}>
                 <Carousel.Item interval={4000}>
                     <img
                         className="d-block w-100"
@@ -40,9 +42,20 @@ export default function Home() {
                     </Carousel.Caption>
                 </Carousel.Item>
             </Carousel>
+            {   !props.loggedIn &&
+                <div className="col-5 offset-1 content bg-dark h-75">
+                    <Login login={props.login}/>
+                </div>
+            }
+            {   props.loggedIn &&
             <div className="col-5 offset-1 content bg-dark h-75">
-                <Login/>
+                <div className="m-5 custom-form border-light border pb-5">
+                    <h1 className="mt-5 mb-5">Welcome!</h1>
+                    <p>You are logged in as ...</p>
+                    <Logout className="btn btn-primary" logout={props.logout}/>
+                </div>
             </div>
+            }
         </div>
     );
 }
