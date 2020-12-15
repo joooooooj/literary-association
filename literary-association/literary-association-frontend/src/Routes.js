@@ -18,6 +18,7 @@ import PlagiarismComplaint from "./components/roles/writer/plagiarism/Plagiarism
 import MainEditorComplaints from "./components/roles/editor/plagiarism/MainEditorComplaints";
 import NotesComplaints from "./components/roles/editor/plagiarism/NotesComplaints";
 import ReviewNotes from "./components/roles/board/plagiarism/ReviewNotes";
+import Cart from "./components/cart/Cart";
 import {USER_ROLES} from "./Enums";
 
 export default function Routes(props) {
@@ -35,6 +36,9 @@ export default function Routes(props) {
             </Route>
             <Route exact path="/books">
                 <Books loggedIn={props.loggedIn}/>
+            </Route>
+            <Route exact path="/cart">
+                <Cart loggedIn={props.loggedIn}/>
             </Route>
             <Route>
                 <Home loggedIn={props.loggedIn} login={props.login} logout={props.logout}/>

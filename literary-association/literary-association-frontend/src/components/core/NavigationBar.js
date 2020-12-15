@@ -14,6 +14,9 @@ export default function NavigationBar(props){
                     <Link className="nav-link" to="/home">Home</Link>
                     <Link className="nav-link" to="/books">Books</Link>
                     <Link className="nav-link" to="/pricing">Pricing</Link>
+                    <Link className="nav-link" to="/cart">
+                        <i className="material-icons ml-1">shopping_cart</i>
+                    </Link>
                 </Nav>
                 <Nav className="ml-auto">
                     {  props.loggedIn &&
