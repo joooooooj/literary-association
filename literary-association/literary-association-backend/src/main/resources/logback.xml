@@ -35,7 +35,7 @@
             <level>WARN</level>
             <onMatch>DENY</onMatch>
         </filter>
-        <file>literary-association-backend/src/main/resources/logs/info/log_info.log</file>
+        <file>src/main/resources/logs/info/log_info.log</file>
 
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <Pattern>
@@ -45,7 +45,7 @@
 
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
             <fileNamePattern>
-                literary-association-backend/src/main/resources/logs/info/log_info.%i.log
+                src/main/resources/logs/info/log_info.%i.log
             </fileNamePattern>
             <maxIndex>5</maxIndex>
         </rollingPolicy>
@@ -78,7 +78,7 @@
             <level>ERROR</level>
             <onMatch>DENY</onMatch>
         </filter>
-        <file>literary-association-backend/src/main/resources/logs/warn/log_warn.log</file>
+        <file>src/main/resources/logs/warn/log_warn.log</file>
 
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <Pattern>
@@ -88,7 +88,7 @@
 
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
             <fileNamePattern>
-                literary-association-backend/src/main/resources/logs/warn/log_warn.%i.log
+                src/main/resources/logs/warn/log_warn.%i.log
             </fileNamePattern>
             <maxIndex>5</maxIndex>
         </rollingPolicy>
@@ -121,7 +121,7 @@
             <level>WARN</level>
             <onMatch>DENY</onMatch>
         </filter>
-        <file>literary-association-backend/src/main/resources/logs/error/log_error.log</file>
+        <file>src/main/resources/logs/error/log_error.log</file>
 
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <Pattern>
@@ -131,7 +131,7 @@
 
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
             <fileNamePattern>
-                literary-association-backend/src/main/resources/logs/error/log_error.%i.log
+                src/main/resources/logs/error/log_error.%i.log
             </fileNamePattern>
             <maxIndex>5</maxIndex>
         </rollingPolicy>
