@@ -70,12 +70,11 @@ export default function BookDetails(props) {
                                 <Button variant="outline-dark" className="col-1 mr-2 add-remove-button">
                                     <i className="material-icons">add</i>
                                 </Button>
-                                <Link to="/home">
-                                    <Button variant="success" className="col-6 ml-5 float-right cart-button">
-                                        ADD TO CART
-                                        <i className="material-icons ml-3">shopping_cart</i>
-                                    </Button>
-                                </Link>
+                                <Button variant="success" className="col-6 ml-5 float-right cart-button">
+                                    ADD TO CART
+                                    <i className="material-icons ml-3">shopping_cart</i>
+                                    {/* <i className="material-icons ml-3" display={addedToCart}>check</i> */}
+                                </Button>
                             </div>
                         </Card.Footer>
                     </div>

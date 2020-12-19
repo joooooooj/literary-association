@@ -18,6 +18,7 @@ import PlagiarismComplaint from "./components/roles/writer/plagiarism/Plagiarism
 import MainEditorComplaints from "./components/roles/editor/plagiarism/MainEditorComplaints";
 import NotesComplaints from "./components/roles/editor/plagiarism/NotesComplaints";
 import ReviewNotes from "./components/roles/board/plagiarism/ReviewNotes";
+import Cart from "./components/cart/Cart";
 import {USER_ROLES} from "./Enums";
 
 export default function Routes(props) {
@@ -73,9 +74,14 @@ export default function Routes(props) {
                     </>
                 }
                 {   props.roles[0] === USER_ROLES.READER &&
-                    <Route exact path="/comments-scripts">
-                        <CommentsScripts/>
-                    </Route>
+                    <>
+                        <Route exact path="/comments-scripts">
+                            <CommentsScripts/>
+                        </Route>
+                        <Route exact path="/cart">
+                            <Cart loggedIn={props.loggedIn}/>
+                        </Route>
+                    </>
                 }
                 {   props.roles[0] === USER_ROLES.BOARD_MEMBER &&
                     <>

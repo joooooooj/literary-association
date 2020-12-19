@@ -1,6 +1,6 @@
 package com.la.model;
 
-import com.la.enumeration.TransactionStatus;
+import com.la.model.enumeration.TransactionStatus;
 
 import javax.persistence.*;
 

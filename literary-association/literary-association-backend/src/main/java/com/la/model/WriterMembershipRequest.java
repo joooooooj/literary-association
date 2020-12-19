@@ -1,6 +1,6 @@
 package com.la.model;
 
-import com.la.enumeration.WriterMembershipStatus;
+import com.la.model.enumeration.WriterMembershipStatus;
 
 import javax.persistence.*;
 import java.util.Date;

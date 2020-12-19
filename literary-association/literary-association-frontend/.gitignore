@@ -22,6 +22,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+<<<<<<< HEAD
 ### IntelliJ IDEA ###
 .idea
 *.iws
@@ -29,3 +30,7 @@ yarn-error.log*
 *.ipr
 
 .eslintcache
+=======
+/.idea
+.eslintcashe
+>>>>>>> 431fa45605930d587aa14f87c5494e8c12864422

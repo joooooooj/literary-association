@@ -1,4 +1,4 @@
-package com.la.enumeration;
+package com.la.model.enumeration;
 
 public enum TransactionStatus {
     PAYED,

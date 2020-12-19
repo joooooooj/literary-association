@@ -53,6 +53,9 @@ export default function NavigationBar(props){
                                 <Link className="nav-link" to="/comments-scripts">
                                     Review scripts
                                 </Link>
+                                <Link className="nav-link" to="/cart">
+                                    <i className="material-icons ml-1">shopping_cart</i>
+                                </Link>
                             </>
                         }
                         {   props.roles[0] === USER_ROLES.LECTOR &&

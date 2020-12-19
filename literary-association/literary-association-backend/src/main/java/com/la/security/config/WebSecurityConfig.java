@@ -1,4 +1,4 @@
-package com.la.config;
+package com.la.security.config;
 
 import com.la.security.TokenUtils;
 import com.la.security.auth.RestAuthenticationEntryPoint;

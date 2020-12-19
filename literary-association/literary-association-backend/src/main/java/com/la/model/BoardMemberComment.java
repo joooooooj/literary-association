@@ -1,6 +1,6 @@
 package com.la.model;
 
-import com.la.enumeration.Opinion;
+import com.la.model.enumeration.Opinion;
 
 import javax.persistence.*;
 import java.util.Date;
