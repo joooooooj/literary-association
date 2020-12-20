@@ -3,6 +3,7 @@ package com.la.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "accounts")
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,23 +12,19 @@ public class Account {
     @Column(unique = true)
     private String accountNumber;
 
+    @Column
+    private float balance;
+
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @Column
-    private float balance;
-
-    @OneToOne
-    private Merchant merchant;
-
     public Account() {
     }
 
-    public Account(String accountNumber, Client client, float balance, Merchant merchant) {
+    public Account(String accountNumber, Client client, float balance) {
         this.accountNumber = accountNumber;
         this.balance = balance;
-        this.merchant = merchant;
         this.client = client;
     }
 
@@ -55,11 +52,13 @@ public class Account {
         this.client = client;
     }
 
-    public Merchant getMerchant() {
-        return merchant;
+    public float getBalance() {
+        return balance;
     }
 
-    public void setMerchant(Merchant merchant) {
-        this.merchant = merchant;
+    public void setBalance(float balance) {
+        this.balance = balance;
     }
+
+
 }

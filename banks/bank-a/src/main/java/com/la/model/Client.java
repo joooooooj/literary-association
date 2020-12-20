@@ -3,7 +3,9 @@ package com.la.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "clients")
 public class Client {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

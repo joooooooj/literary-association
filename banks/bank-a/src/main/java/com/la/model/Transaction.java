@@ -4,39 +4,44 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "transactions")
 public class Transaction {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; //payment_id
+    private Long id; // acqOrderId
+
+    @Column
+    private LocalDateTime timestamp; // acqTimestamp
+
+    @Column
+    private Long issuerOrderId; // Buyer bank transaction id (if different banks)
+
+    @Column
+    private LocalDateTime issuerTimestamp; // Buyer bank transaction timestamp (if different banks)
 
     @OneToOne
-    private Merchant merchant;
+    @JoinColumn(name = "payment_id")
+    private Payment payment; // Delegated from LA to Payment Concetrator to Bank
+
+    @OneToOne
+    @JoinColumn(name = "account_id")
+    private Account account;
 
     @Column
-    private Long issuerId;
-
-    @Column
-    private Long merchantOrderId;
-
-    @Column
-    private LocalDateTime timestamp;
-
-    @Column
-    private float amount;
-
-    @Column
-    private boolean success;
-
-    public Transaction(Merchant merchant, Long issuerId, Long merchantOrderId, LocalDateTime timestamp, float amount, boolean success) {
-        this.merchant = merchant;
-        this.issuerId = issuerId;
-        this.merchantOrderId = merchantOrderId;
-        this.timestamp = timestamp;
-        this.amount = amount;
-        this.success = success;
-    }
+    private Status status;
 
     public Transaction() {
+    }
+
+    public Transaction(Long id, LocalDateTime timestamp, Long issuerOrderId, LocalDateTime issuerTimestamp, Payment payment, Account account, Status status) {
+        this.id = id;
+        this.timestamp = timestamp;
+        this.issuerOrderId = issuerOrderId;
+        this.issuerTimestamp = issuerTimestamp;
+        this.payment = payment;
+        this.account = account;
+        this.status = status;
     }
 
     public Long getId() {
@@ -47,22 +52,6 @@ public class Transaction {
         this.id = id;
     }
 
-    public Long getIssuerId() {
-        return issuerId;
-    }
-
-    public void setIssuerId(Long issuerId) {
-        this.issuerId = issuerId;
-    }
-
-    public Long getMerchantOrderId() {
-        return merchantOrderId;
-    }
-
-    public void setMerchantOrderId(Long merchantOrderId) {
-        this.merchantOrderId = merchantOrderId;
-    }
-
     public LocalDateTime getTimestamp() {
         return timestamp;
     }
@@ -71,27 +60,56 @@ public class Transaction {
         this.timestamp = timestamp;
     }
 
-    public float getAmount() {
-        return amount;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setAmount(float amount) {
-        this.amount = amount;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
-    public boolean isSuccess() {
-        return success;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
-    public Merchant getMerchant() {
-        return merchant;
+    public Long getIssuerOrderId() {
+        return issuerOrderId;
     }
 
-    public void setMerchant(Merchant merchant) {
-        this.merchant = merchant;
+    public void setIssuerOrderId(Long issuerOrderId) {
+        this.issuerOrderId = issuerOrderId;
+    }
+
+    public LocalDateTime getIssuerTimestamp() {
+        return issuerTimestamp;
+    }
+
+    public void setIssuerTimestamp(LocalDateTime issuerTimestamp) {
+        this.issuerTimestamp = issuerTimestamp;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "id=" + id +
+                ", timestamp=" + timestamp +
+                ", issuerOrderId=" + issuerOrderId +
+                ", issuerTimestamp=" + issuerTimestamp +
+                ", payment=" + payment +
+                ", account=" + account +
+                ", status=" + status +
+                '}';
     }
 }

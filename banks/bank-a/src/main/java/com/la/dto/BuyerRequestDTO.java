@@ -1,45 +1,25 @@
-package com.la.model;
+package com.la.dto;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "payments")
-public class Payment {
+public class BuyerRequestDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // payment_id ; payment_url example - /form/{paymentId}
-
-    @Column
     private Long merchantId;
 
-    @Column
     private Long merchantOrderId;
 
-    @Column
     private LocalDateTime merchantTimestamp;
 
-    @Column
     private float amount;
 
-    public Payment() {
+    public BuyerRequestDTO() {
     }
 
-    public Payment(Long id, Long merchantId, Long merchantOrderId, LocalDateTime merchantTimestamp, float amount) {
-        this.id = id;
+    public BuyerRequestDTO(Long merchantId, Long merchantOrderId, LocalDateTime merchantTimestamp, float amount) {
         this.merchantId = merchantId;
         this.merchantOrderId = merchantOrderId;
         this.merchantTimestamp = merchantTimestamp;
         this.amount = amount;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getMerchantId() {
@@ -76,9 +56,8 @@ public class Payment {
 
     @Override
     public String toString() {
-        return "Payment{" +
-                "id=" + id +
-                ", merchantId=" + merchantId +
+        return "BuyerRequestDTO{" +
+                "merchantId=" + merchantId +
                 ", merchantOrderId=" + merchantOrderId +
                 ", merchantTimestamp=" + merchantTimestamp +
                 ", amount=" + amount +
