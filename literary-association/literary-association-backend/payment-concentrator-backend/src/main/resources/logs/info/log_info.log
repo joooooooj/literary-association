@@ -1,0 +1,520 @@
+19-12-2020 15:44:47.481 INFO  [main] com.la.PaymentConcentratorApp - No active profile set, falling back to default profiles: default
+19-12-2020 15:44:49.212 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+19-12-2020 15:44:49.345 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 120ms. Found 4 JPA repository interfaces.
+19-12-2020 15:44:49.820 INFO  [main] o.s.cloud.context.scope.GenericScope - BeanFactory id=74a5b237-88ec-3f38-aff7-cb0aadd5d043
+19-12-2020 15:44:50.246 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+19-12-2020 15:44:50.251 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+19-12-2020 15:44:50.255 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@b5c6a30' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+19-12-2020 15:44:50.259 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+19-12-2020 15:44:50.265 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+19-12-2020 15:44:50.695 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8081 (http)
+19-12-2020 15:44:50.708 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+19-12-2020 15:44:50.709 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+19-12-2020 15:44:50.710 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.33]
+19-12-2020 15:44:50.935 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+19-12-2020 15:44:50.936 INFO  [main] o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3424 ms
+19-12-2020 15:44:51.065 INFO  [main] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+19-12-2020 15:44:51.078 INFO  [main] c.n.config.DynamicPropertyFactory - DynamicPropertyFactory is initialized with configuration sources: com.netflix.config.ConcurrentCompositeConfiguration@7ac5b4c
+19-12-2020 15:44:51.389 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+19-12-2020 15:44:51.543 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.12.Final
+19-12-2020 15:44:51.725 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+19-12-2020 15:44:51.879 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+19-12-2020 15:44:52.206 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+19-12-2020 15:44:52.224 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+19-12-2020 15:44:55.263 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+19-12-2020 15:44:55.274 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+19-12-2020 15:44:58.049 INFO  [main] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+19-12-2020 15:44:58.596 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/auth/**', POST], []
+19-12-2020 15:44:58.596 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/auth', PUT], []
+19-12-2020 15:44:58.596 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/', GET], []
+19-12-2020 15:44:58.597 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/webjars/**', GET], []
+19-12-2020 15:44:58.597 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/*.html', GET], []
+19-12-2020 15:44:58.597 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/favicon.ico', GET], []
+19-12-2020 15:44:58.598 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.html', GET], []
+19-12-2020 15:44:58.598 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.css', GET], []
+19-12-2020 15:44:58.598 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.js', GET], []
+19-12-2020 15:44:58.598 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/assets/**', GET], []
+19-12-2020 15:44:58.666 INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 2 endpoint(s) beneath base path '/actuator'
+19-12-2020 15:44:58.699 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7fec6c2f, org.springframework.security.web.context.SecurityContextPersistenceFilter@c509742, org.springframework.security.web.header.HeaderWriterFilter@2ef5df8f, org.springframework.web.filter.CorsFilter@67e12e28, org.springframework.security.web.authentication.logout.LogoutFilter@55f29d39, com.la.security.auth.TokenAuthenticationFilter@36109a76, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@270a3cef, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@589cc8eb, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@96271d8, org.springframework.security.web.session.SessionManagementFilter@1d12eff1, org.springframework.security.web.access.ExceptionTranslationFilter@3502b614, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6030eff1]
+19-12-2020 15:44:59.207 INFO  [main] o.s.c.n.zuul.ZuulFilterInitializer - Starting filter initializer
+19-12-2020 15:44:59.302 INFO  [main] o.s.c.n.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
+19-12-2020 15:44:59.367 INFO  [main] c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
+19-12-2020 15:44:59.463 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using JSON encoding codec LegacyJacksonJson
+19-12-2020 15:44:59.463 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using JSON decoding codec LegacyJacksonJson
+19-12-2020 15:44:59.658 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using XML encoding codec XStreamXml
+19-12-2020 15:44:59.659 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using XML decoding codec XStreamXml
+19-12-2020 15:45:00.153 INFO  [main] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 15:45:00.204 INFO  [main] c.netflix.discovery.DiscoveryClient - Disable delta property : false
+19-12-2020 15:45:00.204 INFO  [main] c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+19-12-2020 15:45:00.204 INFO  [main] c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+19-12-2020 15:45:00.204 INFO  [main] c.netflix.discovery.DiscoveryClient - Application is null : false
+19-12-2020 15:45:00.205 INFO  [main] c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+19-12-2020 15:45:00.205 INFO  [main] c.netflix.discovery.DiscoveryClient - Application version is -1: true
+19-12-2020 15:45:00.205 INFO  [main] c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+19-12-2020 15:45:02.280 INFO  [main] c.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
+19-12-2020 15:45:02.289 INFO  [main] c.n.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
+19-12-2020 15:45:02.306 INFO  [main] c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1608389102304 with initial instances count: 0
+19-12-2020 15:45:02.313 INFO  [main] o.s.c.n.e.s.EurekaServiceRegistry - Registering application ZUUL-API-GATEWAY with eureka with status UP
+19-12-2020 15:45:02.314 INFO  [main] c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1608389102314, current=UP, previous=STARTING]
+19-12-2020 15:45:02.317 INFO  [DiscoveryClient-InstanceInfoReplicator-0] c.netflix.discovery.DiscoveryClient - DiscoveryClient_ZUUL-API-GATEWAY/DESKTOP-S8EDMMJ.mshome.net:zuul-api-gateway:8081: registering service...
+19-12-2020 15:45:02.346 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+19-12-2020 15:45:02.384 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8081 (http) with context path ''
+19-12-2020 15:45:02.386 INFO  [main] o.s.c.n.e.s.EurekaAutoServiceRegistration - Updating port to 8081
+19-12-2020 15:45:02.743 INFO  [main] com.la.PaymentConcentratorApp - Started PaymentConcentratorApp in 18.29 seconds (JVM running for 22.604)
+19-12-2020 15:45:32.281 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Disable delta property : false
+19-12-2020 15:45:32.282 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+19-12-2020 15:45:32.282 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+19-12-2020 15:45:32.282 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Application is null : false
+19-12-2020 15:45:32.282 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+19-12-2020 15:45:32.282 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Application version is -1: true
+19-12-2020 15:45:32.282 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+19-12-2020 15:45:34.331 INFO  [DiscoveryClient-InstanceInfoReplicator-0] c.netflix.discovery.DiscoveryClient - DiscoveryClient_ZUUL-API-GATEWAY/DESKTOP-S8EDMMJ.mshome.net:zuul-api-gateway:8081: registering service...
+19-12-2020 15:46:04.300 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Disable delta property : false
+19-12-2020 15:46:04.300 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+19-12-2020 15:46:04.300 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+19-12-2020 15:46:04.300 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Application is null : false
+19-12-2020 15:46:04.300 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+19-12-2020 15:46:04.300 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Application version is -1: true
+19-12-2020 15:46:04.301 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+19-12-2020 15:46:06.337 INFO  [DiscoveryClient-InstanceInfoReplicator-0] c.netflix.discovery.DiscoveryClient - DiscoveryClient_ZUUL-API-GATEWAY/DESKTOP-S8EDMMJ.mshome.net:zuul-api-gateway:8081: registering service...
+19-12-2020 15:48:31.128 INFO  [main] com.la.PaymentConcentratorApp - No active profile set, falling back to default profiles: default
+19-12-2020 15:48:33.114 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+19-12-2020 15:48:33.241 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 113ms. Found 4 JPA repository interfaces.
+19-12-2020 15:48:33.680 INFO  [main] o.s.cloud.context.scope.GenericScope - BeanFactory id=74a5b237-88ec-3f38-aff7-cb0aadd5d043
+19-12-2020 15:48:34.099 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+19-12-2020 15:48:34.106 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+19-12-2020 15:48:34.113 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@679dd234' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+19-12-2020 15:48:34.117 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+19-12-2020 15:48:34.125 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+19-12-2020 15:48:34.508 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8081 (http)
+19-12-2020 15:48:34.521 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+19-12-2020 15:48:34.522 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+19-12-2020 15:48:34.523 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.33]
+19-12-2020 15:48:34.775 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+19-12-2020 15:48:34.775 INFO  [main] o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3477 ms
+19-12-2020 15:48:34.918 INFO  [main] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+19-12-2020 15:48:34.931 INFO  [main] c.n.config.DynamicPropertyFactory - DynamicPropertyFactory is initialized with configuration sources: com.netflix.config.ConcurrentCompositeConfiguration@71166348
+19-12-2020 15:48:35.265 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+19-12-2020 15:48:35.478 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.12.Final
+19-12-2020 15:48:35.686 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+19-12-2020 15:48:35.880 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+19-12-2020 15:48:36.098 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+19-12-2020 15:48:36.120 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+19-12-2020 15:48:39.209 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+19-12-2020 15:48:39.221 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+19-12-2020 15:48:42.957 INFO  [main] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+19-12-2020 15:48:43.695 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/auth/**', POST], []
+19-12-2020 15:48:43.695 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/auth', PUT], []
+19-12-2020 15:48:43.696 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/', GET], []
+19-12-2020 15:48:43.696 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/webjars/**', GET], []
+19-12-2020 15:48:43.696 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/*.html', GET], []
+19-12-2020 15:48:43.696 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/favicon.ico', GET], []
+19-12-2020 15:48:43.696 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.html', GET], []
+19-12-2020 15:48:43.696 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.css', GET], []
+19-12-2020 15:48:43.696 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.js', GET], []
+19-12-2020 15:48:43.697 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/assets/**', GET], []
+19-12-2020 15:48:43.758 INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 2 endpoint(s) beneath base path '/actuator'
+19-12-2020 15:48:43.795 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4e7e7763, org.springframework.security.web.context.SecurityContextPersistenceFilter@3b2317b7, org.springframework.security.web.header.HeaderWriterFilter@3e3c6323, org.springframework.web.filter.CorsFilter@4ecc4b43, org.springframework.security.web.authentication.logout.LogoutFilter@77e4ffe5, com.la.security.auth.TokenAuthenticationFilter@6f8281e6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@76fdd5f1, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1d5ec2ed, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1d12eff1, org.springframework.security.web.session.SessionManagementFilter@15ff247b, org.springframework.security.web.access.ExceptionTranslationFilter@6ade4ac6, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2df40273]
+19-12-2020 15:48:44.234 INFO  [main] o.s.c.n.zuul.ZuulFilterInitializer - Starting filter initializer
+19-12-2020 15:48:44.370 INFO  [main] o.s.c.n.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
+19-12-2020 15:48:44.469 INFO  [main] c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
+19-12-2020 15:48:44.567 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using JSON encoding codec LegacyJacksonJson
+19-12-2020 15:48:44.568 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using JSON decoding codec LegacyJacksonJson
+19-12-2020 15:48:44.837 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using XML encoding codec XStreamXml
+19-12-2020 15:48:44.838 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using XML decoding codec XStreamXml
+19-12-2020 15:48:45.315 INFO  [main] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 15:48:45.363 INFO  [main] c.netflix.discovery.DiscoveryClient - Disable delta property : false
+19-12-2020 15:48:45.364 INFO  [main] c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+19-12-2020 15:48:45.365 INFO  [main] c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+19-12-2020 15:48:45.365 INFO  [main] c.netflix.discovery.DiscoveryClient - Application is null : false
+19-12-2020 15:48:45.365 INFO  [main] c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+19-12-2020 15:48:45.365 INFO  [main] c.netflix.discovery.DiscoveryClient - Application version is -1: true
+19-12-2020 15:48:45.366 INFO  [main] c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+19-12-2020 15:48:45.465 INFO  [main] c.netflix.discovery.DiscoveryClient - The response status is 200
+19-12-2020 15:48:45.473 INFO  [main] c.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
+19-12-2020 15:48:45.481 INFO  [main] c.n.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
+19-12-2020 15:48:45.499 INFO  [main] c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1608389325498 with initial instances count: 0
+19-12-2020 15:48:45.507 INFO  [main] o.s.c.n.e.s.EurekaServiceRegistry - Registering application ZUUL-API-GATEWAY with eureka with status UP
+19-12-2020 15:48:45.509 INFO  [main] c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1608389325508, current=UP, previous=STARTING]
+19-12-2020 15:48:45.511 INFO  [DiscoveryClient-InstanceInfoReplicator-0] c.netflix.discovery.DiscoveryClient - DiscoveryClient_ZUUL-API-GATEWAY/DESKTOP-S8EDMMJ.mshome.net:zuul-api-gateway:8081: registering service...
+19-12-2020 15:48:45.569 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+19-12-2020 15:48:45.650 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8081 (http) with context path ''
+19-12-2020 15:48:45.652 INFO  [main] o.s.c.n.e.s.EurekaAutoServiceRegistration - Updating port to 8081
+19-12-2020 15:48:45.696 INFO  [DiscoveryClient-InstanceInfoReplicator-0] c.netflix.discovery.DiscoveryClient - DiscoveryClient_ZUUL-API-GATEWAY/DESKTOP-S8EDMMJ.mshome.net:zuul-api-gateway:8081 - registration status: 204
+19-12-2020 15:48:45.935 INFO  [main] com.la.PaymentConcentratorApp - Started PaymentConcentratorApp in 19.195 seconds (JVM running for 23.616)
+19-12-2020 15:48:46.222 INFO  [RMI TCP Connection(2)-192.168.21.33] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+19-12-2020 15:48:46.223 INFO  [RMI TCP Connection(2)-192.168.21.33] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+19-12-2020 15:48:46.242 INFO  [RMI TCP Connection(2)-192.168.21.33] o.s.web.servlet.DispatcherServlet - Completed initialization in 19 ms
+19-12-2020 15:49:15.474 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Disable delta property : false
+19-12-2020 15:49:15.475 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+19-12-2020 15:49:15.475 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+19-12-2020 15:49:15.475 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Application is null : false
+19-12-2020 15:49:15.476 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+19-12-2020 15:49:15.476 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Application version is -1: false
+19-12-2020 15:49:15.476 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+19-12-2020 15:49:15.522 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - The response status is 200
+19-12-2020 15:53:45.372 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 15:58:45.372 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 16:03:45.378 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 16:08:45.380 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 16:13:45.383 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 16:18:45.384 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 16:23:45.386 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 16:28:45.387 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 16:33:45.389 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 16:38:45.391 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 16:43:45.392 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 16:48:45.393 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 16:53:45.395 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 16:58:45.396 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 17:03:45.399 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 17:08:45.401 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 17:13:45.403 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 17:18:45.404 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 17:23:45.406 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 17:28:45.411 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 17:33:45.414 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 17:38:45.415 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 17:43:45.417 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 17:48:45.420 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 17:53:45.421 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 17:58:45.423 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 18:03:45.426 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 18:08:45.428 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 18:13:45.430 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 18:18:45.431 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 18:23:45.432 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 18:28:45.434 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 18:33:45.435 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 18:38:45.437 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 18:43:45.438 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 18:48:45.439 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 18:53:45.442 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 18:58:45.447 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 19:03:45.449 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 19:08:45.451 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 19:13:45.452 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 19:18:45.454 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 19:23:45.456 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 19:28:45.458 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 19:33:45.459 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 19:38:45.461 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 19:43:45.463 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 19:48:45.464 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 19:53:45.466 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 19:58:45.468 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 20:03:45.469 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 20:08:45.471 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 20:13:45.472 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 20:18:45.473 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 20:23:45.475 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 20:28:45.476 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 20:33:45.478 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 20:38:45.479 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 20:43:45.481 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 20:48:45.483 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 20:53:45.484 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 20:58:45.485 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 21:03:45.486 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 21:08:45.488 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 21:13:45.490 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 21:18:45.492 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 21:23:45.494 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 21:28:45.495 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 21:33:45.496 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 21:38:45.498 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 21:43:45.499 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 21:48:45.501 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 21:53:45.502 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 21:58:45.504 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 22:03:45.505 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 22:08:45.507 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 22:13:45.508 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 22:18:45.509 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 22:23:45.510 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 22:28:45.511 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 22:33:45.514 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 22:38:45.516 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 22:43:45.519 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 22:48:45.520 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 22:53:45.522 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 22:58:45.523 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 23:03:45.524 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 23:08:45.526 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 23:13:45.527 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 23:18:45.529 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 23:23:45.530 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 23:28:45.532 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 23:33:45.534 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 23:38:45.535 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 23:43:45.538 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 23:48:45.539 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 23:53:45.540 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+19-12-2020 23:58:45.541 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 00:03:45.543 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 00:08:45.545 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 00:13:45.547 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 00:18:45.550 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 00:23:45.551 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 00:28:45.553 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 00:33:45.555 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 00:38:45.557 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 00:43:45.557 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 00:48:45.559 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 00:53:45.561 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 00:58:45.563 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 01:03:45.566 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 01:08:45.568 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 01:13:45.570 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 01:18:45.571 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 01:23:45.572 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 01:28:45.574 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 01:33:45.577 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 01:38:45.578 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 01:43:45.578 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 01:48:45.579 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 01:53:45.582 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 01:58:45.584 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 02:03:45.585 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 02:08:45.587 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 02:13:45.589 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 02:18:45.590 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 02:23:45.591 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 02:28:45.593 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 02:33:45.594 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 02:38:45.596 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 02:43:45.598 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 02:48:45.600 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 02:53:45.602 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 02:58:45.603 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 03:03:45.604 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 03:08:45.607 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 03:11:01.242 INFO  [main] com.la.PaymentConcentratorApp - No active profile set, falling back to default profiles: default
+20-12-2020 03:11:03.056 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+20-12-2020 03:11:03.195 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 126ms. Found 4 JPA repository interfaces.
+20-12-2020 03:11:03.619 INFO  [main] o.s.cloud.context.scope.GenericScope - BeanFactory id=97ec605f-82bb-3832-9bbe-50b23a8d996e
+20-12-2020 03:11:04.041 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+20-12-2020 03:11:04.047 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+20-12-2020 03:11:04.050 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@4dfe8b37' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+20-12-2020 03:11:04.051 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+20-12-2020 03:11:04.059 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+20-12-2020 03:11:04.467 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8081 (http)
+20-12-2020 03:11:04.481 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+20-12-2020 03:11:04.482 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+20-12-2020 03:11:04.482 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.33]
+20-12-2020 03:11:04.710 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+20-12-2020 03:11:04.711 INFO  [main] o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3439 ms
+20-12-2020 03:11:04.859 INFO  [main] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+20-12-2020 03:11:04.874 INFO  [main] c.n.config.DynamicPropertyFactory - DynamicPropertyFactory is initialized with configuration sources: com.netflix.config.ConcurrentCompositeConfiguration@4eb9ae4d
+20-12-2020 03:11:05.173 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+20-12-2020 03:11:05.340 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.12.Final
+20-12-2020 03:11:05.531 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+20-12-2020 03:11:05.686 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+20-12-2020 03:11:05.861 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+20-12-2020 03:11:05.880 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+20-12-2020 03:11:06.269 INFO  [main] o.a.catalina.core.StandardService - Stopping service [Tomcat]
+20-12-2020 03:11:06.279 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+20-12-2020 03:11:06.289 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+20-12-2020 03:11:06.314 INFO  [main] o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+20-12-2020 03:15:24.715 INFO  [main] com.la.PaymentConcentratorApp - No active profile set, falling back to default profiles: default
+20-12-2020 03:15:26.101 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+20-12-2020 03:15:26.232 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 119ms. Found 4 JPA repository interfaces.
+20-12-2020 03:15:26.629 INFO  [main] o.s.cloud.context.scope.GenericScope - BeanFactory id=97ec605f-82bb-3832-9bbe-50b23a8d996e
+20-12-2020 03:15:27.097 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+20-12-2020 03:15:27.104 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+20-12-2020 03:15:27.109 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@4dfe8b37' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+20-12-2020 03:15:27.114 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+20-12-2020 03:15:27.123 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+20-12-2020 03:15:27.556 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8081 (http)
+20-12-2020 03:15:27.568 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+20-12-2020 03:15:27.569 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+20-12-2020 03:15:27.569 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.33]
+20-12-2020 03:15:27.787 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+20-12-2020 03:15:27.788 INFO  [main] o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3047 ms
+20-12-2020 03:15:27.926 INFO  [main] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+20-12-2020 03:15:27.936 INFO  [main] c.n.config.DynamicPropertyFactory - DynamicPropertyFactory is initialized with configuration sources: com.netflix.config.ConcurrentCompositeConfiguration@ad3f70a
+20-12-2020 03:15:28.217 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+20-12-2020 03:15:28.357 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.12.Final
+20-12-2020 03:15:28.501 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+20-12-2020 03:15:28.635 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+20-12-2020 03:15:28.796 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+20-12-2020 03:15:28.812 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+20-12-2020 03:15:32.324 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+20-12-2020 03:15:32.336 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+20-12-2020 03:15:35.327 INFO  [main] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+20-12-2020 03:15:35.926 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/auth/**', POST], []
+20-12-2020 03:15:35.926 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/auth', PUT], []
+20-12-2020 03:15:35.926 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/', GET], []
+20-12-2020 03:15:35.927 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/webjars/**', GET], []
+20-12-2020 03:15:35.927 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/*.html', GET], []
+20-12-2020 03:15:35.927 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/favicon.ico', GET], []
+20-12-2020 03:15:35.927 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.html', GET], []
+20-12-2020 03:15:35.928 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.css', GET], []
+20-12-2020 03:15:35.928 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.js', GET], []
+20-12-2020 03:15:35.928 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/assets/**', GET], []
+20-12-2020 03:15:35.990 INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 2 endpoint(s) beneath base path '/actuator'
+20-12-2020 03:15:36.024 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@23c0fcf0, org.springframework.security.web.context.SecurityContextPersistenceFilter@48900d4a, org.springframework.security.web.header.HeaderWriterFilter@5f910283, org.springframework.web.filter.CorsFilter@60a4595e, org.springframework.security.web.authentication.logout.LogoutFilter@49a0fe14, com.la.security.auth.TokenAuthenticationFilter@4a234e1f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7a4c1a6c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@64547a83, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@406cc81b, org.springframework.security.web.session.SessionManagementFilter@64455184, org.springframework.security.web.access.ExceptionTranslationFilter@4ab959e8, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@77eb0e47]
+20-12-2020 03:15:36.524 INFO  [main] o.s.c.n.zuul.ZuulFilterInitializer - Starting filter initializer
+20-12-2020 03:15:36.636 INFO  [main] o.s.c.n.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
+20-12-2020 03:15:36.700 INFO  [main] c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
+20-12-2020 03:15:36.795 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using JSON encoding codec LegacyJacksonJson
+20-12-2020 03:15:36.795 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using JSON decoding codec LegacyJacksonJson
+20-12-2020 03:15:37.003 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using XML encoding codec XStreamXml
+20-12-2020 03:15:37.003 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using XML decoding codec XStreamXml
+20-12-2020 03:15:37.577 INFO  [main] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 03:15:37.628 INFO  [main] c.netflix.discovery.DiscoveryClient - Disable delta property : false
+20-12-2020 03:15:37.628 INFO  [main] c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+20-12-2020 03:15:37.628 INFO  [main] c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+20-12-2020 03:15:37.629 INFO  [main] c.netflix.discovery.DiscoveryClient - Application is null : false
+20-12-2020 03:15:37.629 INFO  [main] c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+20-12-2020 03:15:37.629 INFO  [main] c.netflix.discovery.DiscoveryClient - Application version is -1: true
+20-12-2020 03:15:37.629 INFO  [main] c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+20-12-2020 03:15:37.821 INFO  [main] c.netflix.discovery.DiscoveryClient - The response status is 200
+20-12-2020 03:15:37.833 INFO  [main] c.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
+20-12-2020 03:15:37.845 INFO  [main] c.n.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
+20-12-2020 03:15:37.870 INFO  [main] c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1608430537868 with initial instances count: 1
+20-12-2020 03:15:37.879 INFO  [main] o.s.c.n.e.s.EurekaServiceRegistry - Registering application ZUUL-API-GATEWAY with eureka with status UP
+20-12-2020 03:15:37.880 INFO  [main] c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1608430537880, current=UP, previous=STARTING]
+20-12-2020 03:15:37.883 INFO  [DiscoveryClient-InstanceInfoReplicator-0] c.netflix.discovery.DiscoveryClient - DiscoveryClient_ZUUL-API-GATEWAY/DESKTOP-S8EDMMJ.mshome.net:zuul-api-gateway:8081: registering service...
+20-12-2020 03:15:37.921 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+20-12-2020 03:15:37.940 INFO  [DiscoveryClient-InstanceInfoReplicator-0] c.netflix.discovery.DiscoveryClient - DiscoveryClient_ZUUL-API-GATEWAY/DESKTOP-S8EDMMJ.mshome.net:zuul-api-gateway:8081 - registration status: 204
+20-12-2020 03:15:37.961 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8081 (http) with context path ''
+20-12-2020 03:15:37.962 INFO  [main] o.s.c.n.e.s.EurekaAutoServiceRegistration - Updating port to 8081
+20-12-2020 03:15:38.227 INFO  [main] com.la.PaymentConcentratorApp - Started PaymentConcentratorApp in 16.196 seconds (JVM running for 18.141)
+20-12-2020 03:15:38.509 INFO  [RMI TCP Connection(4)-192.168.21.33] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+20-12-2020 03:15:38.510 INFO  [RMI TCP Connection(4)-192.168.21.33] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+20-12-2020 03:15:38.532 INFO  [RMI TCP Connection(4)-192.168.21.33] o.s.web.servlet.DispatcherServlet - Completed initialization in 22 ms
+20-12-2020 03:19:46.481 INFO  [main] com.la.PaymentConcentratorApp - No active profile set, falling back to default profiles: default
+20-12-2020 03:19:47.748 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+20-12-2020 03:19:47.876 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 117ms. Found 4 JPA repository interfaces.
+20-12-2020 03:19:48.264 INFO  [main] o.s.cloud.context.scope.GenericScope - BeanFactory id=97ec605f-82bb-3832-9bbe-50b23a8d996e
+20-12-2020 03:19:48.649 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+20-12-2020 03:19:48.655 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+20-12-2020 03:19:48.658 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@6b357eb6' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+20-12-2020 03:19:48.662 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+20-12-2020 03:19:48.668 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+20-12-2020 03:19:49.019 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8081 (http)
+20-12-2020 03:19:49.031 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+20-12-2020 03:19:49.032 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+20-12-2020 03:19:49.032 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.33]
+20-12-2020 03:19:49.254 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+20-12-2020 03:19:49.254 INFO  [main] o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2746 ms
+20-12-2020 03:19:49.384 INFO  [main] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+20-12-2020 03:19:49.394 INFO  [main] c.n.config.DynamicPropertyFactory - DynamicPropertyFactory is initialized with configuration sources: com.netflix.config.ConcurrentCompositeConfiguration@3404e5c4
+20-12-2020 03:19:49.801 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+20-12-2020 03:19:49.909 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.12.Final
+20-12-2020 03:19:50.056 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+20-12-2020 03:19:50.223 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+20-12-2020 03:19:50.382 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+20-12-2020 03:19:50.397 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+20-12-2020 03:19:53.914 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+20-12-2020 03:19:53.923 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+20-12-2020 03:19:56.858 INFO  [main] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+20-12-2020 03:19:57.501 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/auth/**', POST], []
+20-12-2020 03:19:57.502 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/auth', PUT], []
+20-12-2020 03:19:57.502 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/', GET], []
+20-12-2020 03:19:57.502 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/webjars/**', GET], []
+20-12-2020 03:19:57.502 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/*.html', GET], []
+20-12-2020 03:19:57.503 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/favicon.ico', GET], []
+20-12-2020 03:19:57.503 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.html', GET], []
+20-12-2020 03:19:57.503 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.css', GET], []
+20-12-2020 03:19:57.503 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.js', GET], []
+20-12-2020 03:19:57.503 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/assets/**', GET], []
+20-12-2020 03:19:57.568 INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 2 endpoint(s) beneath base path '/actuator'
+20-12-2020 03:19:57.603 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6153aca1, org.springframework.security.web.context.SecurityContextPersistenceFilter@5122387, org.springframework.security.web.header.HeaderWriterFilter@372c428, org.springframework.web.filter.CorsFilter@30b2d267, org.springframework.security.web.authentication.logout.LogoutFilter@72fc6b5e, com.la.security.auth.TokenAuthenticationFilter@5a740449, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@48e859f7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@383d2e2d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4f66f2dd, org.springframework.security.web.session.SessionManagementFilter@3f54fabc, org.springframework.security.web.access.ExceptionTranslationFilter@74997ca6, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@75e068dc]
+20-12-2020 03:19:57.969 INFO  [main] o.s.c.n.zuul.ZuulFilterInitializer - Starting filter initializer
+20-12-2020 03:19:58.061 INFO  [main] o.s.c.n.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
+20-12-2020 03:19:58.117 INFO  [main] c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
+20-12-2020 03:19:58.202 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using JSON encoding codec LegacyJacksonJson
+20-12-2020 03:19:58.202 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using JSON decoding codec LegacyJacksonJson
+20-12-2020 03:19:58.390 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using XML encoding codec XStreamXml
+20-12-2020 03:19:58.390 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using XML decoding codec XStreamXml
+20-12-2020 03:19:58.835 INFO  [main] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 03:19:58.888 INFO  [main] c.netflix.discovery.DiscoveryClient - Disable delta property : false
+20-12-2020 03:19:58.888 INFO  [main] c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+20-12-2020 03:19:58.888 INFO  [main] c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+20-12-2020 03:19:58.889 INFO  [main] c.netflix.discovery.DiscoveryClient - Application is null : false
+20-12-2020 03:19:58.889 INFO  [main] c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+20-12-2020 03:19:58.889 INFO  [main] c.netflix.discovery.DiscoveryClient - Application version is -1: true
+20-12-2020 03:19:58.890 INFO  [main] c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+20-12-2020 03:19:59.066 INFO  [main] c.netflix.discovery.DiscoveryClient - The response status is 200
+20-12-2020 03:19:59.076 INFO  [main] c.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
+20-12-2020 03:19:59.086 INFO  [main] c.n.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
+20-12-2020 03:19:59.103 INFO  [main] c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1608430799102 with initial instances count: 1
+20-12-2020 03:19:59.113 INFO  [main] o.s.c.n.e.s.EurekaServiceRegistry - Registering application ZUUL-API-GATEWAY with eureka with status UP
+20-12-2020 03:19:59.113 INFO  [main] c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1608430799113, current=UP, previous=STARTING]
+20-12-2020 03:19:59.116 INFO  [DiscoveryClient-InstanceInfoReplicator-0] c.netflix.discovery.DiscoveryClient - DiscoveryClient_ZUUL-API-GATEWAY/DESKTOP-S8EDMMJ.mshome.net:zuul-api-gateway:8081: registering service...
+20-12-2020 03:19:59.149 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+20-12-2020 03:19:59.163 INFO  [DiscoveryClient-InstanceInfoReplicator-0] c.netflix.discovery.DiscoveryClient - DiscoveryClient_ZUUL-API-GATEWAY/DESKTOP-S8EDMMJ.mshome.net:zuul-api-gateway:8081 - registration status: 204
+20-12-2020 03:19:59.188 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8081 (http) with context path ''
+20-12-2020 03:19:59.189 INFO  [main] o.s.c.n.e.s.EurekaAutoServiceRegistration - Updating port to 8081
+20-12-2020 03:19:59.442 INFO  [main] com.la.PaymentConcentratorApp - Started PaymentConcentratorApp in 15.583 seconds (JVM running for 17.417)
+20-12-2020 03:24:58.897 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 06:31:07.355 INFO  [main] com.la.PaymentConcentratorApp - No active profile set, falling back to default profiles: default
+20-12-2020 06:31:08.928 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+20-12-2020 06:31:09.074 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 135ms. Found 6 JPA repository interfaces.
+20-12-2020 06:31:09.466 INFO  [main] o.s.cloud.context.scope.GenericScope - BeanFactory id=a862c458-697b-3b9b-b2d1-9bf3a987f303
+20-12-2020 06:31:09.857 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+20-12-2020 06:31:09.862 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+20-12-2020 06:31:09.866 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@59fc6d05' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+20-12-2020 06:31:09.870 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+20-12-2020 06:31:09.876 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+20-12-2020 06:31:10.243 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8081 (http)
+20-12-2020 06:31:10.255 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+20-12-2020 06:31:10.256 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+20-12-2020 06:31:10.257 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.33]
+20-12-2020 06:31:10.484 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+20-12-2020 06:31:10.485 INFO  [main] o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3104 ms
+20-12-2020 06:31:10.626 INFO  [main] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+20-12-2020 06:31:10.635 INFO  [main] c.n.config.DynamicPropertyFactory - DynamicPropertyFactory is initialized with configuration sources: com.netflix.config.ConcurrentCompositeConfiguration@615439f7
+20-12-2020 06:31:10.932 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+20-12-2020 06:31:11.080 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.12.Final
+20-12-2020 06:31:11.256 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+20-12-2020 06:31:11.404 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+20-12-2020 06:31:11.601 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+20-12-2020 06:31:11.620 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+20-12-2020 06:31:15.220 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+20-12-2020 06:31:15.231 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+20-12-2020 06:31:18.093 INFO  [main] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+20-12-2020 06:31:18.631 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/auth/**', POST], []
+20-12-2020 06:31:18.631 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/auth', PUT], []
+20-12-2020 06:31:18.632 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/', GET], []
+20-12-2020 06:31:18.632 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/webjars/**', GET], []
+20-12-2020 06:31:18.632 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/*.html', GET], []
+20-12-2020 06:31:18.632 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/favicon.ico', GET], []
+20-12-2020 06:31:18.632 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.html', GET], []
+20-12-2020 06:31:18.633 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.css', GET], []
+20-12-2020 06:31:18.633 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.js', GET], []
+20-12-2020 06:31:18.633 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/assets/**', GET], []
+20-12-2020 06:31:18.692 INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 2 endpoint(s) beneath base path '/actuator'
+20-12-2020 06:31:18.727 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6b26839d, org.springframework.security.web.context.SecurityContextPersistenceFilter@289d9f0d, org.springframework.security.web.header.HeaderWriterFilter@72cf159f, org.springframework.web.filter.CorsFilter@17a756db, org.springframework.security.web.authentication.logout.LogoutFilter@6ea1fc9, com.la.security.auth.TokenAuthenticationFilter@2d10160a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4cd13fad, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@645b67d6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@157ff8f8, org.springframework.security.web.session.SessionManagementFilter@4353230, org.springframework.security.web.access.ExceptionTranslationFilter@7e584f3c, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@73ac7716]
+20-12-2020 06:31:19.156 INFO  [main] o.s.c.n.zuul.ZuulFilterInitializer - Starting filter initializer
+20-12-2020 06:31:19.263 INFO  [main] o.s.c.n.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
+20-12-2020 06:31:19.320 INFO  [main] c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
+20-12-2020 06:31:19.408 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using JSON encoding codec LegacyJacksonJson
+20-12-2020 06:31:19.408 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using JSON decoding codec LegacyJacksonJson
+20-12-2020 06:31:19.579 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using XML encoding codec XStreamXml
+20-12-2020 06:31:19.579 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using XML decoding codec XStreamXml
+20-12-2020 06:31:20.045 INFO  [main] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 06:31:20.095 INFO  [main] c.netflix.discovery.DiscoveryClient - Disable delta property : false
+20-12-2020 06:31:20.096 INFO  [main] c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+20-12-2020 06:31:20.096 INFO  [main] c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+20-12-2020 06:31:20.096 INFO  [main] c.netflix.discovery.DiscoveryClient - Application is null : false
+20-12-2020 06:31:20.096 INFO  [main] c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+20-12-2020 06:31:20.097 INFO  [main] c.netflix.discovery.DiscoveryClient - Application version is -1: true
+20-12-2020 06:31:20.097 INFO  [main] c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+20-12-2020 06:31:20.275 INFO  [main] c.netflix.discovery.DiscoveryClient - The response status is 200
+20-12-2020 06:31:20.285 INFO  [main] c.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
+20-12-2020 06:31:20.295 INFO  [main] c.n.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
+20-12-2020 06:31:20.312 INFO  [main] c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1608442280311 with initial instances count: 1
+20-12-2020 06:31:20.323 INFO  [main] o.s.c.n.e.s.EurekaServiceRegistry - Registering application ZUUL-API-GATEWAY with eureka with status UP
+20-12-2020 06:31:20.323 INFO  [main] c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1608442280323, current=UP, previous=STARTING]
+20-12-2020 06:31:20.326 INFO  [DiscoveryClient-InstanceInfoReplicator-0] c.netflix.discovery.DiscoveryClient - DiscoveryClient_ZUUL-API-GATEWAY/DESKTOP-S8EDMMJ.mshome.net:zuul-api-gateway:8081: registering service...
+20-12-2020 06:31:20.360 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+20-12-2020 06:31:20.396 INFO  [DiscoveryClient-InstanceInfoReplicator-0] c.netflix.discovery.DiscoveryClient - DiscoveryClient_ZUUL-API-GATEWAY/DESKTOP-S8EDMMJ.mshome.net:zuul-api-gateway:8081 - registration status: 204
+20-12-2020 06:31:20.404 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8081 (http) with context path ''
+20-12-2020 06:31:20.405 INFO  [main] o.s.c.n.e.s.EurekaAutoServiceRegistration - Updating port to 8081
+20-12-2020 06:31:20.667 INFO  [main] com.la.PaymentConcentratorApp - Started PaymentConcentratorApp in 16.029 seconds (JVM running for 18.273)
+20-12-2020 06:36:20.103 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration

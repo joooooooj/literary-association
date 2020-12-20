@@ -36,9 +36,6 @@ export default function Routes(props) {
             <Route exact path="/books">
                 <Books loggedIn={props.loggedIn}/>
             </Route>
-            <Route>
-                <Home loggedIn={props.loggedIn} login={props.login} logout={props.logout}/>
-            </Route>
             {   !props.loggedIn &&
                 <>
                     <Route exact path="/reset-password">
@@ -110,6 +107,9 @@ export default function Routes(props) {
                 }
                 </>
             }
+            <Route>
+                <Home loggedIn={props.loggedIn} login={props.login} logout={props.logout}/>
+            </Route>
         </Switch>
     );
 }
