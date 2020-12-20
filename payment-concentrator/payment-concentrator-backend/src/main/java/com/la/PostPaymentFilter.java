@@ -5,11 +5,14 @@ import com.google.common.io.CharStreams;
 import com.la.dto.PaypalCreateOrderDTO;
 import com.la.model.Status;
 import com.la.model.Transaction;
+import com.la.repository.PaymentMethodRepository;
 import com.la.repository.TransactionRepository;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
 import org.apache.tomcat.jni.Local;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,6 +30,9 @@ public class PostPaymentFilter extends ZuulFilter {
     @Autowired
     private TransactionRepository transactionRepository;
 
+    @Autowired
+    private PaymentMethodRepository paymentMethodRepository;
+
     @Override
     public String filterType() {
         return "post";
@@ -42,6 +48,8 @@ public class PostPaymentFilter extends ZuulFilter {
         return true;
     }
 
+    Logger logger = LoggerFactory.getLogger(PostPaymentFilter.class);
+
     @Override
     public Object run() throws ZuulException {
         System.out.println("usao je u post filter, valjda posle pazpala");
@@ -50,9 +58,16 @@ public class PostPaymentFilter extends ZuulFilter {
         HttpServletRequest request = context.getRequest();
 
         if (request.getRequestURI().contains("pay-pal/create")) {
+            logger.info("Date : {}, Order created, system tried to save in db.", LocalDateTime.now());
             saveTransaction(context);
         }
 
+        if (request.getRequestURI().contains("pay-pal/capture")) {
+            Transaction transaction = transactionRepository.findByAcqOrderId(context.get("orderId").toString());
+            transaction.setStatus(Status.SUCCESS);
+            transactionRepository.save(transaction);
+            logger.info("Date : {} System successfully updated order with id {} in db.", LocalDateTime.now(), transaction.getAcqOrderId());
+        }
 
         return null;
     }
@@ -80,9 +95,13 @@ public class PostPaymentFilter extends ZuulFilter {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             transaction.setMerchantTimestamp(LocalDateTime.parse(context.get("merchantTimestamp").toString(), formatter));
             transaction.setStatus(Status.PENDING);
+            transaction.setPaymentMethod(paymentMethodRepository.findById(2L).get());
             transactionRepository.save(transaction);
 
+            logger.info("Date : {} System successfully saved order with id {} in db.", LocalDateTime.now(), orderDTO.getOrderId());
         } catch (Exception e) {
+            logger.info("Date : {} System failed to save order in db.", LocalDateTime.now());
+
             e.printStackTrace();
         }
     }

@@ -3,24 +3,22 @@ package com.la;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.io.CharStreams;
-import com.la.dto.PaypalCreateOrderDTO;
 import com.la.dto.PaypalOrderDTO;
+import com.la.model.PaymentMethod;
+import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
-import org.springframework.http.HttpRequest;
-import org.springframework.http.HttpStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import com.netflix.zuul.ZuulFilter;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 
 @Component
 @CrossOrigin(value = "http://localhost:3000")
@@ -40,6 +38,8 @@ public class PaymentFilter extends ZuulFilter {
         return true;
     }
 
+    Logger logger = LoggerFactory.getLogger(PaymentMethod.class);
+
     private void setFailedRequest(String body, int code) {
         RequestContext ctx = RequestContext.getCurrentContext();
         ctx.setResponseStatusCode(code);
@@ -57,18 +57,29 @@ public class PaymentFilter extends ZuulFilter {
 
         RequestContext context = RequestContext.getCurrentContext();
         HttpServletRequest request = context.getRequest();
-        if (request.getRequestURI().contains("pay-pal/create")) {
-            try {
-                PaypalOrderDTO paypalOrderDTO = extractBody(context);
-                if (paypalOrderDTO == null) {
-                    setFailedRequest("Request does not contain all data.", 400);
-                }
-                context.set("merchantOrderId", paypalOrderDTO.getMerchantOrderId());
-                context.set("merchantTimestamp", paypalOrderDTO.getMerchantTimestamp());
+        PaypalOrderDTO paypalOrderDTO = null;
+        try {
+            paypalOrderDTO = extractBody(context);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
 
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
+        if (request.getRequestURI().contains("pay-pal/create")) {
+            if (paypalOrderDTO == null || paypalOrderDTO.getMerchantOrderId() == null || paypalOrderDTO.getMerchantTimestamp() == null
+                    || paypalOrderDTO.getAmount() == null || paypalOrderDTO.getUserId() == null) {
+                logger.error("Date : {}, A user with id {} tried to create order. Not enough data for request.", LocalDateTime.now(), paypalOrderDTO.getUserId());
+                setFailedRequest("Request does not contain all data.", 400);
+                return null;
             }
+            logger.info("Date : {}, A user with id {} tried to create order.", LocalDateTime.now(), paypalOrderDTO.getUserId());
+            context.set("merchantOrderId", paypalOrderDTO.getMerchantOrderId());
+            context.set("merchantTimestamp", paypalOrderDTO.getMerchantTimestamp());
+
+        }
+
+        if (request.getRequestURI().contains("pay-pal/capture")) {
+            logger.info("Date : {}, A user with id {} tried to capture order.", LocalDateTime.now(), paypalOrderDTO.getUserId());
+            context.set("orderId", request.getRequestURI().split("/")[3]);
         }
 
 

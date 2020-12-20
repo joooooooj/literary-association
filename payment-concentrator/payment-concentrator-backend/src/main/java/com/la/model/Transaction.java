@@ -27,6 +27,7 @@ public class Transaction {
     private LocalDateTime merchantTimestamp; // Timestamp from merchant database (literary-assocation)
 
     @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
     private Status status; // WAITING, SUCCESS, FAILED, ERROR
 
     @OneToOne
