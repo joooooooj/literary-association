@@ -1,30 +1,33 @@
 package com.la.controller;
 
 import com.la.Credentials;
+import com.la.dto.CreateOrderDTO;
+import com.paypal.http.HttpResponse;
+import com.paypal.orders.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.paypal.http.HttpResponse;
-import com.paypal.http.exceptions.HttpException;
-import com.paypal.orders.*;
-
 @RestController
 @RequestMapping(value = "/")
-public class TestController {
+public class OrderController {
 
     @PostMapping(value = "/create")
-    public void createOrder() {
+    public ResponseEntity<String> createOrder(@RequestBody CreateOrderDTO orderDTO) {
         Order order = null;
         // Construct a request object and set desired parameters
         // Here, OrdersCreateRequest() creates a POST request to /v2/checkout/orders
         OrderRequest orderRequest = new OrderRequest();
         orderRequest.checkoutPaymentIntent("CAPTURE");
+        orderRequest.applicationContext(new ApplicationContext().returnUrl("http://localhost:3000/"));
         List<PurchaseUnitRequest> purchaseUnits = new ArrayList<>();
         purchaseUnits
-                .add(new PurchaseUnitRequest().amountWithBreakdown(new AmountWithBreakdown().currencyCode("USD").value("100.00")));
+                .add(new PurchaseUnitRequest().amountWithBreakdown
+                        (new AmountWithBreakdown().currencyCode("USD").value(orderDTO.getAmount().toString())));
         orderRequest.purchaseUnits(purchaseUnits);
         OrdersCreateRequest request = new OrdersCreateRequest().requestBody(orderRequest);
 
@@ -37,20 +40,16 @@ public class TestController {
             order = response.result();
             System.out.println("Order ID: " + order.id());
             order.links().forEach(link -> System.out.println(link.rel() + " => " + link.method() + ":" + link.href()));
+
+            return new ResponseEntity<>(order.links().get(1).href(), HttpStatus.CREATED);
         } catch (IOException ioe) {
-            if (ioe instanceof HttpException) {
-                // Something went wrong server-side
-                HttpException he = (HttpException) ioe;
-                System.out.println(he.getMessage());
-                he.headers().forEach(x -> System.out.println(x + " :" + he.headers().header(x)));
-            } else {
-                // Something went wrong client-side
-            }
+            ioe.printStackTrace();
+            return new ResponseEntity<>("Order has not been created.", HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping(value = "/capture/{id}")
-    public void capture(@PathVariable("id") String orderId) {
+    public ResponseEntity<String> capture(@PathVariable("id") String orderId) {
         Order order = null;
         OrdersCaptureRequest request = new OrdersCaptureRequest(orderId);
 
@@ -64,15 +63,28 @@ public class TestController {
             System.out.println("Capture ID: " + order.purchaseUnits().get(0).payments().captures().get(0).id());
             order.purchaseUnits().get(0).payments().captures().get(0).links()
                     .forEach(link -> System.out.println(link.rel() + " => " + link.method() + ":" + link.href()));
+
+            return new ResponseEntity<>(order.links().get(0).href(), HttpStatus.CREATED);
         } catch (IOException ioe) {
-            if (ioe instanceof HttpException) {
-                // Something went wrong server-side
-                HttpException he = (HttpException) ioe;
-                System.out.println(he.getMessage());
-                he.headers().forEach(x -> System.out.println(x + " :" + he.headers().header(x)));
-            } else {
-                // Something went wrong client-side
-            }
+            ioe.printStackTrace();
+            return new ResponseEntity<>("Order has not been captured.", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Object> getOrder(@PathVariable("id") String orderId) {
+        Order order = null;
+        OrdersGetRequest request = new OrdersGetRequest(orderId);
+        try {
+            HttpResponse<Order> response = Credentials.client.execute(request);
+
+            // If call returns body in response, you can get the de-serialized version by
+            // calling result() on the response
+            order = response.result();
+            return new ResponseEntity<>(order, HttpStatus.OK);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
