@@ -48,12 +48,23 @@ public class PostPaymentFilter extends ZuulFilter {
 
         RequestContext context = RequestContext.getCurrentContext();
         HttpServletRequest request = context.getRequest();
+
+        if (request.getRequestURI().contains("pay-pal/create")) {
+            saveTransaction(context);
+        }
+
+
+        return null;
+    }
+
+    private void saveTransaction(RequestContext context) {
         System.out.println("merchantOrderId" + context.get("merchantOrderId"));
         System.out.println("merchantTimestamp" + context.get("merchantTimestamp"));
+
         try (final InputStream responseDataStream = context.getResponseDataStream()) {
 
             if (responseDataStream == null) {
-                return null;
+                return;
             }
 
             String responseData = CharStreams.toString(new InputStreamReader(responseDataStream, "UTF-8"));
@@ -73,10 +84,7 @@ public class PostPaymentFilter extends ZuulFilter {
 
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
         }
-
-
-        return null;
     }
+
 }

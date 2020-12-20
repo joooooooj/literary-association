@@ -45,7 +45,7 @@ public class OrderController {
             return new ResponseEntity<>(new PaypalCreateOrderDTO(order.id(), order.links().get(1).href()), HttpStatus.CREATED);
         } catch (IOException ioe) {
             ioe.printStackTrace();
-            return new ResponseEntity<>("Order has not been created.", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Order has not been created. You must first approve payment.", HttpStatus.BAD_REQUEST);
         }
     }
 

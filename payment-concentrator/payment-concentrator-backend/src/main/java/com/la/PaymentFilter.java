@@ -57,17 +57,20 @@ public class PaymentFilter extends ZuulFilter {
 
         RequestContext context = RequestContext.getCurrentContext();
         HttpServletRequest request = context.getRequest();
-        try {
-            PaypalOrderDTO paypalOrderDTO = extractBody(context);
-            if (paypalOrderDTO == null) {
-                setFailedRequest("Request does not contain all data.", 400);
-            }
-            context.set("merchantOrderId", paypalOrderDTO.getMerchantOrderId());
-            context.set("merchantTimestamp", paypalOrderDTO.getMerchantTimestamp());
+        if (request.getRequestURI().contains("pay-pal/create")) {
+            try {
+                PaypalOrderDTO paypalOrderDTO = extractBody(context);
+                if (paypalOrderDTO == null) {
+                    setFailedRequest("Request does not contain all data.", 400);
+                }
+                context.set("merchantOrderId", paypalOrderDTO.getMerchantOrderId());
+                context.set("merchantTimestamp", paypalOrderDTO.getMerchantTimestamp());
 
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
         }
+
 
         return null;
     }
