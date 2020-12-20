@@ -2,6 +2,7 @@ package com.la.controller;
 
 import com.la.Credentials;
 import com.la.dto.CreateOrderDTO;
+import com.la.dto.PaypalCreateOrderDTO;
 import com.paypal.http.HttpResponse;
 import com.paypal.orders.*;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,7 @@ import java.util.List;
 public class OrderController {
 
     @PostMapping(value = "/create")
-    public ResponseEntity<String> createOrder(@RequestBody CreateOrderDTO orderDTO) {
+    public ResponseEntity<?> createOrder(@RequestBody CreateOrderDTO orderDTO) {
         Order order = null;
         // Construct a request object and set desired parameters
         // Here, OrdersCreateRequest() creates a POST request to /v2/checkout/orders
@@ -41,7 +42,7 @@ public class OrderController {
             System.out.println("Order ID: " + order.id());
             order.links().forEach(link -> System.out.println(link.rel() + " => " + link.method() + ":" + link.href()));
 
-            return new ResponseEntity<>(order.links().get(1).href(), HttpStatus.CREATED);
+            return new ResponseEntity<>(new PaypalCreateOrderDTO(order.id(), order.links().get(1).href()), HttpStatus.CREATED);
         } catch (IOException ioe) {
             ioe.printStackTrace();
             return new ResponseEntity<>("Order has not been created.", HttpStatus.BAD_REQUEST);
@@ -49,7 +50,7 @@ public class OrderController {
     }
 
     @PostMapping(value = "/capture/{id}")
-    public ResponseEntity<String> capture(@PathVariable("id") String orderId) {
+    public ResponseEntity<?> capture(@PathVariable("id") String orderId) {
         Order order = null;
         OrdersCaptureRequest request = new OrdersCaptureRequest(orderId);
 
@@ -64,7 +65,7 @@ public class OrderController {
             order.purchaseUnits().get(0).payments().captures().get(0).links()
                     .forEach(link -> System.out.println(link.rel() + " => " + link.method() + ":" + link.href()));
 
-            return new ResponseEntity<>(order.links().get(0).href(), HttpStatus.CREATED);
+            return new ResponseEntity<>(new PaypalCreateOrderDTO(orderId, order.links().get(0).href()), HttpStatus.CREATED);
         } catch (IOException ioe) {
             ioe.printStackTrace();
             return new ResponseEntity<>("Order has not been captured.", HttpStatus.BAD_REQUEST);

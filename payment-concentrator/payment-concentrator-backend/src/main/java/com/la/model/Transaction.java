@@ -11,11 +11,11 @@ public class Transaction {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "payment_id", nullable = false)
+    @Column(name = "payment_id")
     private Long paymentId; // Payment ID from merchant bank
 
     @Column(name = "acq_order_id", nullable = false)
-    private Long acqOrderId; // Order ID from merchant bank
+    private String acqOrderId; // Order ID from merchant bank
 
     @Column(name = "acq_timestamp", nullable = false)
     private LocalDateTime acqTimestamp; // Order Timestamp from merchant bank
@@ -36,7 +36,7 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(Long id, Long paymentId, Long acqOrderId, LocalDateTime acqTimestamp, Long merchantOrderId, LocalDateTime merchantTimestamp, Status status, PaymentMethod paymentMethod) {
+    public Transaction(Long id, Long paymentId, String acqOrderId, LocalDateTime acqTimestamp, Long merchantOrderId, LocalDateTime merchantTimestamp, Status status, PaymentMethod paymentMethod) {
         this.id = id;
         this.paymentId = paymentId;
         this.acqOrderId = acqOrderId;
@@ -63,11 +63,11 @@ public class Transaction {
         this.paymentId = paymentId;
     }
 
-    public Long getAcqOrderId() {
+    public String getAcqOrderId() {
         return acqOrderId;
     }
 
-    public void setAcqOrderId(Long acqOrderId) {
+    public void setAcqOrderId(String acqOrderId) {
         this.acqOrderId = acqOrderId;
     }
 

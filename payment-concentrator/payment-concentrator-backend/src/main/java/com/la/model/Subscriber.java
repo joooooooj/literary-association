@@ -12,9 +12,8 @@ public class Subscriber extends User {
     @JoinColumn(name = "user_id", unique = true)
     private List<Transaction> transactions;
 
-    @OneToOne
-    @JoinTable(name = "subscriber_details",
-            joinColumns = @JoinColumn(name = "subscriber_details_id", referencedColumnName = "id"))
+    @OneToOne()
+    @JoinColumn(name = "subscriber_details_id", referencedColumnName = "id")
     private SubscriberDetails subscriberDetails;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
