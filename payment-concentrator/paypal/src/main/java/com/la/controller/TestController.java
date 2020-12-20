@@ -1,16 +1,79 @@
 package com.la.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.la.Credentials;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.paypal.http.HttpResponse;
+import com.paypal.http.exceptions.HttpException;
+import com.paypal.orders.*;
 
 @RestController
-@RequestMapping(value = "/test")
+@RequestMapping(value = "/")
 public class TestController {
 
-    @GetMapping(value = "/{message}")
-    public void testMethod(@PathVariable("message") String message) {
-        System.out.println("e usao sam u paypal, radim, bleya i kazem : " + message);
+    @PostMapping(value = "/create")
+    public void createOrder() {
+        Order order = null;
+        // Construct a request object and set desired parameters
+        // Here, OrdersCreateRequest() creates a POST request to /v2/checkout/orders
+        OrderRequest orderRequest = new OrderRequest();
+        orderRequest.checkoutPaymentIntent("CAPTURE");
+        List<PurchaseUnitRequest> purchaseUnits = new ArrayList<>();
+        purchaseUnits
+                .add(new PurchaseUnitRequest().amountWithBreakdown(new AmountWithBreakdown().currencyCode("USD").value("100.00")));
+        orderRequest.purchaseUnits(purchaseUnits);
+        OrdersCreateRequest request = new OrdersCreateRequest().requestBody(orderRequest);
+
+        try {
+            // Call API with your client and get a response for your call
+            HttpResponse<Order> response = Credentials.client.execute(request);
+
+            // If call returns body in response, you can get the de-serialized version by
+            // calling result() on the response
+            order = response.result();
+            System.out.println("Order ID: " + order.id());
+            order.links().forEach(link -> System.out.println(link.rel() + " => " + link.method() + ":" + link.href()));
+        } catch (IOException ioe) {
+            if (ioe instanceof HttpException) {
+                // Something went wrong server-side
+                HttpException he = (HttpException) ioe;
+                System.out.println(he.getMessage());
+                he.headers().forEach(x -> System.out.println(x + " :" + he.headers().header(x)));
+            } else {
+                // Something went wrong client-side
+            }
+        }
     }
+
+    @PostMapping(value = "/capture/{id}")
+    public void capture(@PathVariable("id") String orderId) {
+        Order order = null;
+        OrdersCaptureRequest request = new OrdersCaptureRequest(orderId);
+
+        try {
+            // Call API with your client and get a response for your call
+            HttpResponse<Order> response = Credentials.client.execute(request);
+
+            // If call returns body in response, you can get the de-serialized version by
+            // calling result() on the response
+            order = response.result();
+            System.out.println("Capture ID: " + order.purchaseUnits().get(0).payments().captures().get(0).id());
+            order.purchaseUnits().get(0).payments().captures().get(0).links()
+                    .forEach(link -> System.out.println(link.rel() + " => " + link.method() + ":" + link.href()));
+        } catch (IOException ioe) {
+            if (ioe instanceof HttpException) {
+                // Something went wrong server-side
+                HttpException he = (HttpException) ioe;
+                System.out.println(he.getMessage());
+                he.headers().forEach(x -> System.out.println(x + " :" + he.headers().header(x)));
+            } else {
+                // Something went wrong client-side
+            }
+        }
+    }
+
 }
