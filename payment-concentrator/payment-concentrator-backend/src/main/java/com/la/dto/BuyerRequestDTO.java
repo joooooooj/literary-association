@@ -4,9 +4,11 @@ import java.time.LocalDateTime;
 
 public class BuyerRequestDTO {
 
-    private Long merchantId;
+    private Long subscriberId; // Id at payment concetrator
 
-    private Long merchantOrderId;
+    private Long merchantId; // Id at bank database
+
+    private Long merchantOrderId; // Order Id from LA
 
     private LocalDateTime merchantTimestamp;
 
@@ -15,7 +17,8 @@ public class BuyerRequestDTO {
     public BuyerRequestDTO() {
     }
 
-    public BuyerRequestDTO(Long merchantId, Long merchantOrderId, LocalDateTime merchantTimestamp, float amount) {
+    public BuyerRequestDTO(Long subscriberId, Long merchantId, Long merchantOrderId, LocalDateTime merchantTimestamp, float amount) {
+        this.subscriberId = subscriberId;
         this.merchantId = merchantId;
         this.merchantOrderId = merchantOrderId;
         this.merchantTimestamp = merchantTimestamp;

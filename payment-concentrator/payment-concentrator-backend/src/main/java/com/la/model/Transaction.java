@@ -29,10 +29,14 @@ public class Transaction {
     @Column(name = "status", nullable = false)
     private Status status; // WAITING, SUCCESS, FAILED, ERROR
 
+    @OneToOne
+    @JoinColumn(name = "payment_method_id")
+    private PaymentMethod paymentMethod;
+
     public Transaction() {
     }
 
-    public Transaction(Long id, Long paymentId, Long acqOrderId, LocalDateTime acqTimestamp, Long merchantOrderId, LocalDateTime merchantTimestamp, Status status) {
+    public Transaction(Long id, Long paymentId, Long acqOrderId, LocalDateTime acqTimestamp, Long merchantOrderId, LocalDateTime merchantTimestamp, Status status, PaymentMethod paymentMethod) {
         this.id = id;
         this.paymentId = paymentId;
         this.acqOrderId = acqOrderId;
@@ -40,6 +44,7 @@ public class Transaction {
         this.merchantOrderId = merchantOrderId;
         this.merchantTimestamp = merchantTimestamp;
         this.status = status;
+        this.paymentMethod = paymentMethod;
     }
 
     public Long getId() {
@@ -98,6 +103,14 @@ public class Transaction {
         this.status = status;
     }
 
+    public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
     @Override
     public String toString() {
         return "Transaction{" +
@@ -108,6 +121,7 @@ public class Transaction {
                 ", merchantOrderId=" + merchantOrderId +
                 ", merchantTimestamp=" + merchantTimestamp +
                 ", status=" + status +
+                ", paymentMethod=" + paymentMethod +
                 '}';
     }
 }

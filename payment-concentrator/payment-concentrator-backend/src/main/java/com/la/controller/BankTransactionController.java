@@ -4,7 +4,7 @@ import com.la.dto.BankPaymentUrlDTO;
 import com.la.dto.BankRequestDTO;
 import com.la.dto.BankResponseDTO;
 import com.la.dto.BuyerRequestDTO;
-import com.la.service.TransactionService;
+import com.la.service.BankTransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -13,13 +13,13 @@ import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping("transaction")
-public class TransactionController {
+public class BankTransactionController {
 
     @Autowired
     RestTemplate restTemplate;
 
     @Autowired
-    private TransactionService transactionService;
+    private BankTransactionService transactionService;
 
     /**
      * POST transaction/

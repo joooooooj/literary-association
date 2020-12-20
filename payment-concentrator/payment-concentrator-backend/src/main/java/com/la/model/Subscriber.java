@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name="subscribers")
 @DiscriminatorValue("SUB")
 public class Subscriber extends User {
 
@@ -14,7 +13,8 @@ public class Subscriber extends User {
     private List<Transaction> transactions;
 
     @OneToOne
-    @JoinColumn(name = "subscriber_details_id", unique = true)
+    @JoinTable(name = "subscriber_details",
+            joinColumns = @JoinColumn(name = "subscriber_details_id", referencedColumnName = "id"))
     private SubscriberDetails subscriberDetails;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

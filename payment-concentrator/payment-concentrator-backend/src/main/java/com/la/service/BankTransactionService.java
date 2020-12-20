@@ -5,7 +5,7 @@ import com.la.dto.BankRequestDTO;
 import com.la.dto.BankResponseDTO;
 import com.la.dto.BuyerRequestDTO;
 
-public interface TransactionService {
+public interface BankTransactionService {
 
     BankRequestDTO createBankRequestDTO(BuyerRequestDTO buyerRequestDTO);
 

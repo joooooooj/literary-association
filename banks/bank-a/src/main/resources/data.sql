@@ -1,2 +1,2 @@
-INSERT INTO `banka`.`client` (`id`, `address`, `company_name`, `name`, `surname`) VALUES ('1', 'Petra Drapsina 32, Novi Sad', 'Udruzenje', 'Mile', 'Milic');
-INSERT INTO `banka`.`client` (`id`, `address`, `name`, `surname`) VALUES ('2', 'Puskinova 8, Novi Sad', 'Ana', 'Antic');
+INSERT INTO `banka`.`client` (`address`, `company_name`, `name`, `surname`) VALUES ('Petra Drapsina 32, Novi Sad', 'Udruzenje', 'Mile', 'Milic');
+INSERT INTO `banka`.`client` (`address`, `name`, `surname`) VALUES ('Puskinova 8, Novi Sad', 'Ana', 'Antic');

@@ -6,12 +6,12 @@ import com.la.dto.BuyerRequestDTO;
 import com.la.model.SubscriberDetails;
 import com.la.repository.SubscriberDetailsRepository;
 import com.la.repository.TransactionRepository;
-import com.la.service.TransactionService;
+import com.la.service.BankTransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TransactionServiceImpl implements TransactionService {
+public class BankTransactionServiceImpl implements BankTransactionService {
 
     @Autowired
     private TransactionRepository transactionRepository;
