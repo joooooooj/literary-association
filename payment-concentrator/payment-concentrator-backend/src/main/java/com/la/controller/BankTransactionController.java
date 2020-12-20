@@ -72,7 +72,7 @@ public class BankTransactionController {
     /**
      * Calls bank service
      *
-     * @return bank payment form URL
+     * @return bank payment form URL and ID
      */
     private BankPaymentUrlDTO getPaymentFormUrl(BankRequestDTO bankRequestDTO) {
         BankPaymentUrlDTO response =

@@ -9,7 +9,7 @@ import java.util.Set;
 public class Subscriber extends User {
 
     @OneToMany
-    @JoinColumn(name = "user_id", unique = true)
+    @JoinColumn(name = "subscriber_id", unique = true)
     private List<Transaction> transactions;
 
     @OneToOne
@@ -30,5 +30,29 @@ public class Subscriber extends User {
         this.password = password;
         this.email = email;
         this.paymentMethods = methods;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
+    }
+
+    public SubscriberDetails getSubscriberDetails() {
+        return subscriberDetails;
+    }
+
+    public void setSubscriberDetails(SubscriberDetails subscriberDetails) {
+        this.subscriberDetails = subscriberDetails;
+    }
+
+    public Set<PaymentMethod> getPaymentMethods() {
+        return paymentMethods;
+    }
+
+    public void setPaymentMethods(Set<PaymentMethod> paymentMethods) {
+        this.paymentMethods = paymentMethods;
     }
 }

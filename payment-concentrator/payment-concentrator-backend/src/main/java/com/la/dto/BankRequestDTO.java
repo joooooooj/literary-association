@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class BankRequestDTO{
 
-    private String merchantId;
+    private Long merchantId;
 
     private String merchantPassword;
 
@@ -13,7 +13,8 @@ public class BankRequestDTO{
     public BankRequestDTO() {
     }
 
-    public BankRequestDTO(String merchantPassword, BuyerRequestDTO buyerRequestDTO) {
+    public BankRequestDTO(Long merchantId, String merchantPassword, BuyerRequestDTO buyerRequestDTO) {
+        this.merchantId = merchantId;
         this.merchantPassword = merchantPassword;
         this.buyerRequestDTO = buyerRequestDTO;
     }
@@ -32,6 +33,14 @@ public class BankRequestDTO{
 
     public void setBuyerRequestDTO(BuyerRequestDTO buyerRequestDTO) {
         this.buyerRequestDTO = buyerRequestDTO;
+    }
+
+    public Long getMerchantId() {
+        return merchantId;
+    }
+
+    public void setMerchantId(Long merchantId) {
+        this.merchantId = merchantId;
     }
 
     @Override

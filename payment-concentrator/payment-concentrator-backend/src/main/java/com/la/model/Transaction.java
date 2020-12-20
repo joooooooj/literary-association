@@ -27,7 +27,7 @@ public class Transaction {
     private LocalDateTime merchantTimestamp; // Timestamp from merchant database (literary-assocation)
 
     @Column(name = "status", nullable = false)
-    private Status status; // WAITING, SUCCESS, FAILED, ERROR
+    private Status status; // PENDING, SUCCESS, FAILED, ERROR
 
     @OneToOne
     @JoinColumn(name = "payment_method_id")
