@@ -52,7 +52,7 @@ public class BankTransactionController {
      *
      * Bank returns payment status
      *
-     * @return
+     * @return STATUS URL (SUCCESS, FAILED, ERROR)
      */
     @PutMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> update(@RequestBody BankResponseDTO bankResponseDTO) {
@@ -95,6 +95,5 @@ public class BankTransactionController {
 //                HttpMethod.PUT, new HttpEntity<>(), new ParameterizedTypeReference<String>() {}).getBody();
 
         return "";
-        // React App UseEffect (getStatus) to se immediate status change
     }
 }

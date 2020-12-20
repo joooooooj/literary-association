@@ -4,10 +4,7 @@ import com.la.dto.BankPaymentUrlDTO;
 import com.la.dto.BankRequestDTO;
 import com.la.dto.BankResponseDTO;
 import com.la.dto.TransactionFormDataDTO;
-import com.la.model.Payment;
-import com.la.model.Transaction;
 import com.la.service.TransactionService;
-import com.netflix.ribbon.proxy.annotation.Http;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -47,23 +44,23 @@ public class TransactionController {
      *
      * Buyer submits form
      *
-     * @return HttpStatus
+     * @return STATUS URL WHICH PAYMENT CONCETRATOR RETURNS
      */
     @PostMapping(value = "/{paymentId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<HttpStatus> createTransaction(@RequestBody TransactionFormDataDTO transactionFormDataDTO, @PathVariable Long paymentId) {
+    public ResponseEntity<String> createTransaction(@RequestBody TransactionFormDataDTO transactionFormDataDTO, @PathVariable Long paymentId) {
         try {
-            // WHEN TRANSACTION PROCESS DONE CALL PAYMENT CONCETRATOR TO UPDATE TRANSACTION
-            return new ResponseEntity<>(HttpStatus.OK);
+            // WHEN TRANSACTION PROCESS DONE CALL PAYMENT CONCETRATOR TO UPDATE TRANSACTION AND GET STATUS URL
+            return new ResponseEntity<>("", HttpStatus.OK);
         } catch (Exception e) {
             // e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
     /**
      * Calls payment concetrator to update transaction status
      *
-     * @return bank payment form URL
+     * @return STATUS URL (SUCCESS, FAILED, ERROR)
      */
     private String getPaymentFormUrl(BankResponseDTO bankResponseDTO) {
         String response =

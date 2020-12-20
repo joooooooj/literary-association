@@ -1,6 +1,8 @@
 package com.la.dto;
 
-public class BankRequestDTO {
+public class BankRequestDTO{
+
+    private String merchantId;
 
     private String merchantPassword;
 

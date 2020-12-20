@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 
 public class BuyerRequestDTO {
 
-    private Long merchantId;
+    private Long subscriberId; // Id at payment concetrator
 
-    private Long merchantOrderId;
+    private Long merchantOrderId; // Order Id from LA
 
     private LocalDateTime merchantTimestamp;
 
@@ -15,19 +15,11 @@ public class BuyerRequestDTO {
     public BuyerRequestDTO() {
     }
 
-    public BuyerRequestDTO(Long merchantId, Long merchantOrderId, LocalDateTime merchantTimestamp, float amount) {
-        this.merchantId = merchantId;
+    public BuyerRequestDTO(Long subscriberId, Long merchantOrderId, LocalDateTime merchantTimestamp, float amount) {
+        this.subscriberId = subscriberId;
         this.merchantOrderId = merchantOrderId;
         this.merchantTimestamp = merchantTimestamp;
         this.amount = amount;
-    }
-
-    public Long getMerchantId() {
-        return merchantId;
-    }
-
-    public void setMerchantId(Long merchantId) {
-        this.merchantId = merchantId;
     }
 
     public Long getMerchantOrderId() {
@@ -54,10 +46,18 @@ public class BuyerRequestDTO {
         this.amount = amount;
     }
 
+    public Long getSubscriberId() {
+        return subscriberId;
+    }
+
+    public void setSubscriberId(Long subscriberId) {
+        this.subscriberId = subscriberId;
+    }
+
     @Override
     public String toString() {
         return "BuyerRequestDTO{" +
-                "merchantId=" + merchantId +
+                "subscriberId=" + subscriberId +
                 ", merchantOrderId=" + merchantOrderId +
                 ", merchantTimestamp=" + merchantTimestamp +
                 ", amount=" + amount +

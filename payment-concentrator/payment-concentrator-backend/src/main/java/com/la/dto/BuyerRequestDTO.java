@@ -6,8 +6,6 @@ public class BuyerRequestDTO {
 
     private Long subscriberId; // Id at payment concetrator
 
-    private Long merchantId; // Id at bank database
-
     private Long merchantOrderId; // Order Id from LA
 
     private LocalDateTime merchantTimestamp;
@@ -17,20 +15,11 @@ public class BuyerRequestDTO {
     public BuyerRequestDTO() {
     }
 
-    public BuyerRequestDTO(Long subscriberId, Long merchantId, Long merchantOrderId, LocalDateTime merchantTimestamp, float amount) {
+    public BuyerRequestDTO(Long subscriberId, Long merchantOrderId, LocalDateTime merchantTimestamp, float amount) {
         this.subscriberId = subscriberId;
-        this.merchantId = merchantId;
         this.merchantOrderId = merchantOrderId;
         this.merchantTimestamp = merchantTimestamp;
         this.amount = amount;
-    }
-
-    public Long getMerchantId() {
-        return merchantId;
-    }
-
-    public void setMerchantId(Long merchantId) {
-        this.merchantId = merchantId;
     }
 
     public Long getMerchantOrderId() {
@@ -57,10 +46,18 @@ public class BuyerRequestDTO {
         this.amount = amount;
     }
 
+    public Long getSubscriberId() {
+        return subscriberId;
+    }
+
+    public void setSubscriberId(Long subscriberId) {
+        this.subscriberId = subscriberId;
+    }
+
     @Override
     public String toString() {
         return "BuyerRequestDTO{" +
-                "merchantId=" + merchantId +
+                "subscriberId=" + subscriberId +
                 ", merchantOrderId=" + merchantOrderId +
                 ", merchantTimestamp=" + merchantTimestamp +
                 ", amount=" + amount +

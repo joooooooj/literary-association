@@ -518,3 +518,79 @@ Error starting ApplicationContext. To display the conditions report re-run your 
 20-12-2020 06:31:20.405 INFO  [main] o.s.c.n.e.s.EurekaAutoServiceRegistration - Updating port to 8081
 20-12-2020 06:31:20.667 INFO  [main] com.la.PaymentConcentratorApp - Started PaymentConcentratorApp in 16.029 seconds (JVM running for 18.273)
 20-12-2020 06:36:20.103 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 18:20:21.421 INFO  [main] com.la.PaymentConcentratorApp - No active profile set, falling back to default profiles: default
+20-12-2020 18:20:23.131 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+20-12-2020 18:20:23.275 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 132ms. Found 6 JPA repository interfaces.
+20-12-2020 18:20:23.646 INFO  [main] o.s.cloud.context.scope.GenericScope - BeanFactory id=44b27405-8dc4-3b6a-b79d-1907a94de800
+20-12-2020 18:20:24.072 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+20-12-2020 18:20:24.078 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+20-12-2020 18:20:24.082 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@38d80d65' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+20-12-2020 18:20:24.086 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+20-12-2020 18:20:24.094 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+20-12-2020 18:20:24.461 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8081 (http)
+20-12-2020 18:20:24.473 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+20-12-2020 18:20:24.474 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+20-12-2020 18:20:24.475 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.33]
+20-12-2020 18:20:24.683 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+20-12-2020 18:20:24.684 INFO  [main] o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3236 ms
+20-12-2020 18:20:24.818 INFO  [main] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+20-12-2020 18:20:24.828 INFO  [main] c.n.config.DynamicPropertyFactory - DynamicPropertyFactory is initialized with configuration sources: com.netflix.config.ConcurrentCompositeConfiguration@175581eb
+20-12-2020 18:20:25.147 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+20-12-2020 18:20:25.279 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.12.Final
+20-12-2020 18:20:25.462 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+20-12-2020 18:20:25.607 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+20-12-2020 18:20:25.846 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+20-12-2020 18:20:25.864 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+20-12-2020 18:20:29.616 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+20-12-2020 18:20:29.627 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+20-12-2020 18:20:32.436 INFO  [main] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+20-12-2020 18:20:32.953 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/auth/**', POST], []
+20-12-2020 18:20:32.954 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/auth', PUT], []
+20-12-2020 18:20:32.954 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/', GET], []
+20-12-2020 18:20:32.954 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/webjars/**', GET], []
+20-12-2020 18:20:32.955 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/*.html', GET], []
+20-12-2020 18:20:32.955 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/favicon.ico', GET], []
+20-12-2020 18:20:32.955 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.html', GET], []
+20-12-2020 18:20:32.955 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.css', GET], []
+20-12-2020 18:20:32.955 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.js', GET], []
+20-12-2020 18:20:32.955 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/assets/**', GET], []
+20-12-2020 18:20:33.013 INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 2 endpoint(s) beneath base path '/actuator'
+20-12-2020 18:20:33.047 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2620264e, org.springframework.security.web.context.SecurityContextPersistenceFilter@42365c82, org.springframework.security.web.header.HeaderWriterFilter@4a2bc71f, org.springframework.web.filter.CorsFilter@126ae0ca, org.springframework.security.web.authentication.logout.LogoutFilter@3f7b15bb, com.la.security.auth.TokenAuthenticationFilter@59e24c62, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7b186fb8, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@22781286, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5379488c, org.springframework.security.web.session.SessionManagementFilter@59b8a801, org.springframework.security.web.access.ExceptionTranslationFilter@4a1abba1, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@75a6cdb]
+20-12-2020 18:20:33.420 INFO  [main] o.s.c.n.zuul.ZuulFilterInitializer - Starting filter initializer
+20-12-2020 18:20:33.525 INFO  [main] o.s.c.n.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
+20-12-2020 18:20:33.580 INFO  [main] c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
+20-12-2020 18:20:33.679 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using JSON encoding codec LegacyJacksonJson
+20-12-2020 18:20:33.679 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using JSON decoding codec LegacyJacksonJson
+20-12-2020 18:20:33.849 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using XML encoding codec XStreamXml
+20-12-2020 18:20:33.849 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using XML decoding codec XStreamXml
+20-12-2020 18:20:34.302 INFO  [main] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+20-12-2020 18:20:34.350 INFO  [main] c.netflix.discovery.DiscoveryClient - Disable delta property : false
+20-12-2020 18:20:34.351 INFO  [main] c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+20-12-2020 18:20:34.351 INFO  [main] c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+20-12-2020 18:20:34.351 INFO  [main] c.netflix.discovery.DiscoveryClient - Application is null : false
+20-12-2020 18:20:34.351 INFO  [main] c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+20-12-2020 18:20:34.352 INFO  [main] c.netflix.discovery.DiscoveryClient - Application version is -1: true
+20-12-2020 18:20:34.352 INFO  [main] c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+20-12-2020 18:20:34.451 INFO  [main] c.netflix.discovery.DiscoveryClient - The response status is 200
+20-12-2020 18:20:34.459 INFO  [main] c.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
+20-12-2020 18:20:34.468 INFO  [main] c.n.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
+20-12-2020 18:20:34.486 INFO  [main] c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1608484834484 with initial instances count: 0
+20-12-2020 18:20:34.493 INFO  [main] o.s.c.n.e.s.EurekaServiceRegistry - Registering application ZUUL-API-GATEWAY with eureka with status UP
+20-12-2020 18:20:34.494 INFO  [main] c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1608484834494, current=UP, previous=STARTING]
+20-12-2020 18:20:34.497 INFO  [DiscoveryClient-InstanceInfoReplicator-0] c.netflix.discovery.DiscoveryClient - DiscoveryClient_ZUUL-API-GATEWAY/DESKTOP-S8EDMMJ.mshome.net:zuul-api-gateway:8081: registering service...
+20-12-2020 18:20:34.533 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+20-12-2020 18:20:34.597 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8081 (http) with context path ''
+20-12-2020 18:20:34.598 INFO  [main] o.s.c.n.e.s.EurekaAutoServiceRegistration - Updating port to 8081
+20-12-2020 18:20:34.650 INFO  [DiscoveryClient-InstanceInfoReplicator-0] c.netflix.discovery.DiscoveryClient - DiscoveryClient_ZUUL-API-GATEWAY/DESKTOP-S8EDMMJ.mshome.net:zuul-api-gateway:8081 - registration status: 204
+20-12-2020 18:20:34.850 INFO  [main] com.la.PaymentConcentratorApp - Started PaymentConcentratorApp in 16.53 seconds (JVM running for 18.881)
+20-12-2020 18:20:35.042 INFO  [RMI TCP Connection(2)-192.168.21.33] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+20-12-2020 18:20:35.043 INFO  [RMI TCP Connection(2)-192.168.21.33] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+20-12-2020 18:20:35.065 INFO  [RMI TCP Connection(2)-192.168.21.33] o.s.web.servlet.DispatcherServlet - Completed initialization in 22 ms
+20-12-2020 18:21:04.460 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Disable delta property : false
+20-12-2020 18:21:04.461 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+20-12-2020 18:21:04.462 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+20-12-2020 18:21:04.462 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Application is null : false
+20-12-2020 18:21:04.462 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+20-12-2020 18:21:04.462 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Application version is -1: false
+20-12-2020 18:21:04.462 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+20-12-2020 18:21:04.509 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - The response status is 200

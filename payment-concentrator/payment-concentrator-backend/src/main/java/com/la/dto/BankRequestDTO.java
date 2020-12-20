@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 public class BankRequestDTO{
 
+    private String merchantId;
+
     private String merchantPassword;
 
     private BuyerRequestDTO buyerRequestDTO;

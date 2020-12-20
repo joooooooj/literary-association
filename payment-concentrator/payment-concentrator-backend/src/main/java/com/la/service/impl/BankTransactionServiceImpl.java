@@ -21,7 +21,7 @@ public class BankTransactionServiceImpl implements BankTransactionService {
 
     @Override
     public BankRequestDTO createBankRequestDTO(BuyerRequestDTO buyerRequestDTO) {
-        SubscriberDetails subscriberDetails = subscriberDetailsRepository.findByMerchantId(buyerRequestDTO.getMerchantId());
+        SubscriberDetails subscriberDetails = subscriberDetailsRepository.findById(buyerRequestDTO.getSubscriberId()).get();
         if(subscriberDetails != null){
             // TO DO : MAKE TRANSACTION OBJECT
             return new BankRequestDTO(subscriberDetails.getMerchantPassword(), buyerRequestDTO);
