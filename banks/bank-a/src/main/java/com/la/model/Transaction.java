@@ -29,6 +29,7 @@ public class Transaction {
     private Account account;
 
     @Column
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     public Transaction() {

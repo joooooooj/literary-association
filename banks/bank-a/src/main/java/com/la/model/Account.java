@@ -15,17 +15,12 @@ public class Account {
     @Column
     private float balance;
 
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
-
     public Account() {
     }
 
-    public Account(String accountNumber, Client client, float balance) {
+    public Account(String accountNumber, float balance) {
         this.accountNumber = accountNumber;
         this.balance = balance;
-        this.client = client;
     }
 
     public Long getId() {
@@ -44,14 +39,6 @@ public class Account {
         this.accountNumber = accountNumber;
     }
 
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
     public float getBalance() {
         return balance;
     }
@@ -60,5 +47,12 @@ public class Account {
         this.balance = balance;
     }
 
-
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", accountNumber='" + accountNumber + '\'' +
+                ", balance=" + balance +
+                '}';
+    }
 }

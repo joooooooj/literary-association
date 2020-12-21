@@ -4,10 +4,9 @@ import com.la.dto.BankPaymentUrlDTO;
 import com.la.dto.BankRequestDTO;
 import com.la.dto.BankResponseDTO;
 import com.la.dto.TransactionFormDataDTO;
-import com.la.repository.AccountRepository;
-import com.la.repository.CardRepository;
-import com.la.repository.PaymentRepository;
-import com.la.repository.TransactionRepository;
+import com.la.model.Merchant;
+import com.la.model.Payment;
+import com.la.repository.*;
 import com.la.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,21 +15,29 @@ import org.springframework.stereotype.Service;
 public class TransactionServiceImpl implements TransactionService {
 
     @Autowired
-    private PaymentRepository paymentRepository;
+    MerchantRepository merchantRepository;
 
     @Autowired
-    private TransactionRepository transactionRepository;
-
-    @Autowired
-    private CardRepository cardRepository;
-
-    @Autowired
-    private AccountRepository accountRepository;
+    PaymentRepository paymentRepository;
 
     public BankPaymentUrlDTO createPayment(BankRequestDTO bankRequestDTO) {
-        // TO DO : Check if merchant id exists
+        // Check if merchant id exists
         // If exists create Payment object in database
         // Create nedeed DTO and return
+
+        // COMPARE PASSWORDS???
+
+        if(merchantRepository.findById(bankRequestDTO.getMerchantId()).isPresent()){
+            Payment payment = new Payment();
+            payment.setMerchantTimestamp(bankRequestDTO.getMerchantTimestamp());
+            payment.setAmount(bankRequestDTO.getAmount());
+            payment.setMerchantOrderId(bankRequestDTO.getMerchantOrderId());
+            payment.setMerchant(merchantRepository.getOne(bankRequestDTO.getMerchantId()));
+            payment = paymentRepository.save(payment);
+
+            return new BankPaymentUrlDTO(payment.getId(), "http://localhost:8084/form/" + payment.getId());
+        }
+
         return null;
     }
 

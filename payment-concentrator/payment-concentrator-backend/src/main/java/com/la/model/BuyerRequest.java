@@ -1,25 +1,53 @@
-package com.la.dto;
+package com.la.model;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
-public class BuyerRequestDTO {
+@Entity
+public class BuyerRequest {
 
-    private Long subscriberId; // Id at payment concetrator
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @OneToOne
+    @JoinColumn(name = "subscriber_id", referencedColumnName = "id")
+    Subscriber subscriber;
+
+    @Column
     private Long merchantOrderId; // Order Id from LA
 
+    @Column
     private LocalDateTime merchantTimestamp;
 
+    @Column
     private float amount;
 
-    public BuyerRequestDTO() {
+    public BuyerRequest() {
     }
 
-    public BuyerRequestDTO(Long subscriberId, Long merchantOrderId, LocalDateTime merchantTimestamp, float amount) {
-        this.subscriberId = subscriberId;
+    public BuyerRequest(Long id, Subscriber subscriber, Long merchantOrderId, LocalDateTime merchantTimestamp, float amount) {
+        this.id = id;
+        this.subscriber = subscriber;
         this.merchantOrderId = merchantOrderId;
         this.merchantTimestamp = merchantTimestamp;
         this.amount = amount;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Subscriber getSubscriber() {
+        return subscriber;
+    }
+
+    public void setSubscriber(Subscriber subscriber) {
+        this.subscriber = subscriber;
     }
 
     public Long getMerchantOrderId() {
@@ -46,18 +74,11 @@ public class BuyerRequestDTO {
         this.amount = amount;
     }
 
-    public Long getSubscriberId() {
-        return subscriberId;
-    }
-
-    public void setSubscriberId(Long subscriberId) {
-        this.subscriberId = subscriberId;
-    }
-
     @Override
     public String toString() {
-        return "BuyerRequestDTO{" +
-                "subscriberId=" + subscriberId +
+        return "Payment{" +
+                "id=" + id +
+                ", subscriber=" + subscriber +
                 ", merchantOrderId=" + merchantOrderId +
                 ", merchantTimestamp=" + merchantTimestamp +
                 ", amount=" + amount +

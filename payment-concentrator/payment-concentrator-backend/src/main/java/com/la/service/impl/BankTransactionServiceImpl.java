@@ -2,16 +2,13 @@ package com.la.service.impl;
 
 import com.la.dto.BankRequestDTO;
 import com.la.dto.BankResponseDTO;
-import com.la.dto.BuyerRequestDTO;
-import com.la.model.Subscriber;
-import com.la.model.SubscriberDetails;
-import com.la.model.User;
-import com.la.repository.SubscriberDetailsRepository;
-import com.la.repository.TransactionRepository;
-import com.la.repository.UserRepository;
+import com.la.model.*;
+import com.la.repository.*;
 import com.la.service.BankTransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class BankTransactionServiceImpl implements BankTransactionService {
@@ -20,26 +17,47 @@ public class BankTransactionServiceImpl implements BankTransactionService {
     private TransactionRepository transactionRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private PaymentMethodRepository paymentMethodRepository;
 
     @Autowired
-    private SubscriberDetailsRepository subscriberDetailsRepository;
+    private BuyerRequestRepository buyerRequestRepository;
 
-    @Override // TO DO : Da li je pretplacen na banku
-    public BankRequestDTO createBankRequestDTO(BuyerRequestDTO buyerRequestDTO) {
-        Subscriber subscriber = (Subscriber) userRepository.findById(buyerRequestDTO.getSubscriberId()).get();
-        SubscriberDetails subscriberDetails = subscriber.getSubscriberDetails();
-        if(subscriberDetails != null){
-            // TO DO : MAKE TRANSACTION OBJECT IN PC
-            return new BankRequestDTO(subscriberDetails.getMerchantId(), subscriberDetails.getMerchantPassword(), buyerRequestDTO);
+    @Override
+    public BankRequestDTO createBankRequestDTO(Long buyerRequestId) {
+        Optional<BuyerRequest> buyerRequest = buyerRequestRepository.findById(buyerRequestId);
+        if (buyerRequest.isPresent()){
+            SubscriberDetails subscriberDetails = buyerRequest.get().getSubscriber().getSubscriberDetails();
+            if(subscriberDetails != null){
+                Transaction transaction = new Transaction();
+                transaction.setStatus(Status.PENDING);
+                transaction.setBuyerRequest(buyerRequest.get());
+                transaction.setPaymentMethod(paymentMethodRepository.findByName("Bank"));
+                transactionRepository.save(transaction);
+                return new BankRequestDTO(subscriberDetails.getMerchantId(),
+                                        subscriberDetails.getMerchantPassword(),
+                                        buyerRequest.get().getAmount(),
+                                        buyerRequest.get().getMerchantTimestamp(),
+                                        buyerRequest.get().getMerchantOrderId());
+            }
+            return null;
         }
         return null;
     }
 
     @Override
-    public String updateTransactionPaymentId(Long paymentId) {
-        // TO DO : UPDATE PAYMENT ID
-        return null;
+    public void updateTransactionPaymentId(Long paymentId, Long buyerRequestId) {
+        Transaction transaction = transactionRepository.findByBuyerRequest(buyerRequestRepository.findById(buyerRequestId).get());
+        transaction.setPaymentId(paymentId);
+        transactionRepository.save(transaction);
+    }
+
+    @Override
+    public String updateTransactionError(Long buyerRequestId) {
+        Transaction transaction = transactionRepository.findByBuyerRequest(buyerRequestRepository.findById(buyerRequestId).get());
+        transaction.setStatus(Status.ERROR);
+        transactionRepository.save(transaction);
+
+        return transaction.getBuyerRequest().getSubscriber().getSubscriberDetails().getErrorUrl();
     }
 
     @Override

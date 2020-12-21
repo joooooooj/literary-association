@@ -5,14 +5,14 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@DiscriminatorValue("SUB")
+@DiscriminatorValue("SUBSCRIBER")
 public class Subscriber extends User {
 
     @OneToMany
     @JoinColumn(name = "subscriber_id", unique = true)
     private List<Transaction> transactions;
 
-    @OneToOne
+    @OneToOne()
     @JoinColumn(name = "subscriber_details_id", referencedColumnName = "id")
     private SubscriberDetails subscriberDetails;
 
@@ -54,5 +54,19 @@ public class Subscriber extends User {
 
     public void setPaymentMethods(Set<PaymentMethod> paymentMethods) {
         this.paymentMethods = paymentMethods;
+    }
+
+    @Override
+    public String toString() {
+        return "Subscriber{" +
+                "transactions=" + transactions +
+                ", subscriberDetails=" + subscriberDetails +
+                ", paymentMethods=" + paymentMethods +
+                ", id=" + id +
+                ", type='" + type + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

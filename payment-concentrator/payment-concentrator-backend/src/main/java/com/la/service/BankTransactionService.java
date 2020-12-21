@@ -1,16 +1,18 @@
 package com.la.service;
 
-import com.la.dto.BankPaymentUrlDTO;
 import com.la.dto.BankRequestDTO;
 import com.la.dto.BankResponseDTO;
-import com.la.dto.BuyerRequestDTO;
+
+import java.util.List;
 
 public interface BankTransactionService {
 
-    BankRequestDTO createBankRequestDTO(BuyerRequestDTO buyerRequestDTO);
+    BankRequestDTO createBankRequestDTO(Long paymentId);
 
     String updateTransaction(BankResponseDTO bankResponseDTO);
 
-    String updateTransactionPaymentId(Long paymentId);
+    String updateTransactionError(Long buyerRequestId);
+
+    void updateTransactionPaymentId(Long paymentId, Long buyerRequestId);
 
 }

@@ -16,9 +16,6 @@ import org.springframework.web.client.RestTemplate;
 public class TransactionController {
 
     @Autowired
-    RestTemplate restTemplate;
-
-    @Autowired
     private TransactionService transactionService;
 
     /**
@@ -31,10 +28,10 @@ public class TransactionController {
     @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BankPaymentUrlDTO> createPayment(@RequestBody BankRequestDTO bankRequestDTO) {
         try {
-            // MAKE PAYMENT OBJECT AND GENERATE PAYMENT URL AND ID (SEND TO PAYMENT CONCETRATOR)
-            return new ResponseEntity<>(null, HttpStatus.OK);
+            BankPaymentUrlDTO bankPaymentUrlDTO = transactionService.createPayment(bankRequestDTO);
+            return new ResponseEntity<>(bankPaymentUrlDTO, HttpStatus.OK);
         } catch (Exception e) {
-            // e.printStackTrace();
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
@@ -57,19 +54,19 @@ public class TransactionController {
         }
     }
 
-    /**
-     * Calls payment concetrator to update transaction status
-     *
-     * @return STATUS URL (SUCCESS, FAILED, ERROR)
-     */
-    private String getPaymentFormUrl(BankResponseDTO bankResponseDTO) {
-        String response =
-                restTemplate.exchange("http://payment-concentrator/transaction",
-                        HttpMethod.PUT,
-                        new HttpEntity<>(bankResponseDTO),
-                        new ParameterizedTypeReference<String>() {})
-                        .getBody();
-
-        return response;
-    }
+//    /**
+//     * Calls payment concetrator to update transaction status
+//     *
+//     * @return STATUS URL (SUCCESS, FAILED, ERROR)
+//     */
+//    private String getPaymentFormUrl(BankResponseDTO bankResponseDTO) {
+//        String response =
+//                restTemplate.exchange("http://payment-concentrator/transaction",
+//                        HttpMethod.PUT,
+//                        new HttpEntity<>(bankResponseDTO),
+//                        new ParameterizedTypeReference<String>() {})
+//                        .getBody();
+//
+//        return response;
+//    }
 }

@@ -8,15 +8,21 @@ public class BankRequestDTO{
 
     private String merchantPassword;
 
-    private BuyerRequestDTO buyerRequestDTO;
+    private Long merchantOrderId; // Order Id from LA
+
+    private LocalDateTime merchantTimestamp;
+
+    private float amount;
 
     public BankRequestDTO() {
     }
 
-    public BankRequestDTO(Long merchantId, String merchantPassword, BuyerRequestDTO buyerRequestDTO) {
+    public BankRequestDTO(Long merchantId, String merchantPassword, float amount, LocalDateTime merchantTimestamp, Long merchantOrderId) {
         this.merchantId = merchantId;
         this.merchantPassword = merchantPassword;
-        this.buyerRequestDTO = buyerRequestDTO;
+        this.merchantOrderId = merchantOrderId;
+        this.merchantTimestamp = merchantTimestamp;
+        this.amount = amount;
     }
 
     public String getMerchantPassword() {
@@ -27,14 +33,6 @@ public class BankRequestDTO{
         this.merchantPassword = merchantPassword;
     }
 
-    public BuyerRequestDTO getBuyerRequestDTO() {
-        return buyerRequestDTO;
-    }
-
-    public void setBuyerRequestDTO(BuyerRequestDTO buyerRequestDTO) {
-        this.buyerRequestDTO = buyerRequestDTO;
-    }
-
     public Long getMerchantId() {
         return merchantId;
     }
@@ -43,11 +41,38 @@ public class BankRequestDTO{
         this.merchantId = merchantId;
     }
 
+    public Long getMerchantOrderId() {
+        return merchantOrderId;
+    }
+
+    public void setMerchantOrderId(Long merchantOrderId) {
+        this.merchantOrderId = merchantOrderId;
+    }
+
+    public LocalDateTime getMerchantTimestamp() {
+        return merchantTimestamp;
+    }
+
+    public void setMerchantTimestamp(LocalDateTime merchantTimestamp) {
+        this.merchantTimestamp = merchantTimestamp;
+    }
+
+    public float getAmount() {
+        return amount;
+    }
+
+    public void setAmount(float amount) {
+        this.amount = amount;
+    }
+
     @Override
     public String toString() {
         return "BankRequestDTO{" +
-                "merchantPassword='" + merchantPassword + '\'' +
-                ", buyerRequestDTO=" + buyerRequestDTO +
+                "merchantId=" + merchantId +
+                ", merchantPassword='" + merchantPassword + '\'' +
+                ", merchantOrderId=" + merchantOrderId +
+                ", merchantTimestamp=" + merchantTimestamp +
+                ", amount=" + amount +
                 '}';
     }
 }
