@@ -10,14 +10,14 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(unique = true)
     private String pan;
 
     @Column
     private String securityCode;
 
     @Column
-    private LocalDateTime expireDate;
+    private String expireDate;
 
     @ManyToOne
     @JoinColumn(name = "account_id")
@@ -26,7 +26,7 @@ public class Card {
     public Card() {
     }
 
-    public Card(String pan, String securityCode, LocalDateTime expireDate, Account account) {
+    public Card(String pan, String securityCode, String expireDate, Account account) {
         this.pan = pan;
         this.securityCode = securityCode;
         this.expireDate = expireDate;
@@ -57,11 +57,11 @@ public class Card {
         this.securityCode = securityCode;
     }
 
-    public LocalDateTime getExpireDate() {
+    public String getExpireDate() {
         return expireDate;
     }
 
-    public void setExpireDate(LocalDateTime expireDate) {
+    public void setExpireDate(String expireDate) {
         this.expireDate = expireDate;
     }
 

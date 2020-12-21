@@ -10,11 +10,14 @@ public class Merchant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
-    private String merchantId;
+    @Column
+    private String password;
 
     @Column
-    private String merchantPassword;
+    private String companyName;
+
+    @Column
+    private String address;
 
     @OneToOne
     @JoinColumn(name = "account_id", unique = true)
@@ -23,10 +26,11 @@ public class Merchant {
     public Merchant() {
     }
 
-    public Merchant(Long id, String merchantId, String merchantPassword, Account account) {
+    public Merchant(Long id, String password, String companyName, String address, Account account) {
         this.id = id;
-        this.merchantId = merchantId;
-        this.merchantPassword = merchantPassword;
+        this.password = password;
+        this.companyName = companyName;
+        this.address = address;
         this.account = account;
     }
 
@@ -38,20 +42,28 @@ public class Merchant {
         this.id = id;
     }
 
-    public String getMerchantId() {
-        return merchantId;
+    public String getPassword() {
+        return password;
     }
 
-    public void setMerchantId(String merchantId) {
-        this.merchantId = merchantId;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getMerchantPassword() {
-        return merchantPassword;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setMerchantPassword(String merchantPassword) {
-        this.merchantPassword = merchantPassword;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Account getAccount() {

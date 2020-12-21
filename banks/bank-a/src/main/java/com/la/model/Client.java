@@ -17,18 +17,14 @@ public class Client {
     private String surname;
 
     @Column
-    private String companyName;
-
-    @Column
     private String address;
 
     public Client() {
     }
 
-    public Client(String name, String surname, String companyName, String address) {
+    public Client(String name, String surname, String address) {
         this.name = name;
         this.surname = surname;
-        this.companyName = companyName;
         this.address = address;
     }
 
@@ -56,14 +52,6 @@ public class Client {
         this.surname = surname;
     }
 
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -71,4 +59,5 @@ public class Client {
     public void setAddress(String address) {
         this.address = address;
     }
+
 }
