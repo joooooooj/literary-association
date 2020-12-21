@@ -50,14 +50,6 @@ public class Merchant {
         this.password = password;
     }
 
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
     public String getCompanyName() {
         return companyName;
     }
@@ -72,6 +64,14 @@ public class Merchant {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     @Override

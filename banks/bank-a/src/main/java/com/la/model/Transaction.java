@@ -35,8 +35,7 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(Long id, LocalDateTime timestamp, Long issuerOrderId, LocalDateTime issuerTimestamp, Payment payment, Account account, Status status) {
-        this.id = id;
+    public Transaction(LocalDateTime timestamp, Long issuerOrderId, LocalDateTime issuerTimestamp, Payment payment, Account account, Status status) {
         this.timestamp = timestamp;
         this.issuerOrderId = issuerOrderId;
         this.issuerTimestamp = issuerTimestamp;

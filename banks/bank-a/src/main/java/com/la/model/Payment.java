@@ -43,6 +43,14 @@ public class Payment {
         this.id = id;
     }
 
+    public Merchant getMerchant() {
+        return merchant;
+    }
+
+    public void setMerchant(Merchant merchant) {
+        this.merchant = merchant;
+    }
+
     public Long getMerchantOrderId() {
         return merchantOrderId;
     }
@@ -65,14 +73,6 @@ public class Payment {
 
     public void setAmount(float amount) {
         this.amount = amount;
-    }
-
-    public Merchant getMerchant() {
-        return merchant;
-    }
-
-    public void setMerchant(Merchant merchant) {
-        this.merchant = merchant;
     }
 
     @Override
