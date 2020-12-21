@@ -27,6 +27,15 @@ public class TransactionServiceImpl implements TransactionService {
     @Autowired
     private ClientRepository clientRepository;
 
+    @Autowired
+    private ClientRepository cardRepository;
+
+    @Autowired
+    private AccountRepository accountRepository;
+
+    @Autowired
+    private TransactionRepository transactionRepository;
+
     public BankPaymentUrlDTO createPayment(BankRequestDTO bankRequestDTO) {
         // Check if merchant id exists
         // If exists create Payment object in database
@@ -67,26 +76,9 @@ public class TransactionServiceImpl implements TransactionService {
             String[] cardholder = transactionFormDataDTO.getCardholderName().split(" ");
             String name = cardholder[0];
             String surname = cardholder[1];
-            for (Client client: this.clientRepository.findAllByName(name)
-                 ) {
-                if (client.getSurname().equals(surname)) {
-                    for (Account a: this.accountRepository.findAllByClient(client)
-                         ) {
-                        account = a;
-                        for (Card card: this.cardRepository.findAllByAccount(account)
-                        ) {
-                            if (card.getPan().equals(transactionFormDataDTO.getPan())) {
-                                if (card.getSecurityCode().equals(transactionFormDataDTO.getSecurityCode())) {
-                                    if (card.getExpireDate().equals(transactionFormDataDTO.getExpireDate())) {
-                                        valid = true;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            if (valid) {
+            Client client = clientRepository.findByNameAndSurname(name, surname);
+            if (client != null) {
+                account = (cardRepository.findByPanAndSecurityCodeAndExpireDate(transactionFormDataDTO.getPan(),transactionFormDataDTO.getSecurityCode(),transactionFormDataDTO.getExpireDate())).getAccount();
 
                 if (account.getBalance() < payment.getAmount()) {
                     throw new OperationsException();
@@ -102,37 +94,37 @@ public class TransactionServiceImpl implements TransactionService {
                 transaction.setAccount(account);
                 transaction.setPayment(payment);
                 transaction.setStatus(Status.SUCCESS);
-                transaction.setIssuerOrderId(payment.getMerchantOrderId());
-                transaction.setIssuerTimestamp(payment.getMerchantTimestamp());
+                transaction.setIssuerOrderId(null);
+                transaction.setIssuerTimestamp(null);
                 transaction.setTimestamp(LocalDateTime.now());
-                this.transactionRepository.save(transaction);
-
-            } else {
+                transactionRepository.save(transaction);
+            }
+            else {
                 throw new ValidationException();
             }
         } catch (OperationsException e) {
             transaction.setAccount(account);
             transaction.setPayment(payment);
             transaction.setStatus(Status.FAILED);
-            transaction.setIssuerOrderId(payment.getMerchantOrderId());
-            transaction.setIssuerTimestamp(payment.getMerchantTimestamp());
+            transaction.setIssuerOrderId(null);
+            transaction.setIssuerTimestamp(null);
             transaction.setTimestamp(LocalDateTime.now());
-            this.transactionRepository.save(transaction);
+            transactionRepository.save(transaction);
             return new BankResponseDTO(payment.getMerchantOrderId(), transaction.getId(),
                     transaction.getTimestamp(),paymentId, Status.FAILED);
         } catch (ValidationException | IndexOutOfBoundsException e) {
             transaction.setTimestamp(LocalDateTime.now());
             transaction.setStatus(Status.ERROR);
             transaction.setPayment(payment);
-            transaction.setIssuerTimestamp(payment.getMerchantTimestamp());
-            transaction.setIssuerOrderId(payment.getMerchantOrderId());
-            this.transactionRepository.save(transaction);
+            transaction.setIssuerTimestamp(null);
+            transaction.setIssuerOrderId(null);
+            transactionRepository.save(transaction);
             return new BankResponseDTO(payment.getMerchantOrderId(), transaction.getId(),
                     transaction.getTimestamp(),paymentId, Status.ERROR);
         } catch (Exception e) {
             transaction.setTimestamp(LocalDateTime.now());
             transaction.setStatus(Status.ERROR);
-            this.transactionRepository.save(transaction);
+            transactionRepository.save(transaction);
             return new BankResponseDTO(null, transaction.getId(),
                     transaction.getTimestamp(),paymentId, Status.ERROR);
         }

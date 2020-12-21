@@ -66,6 +66,7 @@ public class TransactionController {
                 logger.info("Date : {}, Bank payment successful. " +
                         "Info : {}.", LocalDateTime.now(), "Successful bank transaction");
             }
+            System.err.println("SENDING RESPONSE");
             System.err.println(bankResponseDTO);
             // WHEN TRANSACTION PROCESS DONE CALL PAYMENT CONCETRATOR TO UPDATE TRANSACTION AND GET STATUS URL
             //this.getPaymentFormUrl(bankResponseDTO)
