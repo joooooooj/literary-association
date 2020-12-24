@@ -19,6 +19,9 @@ public class Card {
     @Column
     private String expireDate;
 
+    @Column
+    private String cardholderName;
+
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
@@ -26,10 +29,12 @@ public class Card {
     public Card() {
     }
 
-    public Card(String pan, String securityCode, String expireDate, Account account) {
+    public Card(Long id, String pan, String securityCode, String expireDate, String cardholderName, Account account) {
+        this.id = id;
         this.pan = pan;
         this.securityCode = securityCode;
         this.expireDate = expireDate;
+        this.cardholderName = cardholderName;
         this.account = account;
     }
 
@@ -73,13 +78,22 @@ public class Card {
         this.account = account;
     }
 
+    public String getCardholderName() {
+        return cardholderName;
+    }
+
+    public void setCardholderName(String cardholderName) {
+        this.cardholderName = cardholderName;
+    }
+
     @Override
     public String toString() {
         return "Card{" +
                 "id=" + id +
                 ", pan='" + pan + '\'' +
                 ", securityCode='" + securityCode + '\'' +
-                ", expireDate=" + expireDate +
+                ", expireDate='" + expireDate + '\'' +
+                ", cardholderName='" + cardholderName + '\'' +
                 ", account=" + account +
                 '}';
     }

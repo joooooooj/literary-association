@@ -1,9 +1,10 @@
 import {Button, Form} from "react-bootstrap";
 import './App.css';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 
 function  App() {
 
+  const [payment, setPayment] = useState("");
   const [pan, setPan] = useState("");
   const [securityCode, setSecurityCode] = useState("");
   const [cardholderName, setCardholderName] = useState("");
@@ -11,14 +12,28 @@ function  App() {
   const [expireYear, setExpireYear] = useState("");
   const [error, setError] = useState(false);
 
+  useEffect(() => {
+    const url = (window.location.href).split("/");
+    const options = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    };
+    fetch("http://localhost:8084/transaction/payment/" + url[3], options)
+    .then(response => response.json())
+    .then(data => setPayment(data));
+
+  }, [])
+
   const handleSubmit = () => {
     let formData = {
       pan: pan,
       securityCode: securityCode,
       cardholderName: cardholderName,
-      expireDate: expireMonth + "-" + expireYear
+      expireDate: expireMonth + "/" + expireYear
     }
-    const url = 'http://localhost:8084/transaction/1';
+    const url = 'http://localhost:8084/transaction/' + payment.id;
     const options = {
         method: 'POST',
         headers: {
@@ -27,12 +42,11 @@ function  App() {
         body: JSON.stringify(formData)
     };
     fetch(url, options)
-    .then(response => {
-        if(!response.ok){
-            alert("There's been an error.");
-        }
-       console.log("response");
-    });
+    .then(response => response.json())
+    .then(data => {
+       console.log(data);
+    })
+    .catch(error => console.log(error));
   }
 
   const panOnChangeHandler = (value) => {  
@@ -56,11 +70,19 @@ function  App() {
   }
 
   return (
-    <div >
+    <div>
       <div className="App-header">
-      <h1>Bank A</h1>
-      <h4>Enter your card information here</h4>
-        <Form className="p-3" style={{width:"35%"}}>
+        <div className="w-25">
+          <h1>Bank A</h1>
+          { payment &&
+            <>
+              <h4 className="text-warning">Merchant : {payment.merchant.companyName}</h4>
+              <h4 className="text-warning mb-5">Amount : {payment.amount} $</h4>
+            </>
+          }
+          <h5>Enter your card information here</h5>
+        </div>
+        <Form className="p-3 w-25">
           <Form.Group className="row mb-3 p-2">
             <Form.Label className="w-50" style={{marginTop:"5px"}}>PAN:</Form.Label>
             <Form.Control className="w-50" autoComplete="off" maxLength="19"
@@ -79,7 +101,7 @@ function  App() {
           <Form.Group className="row mb-3 p-2">
             <Form.Label className="w-50" style={{marginTop:"5px"}}>Expire date:</Form.Label>
             <div className="row float-right"  style={{width:"50%"}} >
-              <select className="form-select" style={{width:"50px"}} onChange={(e) => expireMonthOnChangeHandler(e.target.value)}>
+              <select className="form-select" style={{width:"60px"}} onChange={(e) => expireMonthOnChangeHandler(e.target.value)}>
                 <option value="">--</option>
                 <option value="01">01</option>
                 <option value="02">02</option>
@@ -119,12 +141,12 @@ function  App() {
               </select>
             </div>
           </Form.Group>
-          <div className="row">
-            <div className="col-6 ml-0 pl-0">
-              <Button variant="success" type="submit" onClick={() => handleSubmit()} className="btn btn-primary button ml-0 pl-0">Pay</Button>
+          <div className="row" style={{marginLeft:"-25px", marginRight:"-25px"}}>
+            <div className="col-6">
+              <Button variant="success" onClick={() => handleSubmit()} className="btn btn-primary button w-100">Pay</Button>
             </div>
             <div className="col-6">
-              <Button className="button">Cancel</Button>
+              <Button className="button  w-100">Cancel</Button>
             </div>
           </div>
         </Form>

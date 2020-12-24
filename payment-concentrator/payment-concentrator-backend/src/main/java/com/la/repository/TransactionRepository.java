@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
     Transaction findByBuyerRequest(BuyerRequest buyerRequestId);
+
+    Transaction findByPaymentId(Long paymentId);
 }

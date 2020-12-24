@@ -63,17 +63,19 @@ public class BankTransactionController {
      *
      * @return STATUS URL (SUCCESS, FAILED, ERROR)
      */
-    @PutMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> update(@RequestBody BankResponseDTO bankResponseDTO) {
         try {
             String statusUrl = transactionService.updateTransaction(bankResponseDTO);
+//            finishTransaction(new SubscriberUpdateTransactionDTO(bankResponseDTO.getMerchantOrderId(), bankResponseDTO.getStatus()));
             if (statusUrl != null){
-                return new ResponseEntity<>(finishTransaction(new SubscriberUpdateTransactionDTO()), HttpStatus.OK);
+                return new ResponseEntity<>(statusUrl, HttpStatus.OK);
             }
             else {
                 return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
             }
         } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

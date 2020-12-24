@@ -22,6 +22,9 @@ public class BankTransactionServiceImpl implements BankTransactionService {
     @Autowired
     private BuyerRequestRepository buyerRequestRepository;
 
+    @Autowired
+    private SubscriberDetailsRepository subscriberDetailsRepository;
+
     @Override
     public BankRequestDTO createBankRequestDTO(Long buyerRequestId) {
         Optional<BuyerRequest> buyerRequest = buyerRequestRepository.findById(buyerRequestId);
@@ -62,7 +65,31 @@ public class BankTransactionServiceImpl implements BankTransactionService {
 
     @Override
     public String updateTransaction(BankResponseDTO bankResponseDTO) {
-        // TO DO : UPDATE TRANSACTION STATUS AND RETURN STATUS URL
-        return null;
+        Transaction transaction = transactionRepository.findByPaymentId(bankResponseDTO.getPaymentId());
+        transaction.setAcqOrderId(bankResponseDTO.getAcqOrderId());
+        transaction.setAcqTimestamp(bankResponseDTO.getAcqTimestamp());
+
+        String returnUrl = "";
+
+        switch (bankResponseDTO.getStatus()){
+            case SUCCESS : {
+                transaction.setStatus(Status.SUCCESS);
+                returnUrl = transaction.getBuyerRequest().getSubscriber().getSubscriberDetails().getSuccessUrl();
+                break;
+            }
+            case ERROR: {
+                transaction.setStatus(Status.ERROR);
+                returnUrl = transaction.getBuyerRequest().getSubscriber().getSubscriberDetails().getErrorUrl();
+                break;
+            }
+            case FAILED: {
+                transaction.setStatus(Status.FAILED);
+                returnUrl = transaction.getBuyerRequest().getSubscriber().getSubscriberDetails().getFailedUrl();
+                break;
+            }
+        }
+        transactionRepository.save(transaction);
+
+        return returnUrl;
     }
 }
