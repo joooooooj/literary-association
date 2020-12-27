@@ -8,17 +8,17 @@
     <bpmn:userTask id="User_Data_Input" name="User Data Input">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="firstname" label="First Name" type="string">
+          <camunda:formField id="name" label="Name" type="string">
             <camunda:validation>
               <camunda:constraint name="required" />
             </camunda:validation>
           </camunda:formField>
-          <camunda:formField id="lastname" label="Last name" type="string">
+          <camunda:formField id="surname" label="Surname" type="string">
             <camunda:validation>
               <camunda:constraint name="required" />
             </camunda:validation>
           </camunda:formField>
-          <camunda:formField id="email" label="Email" type="string">
+          <camunda:formField id="email" label="Email address" type="string">
             <camunda:validation>
               <camunda:constraint name="required" />
             </camunda:validation>
@@ -34,6 +34,9 @@
             </camunda:validation>
           </camunda:formField>
           <camunda:formField id="cityandcountry" label="City And Country" type="enum">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
             <camunda:value id="BelgradeSerbia" name="Belgrade, Serbia" />
             <camunda:value id="MadridSpain" name="Madrid, Spain" />
             <camunda:value id="BerlinGermany" name="Berlin, Germany" />
@@ -48,7 +51,7 @@
       <bpmn:incoming>Flow_0fbb3rc</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0fbb3rc" sourceRef="Create_User" targetRef="Event_0br8osk" />
-    <bpmn:serviceTask id="Create_User" name="Create User" camunda:class="com.la.service.CreateUserService">
+    <bpmn:serviceTask id="Create_User" name="Create User" camunda:class="com.la.service.impl.CreateUserServiceImpl">
       <bpmn:incoming>Flow_1yb2i7w</bpmn:incoming>
       <bpmn:outgoing>Flow_0fbb3rc</bpmn:outgoing>
     </bpmn:serviceTask>
