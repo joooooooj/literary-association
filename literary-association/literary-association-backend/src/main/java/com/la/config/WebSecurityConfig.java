@@ -57,7 +57,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and()
 
-                .authorizeRequests().antMatchers("/api/auth/**").permitAll()
+                .authorizeRequests().antMatchers("/api/auth/**").permitAll().and()
+
+                .authorizeRequests().antMatchers("/camunda/**").permitAll().and()
+
+                .authorizeRequests().antMatchers("/camunda-welcome/**").permitAll()
 
                 .anyRequest().authenticated().and()
 
