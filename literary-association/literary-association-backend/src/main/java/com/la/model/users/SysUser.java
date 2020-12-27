@@ -1,5 +1,6 @@
-package com.la.model;
+package com.la.model.users;
 
+import com.la.model.Permission;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,7 +17,7 @@ import static javax.persistence.InheritanceType.SINGLE_TABLE;
 @Table(name = "users")
 @Inheritance(strategy = SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = STRING)
-public class User implements UserDetails {
+public class SysUser implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,10 +59,10 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
 
-    public User() {
+    public SysUser() {
     }
 
-    public User(String username, String password, String firstName, String lastName, String state, String city, String email) {
+    public SysUser(String username, String password, String firstName, String lastName, String state, String city, String email) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;

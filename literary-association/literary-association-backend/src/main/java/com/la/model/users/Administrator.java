@@ -1,11 +1,11 @@
-package com.la.model;
+package com.la.model.users;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("ADMINISTRATOR")
-public class Administrator extends User {
+public class Administrator extends SysUser {
 
     public Administrator() {
     }

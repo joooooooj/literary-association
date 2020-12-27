@@ -1,11 +1,13 @@
 package com.la.model;
 
+import com.la.model.users.SysUser;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("BOARD_MEMBER")
-public class BoardMember extends User{
+public class BoardMember extends SysUser {
 
     public BoardMember() {
     }

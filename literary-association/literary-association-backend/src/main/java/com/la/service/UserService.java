@@ -1,7 +1,10 @@
 package com.la.service;
 
-import com.la.model.User;
+import com.la.model.users.SysUser;
+import org.camunda.bpm.engine.identity.User;
 
 public interface UserService {
-    User findByUsername(String username);
+    SysUser findByUsername(String username);
+
+    User createCamundaUser(String username);
 }

@@ -1,4 +1,6 @@
-package com.la.model;
+package com.la.model.users;
+
+import com.la.model.Membership;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -7,7 +9,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @DiscriminatorValue("WRITER")
-public class Writer extends User{
+public class Writer extends SysUser {
 
     @ManyToOne
     @JoinColumn(name = "membership_id")

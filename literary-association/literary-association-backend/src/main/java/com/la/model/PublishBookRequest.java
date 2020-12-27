@@ -1,5 +1,8 @@
 package com.la.model;
 
+import com.la.model.users.Editor;
+import com.la.model.users.Writer;
+
 import javax.persistence.*;
 
 @Entity

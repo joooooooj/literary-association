@@ -1,5 +1,6 @@
-package com.la.model;
+package com.la.model.users;
 
+import com.la.model.Permission;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

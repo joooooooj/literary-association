@@ -1,6 +1,6 @@
 package com.la.repository;
 
-import com.la.model.Publisher;
+import com.la.model.users.Publisher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
