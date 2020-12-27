@@ -1,4 +1,4 @@
-package com.la.model;
+package com.la.model.users;
 
 import com.la.enumeration.WriterMembershipStatus;
 
@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Entity
 @DiscriminatorValue("WRITER_MEMBERSHIP_REQUEST")
-public class WriterMembershipRequest extends User {
+public class WriterMembershipRequest extends SysUser {
 
     @Column
     private WriterMembershipStatus status;

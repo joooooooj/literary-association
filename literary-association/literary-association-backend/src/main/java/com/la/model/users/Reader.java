@@ -1,12 +1,14 @@
-package com.la.model;
+package com.la.model.users;
+
+import com.la.model.Genre;
+import com.la.model.Membership;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
 @DiscriminatorValue("READER")
-public class Reader extends User{
+public class Reader extends SysUser {
 
     @Column
     private boolean isBeta;

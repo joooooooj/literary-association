@@ -1,11 +1,11 @@
-package com.la.model;
+package com.la.model.users;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("LECTOR")
-public class Lector extends User{
+public class Lector extends SysUser {
 
     public Lector() {
     }

@@ -1,5 +1,7 @@
 package com.la.model;
 
+import com.la.model.users.WriterMembershipRequest;
+
 import javax.persistence.*;
 
 @Entity

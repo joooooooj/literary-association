@@ -21,7 +21,7 @@ INSERT INTO `la`.`role` (`id`, `name`) VALUES ('5', 'LECTOR');
 INSERT INTO `la`.`role` (`id`, `name`) VALUES ('6', 'READER');
 INSERT INTO `la`.`role` (`id`, `name`) VALUES ('7', 'WRITER_MEMBERSHIP_REQUEST');
 
-/*user-roles*/
+/*sysUser-roles*/
 INSERT INTO `la`.`user_roles` (`user_id`, `role_id`) VALUES ('1', '1');
 INSERT INTO `la`.`user_roles` (`user_id`, `role_id`) VALUES ('2', '2');
 INSERT INTO `la`.`user_roles` (`user_id`, `role_id`) VALUES ('3', '3');

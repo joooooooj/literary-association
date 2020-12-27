@@ -1,5 +1,8 @@
 package com.la.model;
 
+import com.la.model.users.Lector;
+import com.la.model.users.Publisher;
+
 import javax.persistence.*;
 import java.util.List;
 

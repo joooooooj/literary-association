@@ -1,6 +1,7 @@
 package com.la.model;
 
 import com.la.enumeration.ScriptRequestStatus;
+import com.la.model.users.Lector;
 
 import javax.persistence.*;
 import java.util.Date;
