@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from "react";
+import {useForm} from "react-hook-form";
+
 import "./WelcomeCard.scss";
-import {Form} from "react-bootstrap";
+import {Form, Alert} from "react-bootstrap";
 import PaymentMethodsService from "../../services/PaymentMethodsService";
 import SubscriptionRequestsService from "../../services/SubscriptionRequestsService";
 
@@ -13,6 +15,11 @@ export default function WelcomeCard() {
         organizationDescription: "",
         paymentMethods: [],
     })
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertVariant, setAlertVariant] = useState('success');
+
+    /* Validation */
+    const {register, errors, handleSubmit} = useForm();
 
     useEffect(() => {
         PaymentMethodsService.getAll().then((data) => setPaymentMethods(data));
@@ -45,11 +52,27 @@ export default function WelcomeCard() {
     }
 
     const createRequestClickHandler = () => {
-        SubscriptionRequestsService.createRequest(request).then((data) => console.log(data));
+        SubscriptionRequestsService.createRequest(request).then((data) => {
+            console.log(data);
+            setShowAlert(true);
+            setAlertVariant('success');
+            setTimeout(() => {
+                setShowAlert(false);
+            }, 5000);
+        }).catch((error) => {
+            setShowAlert(true);
+            setAlertVariant('danger');
+            setTimeout(() => {
+                setShowAlert(false);
+            }, 5000);
+        });
     }
 
     return (
         <div className="Content">
+            <Alert className="Alert" variant={alertVariant} show={showAlert} dismissible transition={true}>
+                {alertVariant === "success" ? "You have submitted request successfully." : "Please fill in all the data."}
+            </Alert>
             <div className="WelcomeCard">
                 <h1 className="WelcomeTittle">Sign up right now!</h1>
                 <p className="WelcomeText">
@@ -67,14 +90,20 @@ export default function WelcomeCard() {
                 </button>
             </div>
             <div className="Subscribe" hidden={!visible}>
-                <Form>
+                <Form onSubmit={handleSubmit(createRequestClickHandler)}>
                     <Form.Group
                         className="InputElement"
                         controlId="exampleForm.ControlInput1"
                     >
                         <Form.Label className="Label">Organization name</Form.Label>
                         <Form.Control type="text" placeholder="Enter organization name"
-                                      onChange={e => organizationNameOnChangeHandler(e.target.value)}/>
+                                      onChange={e => organizationNameOnChangeHandler(e.target.value)}
+                                      name="organizationName" ref={register({required: true})}
+                                      isInvalid={!!errors.organizationName}/>
+                        {errors.organizationName &&
+                        <Form.Control.Feedback type="invalid">
+                            Organization name is required.
+                        </Form.Control.Feedback>}
                     </Form.Group>
                     <Form.Group
                         className="InputElement"
@@ -82,18 +111,30 @@ export default function WelcomeCard() {
                     >
                         <Form.Label className="Label">Organization email</Form.Label>
                         <Form.Control type="text" placeholder="Enter organization email"
-                                      onChange={e => organizationEmailOnChangeHandler(e.target.value)}/>
+                                      onChange={e => organizationEmailOnChangeHandler(e.target.value)}
+                                      name="organizationEmail" ref={register({required: true})}
+                                      isInvalid={!!errors.organizationEmail}/>
+                        {errors.organizationEmail &&
+                        <Form.Control.Feedback type="invalid">
+                            Organization email is required.
+                        </Form.Control.Feedback>}
                     </Form.Group>
                     <Form.Group
                         controlId="exampleForm.ControlSelect2"
                         className="InputElement"
                     >
                         <Form.Label className="Label">Select payment methods</Form.Label>
-                        <Form.Control as="select" multiple onChange={e => methodsOnChangeHandler(e)}>
+                        <Form.Control as="select" multiple onChange={e => methodsOnChangeHandler(e)}
+                                      name="organizationPaymentMethods" ref={register({required: true})}
+                                      isInvalid={!!errors.organizationPaymentMethods}>
                             {paymentMethods.map(method => {
                                 return <option key={method.id} value={method.name}>{method.name}</option>
                             })}
                         </Form.Control>
+                        {errors.organizationPaymentMethods &&
+                        <Form.Control.Feedback type="invalid">
+                            Organization payment methods are required.
+                        </Form.Control.Feedback>}
                     </Form.Group>
                     <Form.Group
                         controlId="exampleForm.ControlTextarea1"
@@ -108,12 +149,21 @@ export default function WelcomeCard() {
                             placeholder="Describe what you do"
                             style={{resize: "none"}}
                             onChange={e => organizationDescriptionOnChangeHandler(e.target.value)}
+                            name="organizationDescription" ref={register({required: true})}
+                            isInvalid={!!errors.organizationDescription}
                         />
+                        {errors.organizationDescription &&
+                        <Form.Control.Feedback type="invalid">
+                            Organization description is required.
+                        </Form.Control.Feedback>}
                     </Form.Group>
+                    <div className="ButtonWrapper ">
+                        <button className="Button Gray" type="submit"
+                        >Subscribe
+                        </button>
+                    </div>
                 </Form>{" "}
-                <div className="ButtonWrapper ">
-                    <button className="Button Gray" onClick={() => createRequestClickHandler()}>Subscribe</button>
-                </div>
+
             </div>
         </div>
     );
