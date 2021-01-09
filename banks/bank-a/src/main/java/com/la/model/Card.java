@@ -10,14 +10,17 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(unique = true)
     private String pan;
 
     @Column
     private String securityCode;
 
     @Column
-    private LocalDateTime expireDate;
+    private String expireDate;
+
+    @Column
+    private String cardholderName;
 
     @ManyToOne
     @JoinColumn(name = "account_id")
@@ -26,10 +29,12 @@ public class Card {
     public Card() {
     }
 
-    public Card(String pan, String securityCode, LocalDateTime expireDate, Account account) {
+    public Card(Long id, String pan, String securityCode, String expireDate, String cardholderName, Account account) {
+        this.id = id;
         this.pan = pan;
         this.securityCode = securityCode;
         this.expireDate = expireDate;
+        this.cardholderName = cardholderName;
         this.account = account;
     }
 
@@ -57,11 +62,11 @@ public class Card {
         this.securityCode = securityCode;
     }
 
-    public LocalDateTime getExpireDate() {
+    public String getExpireDate() {
         return expireDate;
     }
 
-    public void setExpireDate(LocalDateTime expireDate) {
+    public void setExpireDate(String expireDate) {
         this.expireDate = expireDate;
     }
 
@@ -71,5 +76,25 @@ public class Card {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public String getCardholderName() {
+        return cardholderName;
+    }
+
+    public void setCardholderName(String cardholderName) {
+        this.cardholderName = cardholderName;
+    }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "id=" + id +
+                ", pan='" + pan + '\'' +
+                ", securityCode='" + securityCode + '\'' +
+                ", expireDate='" + expireDate + '\'' +
+                ", cardholderName='" + cardholderName + '\'' +
+                ", account=" + account +
+                '}';
     }
 }

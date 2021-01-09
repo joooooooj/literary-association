@@ -11,8 +11,9 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // payment_id ; payment_url example - /form/{paymentId}
 
-    @Column
-    private Long merchantId;
+    @OneToOne
+    @JoinColumn(name="merchant_id", referencedColumnName = "id")
+    private Merchant merchant;
 
     @Column
     private Long merchantOrderId;
@@ -26,9 +27,9 @@ public class Payment {
     public Payment() {
     }
 
-    public Payment(Long id, Long merchantId, Long merchantOrderId, LocalDateTime merchantTimestamp, float amount) {
+    public Payment(Long id, Merchant merchant, Long merchantOrderId, LocalDateTime merchantTimestamp, float amount) {
         this.id = id;
-        this.merchantId = merchantId;
+        this.merchant = merchant;
         this.merchantOrderId = merchantOrderId;
         this.merchantTimestamp = merchantTimestamp;
         this.amount = amount;
@@ -42,12 +43,12 @@ public class Payment {
         this.id = id;
     }
 
-    public Long getMerchantId() {
-        return merchantId;
+    public Merchant getMerchant() {
+        return merchant;
     }
 
-    public void setMerchantId(Long merchantId) {
-        this.merchantId = merchantId;
+    public void setMerchant(Merchant merchant) {
+        this.merchant = merchant;
     }
 
     public Long getMerchantOrderId() {
@@ -78,7 +79,7 @@ public class Payment {
     public String toString() {
         return "Payment{" +
                 "id=" + id +
-                ", merchantId=" + merchantId +
+                ", merchant=" + merchant +
                 ", merchantOrderId=" + merchantOrderId +
                 ", merchantTimestamp=" + merchantTimestamp +
                 ", amount=" + amount +

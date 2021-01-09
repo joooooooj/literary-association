@@ -1,6 +1,7 @@
 package com.la.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "clients")
@@ -17,18 +18,18 @@ public class Client {
     private String surname;
 
     @Column
-    private String companyName;
-
-    @Column
     private String address;
+
+    @OneToMany
+    @JoinColumn(name="client_id", referencedColumnName = "id")
+    List<Account> accountList;
 
     public Client() {
     }
 
-    public Client(String name, String surname, String companyName, String address) {
+    public Client(String name, String surname, String address) {
         this.name = name;
         this.surname = surname;
-        this.companyName = companyName;
         this.address = address;
     }
 
@@ -56,19 +57,30 @@ public class Client {
         this.surname = surname;
     }
 
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public List<Account> getAccountList() {
+        return accountList;
+    }
+
+    public void setAccountList(List<Account> accountList) {
+        this.accountList = accountList;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", address='" + address + '\'' +
+                ", accountList=" + accountList +
+                '}';
     }
 }

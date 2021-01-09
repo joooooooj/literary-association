@@ -26,4 +26,12 @@ public class PaymentMethod {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return "PaymentMethod{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

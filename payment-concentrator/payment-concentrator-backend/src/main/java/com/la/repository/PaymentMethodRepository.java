@@ -12,4 +12,6 @@ public interface PaymentMethodRepository extends JpaRepository<PaymentMethod, Lo
 
     @Query(value = "SELECT * FROM payment_method p WHERE p.id NOT IN (1, 2, 3)", nativeQuery = true)
     List<PaymentMethod> getAllWithoutFirstThree();
+
+    PaymentMethod findByName(String name);
 }
