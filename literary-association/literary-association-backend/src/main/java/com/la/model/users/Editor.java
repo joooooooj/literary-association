@@ -2,10 +2,11 @@ package com.la.model.users;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import java.io.Serializable;
 
 @Entity
 @DiscriminatorValue("EDITOR")
-public class Editor extends SysUser {
+public class Editor extends SysUser implements Serializable {
 
     public Editor() {
     }

@@ -2,10 +2,11 @@ package com.la.model.users;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import java.io.Serializable;
 
 @Entity
 @DiscriminatorValue("ADMINISTRATOR")
-public class Administrator extends SysUser {
+public class Administrator extends SysUser implements Serializable {
 
     public Administrator() {
     }

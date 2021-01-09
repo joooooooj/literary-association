@@ -6,10 +6,11 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.io.Serializable;
 
 @Entity
 @DiscriminatorValue("WRITER")
-public class Writer extends SysUser {
+public class Writer extends SysUser implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "membership_id")

@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {Button, ButtonGroup, Table} from "react-bootstrap";
+import React, {useEffect, useState} from "react";
+import {Button, ButtonGroup, Form, Table} from "react-bootstrap";
 import Confirmation from "../../../core/modals/Confirmation";
 import AddExplanation from "./AddExplanation";
 import PlagiarismCheckResults from "./PlagiarismCheckResults";
@@ -7,7 +7,9 @@ import PreviewPDF from "../../../core/modals/PreviewPDF";
 import ChooseBetaReaders from "./ChooseBetaReaders";
 import AddSuggestions from "./AddSuggestions";
 
-export default function PublishRequests() {
+export default function PublishRequests(props) {
+
+    const [requests, setRequests] = useState([]);
 
     const [status, setStatus] = useState("");
     const [corrections, setCorrections] = useState(null);
@@ -19,7 +21,10 @@ export default function PublishRequests() {
     const [showDocument, setShowDocument] = useState(false);
 
     const handleShowExplanation = () => setShowExplanation(true);
-    const handleCloseExplanation = () => setShowExplanation(false);
+    const handleCloseExplanation = () => {
+        setShowExplanation(false);
+        window.location.reload();
+    };
 
     const handleShowSuggestions = () => setShowSuggestions(true);
     const handleCloseSuggestions = () => setShowSuggestions(false);
@@ -33,14 +38,32 @@ export default function PublishRequests() {
     const handleCloseBetaReaders = () => setShowBetaReaders(false);
     const handleShowBetaReaders = () => setShowBetaReaders(true);
 
-    const renderStatus = (status) => {
-        switch (status) {
+    useEffect(() => {
+        fetch("http://localhost:8080/publish/editor/requests/" + props.loggedIn, {
+            method: "GET",
+            headers: {
+                "Authorization" : "Bearer " + props.loggedIn,
+                "Content-Type": "application/json",
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                setRequests(data);
+                console.log(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    },[])
+
+    const renderStatus = (data) => {
+        switch (data.publishBookRequest.status) {
             case "WAITING_SUBMIT" : {
                 return (
                     <>
                         <h5 className="text-warning text-left">
                             Waiting for reader to submit script...
-                            Submission deadline : 15.1.2021.
+                            Submission deadline : {data.publishBookRequest.deadline}
                         </h5>
                     </>
                 );
@@ -159,10 +182,13 @@ export default function PublishRequests() {
             default: {
                 return (
                 <ButtonGroup>
-                    <Button variant="outline-success" onClick={() => setStatus("WAITING_SUBMIT")}>
+                    <Button variant="outline-success" onClick={() => handleApproveRequest(data, true)}>
                         APPROVE
                     </Button>
-                    <Button variant="outline-danger" onClick={() => handleShowExplanation()}>
+                    <Button variant="outline-danger"
+                            onClick={() => {
+                                handleApproveRequest(data, false);
+                            }}>
                         REJECT
                     </Button>
                 </ButtonGroup>
@@ -171,9 +197,47 @@ export default function PublishRequests() {
         }
     }
 
+    const [editorRefuseForm, setEditorRefuseForm] = useState(null);
+
+    const handleApproveRequest = (data, approved) => {
+        fetch("http://localhost:8080/publish/editor/decision/" + data.taskId, {
+            method: "POST",
+            headers: {
+                "Authorization" : "Bearer " + props.loggedIn,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                approved : approved
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (!approved){
+                    setEditorRefuseForm(data);
+                }
+                console.log(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        if (approved){
+            window.location.reload();
+        }
+        else {
+            handleShowExplanation();
+        }
+    }
+
     return (
         <div className="bg-dark p-5">
-            <AddExplanation show={showExplanation} onHide={handleCloseExplanation} setStatus={setStatus}/>
+            {   editorRefuseForm &&
+                <>
+                {   editorRefuseForm.formFields &&
+                    <AddExplanation show={showExplanation} onHide={handleCloseExplanation} setStatus={setStatus}
+                    editorRefuseForm={editorRefuseForm} loggedIn={props.loggedIn}/>
+                }
+                </>
+            }
             <AddSuggestions show={showSuggestions} onHide={handleCloseSuggestions} setStatus={setStatus}/>
             <ChooseBetaReaders show={showBetaReaders} onHide={handleCloseBetaReaders} setStatus={setStatus}/>
             <PlagiarismCheckResults show={showPlagiarismCheckResults} onHide={handleClosePlagiarismCheckResults} setStatus={setStatus} handleShowExplanation={handleShowExplanation}/>
@@ -186,8 +250,7 @@ export default function PublishRequests() {
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
+                        <th>Username</th>
                         <th>Title</th>
                         <th>Genre</th>
                         <th className="w-25">Synopsys</th>
@@ -196,29 +259,29 @@ export default function PublishRequests() {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Neil</td>
-                        <td>Gaiman</td>
-                        <td>Hello world</td>
-                        <td>Romance</td>
-                        <td>
-                            Look! In the sky. It's a bird, it's a plane.
-                            Or is it a hellicopter? No actually I think it is a bird.
-                            Or maybe I'm just seeing things. Who knows...
-                            After 10 shots of Whiskey things start to get a bit strange.
-                        </td>
-                        <td className="text-center" style={{verticalAlign:"middle"}}>
-                            {renderStatus(status)}
-                        </td>
-                        <td className="text-center" style={{verticalAlign:"middle"}}>
-                            {status === "WAITING_SUGGESTIONS" &&
+                    {requests.map((request, index) => {
+                       return (
+                           <tr>
+                            <td>{index + 1}</td>
+                            <td>{request.publishBookRequest.writer}</td>
+                            <td>{request.publishBookRequest.title}</td>
+                            <td>{request.publishBookRequest.genre}</td>
+                            <td>
+                                {request.publishBookRequest.synopsis}
+                            </td>
+                            <td className="text-center" style={{verticalAlign:"middle"}}>
+                                {renderStatus(request)}
+                            </td>
+                            <td className="text-center" style={{verticalAlign:"middle"}}>
+                                {status === "WAITING_SUGGESTIONS" &&
                                 <Button variant="outline-info" onClick={() => handleShowDocument()}>
                                     READ SCRIPT
                                 </Button>
-                            }
-                        </td>
-                    </tr>
+                                }
+                            </td>
+                        </tr>
+                       )
+                    })}
                     </tbody>
                 </Table>
                 {/*Delete testing elements from here*/}

@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,7 +18,7 @@ import static javax.persistence.InheritanceType.SINGLE_TABLE;
 @Table(name = "users")
 @Inheritance(strategy = SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = STRING)
-public class SysUser implements UserDetails {
+public class SysUser implements UserDetails, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,39 +1,26 @@
 package com.la.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class FormSubmissionDTO implements Serializable{
 	
-	String fieldId;
-	String fieldValue;
-	
-	
-	public FormSubmissionDTO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	private String fieldId;
+	private String fieldValue;
 
-	public FormSubmissionDTO(String fieldId, String fieldValue) {
-		super();
-		this.fieldId = fieldId;
-		this.fieldValue = fieldValue;
+	@Override
+	public String toString() {
+		return "FormSubmissionDTO{" +
+				"fieldId='" + fieldId + '\'' +
+				", fieldValue='" + fieldValue + '\'' +
+				'}';
 	}
-
-	public String getFieldId() {
-		return fieldId;
-	}
-
-	public void setFieldId(String fieldId) {
-		this.fieldId = fieldId;
-	}
-
-	public String getFieldValue() {
-		return fieldValue;
-	}
-
-	public void setFieldValue(String fieldValue) {
-		this.fieldValue = fieldValue;
-	}
-	
-	
 }

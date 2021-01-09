@@ -1,6 +1,6 @@
 package com.la.enumeration;
 
-public enum ScriptRequestStatus {
+public enum PublishStatus {
     WAITING_SUBMIT,
     WAITING_PLAGIARISM_CHECK,
     WAITING_READING,

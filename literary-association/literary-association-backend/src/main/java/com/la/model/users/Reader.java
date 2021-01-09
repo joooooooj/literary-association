@@ -4,11 +4,12 @@ import com.la.model.Genre;
 import com.la.model.Membership;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @DiscriminatorValue("READER")
-public class Reader extends SysUser {
+public class Reader extends SysUser implements Serializable {
 
     @Column
     private boolean isBeta;

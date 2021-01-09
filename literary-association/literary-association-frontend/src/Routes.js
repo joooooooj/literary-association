@@ -65,7 +65,7 @@ export default function Routes(props) {
                 {  props.roles[0] === USER_ROLES.WRITER &&
                     <>
                         <Route exact path="/publish-book">
-                            <PublishBook/>
+                            <PublishBook loggedIn={props.loggedIn}/>
                         </Route>
                         <Route exact path="/plagiarism-complaint">
                             <PlagiarismComplaint/>
@@ -95,7 +95,7 @@ export default function Routes(props) {
                 {   props.roles[0] === USER_ROLES.EDITOR &&
                     <>
                         <Route exact path="/publish-requests">
-                            <PublishRequests/>
+                            <PublishRequests loggedIn={props.loggedIn}/>
                         </Route>
                         <Route exact path="/main-editor-complaints">
                             <MainEditorComplaints/>

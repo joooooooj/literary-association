@@ -2,10 +2,11 @@ package com.la.model.users;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import java.io.Serializable;
 
 @Entity
 @DiscriminatorValue("LECTOR")
-public class Lector extends SysUser {
+public class Lector extends SysUser implements Serializable {
 
     public Lector() {
     }

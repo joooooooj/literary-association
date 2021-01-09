@@ -1,4 +1,4 @@
-package com.la.model.users;
+package com.la.model;
 
 import javax.persistence.*;
 

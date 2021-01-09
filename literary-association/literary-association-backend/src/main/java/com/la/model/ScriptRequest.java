@@ -1,6 +1,6 @@
 package com.la.model;
 
-import com.la.enumeration.ScriptRequestStatus;
+import com.la.enumeration.PublishStatus;
 import com.la.model.users.Lector;
 
 import javax.persistence.*;
@@ -13,7 +13,7 @@ public class ScriptRequest {
     private Long id;
 
     @Column
-    private ScriptRequestStatus status;
+    private PublishStatus status;
 
     @Column
     private Date submitDeadline;
@@ -28,9 +28,6 @@ public class ScriptRequest {
     private String suggestions;
 
     @OneToOne
-    private PublishBookRequest publishBookRequest;
-
-    @OneToOne
     private Script script;
 
     @OneToOne
@@ -39,13 +36,12 @@ public class ScriptRequest {
     public ScriptRequest() {
     }
 
-    public ScriptRequest(ScriptRequestStatus status, Date submitDeadline, String corrections, Date changesDeadline, String suggestions, PublishBookRequest publishBookRequest) {
+    public ScriptRequest(PublishStatus status, Date submitDeadline, String corrections, Date changesDeadline, String suggestions) {
         this.status = status;
         this.submitDeadline = submitDeadline;
         this.corrections = corrections;
         this.changesDeadline = changesDeadline;
         this.suggestions = suggestions;
-        this.publishBookRequest = publishBookRequest;
     }
 
     public Long getId() {
@@ -88,20 +84,12 @@ public class ScriptRequest {
         this.suggestions = suggestions;
     }
 
-    public ScriptRequestStatus getStatus() {
+    public PublishStatus getStatus() {
         return status;
     }
 
-    public void setStatus(ScriptRequestStatus status) {
+    public void setStatus(PublishStatus status) {
         this.status = status;
-    }
-
-    public PublishBookRequest getPublishBookRequest() {
-        return publishBookRequest;
-    }
-
-    public void setPublishBookRequest(PublishBookRequest publishBookRequest) {
-        this.publishBookRequest = publishBookRequest;
     }
 
     public Script getScript() {

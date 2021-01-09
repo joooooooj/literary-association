@@ -1,15 +1,36 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Confirmation from "../../../core/modals/Confirmation";
 import {Button, ButtonGroup, Form, Table} from "react-bootstrap";
 import Select from "react-select";
+import {useForm} from "react-hook-form";
+import CustomFormField from "../../../core/CustomFormField";
 
-export default function PublishBook(){
+export default function PublishBook(props){
 
-    const genres = [
-        { value: "fantasy", label: "Fantasy" },
-        { value: "romance", label: "Romance" },
-        { value: "thriller", label: "Thriller" }
-    ];
+    const [publishBookForm, setPublishBookForm] = useState(null);
+
+    const [requestInfo, setRequestInfo] = useState(null);
+
+    // REACT-HOOK-FORM
+    const {register, errors, handleSubmit} = useForm();
+    const onSubmit = (data) => {
+        let final = prepareDataForSubmit(data);
+        fetch("http://localhost:8080/publish/writer/form/" + publishBookForm.taskId, {
+            method: "POST",
+            headers: {
+                "Authorization" : "Bearer " + props.loggedIn,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(final)
+        })
+            .then(response => response)
+            .then(data => {
+                setPublishBookForm(null);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 
     const [status, setStatus] = useState("");
 
@@ -20,6 +41,60 @@ export default function PublishBook(){
     const [files, setFiles] = useState([]);
 
     const hiddenFileInput = React.useRef(null);
+
+    useEffect (() =>{
+        fetch("http://localhost:8080/publish/writer/form/" + props.loggedIn, {
+            method: "GET",
+            headers: {
+                "Authorization" : "Bearer " + props.loggedIn,
+                "Content-Type": "application/json",
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.formFields){
+                    setPublishBookForm(data);
+                }
+                else {
+                    handleRequestInfo();
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [])
+
+    const handleRequestInfo = () => {
+        fetch("http://localhost:8080/publish/writer/status/" + props.loggedIn, {
+            method: "GET",
+            headers: {
+                "Authorization" : "Bearer " + props.loggedIn,
+                "Content-Type": "application/json",
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+               setRequestInfo(data);
+                if (data.status){
+                    setStatus(data.status);
+                }
+                else {
+                    setStatus("NO STATUS");
+                }
+               console.log(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    const prepareDataForSubmit = (data) => {
+        let final = [];
+        for(let prop in data){
+            final.push({fieldId:prop, fieldValue:data[prop]})
+        }
+        return final;
+    }
 
     const handleCloseConfirmation = (confirmed) => {
         if(confirmed) {
@@ -183,28 +258,29 @@ export default function PublishBook(){
         }
     }
 
-        return (
+    return (
         <div className="bg-dark p-5">
             <Confirmation show={showConfirmation} onHide={(confirmed) => handleCloseConfirmation(confirmed)}/>
             <div className="bg-dark p-5 border border-light text-left text-light">
                 <h2 className="text-light mb-4">
                     Publish book
                 </h2>
-                {   !status &&
-                    <Form className="mt-5 mb-5 w-25">
-                        <Form.Group controlId="email" className="text-left">
-                            <Form.Label>Title</Form.Label>
-                            <Form.Control type="Title" placeholder="Enter Title"/>
-                        </Form.Group>
-                        <Form.Group controlId="genres" className="text-left">
-                            <Form.Label>Genre</Form.Label>
-                            <Select className="text-dark" options={genres}/>
-                        </Form.Group>
-                        <Form.Group controlId="synopsys" className="text-left">
-                            <Form.Label>Synopsys</Form.Label>
-                            <Form.Control as="textarea" rows={5} placeholder="Synopsys"/>
-                        </Form.Group>
-                        <Button variant="outline-success" type="" onClick={() => setStatus("WAITING_SUBMIT")}
+                {!status && !publishBookForm &&
+                    <>
+                        <h5 className="text-warning mt-3 mb-3">
+                            Please reload page for more info ...
+                        </h5>
+                    </>
+                }
+                {   !status && publishBookForm &&
+                    <Form className="mt-5 mb-5 w-25" onSubmit={handleSubmit(onSubmit)}>
+                        {publishBookForm.formFields.map((formField) => {
+                            return (
+                                <CustomFormField formField={formField} errors={errors} register={register}/>
+                            )
+                            })
+                        }
+                        <Button variant="outline-success" type="submit"
                                 className="mt-3">
                             SEND REQUEST
                         </Button>
@@ -213,13 +289,16 @@ export default function PublishBook(){
                 {status &&
                     <>
                         <h5 className="text-light mb-3">
-                            Title : Hello world
+                            Title : {requestInfo.title}
                         </h5>
                         <h5 className="text-light mb-3">
-                            Genre : Romance
+                            Genre : {requestInfo.genre}
                         </h5>
                         <h5 className="text-light mb-3 w-25 text-justify">
-                            Synopsys : Look! In the sky. It's a bird, it's a plane. Or is it a hellicopter? No actually I think it is a bird. Or maybe I'm just seeing things. Who knows... After 10 shots of Whiskey things start to get a bit strange.
+                            Synopsis : {requestInfo.synopsis}
+                        </h5>
+                        <h5 className="text-warning mt-3 mb-3">
+                            Main editor is reviewing your request ...
                         </h5>
                     </>
                 }
@@ -248,51 +327,51 @@ export default function PublishBook(){
                     </>
                 }
                 {renderStatus(status)}
-                {/*Delete testing elements from here*/}
-                <div className="row ml-1">
-                    <ButtonGroup>
-                        <Button variant="outline-info" onClick={() => setStatus("WAITING_READING")}>
-                            PLAGIARISM CHECK PASSED
-                        </Button>
-                        <Button variant="outline-warning" onClick={() => {
-                            setStatus("WAITING_BETA_READERS");}}>
-                            EDITOR READ SCRIPT
-                        </Button>
-                        <Button variant="outline-danger" onClick={() => {
-                            setSubmitted(false);
-                            setStatus("WAITING_COMMENT_CHECK")}}>
-                            BETA READERS COMMENTED
-                        </Button>
-                        <Button variant="outline-light" onClick={() => {
-                            setSubmitted(false);
-                            setStatus("WAITING_CORRECTIONS")}}>
-                            LECTOR REVIEWED
-                        </Button>
-                        <Button variant="outline-info" onClick={() => {
-                            setSubmitted(false);
-                            setStatus("WAITING_SUGGESTIONS")}}>
-                            LECTOR APPROVED
-                        </Button>
-                        <Button variant="outline-danger" onClick={() => {
-                            setSubmitted(false);
-                            setStatus("WAITING_LECTOR_REVIEW")
-                        }}>
-                            EDITOR SEND TO LECTOR
-                        </Button>
-                        <Button variant="outline-success" onClick={() => {
-                            setSubmitted(false);
-                            setStatus("WAITING_CHANGES")
-                        }}>
-                            EDITOR SUGGESTED
-                        </Button>
-                        <Button variant="outline-primary" onClick={() => {
-                            setStatus("DONE")
-                        }}>
-                            EDITOR FINALLY APPROVED
-                        </Button>
-                    </ButtonGroup>
-                </div>
-                {/*End of test elements*/}
+                {/*/!*Delete testing elements from here*!/*/}
+                {/*<div className="row ml-1">*/}
+                {/*    <ButtonGroup>*/}
+                {/*        <Button variant="outline-info" onClick={() => setStatus("WAITING_READING")}>*/}
+                {/*            PLAGIARISM CHECK PASSED*/}
+                {/*        </Button>*/}
+                {/*        <Button variant="outline-warning" onClick={() => {*/}
+                {/*            setStatus("WAITING_BETA_READERS");}}>*/}
+                {/*            EDITOR READ SCRIPT*/}
+                {/*        </Button>*/}
+                {/*        <Button variant="outline-danger" onClick={() => {*/}
+                {/*            setSubmitted(false);*/}
+                {/*            setStatus("WAITING_COMMENT_CHECK")}}>*/}
+                {/*            BETA READERS COMMENTED*/}
+                {/*        </Button>*/}
+                {/*        <Button variant="outline-light" onClick={() => {*/}
+                {/*            setSubmitted(false);*/}
+                {/*            setStatus("WAITING_CORRECTIONS")}}>*/}
+                {/*            LECTOR REVIEWED*/}
+                {/*        </Button>*/}
+                {/*        <Button variant="outline-info" onClick={() => {*/}
+                {/*            setSubmitted(false);*/}
+                {/*            setStatus("WAITING_SUGGESTIONS")}}>*/}
+                {/*            LECTOR APPROVED*/}
+                {/*        </Button>*/}
+                {/*        <Button variant="outline-danger" onClick={() => {*/}
+                {/*            setSubmitted(false);*/}
+                {/*            setStatus("WAITING_LECTOR_REVIEW")*/}
+                {/*        }}>*/}
+                {/*            EDITOR SEND TO LECTOR*/}
+                {/*        </Button>*/}
+                {/*        <Button variant="outline-success" onClick={() => {*/}
+                {/*            setSubmitted(false);*/}
+                {/*            setStatus("WAITING_CHANGES")*/}
+                {/*        }}>*/}
+                {/*            EDITOR SUGGESTED*/}
+                {/*        </Button>*/}
+                {/*        <Button variant="outline-primary" onClick={() => {*/}
+                {/*            setStatus("DONE")*/}
+                {/*        }}>*/}
+                {/*            EDITOR FINALLY APPROVED*/}
+                {/*        </Button>*/}
+                {/*    </ButtonGroup>*/}
+                {/*</div>*/}
+                {/*/!*End of test elements*!/*/}
             </div>
         </div>
     );

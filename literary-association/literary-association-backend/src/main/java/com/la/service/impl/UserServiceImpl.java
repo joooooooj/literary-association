@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
 
@@ -35,21 +37,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
     }
 
-    public User createCamundaUser(String username) {
-        User camundaUser = identityService.createUserQuery().userIdIn(username).singleResult();
-        // Ako ne postoji
+    @Transactional
+    public void createCamundaUser(SysUser sysUser) {
+        User camundaUser = identityService.createUserQuery().userIdIn(sysUser.getUsername()).singleResult();
+        // If camunda user does not exist
         if (camundaUser == null){
-            SysUser sysUser = userRepository.findByUsername(username);
-            if (sysUser != null) {
-                camundaUser = identityService.newUser(sysUser.getUsername());
-                camundaUser.setEmail(sysUser.getEmail());
-                camundaUser.setFirstName(sysUser.getFirstName());
-                camundaUser.setLastName(sysUser.getLastName());
-                camundaUser.setPassword(sysUser.getPassword());
-                identityService.saveUser(camundaUser);
-            }
+            camundaUser = identityService.newUser(sysUser.getUsername());
+            camundaUser.setEmail(sysUser.getEmail());
+            camundaUser.setFirstName(sysUser.getFirstName());
+            camundaUser.setLastName(sysUser.getLastName());
+            camundaUser.setPassword(sysUser.getPassword());
+            identityService.saveUser(camundaUser);
         }
-        return camundaUser;
     }
 
 }

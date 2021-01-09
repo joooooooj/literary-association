@@ -1,27 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import {Navbar, Nav} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {USER_ROLES} from "../../Enums";
 import Logout from "./Logout";
 
 export default function NavigationBar(props){
-
-    const startPublishProcess = () => {
-        fetch("http://localhost:8080/publish/writer/form/" + props.loggedIn, {
-            method: "GET",
-            headers: {
-                "Authorization" : "Bearer " + props.loggedIn,
-                "Content-Type": "application/json",
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
 
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="mb-5">
@@ -45,7 +28,7 @@ export default function NavigationBar(props){
                         }
                         {   props.roles[0] === USER_ROLES.WRITER &&
                             <>
-                                <Link className="nav-link" to="/publish-book" onClick={() => startPublishProcess()}>
+                                <Link className="nav-link" to="/publish-book">
                                     Publish book
                                 </Link>
                                 <Link className="nav-link" to="/plagiarism-complaint">
