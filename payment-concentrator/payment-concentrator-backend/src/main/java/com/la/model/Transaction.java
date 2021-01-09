@@ -14,8 +14,8 @@ public class Transaction {
     @Column(name = "payment_id")
     private Long paymentId; // Payment ID from merchant bank
 
-    @Column(name = "acq_order_id")
-    private Long acqOrderId; // Order ID from merchant bank
+    @Column(name = "acq_order_id", nullable = false)
+    private String acqOrderId; // Order ID from merchant bank
 
     @Column(name = "acq_timestamp")
     private LocalDateTime acqTimestamp; // Order Timestamp from merchant bank
@@ -26,7 +26,7 @@ public class Transaction {
 
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
-    private Status status; // PENDING, SUCCESS, FAILED, ERROR
+    private Status status; // WAITING, SUCCESS, FAILED, ERROR
 
     @OneToOne
     @JoinColumn(name = "payment_method_id", nullable = false)
@@ -35,7 +35,7 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(Long id, Long paymentId, Long acqOrderId, LocalDateTime acqTimestamp, BuyerRequest buyerRequest, Status status, PaymentMethod paymentMethod) {
+    public Transaction(Long id, Long paymentId, String acqOrderId, LocalDateTime acqTimestamp, Long merchantOrderId, LocalDateTime merchantTimestamp, Status status, PaymentMethod paymentMethod) {
         this.id = id;
         this.paymentId = paymentId;
         this.acqOrderId = acqOrderId;
@@ -61,11 +61,11 @@ public class Transaction {
         this.paymentId = paymentId;
     }
 
-    public Long getAcqOrderId() {
+    public String getAcqOrderId() {
         return acqOrderId;
     }
 
-    public void setAcqOrderId(Long acqOrderId) {
+    public void setAcqOrderId(String acqOrderId) {
         this.acqOrderId = acqOrderId;
     }
 
