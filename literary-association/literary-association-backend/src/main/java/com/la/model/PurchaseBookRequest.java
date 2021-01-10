@@ -18,7 +18,7 @@ public class PurchaseBookRequest {
     @Column
     private Double price;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "purchase_book",
             joinColumns = @JoinColumn(name = "purchase_book_request_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"))

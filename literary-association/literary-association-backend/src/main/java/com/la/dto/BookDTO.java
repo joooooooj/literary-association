@@ -8,6 +8,7 @@ import java.util.List;
 @Getter
 @Setter
 public class BookDTO {
+    private Long id;
     private String title;
     private String isbn;
     private List<String> keyWords;
