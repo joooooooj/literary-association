@@ -1,33 +1,53 @@
-package com.la.dto;
+package com.la.model;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
-public class BuyerRequestDTO {
+@Entity
+public class BuyerRequest {
 
-    private Long merchantId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private Long merchantOrderId;
+    @OneToOne
+    @JoinColumn(name = "subscriber_id", referencedColumnName = "id")
+    Subscriber subscriber;
 
+    @Column
+    private Long merchantOrderId; // Order Id from LA
+
+    @Column
     private LocalDateTime merchantTimestamp;
 
+    @Column
     private float amount;
 
-    public BuyerRequestDTO() {
+    public BuyerRequest() {
     }
 
-    public BuyerRequestDTO(Long merchantId, Long merchantOrderId, LocalDateTime merchantTimestamp, float amount) {
-        this.merchantId = merchantId;
+    public BuyerRequest(Long id, Subscriber subscriber, Long merchantOrderId, LocalDateTime merchantTimestamp, float amount) {
+        this.id = id;
+        this.subscriber = subscriber;
         this.merchantOrderId = merchantOrderId;
         this.merchantTimestamp = merchantTimestamp;
         this.amount = amount;
     }
 
-    public Long getMerchantId() {
-        return merchantId;
+    public Long getId() {
+        return id;
     }
 
-    public void setMerchantId(Long merchantId) {
-        this.merchantId = merchantId;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Subscriber getSubscriber() {
+        return subscriber;
+    }
+
+    public void setSubscriber(Subscriber subscriber) {
+        this.subscriber = subscriber;
     }
 
     public Long getMerchantOrderId() {
@@ -56,8 +76,9 @@ public class BuyerRequestDTO {
 
     @Override
     public String toString() {
-        return "BuyerRequestDTO{" +
-                "merchantId=" + merchantId +
+        return "Payment{" +
+                "id=" + id +
+                ", subscriber=" + subscriber +
                 ", merchantOrderId=" + merchantOrderId +
                 ", merchantTimestamp=" + merchantTimestamp +
                 ", amount=" + amount +

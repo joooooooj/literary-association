@@ -1,6 +1,8 @@
 package com.la.controller;
 
+import com.la.dto.BuyerRequestDTO;
 import com.la.dto.PaymentMethodDTO;
+import com.la.dto.PaymentMethodsBuyerRequestDTO;
 import com.la.mapper.PaymentMethodDTOMapper;
 import com.la.service.PaymentMethodService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,18 @@ public class PaymentMethodController {
         try {
             return new ResponseEntity<>(paymentMethodService.deletePaymentMethod(paymentMethodId), HttpStatus.OK);
         } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // Return URL to LA to choose payment method
+    @PostMapping(value = "subscriber/{username}")
+    @PreAuthorize("hasAuthority('INITIATE_PAYMENT')")
+    public ResponseEntity<String> getPaymentMethodsUrl(@RequestBody BuyerRequestDTO buyerRequestDTO, @PathVariable String username) {
+        try {
+            return new ResponseEntity<>(paymentMethodService.getPaymentMethodsUrl(buyerRequestDTO, username), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }

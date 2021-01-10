@@ -24,18 +24,18 @@ public class Transaction {
     @JoinColumn(name = "payment_id")
     private Payment payment; // Delegated from LA to Payment Concetrator to Bank
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
 
     @Column
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     public Transaction() {
     }
 
-    public Transaction(Long id, LocalDateTime timestamp, Long issuerOrderId, LocalDateTime issuerTimestamp, Payment payment, Account account, Status status) {
-        this.id = id;
+    public Transaction(LocalDateTime timestamp, Long issuerOrderId, LocalDateTime issuerTimestamp, Payment payment, Account account, Status status) {
         this.timestamp = timestamp;
         this.issuerOrderId = issuerOrderId;
         this.issuerTimestamp = issuerTimestamp;

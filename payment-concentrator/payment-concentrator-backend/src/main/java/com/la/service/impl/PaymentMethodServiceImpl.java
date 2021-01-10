@@ -1,33 +1,39 @@
 package com.la.service.impl;
 
+import com.la.dto.BuyerRequestDTO;
 import com.la.dto.PaymentMethodDTO;
 import com.la.mapper.PaymentMethodDTOMapper;
+import com.la.model.BuyerRequest;
 import com.la.model.PaymentMethod;
 import com.la.repository.PaymentMethodRepository;
+import com.la.repository.BuyerRequestRepository;
+import com.la.repository.SubscriberRepository;
 import com.la.service.PaymentMethodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.tools.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.text.ParseException;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class PaymentMethodServiceImpl implements PaymentMethodService {
+
+    @Autowired
+    private BuyerRequestRepository paymentRepository;
 
     @Autowired
     private PaymentMethodRepository paymentMethodRepository;
 
     @Autowired
     private PaymentMethodDTOMapper mapper;
+
+    @Autowired
+    private SubscriberRepository subscriberRepository;
 
     @Override
     public List<PaymentMethod> getAll() {
@@ -84,5 +90,25 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
         writer.write(sourceCode);
         writer.flush();
         writer.close();
+    }
+
+    @Override
+    public String getPaymentMethodsUrl(BuyerRequestDTO buyerRequestDTO, String username) {
+        if (subscriberRepository.findByUsername(username) != null){
+            Set<PaymentMethod> paymentMethods = (subscriberRepository.findByUsername(username)).getPaymentMethods();
+            if(paymentMethods.size() != 0) {
+                BuyerRequest buyerRequest = new BuyerRequest();
+                buyerRequest.setMerchantOrderId(buyerRequestDTO.getMerchantOrderId());
+                buyerRequest.setAmount(buyerRequestDTO.getAmount());
+                buyerRequest.setMerchantTimestamp(buyerRequestDTO.getMerchantTimestamp());
+                buyerRequest.setSubscriber(subscriberRepository.findByUsername(username));
+                buyerRequest = paymentRepository.save(buyerRequest);
+
+                return "http://localhost:3001/payment-methods/" + buyerRequest.getId();
+            }
+            return subscriberRepository.findByUsername(username).getSubscriberDetails().getErrorUrl();
+        }
+
+        return null;
     }
 }

@@ -25,7 +25,7 @@ public class User implements UserDetails {
     @Column(insertable = false, updatable = false)
     protected String type;
 
-    @Column
+    @Column(unique = true)
     protected String username;
 
     @Column
