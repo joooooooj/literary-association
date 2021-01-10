@@ -3,10 +3,17 @@ package com.la.model;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @DiscriminatorValue("SUBSCRIBER")
 public class Subscriber extends User {
+
+    @Column
+    private String clientId;
+
+    @Column
+    private String clientSecret;
 
     @OneToMany
     @JoinColumn(name = "subscriber_id", unique = true)
@@ -25,11 +32,17 @@ public class Subscriber extends User {
     public Subscriber() {
     }
 
-    public Subscriber(String username, String password, String email, Set<PaymentMethod> methods) {
+    public Subscriber(String username, String password, String email, Set<PaymentMethod> methods, String clientId, String clientSecret) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.paymentMethods = methods;
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
+    }
+
+    public String getClientSecret() {
+        return clientSecret;
     }
 
     public List<Transaction> getTransactions() {

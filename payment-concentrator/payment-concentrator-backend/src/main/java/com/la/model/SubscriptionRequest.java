@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
@@ -17,13 +18,16 @@ public class SubscriptionRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @Column
     private String organizationName;
 
     @Column
+    @NotNull
     private String organizationDescription;
 
     @Column
+    @NotNull
     private String organizationEmail;
 
     @ManyToMany()
