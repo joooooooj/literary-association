@@ -4,6 +4,7 @@ import {Button, ButtonGroup, Table} from "react-bootstrap";
 export default function Cart() {
 
     const handleCheckout = () => {
+        //
         fetch('http://localhost:8081/payment-method/subscriber/vulkan', {
             method: 'POST',
             headers: {
