@@ -1,30 +1,61 @@
-import React from "react";
+import React, {useState} from "react";
 import {Button, ButtonGroup, Table} from "react-bootstrap";
 
 export default function Cart() {
 
+    // const [purchaseData, setPurchaseData] = useState();
+
     const handleCheckout = () => {
-        //
-        fetch('http://localhost:8081/payment-method/subscriber/vulkan', {
+        fetch('http://localhost:8080/api/auth/purchase-book', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization' : 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJsdSIsInN1YiI6InZ1bGthbiIsImF1ZCI6IndlYiIsImlhdCI6MTYxMDI5NTc3MCwiZXhwIjoxNjEwMzgyMTcwLCJVU0VSX1JPTEVTIjpbeyJpZCI6MiwibmFtZSI6IlJPTEVfU1VCU0NSSUJFUiIsInBlcm1pc3Npb25zIjpbeyJpZCI6NiwibmFtZSI6IklOSVRJQVRFX1BBWU1FTlQiLCJhdXRob3JpdHkiOiJJTklUSUFURV9QQVlNRU5UIn1dfV19.kczTiRPP7t8w2wr4w8lmQuDNyjMhvvTSD2AuuOT0QfL9BSzVGsxgZ_iGafJ9tp8wWxAQpMmBdjYLoIL89AbsCw'
             },
             body:
                 JSON.stringify({
-                    merchantOrderId: "123",
-                    merchantTimestamp: "2019-04-28T14:45:15",
-                    amount: "30"
+                    price: 30,
+                    bookList: [
+                        {
+                            id: 1
+                        },
+                        {
+                            id: 2
+                        },
+                        {
+                            id: 3
+                        }
+                    ]
                 })
         })
-            .then(result => result.json())
+            .then(response => response.json())
             .then(data => {
-                window.location.replace(data.url);
+                console.log(data);
+                // setPurchaseData(data);
+                fetch('http://localhost:8081/payment-method/subscriber/vulkan', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + data.token
+                    },
+                    body:
+                        JSON.stringify({
+                            merchantOrderId: data.orderId,
+                            merchantTimestamp: data.timestamp,
+                            amount: data.amount
+                        })
+                })
+                    .then(result => result.json())
+                    .then(data => {
+                        window.location.replace(data.url);
+                    })
+                    .catch((error) => {
+                        console.log('Error:' + error);
+                    });
             })
             .catch((error) => {
                 console.log('Error:' + error);
             });
+
     }
 
     return (
@@ -47,7 +78,8 @@ export default function Cart() {
                     <tbody>
                     <tr>
                         <td>1</td>
-                        <td className="text-center"><img style={{maxHeight:"100px", height:"100px"}} src={"../images/books/5.jpg"}/></td>
+                        <td className="text-center"><img style={{maxHeight: "100px", height: "100px"}}
+                                                         src={"../images/books/5.jpg"}/></td>
                         <td>Stephen King</td>
                         <td>RITA HAYWORTH AND SHAWSHANK REDEMPTION</td>
                         <td>10$</td>
@@ -59,7 +91,8 @@ export default function Cart() {
                     </tr>
                     <tr>
                         <td>2</td>
-                        <td className="text-center"><img style={{maxHeight:"100px", height:"100px"}} src={"../images/books/1.jpg"}/></td>
+                        <td className="text-center"><img style={{maxHeight: "100px", height: "100px"}}
+                                                         src={"../images/books/1.jpg"}/></td>
                         <td>Bernard Cornwell</td>
                         <td>THE LAST KINDGDOM</td>
                         <td>10$</td>
@@ -71,7 +104,8 @@ export default function Cart() {
                     </tr>
                     <tr>
                         <td>3</td>
-                        <td className="text-center"><img style={{maxHeight:"100px", height:"100px"}} src={"../images/books/2.jpg"}/></td>
+                        <td className="text-center"><img style={{maxHeight: "100px", height: "100px"}}
+                                                         src={"../images/books/2.jpg"}/></td>
                         <td>Elizabeth Gilbert</td>
                         <td>CITY OF GIRLS</td>
                         <td>10$</td>
