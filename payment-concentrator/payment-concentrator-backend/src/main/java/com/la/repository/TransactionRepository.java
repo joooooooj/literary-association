@@ -1,5 +1,6 @@
 package com.la.repository;
 
+import com.la.model.BuyerRequest;
 import com.la.model.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -7,4 +8,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
     Transaction findByAcqOrderId(String orderId);
+
+    Transaction findByBuyerRequest(BuyerRequest buyerRequest);
+
+    Transaction findByPaymentId(Long paymentId);
 }

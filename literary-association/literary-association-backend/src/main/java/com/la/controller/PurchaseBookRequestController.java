@@ -1,5 +1,6 @@
 package com.la.controller;
 
+import com.la.dto.CreatedBookPurchaseRequestDTO;
 import com.la.dto.PurchaseBookRequestDTO;
 import com.la.service.PurchaseBookRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,8 @@ public class PurchaseBookRequestController {
     public ResponseEntity<?> createPurchaseRequest(@RequestBody PurchaseBookRequestDTO purchaseBookRequestDTO,
                                                    @RequestHeader("Authorization") String token) {
         try {
-            purchaseBookRequestService.createPurchaseRequest(purchaseBookRequestDTO, token);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            CreatedBookPurchaseRequestDTO purchaseDTO = purchaseBookRequestService.createPurchaseRequest(purchaseBookRequestDTO, token);
+            return new ResponseEntity<>(purchaseDTO, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

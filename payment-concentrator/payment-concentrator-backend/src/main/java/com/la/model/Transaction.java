@@ -4,18 +4,18 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="transactions")
+@Table(name = "transactions")
 public class Transaction {
 
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "payment_id")
     private Long paymentId; // Payment ID from merchant bank
 
     @Column(name = "acq_order_id", nullable = false)
-    private String acqOrderId; // Order ID from merchant bank
+    private Long acqOrderId; // Order ID from merchant bank
 
     @Column(name = "acq_timestamp")
     private LocalDateTime acqTimestamp; // Order Timestamp from merchant bank
@@ -35,7 +35,7 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(Long id, Long paymentId, String acqOrderId, LocalDateTime acqTimestamp, Long merchantOrderId, LocalDateTime merchantTimestamp, Status status, PaymentMethod paymentMethod) {
+    public Transaction(Long id, Long paymentId, Long acqOrderId, LocalDateTime acqTimestamp, Long merchantOrderId, LocalDateTime merchantTimestamp, Status status, PaymentMethod paymentMethod) {
         this.id = id;
         this.paymentId = paymentId;
         this.acqOrderId = acqOrderId;
@@ -61,11 +61,11 @@ public class Transaction {
         this.paymentId = paymentId;
     }
 
-    public String getAcqOrderId() {
+    public Long getAcqOrderId() {
         return acqOrderId;
     }
 
-    public void setAcqOrderId(String acqOrderId) {
+    public void setAcqOrderId(Long acqOrderId) {
         this.acqOrderId = acqOrderId;
     }
 

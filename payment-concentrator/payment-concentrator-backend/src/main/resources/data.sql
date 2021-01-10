@@ -42,7 +42,7 @@ INSERT INTO `paymentconcentrator`.`subscription_requests_payment_methods` (`requ
 INSERT INTO `paymentconcentrator`.`subscriber_details` (`id`, `merchant_error_url`, `merchant_failed_url`, `merchant_id`, `merchant_password`, `merchant_success_url`) VALUES ('1', 'http://localhost:3000/error', 'http://localhost:3000/failed', '1', '$2a$10$perBHa7ac8GAUllOFTH46elUbG6ZLjs6VJFOu2mqm.knQLDIM8Asm', 'http://localhost:3000/success');
 INSERT INTO `paymentconcentrator`.`subscriber_details` (`id`, `merchant_error_url`, `merchant_failed_url`, `merchant_id`, `merchant_password`, `merchant_success_url`) VALUES ('2', 'http://localhost:3000/error', 'http://localhost:3000/failed', '2', '$2a$10$perBHa7ac8GAUllOFTH46elUbG6ZLjs6VJFOu2mqm.knQLDIM8Asm', 'http://localhost:3000/success');
 
-INSERT INTO `paymentconcentrator`.`users` (`type`, `id`, `email`, `password`, `username`, `subscriber_details_id`) VALUES ('SUBSCRIBER', '2', 'vulkan@gmail.com', '$2a$10$perBHa7ac8GAUllOFTH46elUbG6ZLjs6VJFOu2mqm.knQLDIM8Asm', 'vulkan', '1');
+INSERT INTO `paymentconcentrator`.`users` (`type`, `id`, `email`, `password`, `username`, `subscriber_details_id`, `client_id`, `client_secret`) VALUES ('SUBSCRIBER', '2', 'vulkan@gmail.com', '$2a$10$perBHa7ac8GAUllOFTH46elUbG6ZLjs6VJFOu2mqm.knQLDIM8Asm', 'vulkan', '1', '1333c2b2-6193-4751-971f-5c04985bb108', 'vhpnZmgEzvB9t8O88j0jNOFDXZZ0Fjv9xqCJfC8n');
 INSERT INTO `paymentconcentrator`.`users` (`type`, `id`, `email`, `password`, `username`, `subscriber_details_id`) VALUES ('SUBSCRIBER', '3', 'delfi@gmail.com', '$2a$10$perBHa7ac8GAUllOFTH46elUbG6ZLjs6VJFOu2mqm.knQLDIM8Asm', 'delfi', '2');
 
 INSERT INTO `paymentconcentrator`.`user_roles` (`user_id`, `role_id`) VALUES ('2', '2');
