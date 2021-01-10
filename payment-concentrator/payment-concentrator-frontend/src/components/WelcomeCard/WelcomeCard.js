@@ -124,13 +124,15 @@ export default function WelcomeCard() {
                         className="InputElement"
                     >
                         <Form.Label className="Label">Select payment methods</Form.Label>
+                        { paymentMethods &&
                         <Form.Control as="select" multiple onChange={e => methodsOnChangeHandler(e)}
-                                      name="organizationPaymentMethods" ref={register({required: true})}
-                                      isInvalid={!!errors.organizationPaymentMethods}>
-                            {paymentMethods.map(method => {
+                            name="organizationPaymentMethods" ref={register({required: true})}
+                            isInvalid={!!errors.organizationPaymentMethods}>
+                            { paymentMethods.map(method => {
                                 return <option key={method.id} value={method.name}>{method.name}</option>
                             })}
                         </Form.Control>
+                        }
                         {errors.organizationPaymentMethods &&
                         <Form.Control.Feedback type="invalid">
                             Organization payment methods are required.

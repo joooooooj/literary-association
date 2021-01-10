@@ -49,4 +49,6 @@ INSERT INTO `paymentconcentrator`.`user_roles` (`user_id`, `role_id`) VALUES ('2
 INSERT INTO `paymentconcentrator`.`user_roles` (`user_id`, `role_id`) VALUES ('3', '2');
 
 INSERT INTO `paymentconcentrator`.`subscriptions` (`subscriber_id`, `payment_method_id`) VALUES ('2','1');
+INSERT INTO `paymentconcentrator`.`subscriptions` (`subscriber_id`, `payment_method_id`) VALUES ('2','2');
+INSERT INTO `paymentconcentrator`.`subscriptions` (`subscriber_id`, `payment_method_id`) VALUES ('2','3');
 INSERT INTO `paymentconcentrator`.`subscriptions` (`subscriber_id`, `payment_method_id`) VALUES ('3','1');
