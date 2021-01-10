@@ -41,9 +41,6 @@ public class PurchaseBookRequestServiceImpl implements PurchaseBookRequestServic
     @Override
     public CreatedBookPurchaseRequestDTO createPurchaseRequest(PurchaseBookRequestDTO purchaseBookRequestDTO, String token) throws ParseException {
         Reader reader = (Reader) readerRepository.findByUsername(tokenUtils.getUsernameFromToken(token.substring(7)));
-        if (reader == null) {
-            throw new UsernameNotFoundException("User does not exist.");
-        }
 
         PurchaseBookRequest request = purchaseBookRequestDTOMapper.toEntity(purchaseBookRequestDTO);
         request.setStatus(TransactionStatus.WAITING_PAYMENT);
