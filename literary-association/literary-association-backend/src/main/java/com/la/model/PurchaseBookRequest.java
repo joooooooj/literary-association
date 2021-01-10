@@ -12,6 +12,7 @@ public class PurchaseBookRequest {
     private Long id;
 
     @Column
+    @Enumerated(EnumType.STRING)
     private TransactionStatus status;
 
     @Column
