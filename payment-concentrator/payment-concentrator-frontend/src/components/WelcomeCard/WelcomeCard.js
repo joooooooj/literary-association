@@ -89,11 +89,13 @@ export default function WelcomeCard() {
                         className="InputElement"
                     >
                         <Form.Label className="Label">Select payment methods</Form.Label>
+                        { paymentMethods &&
                         <Form.Control as="select" multiple onChange={e => methodsOnChangeHandler(e)}>
-                            {paymentMethods.map(method => {
+                            { paymentMethods.map(method => {
                                 return <option key={method.id} value={method.name}>{method.name}</option>
                             })}
                         </Form.Control>
+                        }
                     </Form.Group>
                     <Form.Group
                         controlId="exampleForm.ControlTextarea1"
