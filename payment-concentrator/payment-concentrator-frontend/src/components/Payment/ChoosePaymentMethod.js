@@ -1,0 +1,110 @@
+import BankIcon from "../../images/bank2.png";
+import React, {useEffect, useState} from "react";
+import PayPalIcon from "../../images/paypal.png";
+import BitcoinIcon from "../../images/bitcoin.png";
+import Button from "react-bootstrap/Button";
+
+export default function ChoosePaymentMethod(props){
+
+    const [buyerRequest, setBuyerRequest] = useState(null);
+
+    useEffect (() => {
+        fetch('http://localhost:8081/buyer-request/' + props.match.params.request_id, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.id != null){
+                    setBuyerRequest(data);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }, [])
+
+    const methodAllowed = (method) => {
+        let allowed = false;
+        if (buyerRequest) {
+            buyerRequest.subscriber.paymentMethods.forEach((m) => {
+                if (m.name === method){
+                    allowed = true;
+                    return;
+                }
+            })
+        }
+        return allowed;
+    }
+
+    return (
+        <div className="bg-light w-75 text-center" style={{marginLeft:"12%", opacity:"0.8", borderRadius:"5px"}}>
+            { buyerRequest &&
+            <>
+            <h2 className="pt-5">Order Details</h2>
+            <div className="mt-5" style={{marginLeft:"25%"}}>
+                <h4 className="text-left" >Order Id : {buyerRequest.merchantOrderId}</h4>
+                <h4 className="text-left" >Merchant: {buyerRequest.subscriber.username}</h4>
+                <h4 className="text-left" >Total : {buyerRequest.amount}$</h4>
+            </div>
+            <h2 className="pt-5">Please choose payment method</h2>
+            <div className="row list-inline-item mt-5 pb-5" style={{placeContent: "center"}}>
+                {   methodAllowed("Bank") &&
+                    <div className="border border-dark" style={{height: "270px", width: "300px"}}>
+                        <img
+                            src={BankIcon}
+                            style={{height: "200px"}}
+                            alt="Bank"
+                        />
+                        <div className="row" style={{placeContent: "center"}}>
+                            <Button variant="danger"
+                                    style={{
+                                        fontSize: "22px",
+                                        paddingLeft: "20px",
+                                        paddingRight: "20px",
+                                        width: "100px"
+                                    }}>
+                                Pay
+                            </Button>
+                        </div>
+                    </div>
+                }
+                {   methodAllowed("PayPal") &&
+                    <div className="ml-5 border border-dark" style={{height: "270px", width: "300px"}}>
+                        <img
+                            src={PayPalIcon}
+                            style={{height: "200px"}}
+                            alt="PayPal"
+                        />
+                        <div className="row" style={{placeContent: "center"}}>
+                            <Button variant="danger"
+                                    style={{fontSize: "22px", paddingLeft: "20px", paddingRight: "20px", width: "100px"}}>
+                                Pay
+                            </Button>
+                        </div>
+                    </div>
+                }
+                {   methodAllowed("Bitcoin") &&
+                    <div className="ml-5 border border-dark" style={{height: "270px", width: "300px"}}>
+                        <img
+                            src={BitcoinIcon}
+                            style={{height: "160px"}}
+                            alt="BitCoin"
+                            className="mt-3"
+                        />
+                        <div className="row mt-4" style={{placeContent: "center"}}>
+                            <Button variant="danger"
+                                    style={{fontSize: "22px", paddingLeft: "20px", paddingRight: "20px", width: "100px"}}>
+                                Pay
+                            </Button>
+                        </div>
+                    </div>
+                }
+            </div>
+            </>
+            }
+        </div>
+    );
+}

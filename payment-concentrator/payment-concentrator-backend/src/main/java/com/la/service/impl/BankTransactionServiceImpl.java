@@ -8,6 +8,7 @@ import com.la.service.BankTransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -35,7 +36,8 @@ public class BankTransactionServiceImpl implements BankTransactionService {
                 transaction.setStatus(Status.PENDING);
                 transaction.setBuyerRequest(buyerRequest.get());
                 transaction.setPaymentMethod(paymentMethodRepository.findByName("Bank"));
-                transactionRepository.save(transaction);
+                transaction.setTimestamp(LocalDateTime.now());
+                Transaction t = transactionRepository.save(transaction);
                 return new BankRequestDTO(subscriberDetails.getMerchantId(),
                                         subscriberDetails.getMerchantPassword(),
                                         buyerRequest.get().getAmount(),

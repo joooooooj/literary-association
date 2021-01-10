@@ -82,6 +82,9 @@ export default function NavigationBar(props){
                             Login
                         </Link>
                     }
+                    <Link className="nav-link" to="/cart">
+                        <span className="material-icons">shopping_cart</span>
+                    </Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
