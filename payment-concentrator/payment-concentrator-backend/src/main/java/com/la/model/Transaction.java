@@ -11,36 +11,38 @@ public class Transaction {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "payment_id")
+    @Column(name = "payment_id", nullable = false)
     private Long paymentId; // Payment ID from merchant bank
 
-    @Column(name = "acq_order_id")
+    @Column(name = "acq_order_id", nullable = false)
     private Long acqOrderId; // Order ID from merchant bank
 
-    @Column(name = "acq_timestamp")
+    @Column(name = "acq_timestamp", nullable = false)
     private LocalDateTime acqTimestamp; // Order Timestamp from merchant bank
 
-    @OneToOne
-    @JoinColumn(name = "buyer_request_id", referencedColumnName = "id")
-    private BuyerRequest buyerRequest;
+    @Column(name = "merchant_order_id", nullable = false)
+    private Long merchantOrderId; // Order ID from merchant database (literary-assocation)
+
+    @Column(name = "merchant_timestamp", nullable = false)
+    private LocalDateTime merchantTimestamp; // Timestamp from merchant database (literary-assocation)
 
     @Column(name = "status", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Status status; // PENDING, SUCCESS, FAILED, ERROR
+    private Status status; // WAITING, SUCCESS, FAILED, ERROR
 
     @OneToOne
-    @JoinColumn(name = "payment_method_id", nullable = false)
+    @JoinColumn(name = "payment_method_id")
     private PaymentMethod paymentMethod;
 
     public Transaction() {
     }
 
-    public Transaction(Long id, Long paymentId, Long acqOrderId, LocalDateTime acqTimestamp, BuyerRequest buyerRequest, Status status, PaymentMethod paymentMethod) {
+    public Transaction(Long id, Long paymentId, Long acqOrderId, LocalDateTime acqTimestamp, Long merchantOrderId, LocalDateTime merchantTimestamp, Status status, PaymentMethod paymentMethod) {
         this.id = id;
         this.paymentId = paymentId;
         this.acqOrderId = acqOrderId;
         this.acqTimestamp = acqTimestamp;
-        this.buyerRequest = buyerRequest;
+        this.merchantOrderId = merchantOrderId;
+        this.merchantTimestamp = merchantTimestamp;
         this.status = status;
         this.paymentMethod = paymentMethod;
     }
@@ -77,6 +79,22 @@ public class Transaction {
         this.acqTimestamp = acqTimestamp;
     }
 
+    public Long getMerchantOrderId() {
+        return merchantOrderId;
+    }
+
+    public void setMerchantOrderId(Long merchantOrderId) {
+        this.merchantOrderId = merchantOrderId;
+    }
+
+    public LocalDateTime getMerchantTimestamp() {
+        return merchantTimestamp;
+    }
+
+    public void setMerchantTimestamp(LocalDateTime merchantTimestamp) {
+        this.merchantTimestamp = merchantTimestamp;
+    }
+
     public Status getStatus() {
         return status;
     }
@@ -93,14 +111,6 @@ public class Transaction {
         this.paymentMethod = paymentMethod;
     }
 
-    public BuyerRequest getBuyerRequest() {
-        return buyerRequest;
-    }
-
-    public void setBuyerRequest(BuyerRequest buyerRequest) {
-        this.buyerRequest = buyerRequest;
-    }
-
     @Override
     public String toString() {
         return "Transaction{" +
@@ -108,7 +118,8 @@ public class Transaction {
                 ", paymentId=" + paymentId +
                 ", acqOrderId=" + acqOrderId +
                 ", acqTimestamp=" + acqTimestamp +
-                ", buyerRequest=" + buyerRequest +
+                ", merchantOrderId=" + merchantOrderId +
+                ", merchantTimestamp=" + merchantTimestamp +
                 ", status=" + status +
                 ", paymentMethod=" + paymentMethod +
                 '}';
