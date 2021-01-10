@@ -39,17 +39,17 @@ public class PurchaseBookRequestServiceImpl implements PurchaseBookRequestServic
     private PaymentConcentratorFeignClient feignClient;
 
     @Override
-    public CreatedBookPurchaseRequestDTO createPurchaseRequest(PurchaseBookRequestDTO purchaseBookRequestDTO, String token) throws ParseException {
-        Reader reader = (Reader) readerRepository.findByUsername(tokenUtils.getUsernameFromToken(token.substring(7)));
+    public CreatedBookPurchaseRequestDTO createPurchaseRequest(PurchaseBookRequestDTO purchaseBookRequestDTO) throws ParseException {
+//        Reader reader = (Reader) readerRepository.findByUsername(tokenUtils.getUsernameFromToken(token.substring(7)));
 
         PurchaseBookRequest request = purchaseBookRequestDTOMapper.toEntity(purchaseBookRequestDTO);
         request.setStatus(TransactionStatus.WAITING_PAYMENT);
-        request.setReader(reader);
+//        request.setReader(reader);
         purchaseBookRequestRepository.saveAndFlush(request);
 
         UserTokenState userTokenState = feignClient.login(new JwtAuthenticationRequest("vulkan", "123123"));
 
         return new CreatedBookPurchaseRequestDTO(request.getId(), LocalDateTime.now(), request.getPrice(),
-                token, tokenUtils.getUsernameFromToken(userTokenState.getAccessToken()));
+                userTokenState.getAccessToken(), tokenUtils.getUsernameFromToken(userTokenState.getAccessToken()));
     }
 }
