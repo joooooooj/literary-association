@@ -5,11 +5,15 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.la.dto.PaypalOrderDTO;
 import com.la.model.PaymentMethod;
+import com.la.model.Subscriber;
+import com.la.repository.SubscriberRepository;
+import com.la.repository.UserRepository;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -38,6 +42,9 @@ public class PaymentFilter extends ZuulFilter {
         return true;
     }
 
+    @Autowired
+    private SubscriberRepository subscriberRepository;
+
     Logger logger = LoggerFactory.getLogger(PaymentMethod.class);
 
     private void setFailedRequest(String body, int code) {
@@ -53,10 +60,30 @@ public class PaymentFilter extends ZuulFilter {
     public Object run() throws ZuulException {
         System.out.println("Usao je u zuul");
 
-        // rbac
-
         RequestContext context = RequestContext.getCurrentContext();
         HttpServletRequest request = context.getRequest();
+
+        // provera da li je zahtev poslao pretplatnik na KP, u zahtevu je potrebno da ima ID i Secret
+        if (request.getRequestURI().contains("pay-pal")) {
+            if (request.getHeader("ClientId") == null || request.getHeader("ClientSecret") == null) {
+                setFailedRequest("You are not authorized to use services until you subscribe.", 401);
+                return null;
+            }
+
+            String clientId = request.getHeader("ClientId");
+            Subscriber subscriber = subscriberRepository.getByClientId(clientId);
+            if (subscriber == null) {
+                setFailedRequest("You are not authorized to use services.", 401);
+                return null;
+            }
+
+            if (!subscriber.getClientSecret().equals(request.getHeader("ClientSecret"))) {
+                setFailedRequest("You are not authorized to use services.", 401);
+                return null;
+            }
+        }
+
+
         PaypalOrderDTO paypalOrderDTO = null;
         try {
             paypalOrderDTO = extractBody(context);
