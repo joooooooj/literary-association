@@ -1,10 +1,9 @@
 package com.la.service.impl;
 
-import com.la.dto.bitcoin.OrderRequest;
-import com.la.dto.bitcoin.OrderResult;
+import com.la.model.dtos.bitcoin.OrderRequest;
+import com.la.model.dtos.bitcoin.OrderResult;
 import com.la.model.BuyerRequest;
-import com.la.model.PaymentMethod;
-import com.la.model.Status;
+import com.la.model.enums.Status;
 import com.la.model.Transaction;
 import com.la.repository.BuyerRequestRepository;
 import com.la.repository.PaymentMethodRepository;
@@ -51,7 +50,7 @@ public class BitcoinTransactionServiceImpl implements BitcoinTransactionService 
     }
 
     @Override
-    public void updateTransaction(OrderResult orderResult) {
+    public Status updateTransaction(OrderResult orderResult) {
         if (transactionRepository.findById(Long.parseLong(orderResult.getOrder_id())).isPresent()) {
             Transaction transaction = transactionRepository.findById(Long.parseLong(orderResult.getOrder_id())).get();
 
@@ -73,8 +72,10 @@ public class BitcoinTransactionServiceImpl implements BitcoinTransactionService 
             }
             transaction.setAcqTimestamp(LocalDateTime.parse(orderResult.getCreated_at(), DateTimeFormatter.ISO_ZONED_DATE_TIME));
             transaction.setAcqOrderId(orderResult.getId());
-            transactionRepository.save(transaction);
+            transaction = transactionRepository.save(transaction);
+            return  transaction.getStatus();
         }
+        return Status.ERROR;
     }
 
     private Long createTransaction(BuyerRequest buyerRequest){

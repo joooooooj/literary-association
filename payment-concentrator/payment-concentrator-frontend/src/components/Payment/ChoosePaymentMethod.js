@@ -59,6 +59,25 @@ export default function ChoosePaymentMethod(props){
             });
     }
 
+    const handleBankPayment = () => {
+        fetch('http://localhost:8081/api/auth/bank/transaction/' + props.match.params.request_id, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.url != null) {
+                    console.log(JSON.stringify(data))
+                    window.location.replace(data.url);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
     return (
         <div className="bg-light w-75 text-center" style={{marginLeft:"12%", opacity:"0.8", borderRadius:"5px"}}>
             { buyerRequest &&
@@ -85,7 +104,8 @@ export default function ChoosePaymentMethod(props){
                                         paddingLeft: "20px",
                                         paddingRight: "20px",
                                         width: "100px"
-                                    }}>
+                                    }}
+                                    onClick={() => handleBankPayment()}>
                                 Pay
                             </Button>
                         </div>

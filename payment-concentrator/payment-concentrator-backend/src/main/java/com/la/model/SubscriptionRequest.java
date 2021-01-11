@@ -1,17 +1,17 @@
 package com.la.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Entity
 public class SubscriptionRequest {
 
     @Id
@@ -35,24 +35,4 @@ public class SubscriptionRequest {
             joinColumns = @JoinColumn(name = "request_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "payment_method_id", referencedColumnName = "id"))
     private Set<PaymentMethod> paymentMethods;
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getOrganizationName() {
-        return organizationName;
-    }
-
-    public String getOrganizationDescription() {
-        return organizationDescription;
-    }
-
-    public Set<PaymentMethod> getPaymentMethods() {
-        return paymentMethods;
-    }
-
-    public String getOrganizationEmail() {
-        return organizationEmail;
-    }
 }

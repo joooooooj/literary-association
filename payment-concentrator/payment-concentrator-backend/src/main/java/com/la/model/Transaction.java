@@ -1,5 +1,6 @@
 package com.la.model;
 
+import com.la.model.enums.Status;
 import lombok.*;
 
 import javax.persistence.*;

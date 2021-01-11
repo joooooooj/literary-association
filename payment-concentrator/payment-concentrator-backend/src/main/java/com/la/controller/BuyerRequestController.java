@@ -1,7 +1,6 @@
 package com.la.controller;
 
-import com.la.dto.PaymentMethodsBuyerRequestDTO;
-import com.la.model.BuyerRequest;
+import com.la.model.dtos.PaymentMethodsBuyerRequestDTO;
 import com.la.service.BuyerRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,11 +1,12 @@
 package com.la.service.impl;
 
-import com.la.dto.BankPaymentUrlDTO;
-import com.la.dto.BankRequestDTO;
-import com.la.dto.BankResponseDTO;
-import com.la.dto.TransactionFormDataDTO;
+import com.la.model.dtos.BankPaymentUrlDTO;
+import com.la.model.dtos.BankRequestDTO;
+import com.la.model.dtos.BankResponseDTO;
+import com.la.model.dtos.TransactionFormDataDTO;
 import com.la.model.Payment;
 import com.la.model.*;
+import com.la.model.enums.Status;
 import com.la.repository.*;
 import com.la.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;

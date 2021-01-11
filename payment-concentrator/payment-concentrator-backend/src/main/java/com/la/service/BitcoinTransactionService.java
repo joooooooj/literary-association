@@ -1,11 +1,12 @@
 package com.la.service;
 
-import com.la.dto.bitcoin.OrderRequest;
-import com.la.dto.bitcoin.OrderResult;
+import com.la.model.dtos.bitcoin.OrderRequest;
+import com.la.model.dtos.bitcoin.OrderResult;
+import com.la.model.enums.Status;
 
 public interface BitcoinTransactionService {
 
     OrderRequest createOrderRequest(Long buyerRequestId);
 
-    void updateTransaction(OrderResult orderResult);
+    Status updateTransaction(OrderResult orderResult);
 }

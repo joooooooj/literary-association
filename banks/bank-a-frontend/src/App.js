@@ -44,7 +44,10 @@ function  App() {
     fetch(url, options)
     .then(response => response.json())
     .then(data => {
-       console.log(data);
+      if (data.url != null) {
+        console.log(JSON.stringify(data))
+        window.location.replace(data.url);
+      }
     })
     .catch(error => console.log(error));
   }

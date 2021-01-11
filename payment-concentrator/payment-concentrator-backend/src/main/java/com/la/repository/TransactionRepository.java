@@ -2,7 +2,7 @@ package com.la.repository;
 
 import com.la.model.BuyerRequest;
 import com.la.model.PaymentMethod;
-import com.la.model.Status;
+import com.la.model.enums.Status;
 import com.la.model.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

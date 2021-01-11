@@ -1,10 +1,15 @@
 package com.la.model;
 
-import javax.persistence.*;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import lombok.*;
 
+import javax.persistence.*;
+import java.util.Set;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @Entity
 @DiscriminatorValue("SUBSCRIBER")
 public class Subscriber extends User {
@@ -14,10 +19,6 @@ public class Subscriber extends User {
 
     @Column
     private String clientSecret;
-
-    @OneToMany
-    @JoinColumn(name = "subscriber_id", unique = true)
-    private List<Transaction> transactions;
 
     @OneToOne()
     @JoinColumn(name = "subscriber_details_id", referencedColumnName = "id")
@@ -29,9 +30,6 @@ public class Subscriber extends User {
             inverseJoinColumns = @JoinColumn(name = "payment_method_id", referencedColumnName = "id"))
     private Set<PaymentMethod> paymentMethods;
 
-    public Subscriber() {
-    }
-
     public Subscriber(String username, String password, String email, Set<PaymentMethod> methods, String clientId, String clientSecret) {
         this.username = username;
         this.password = password;
@@ -39,47 +37,5 @@ public class Subscriber extends User {
         this.paymentMethods = methods;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
-    }
-
-    public String getClientSecret() {
-        return clientSecret;
-    }
-
-    public List<Transaction> getTransactions() {
-        return transactions;
-    }
-
-    public void setTransactions(List<Transaction> transactions) {
-        this.transactions = transactions;
-    }
-
-    public SubscriberDetails getSubscriberDetails() {
-        return subscriberDetails;
-    }
-
-    public void setSubscriberDetails(SubscriberDetails subscriberDetails) {
-        this.subscriberDetails = subscriberDetails;
-    }
-
-    public Set<PaymentMethod> getPaymentMethods() {
-        return paymentMethods;
-    }
-
-    public void setPaymentMethods(Set<PaymentMethod> paymentMethods) {
-        this.paymentMethods = paymentMethods;
-    }
-
-    @Override
-    public String toString() {
-        return "Subscriber{" +
-                "transactions=" + transactions +
-                ", subscriberDetails=" + subscriberDetails +
-                ", paymentMethods=" + paymentMethods +
-                ", id=" + id +
-                ", type='" + type + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                '}';
     }
 }

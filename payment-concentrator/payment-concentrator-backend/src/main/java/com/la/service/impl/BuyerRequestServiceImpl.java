@@ -1,7 +1,7 @@
 package com.la.service.impl;
 
-import com.la.dto.BuyerRequestDTO;
-import com.la.dto.PaymentMethodsBuyerRequestDTO;
+import com.la.model.dtos.BuyerRequestDTO;
+import com.la.model.dtos.PaymentMethodsBuyerRequestDTO;
 import com.la.model.BuyerRequest;
 import com.la.repository.BuyerRequestRepository;
 import com.la.service.BuyerRequestService;
@@ -36,4 +36,16 @@ public class BuyerRequestServiceImpl implements BuyerRequestService {
 
         return null;
     }
+
+    @Override
+    public String getErrorUrl(Long id) {
+        return buyerRequestRepository.findById(id).get().getSubscriber().getSubscriberDetails().getErrorUrl();
+    }
+
+    @Override
+    public String getFailedUrl(Long id) {
+        return buyerRequestRepository.findById(id).get().getSubscriber().getSubscriberDetails().getFailedUrl();
+    }
+
+
 }

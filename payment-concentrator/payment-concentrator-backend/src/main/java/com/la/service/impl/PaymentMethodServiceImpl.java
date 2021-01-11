@@ -1,8 +1,8 @@
 package com.la.service.impl;
 
-import com.la.dto.BuyerRequestDTO;
-import com.la.dto.PaymentMethodDTO;
-import com.la.mapper.PaymentMethodDTOMapper;
+import com.la.model.dtos.BuyerRequestDTO;
+import com.la.model.dtos.PaymentMethodDTO;
+import com.la.model.mappers.PaymentMethodDTOMapper;
 import com.la.model.BuyerRequest;
 import com.la.model.PaymentMethod;
 import com.la.repository.PaymentMethodRepository;

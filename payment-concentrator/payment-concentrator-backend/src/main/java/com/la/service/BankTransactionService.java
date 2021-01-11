@@ -1,7 +1,7 @@
 package com.la.service;
 
-import com.la.dto.bank.BankRequestDTO;
-import com.la.dto.bank.BankResponseDTO;
+import com.la.model.dtos.bank.BankRequestDTO;
+import com.la.model.dtos.bank.BankResponseDTO;
 
 public interface BankTransactionService {
 
