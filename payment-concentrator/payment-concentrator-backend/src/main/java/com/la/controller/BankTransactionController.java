@@ -1,15 +1,15 @@
 package com.la.controller;
 
 import com.la.dto.*;
+import com.la.dto.bank.BankPaymentUrlDTO;
+import com.la.dto.bank.BankRequestDTO;
+import com.la.dto.bank.BankResponseDTO;
 import com.la.feign.BankFeignClient;
-import com.la.model.Status;
 import com.la.service.BankTransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping("transaction")

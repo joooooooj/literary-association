@@ -21,7 +21,7 @@ public class Transaction {
     @Column(name = "payment_id")
     private Long paymentId; // Payment ID from merchant bank
 
-    @Column(name = "acq_order_id", nullable = false)
+    @Column(name = "acq_order_id")
     private Long acqOrderId; // Order ID from merchant bank
 
     @Column(name = "acq_timestamp")

@@ -1,7 +1,7 @@
 package com.la.service.impl;
 
-import com.la.dto.BankRequestDTO;
-import com.la.dto.BankResponseDTO;
+import com.la.dto.bank.BankRequestDTO;
+import com.la.dto.bank.BankResponseDTO;
 import com.la.model.*;
 import com.la.repository.*;
 import com.la.service.BankTransactionService;

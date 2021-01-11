@@ -2,7 +2,7 @@ package com.la;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.io.CharStreams;
-import com.la.dto.PaypalCreateOrderDTO;
+import com.la.dto.paypal.PaypalCreateOrderDTO;
 import com.la.model.Status;
 import com.la.model.Transaction;
 import com.la.repository.PaymentMethodRepository;
@@ -10,7 +10,6 @@ import com.la.repository.TransactionRepository;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
-import org.apache.tomcat.jni.Local;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

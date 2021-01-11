@@ -1,4 +1,4 @@
-package com.la.dto;
+package com.la.dto.bank;
 
 public class BankPaymentUrlDTO {
 

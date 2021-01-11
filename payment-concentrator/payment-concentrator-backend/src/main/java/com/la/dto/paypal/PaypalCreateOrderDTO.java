@@ -1,4 +1,4 @@
-package com.la.dto;
+package com.la.dto.paypal;
 
 public class PaypalCreateOrderDTO {
     private Long orderId;
