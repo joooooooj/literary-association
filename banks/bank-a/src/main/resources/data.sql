@@ -1,8 +1,8 @@
 INSERT INTO `banka`.`clients` (`address`, `name`, `surname`) VALUES ('Petra Drapsina 32, Novi Sad', 'Mile', 'Milic');
 INSERT INTO `banka`.`clients` (`address`, `name`, `surname`) VALUES ('Puskinova 8, Novi Sad', 'Ana', 'Antic');
 
-INSERT INTO `banka`.`accounts` (`account_number`, `balance`, `client_id`) VALUES ('535123456789666666', '1000', 1);
-INSERT INTO `banka`.`accounts` (`account_number`, `balance`) VALUES ('535123456789333333', '1000');
+INSERT INTO `banka`.`accounts` (`account_number`, `balance`, `client_id`) VALUES ('535123456789666666', '5000', 1);
+INSERT INTO `banka`.`accounts` (`account_number`, `balance`) VALUES ('535123456789333333', '5000');
 
 INSERT INTO `banka`.`cards` (`cardholder_name`, `expire_date`, `pan`, `security_code`, `account_id`) VALUES ('MILE MILIC', '12/20', '5125353412341111', '123', 1);
 

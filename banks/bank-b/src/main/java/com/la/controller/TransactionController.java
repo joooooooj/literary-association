@@ -5,17 +5,16 @@ import com.la.dto.BankRequestDTO;
 import com.la.dto.BankResponseDTO;
 import com.la.dto.TransactionFormDataDTO;
 import com.la.feign.PaymentConcetratorFeignClient;
-import com.la.model.Client;
 import com.la.model.Payment;
 import com.la.model.Status;
 import com.la.service.TransactionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 

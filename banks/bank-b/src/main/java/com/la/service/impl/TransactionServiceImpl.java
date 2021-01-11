@@ -1,9 +1,13 @@
 package com.la.service.impl;
 
-import com.la.dto.*;
-import com.la.feign.PCCFeignClient;
+import com.la.dto.BankPaymentUrlDTO;
+import com.la.dto.BankRequestDTO;
+import com.la.dto.BankResponseDTO;
+import com.la.dto.TransactionFormDataDTO;
+import com.la.model.Account;
 import com.la.model.Payment;
-import com.la.model.*;
+import com.la.model.Status;
+import com.la.model.Transaction;
 import com.la.repository.*;
 import com.la.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +34,6 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Autowired
     private TransactionRepository transactionRepository;
-
-    @Autowired
-    private PCCFeignClient pccFeignClient;
 
     public BankPaymentUrlDTO createPayment(BankRequestDTO bankRequestDTO) {
         // Check if merchant id exists
@@ -72,20 +73,20 @@ public class TransactionServiceImpl implements TransactionService {
                 throw new ValidationException();
             }
             String cardholder = transactionFormDataDTO.getCardholderName();
-            try {
-                account = (cardRepository.findByPanAndSecurityCodeAndExpireDateAndCardholderName(transactionFormDataDTO.getPan(), transactionFormDataDTO.getSecurityCode(), transactionFormDataDTO.getExpireDate(), cardholder)).getAccount();
-                if (account.getBalance() < payment.getAmount()) {
-                    throw new OperationsException();
-                }
-                account.setBalance(account.getBalance() - payment.getAmount());
-                this.accountRepository.save(account);
+            account = (cardRepository.findByPanAndSecurityCodeAndExpireDateAndCardholderName(transactionFormDataDTO.getPan(),transactionFormDataDTO.getSecurityCode(),transactionFormDataDTO.getExpireDate(), cardholder)).getAccount();
 
-            } catch (NullPointerException e) {
-                PCCRequestDTO pccRequestDTO = new PCCRequestDTO(transactionFormDataDTO.getPan(),transactionFormDataDTO.getSecurityCode(),transactionFormDataDTO.getExpireDate(),cardholder,payment.getMerchantOrderId(),payment.getMerchantTimestamp());
-                PCCResponseDTO pccResponseDTO = this.findIssuerBank(pccRequestDTO);
-                System.out.println(pccResponseDTO.toString());
-                return null;
+            if (account == null){
+                // CALL PCC AND SEARCH FOR BANK
+                // RETURN TRANSACTION OR ERROR
+               throw new ValidationException();
             }
+
+            if (account.getBalance() < payment.getAmount()) {
+                throw new OperationsException();
+            }
+
+            account.setBalance(account.getBalance() - payment.getAmount());
+            this.accountRepository.save(account);
 
             Account merchantAccount = payment.getMerchant().getAccount();
             merchantAccount.setBalance(merchantAccount.getBalance() + payment.getAmount());
@@ -118,7 +119,6 @@ public class TransactionServiceImpl implements TransactionService {
             return new BankResponseDTO(payment.getMerchantOrderId(), transaction.getId(),
                     transaction.getTimestamp(),paymentId, Status.ERROR);
         } catch (Exception e) {
-            e.printStackTrace();
             transaction.setTimestamp(LocalDateTime.now());
             transaction.setStatus(Status.ERROR);
             transactionRepository.save(transaction);
@@ -132,11 +132,6 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public Payment getPayment(Long paymentId) {
         return paymentRepository.findById(paymentId).get();
-    }
-
-
-    public PCCResponseDTO findIssuerBank(PCCRequestDTO pccRequestDTO) {
-        return pccFeignClient.findIssuerBank(pccRequestDTO);
     }
 
 }
