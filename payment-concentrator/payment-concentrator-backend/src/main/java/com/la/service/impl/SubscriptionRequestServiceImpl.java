@@ -1,7 +1,7 @@
 package com.la.service.impl;
 
-import com.la.dto.SubscriptionRequestDTO;
-import com.la.mapper.SubscriptionRequestDTOMapper;
+import com.la.model.dtos.SubscriptionRequestDTO;
+import com.la.model.mappers.SubscriptionRequestDTOMapper;
 import com.la.model.PaymentMethod;
 import com.la.model.Subscriber;
 import com.la.model.SubscriptionRequest;
@@ -52,7 +52,7 @@ public class SubscriptionRequestServiceImpl implements SubscriptionRequestServic
         // TO DO: send mail
 
         Subscriber newSubscriber = new Subscriber(request.getOrganizationName().toLowerCase(),
-                encoder.encode(generatePassword()), request.getOrganizationEmail(), m);
+                encoder.encode(generatePassword(10)), request.getOrganizationEmail(), m, UUID.randomUUID().toString(), generatePassword(40));
         newSubscriber.setRoles(new HashSet<>(Collections.singletonList(roleRepository.findByName("ROLE_SUBSCRIBER"))));
 
         userRepository.save(newSubscriber);
@@ -70,15 +70,14 @@ public class SubscriptionRequestServiceImpl implements SubscriptionRequestServic
         }
     }
 
-    private String generatePassword() {
+    private String generatePassword(int length) {
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'
-        int targetStringLength = 10;
         Random random = new Random();
 
         String generatedString = random.ints(leftLimit, rightLimit + 1)
                 .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-                .limit(targetStringLength)
+                .limit(length)
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
 

@@ -71,6 +71,9 @@ INSERT INTO `la`.`script_request` (`id`, `changes_deadline`, `corrections`, `sta
 
 /*book*/
 INSERT INTO `la`.`book` (`id`, `isbn`, `pages_number`, `price`, `published_year`, `synopsis`, `title`, `genre_id`, `lector_id`, `publisher_id`, `script_id`) VALUES ('1', '3434734', '256', '10', '2020', 'blabla', 'Kuvar', '1', '5', '1', '1');
+INSERT INTO `la`.`book` (`id`, `isbn`, `pages_number`, `price`, `published_year`, `synopsis`, `title`, `genre_id`, `lector_id`, `publisher_id`, `script_id`) VALUES ('2', '1231231', '256', '10', '2020', 'blabla', 'Stephen King', '1', '5', '1', '1');
+INSERT INTO `la`.`book` (`id`, `isbn`, `pages_number`, `price`, `published_year`, `synopsis`, `title`, `genre_id`, `lector_id`, `publisher_id`, `script_id`) VALUES ('3', '3213213', '256', '10', '2020', 'blabla', 'Bernard Cornwall', '1', '5', '1', '1');
+INSERT INTO `la`.`book` (`id`, `isbn`, `pages_number`, `price`, `published_year`, `synopsis`, `title`, `genre_id`, `lector_id`, `publisher_id`, `script_id`) VALUES ('4', '2312312', '256', '10', '2020', 'blabla', 'Elizabeth Gilbert', '1', '5', '1', '1');
 
 /*book_key_words*/
 INSERT INTO `la`.book_key_words (`book_id`, `key_words`) VALUES ('1', 'mleko');

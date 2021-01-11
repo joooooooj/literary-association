@@ -1,8 +1,8 @@
 package com.la.controller;
 
-import com.la.dto.PaymentMethodDTO;
-import com.la.dto.SubscriptionRequestDTO;
-import com.la.mapper.PaymentMethodDTOMapper;
+import com.la.model.dtos.PaymentMethodDTO;
+import com.la.model.dtos.SubscriptionRequestDTO;
+import com.la.model.mappers.PaymentMethodDTOMapper;
 import com.la.security.UserTokenState;
 import com.la.security.auth.JwtAuthenticationRequest;
 import com.la.service.AuthService;
@@ -15,6 +15,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,7 +54,7 @@ public class AuthController {
     }
 
     @PostMapping(value = "/subscribe")
-    public ResponseEntity<Long> createRequest(@RequestBody SubscriptionRequestDTO requestDTO) {
+    public ResponseEntity<Long> createRequest(@Valid @RequestBody SubscriptionRequestDTO requestDTO) {
         try {
             Long id = subscriptionService.createRequest(requestDTO);
             return new ResponseEntity<>(id, HttpStatus.CREATED);

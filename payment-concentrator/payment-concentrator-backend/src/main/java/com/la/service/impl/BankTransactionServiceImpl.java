@@ -1,13 +1,15 @@
 package com.la.service.impl;
 
-import com.la.dto.BankRequestDTO;
-import com.la.dto.BankResponseDTO;
+import com.la.model.dtos.bank.BankRequestDTO;
+import com.la.model.dtos.bank.BankResponseDTO;
 import com.la.model.*;
+import com.la.model.enums.Status;
 import com.la.repository.*;
 import com.la.service.BankTransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -22,9 +24,6 @@ public class BankTransactionServiceImpl implements BankTransactionService {
     @Autowired
     private BuyerRequestRepository buyerRequestRepository;
 
-    @Autowired
-    private SubscriberDetailsRepository subscriberDetailsRepository;
-
     @Override
     public BankRequestDTO createBankRequestDTO(Long buyerRequestId) {
         Optional<BuyerRequest> buyerRequest = buyerRequestRepository.findById(buyerRequestId);
@@ -35,12 +34,13 @@ public class BankTransactionServiceImpl implements BankTransactionService {
                 transaction.setStatus(Status.PENDING);
                 transaction.setBuyerRequest(buyerRequest.get());
                 transaction.setPaymentMethod(paymentMethodRepository.findByName("Bank"));
-                transactionRepository.save(transaction);
+                transaction.setTimestamp(LocalDateTime.now());
+                Transaction t = transactionRepository.save(transaction);
                 return new BankRequestDTO(subscriberDetails.getMerchantId(),
                                         subscriberDetails.getMerchantPassword(),
-                                        buyerRequest.get().getAmount(),
-                                        buyerRequest.get().getMerchantTimestamp(),
-                                        buyerRequest.get().getMerchantOrderId());
+                                        transaction.getId(),
+                                        transaction.getTimestamp(),
+                                        buyerRequest.get().getAmount());
             }
             return null;
         }
@@ -65,11 +65,13 @@ public class BankTransactionServiceImpl implements BankTransactionService {
 
     @Override
     public String updateTransaction(BankResponseDTO bankResponseDTO) {
-        Transaction transaction = transactionRepository.findByPaymentId(bankResponseDTO.getPaymentId());
+        Transaction transaction = transactionRepository.findById(bankResponseDTO.getMerchantOrderId()).get();
         transaction.setAcqOrderId(bankResponseDTO.getAcqOrderId());
         transaction.setAcqTimestamp(bankResponseDTO.getAcqTimestamp());
 
         String returnUrl = "";
+
+        System.err.println(bankResponseDTO.getStatus());
 
         switch (bankResponseDTO.getStatus()){
             case SUCCESS : {

@@ -79,28 +79,32 @@ export default function PaymentMethodsComponent() {
                     </p>
                 </Carousel.Caption>
             </Carousel.Item>
-            {otherMethods.map(method => {
-                return (<Carousel.Item interval={5000} key={method.id}>
-                    <img
-                        src={NewPaymentIcon}
-                        width="500px"
-                        height="400px"
-                        alt="First slide"
-                        style={{
-                            marginTop: "5%",
-                            marginLeft: "33%",
-                            backgroundColor: "#f8f9fa",
-                        }}
-                    />
+            {otherMethods &&
+            <>
+                {otherMethods.map(method => {
+                    return (<Carousel.Item interval={5000} key={method.id}>
+                        <img
+                            src={NewPaymentIcon}
+                            width="500px"
+                            height="400px"
+                            alt="First slide"
+                            style={{
+                                marginTop: "5%",
+                                marginLeft: "33%",
+                                backgroundColor: "#f8f9fa",
+                            }}
+                        />
 
-                    <Carousel.Caption style={{display: "contents"}}>
-                        <h3>{method.name}</h3>
-                        <p>
-                            We offer service of paying for items via {method.name}.
-                        </p>
-                    </Carousel.Caption>
-                </Carousel.Item>);
-            })}
+                        <Carousel.Caption style={{display: "contents"}}>
+                            <h3>{method.name}</h3>
+                            <p>
+                                We offer service of paying for items via {method.name}.
+                            </p>
+                        </Carousel.Caption>
+                    </Carousel.Item>);
+                })}
+            </>
+            }
         </Carousel>
     );
 }

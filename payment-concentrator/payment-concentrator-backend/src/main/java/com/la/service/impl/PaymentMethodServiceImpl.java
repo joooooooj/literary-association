@@ -1,8 +1,8 @@
 package com.la.service.impl;
 
-import com.la.dto.BuyerRequestDTO;
-import com.la.dto.PaymentMethodDTO;
-import com.la.mapper.PaymentMethodDTOMapper;
+import com.la.model.dtos.BuyerRequestDTO;
+import com.la.model.dtos.PaymentMethodDTO;
+import com.la.model.mappers.PaymentMethodDTOMapper;
 import com.la.model.BuyerRequest;
 import com.la.model.PaymentMethod;
 import com.la.repository.PaymentMethodRepository;
@@ -17,6 +17,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -24,7 +25,7 @@ import java.util.Set;
 public class PaymentMethodServiceImpl implements PaymentMethodService {
 
     @Autowired
-    private BuyerRequestRepository paymentRepository;
+    private BuyerRequestRepository buyerRequestRepository;
 
     @Autowired
     private PaymentMethodRepository paymentMethodRepository;
@@ -102,7 +103,8 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
                 buyerRequest.setAmount(buyerRequestDTO.getAmount());
                 buyerRequest.setMerchantTimestamp(buyerRequestDTO.getMerchantTimestamp());
                 buyerRequest.setSubscriber(subscriberRepository.findByUsername(username));
-                buyerRequest = paymentRepository.save(buyerRequest);
+                buyerRequest.setTimestamp(LocalDateTime.now());
+                buyerRequest = buyerRequestRepository.save(buyerRequest);
 
                 return "http://localhost:3001/payment-methods/" + buyerRequest.getId();
             }

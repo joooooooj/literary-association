@@ -1,14 +1,22 @@
 package com.la.model;
 
+import com.la.model.enums.Status;
+import lombok.*;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Entity
-@Table(name="transactions")
+@Table(name = "transactions")
 public class Transaction {
 
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "payment_id")
@@ -19,6 +27,9 @@ public class Transaction {
 
     @Column(name = "acq_timestamp")
     private LocalDateTime acqTimestamp; // Order Timestamp from merchant bank
+
+    @Column(name = "timestamp")
+    private LocalDateTime timestamp; // Order Timestamp from merchant bank
 
     @OneToOne
     @JoinColumn(name = "buyer_request_id", referencedColumnName = "id")
@@ -31,87 +42,4 @@ public class Transaction {
     @OneToOne
     @JoinColumn(name = "payment_method_id")
     private PaymentMethod paymentMethod;
-
-    public Transaction() {
-    }
-
-    public Transaction(Long id, Long paymentId, Long acqOrderId, LocalDateTime acqTimestamp, Status status, PaymentMethod paymentMethod, BuyerRequest buyerRequest) {
-        this.id = id;
-        this.paymentId = paymentId;
-        this.acqOrderId = acqOrderId;
-        this.acqTimestamp = acqTimestamp;
-        this.status = status;
-        this.paymentMethod = paymentMethod;
-        this.buyerRequest = buyerRequest;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getPaymentId() {
-        return paymentId;
-    }
-
-    public void setPaymentId(Long paymentId) {
-        this.paymentId = paymentId;
-    }
-
-    public Long getAcqOrderId() {
-        return acqOrderId;
-    }
-
-    public void setAcqOrderId(Long acqOrderId) {
-        this.acqOrderId = acqOrderId;
-    }
-
-    public LocalDateTime getAcqTimestamp() {
-        return acqTimestamp;
-    }
-
-    public void setAcqTimestamp(LocalDateTime acqTimestamp) {
-        this.acqTimestamp = acqTimestamp;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public PaymentMethod getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setBuyerRequest(BuyerRequest buyerRequest) {
-        this.buyerRequest = buyerRequest;
-    }
-
-    public BuyerRequest getBuyerRequest() {
-        return buyerRequest;
-    }
-
-    public void setPaymentMethod(PaymentMethod paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-
-    @Override
-    public String toString() {
-        return "Transaction{" +
-                "id=" + id +
-                ", paymentId=" + paymentId +
-                ", acqOrderId=" + acqOrderId +
-                ", acqTimestamp=" + acqTimestamp +
-                ", buyerRequest=" + buyerRequest +
-                ", status=" + status +
-                ", paymentMethod=" + paymentMethod +
-                '}';
-    }
-
 }

@@ -1,8 +1,15 @@
 package com.la.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Entity
 @Table(name = "payments")
 public class Payment {
@@ -23,66 +30,4 @@ public class Payment {
 
     @Column
     private float amount;
-
-    public Payment() {
-    }
-
-    public Payment(Long id, Merchant merchant, Long merchantOrderId, LocalDateTime merchantTimestamp, float amount) {
-        this.id = id;
-        this.merchant = merchant;
-        this.merchantOrderId = merchantOrderId;
-        this.merchantTimestamp = merchantTimestamp;
-        this.amount = amount;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Merchant getMerchant() {
-        return merchant;
-    }
-
-    public void setMerchant(Merchant merchant) {
-        this.merchant = merchant;
-    }
-
-    public Long getMerchantOrderId() {
-        return merchantOrderId;
-    }
-
-    public void setMerchantOrderId(Long merchantOrderId) {
-        this.merchantOrderId = merchantOrderId;
-    }
-
-    public LocalDateTime getMerchantTimestamp() {
-        return merchantTimestamp;
-    }
-
-    public void setMerchantTimestamp(LocalDateTime merchantTimestamp) {
-        this.merchantTimestamp = merchantTimestamp;
-    }
-
-    public float getAmount() {
-        return amount;
-    }
-
-    public void setAmount(float amount) {
-        this.amount = amount;
-    }
-
-    @Override
-    public String toString() {
-        return "Payment{" +
-                "id=" + id +
-                ", merchant=" + merchant +
-                ", merchantOrderId=" + merchantOrderId +
-                ", merchantTimestamp=" + merchantTimestamp +
-                ", amount=" + amount +
-                '}';
-    }
 }

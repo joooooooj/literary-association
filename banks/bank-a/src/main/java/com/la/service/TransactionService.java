@@ -1,9 +1,9 @@
 package com.la.service;
 
-import com.la.dto.BankPaymentUrlDTO;
-import com.la.dto.BankRequestDTO;
-import com.la.dto.BankResponseDTO;
-import com.la.dto.TransactionFormDataDTO;
+import com.la.model.dtos.BankPaymentUrlDTO;
+import com.la.model.dtos.BankRequestDTO;
+import com.la.model.dtos.BankResponseDTO;
+import com.la.model.dtos.TransactionFormDataDTO;
 import com.la.model.Payment;
 
 public interface TransactionService {

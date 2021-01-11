@@ -1,7 +1,7 @@
 package com.la.controller;
 
-import com.la.dto.SubscriptionRequestDTO;
-import com.la.mapper.SubscriptionRequestDTOMapper;
+import com.la.model.dtos.SubscriptionRequestDTO;
+import com.la.model.mappers.SubscriptionRequestDTOMapper;
 import com.la.service.SubscriptionRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
