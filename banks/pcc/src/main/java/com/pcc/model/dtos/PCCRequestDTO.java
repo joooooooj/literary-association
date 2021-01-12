@@ -1,4 +1,5 @@
-package com.la.model.dtos;
+package com.pcc.model.dtos;
+
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -23,7 +24,5 @@ public class PCCRequestDTO {
     private LocalDateTime acquirerTimestamp;
 
     private float amount;
-
-
 
 }

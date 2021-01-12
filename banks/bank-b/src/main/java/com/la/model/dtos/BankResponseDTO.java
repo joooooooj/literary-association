@@ -10,15 +10,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class PCCResponseDTO {
+public class BankResponseDTO {
 
-    private Long acquirerOrderId;
+    private Long merchantOrderId;
 
-    private LocalDateTime acquirerTimestamp;
+    private Long acqOrderId;
 
-    private Long issuerOrderId;
+    private LocalDateTime acqTimestamp;
 
-    private LocalDateTime issuerTimestamp;
+    private Long paymentId;
 
     private Status status;
 }

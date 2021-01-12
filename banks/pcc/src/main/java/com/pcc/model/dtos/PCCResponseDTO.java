@@ -1,6 +1,6 @@
-package com.la.model.dtos;
+package com.pcc.model.dtos;
 
-import com.la.model.enums.Status;
+import com.pcc.model.enums.Status;
 import lombok.*;
 
 import java.time.LocalDateTime;

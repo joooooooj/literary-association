@@ -1,5 +1,7 @@
 package com.la.model;
 
+import com.la.model.enums.Status;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 

@@ -1,7 +1,13 @@
 package com.pcc.model;
 
-import javax.persistence.*;
+import lombok.*;
 
+import javax.persistence.*;
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @Entity
 @Table(name = "banks")
 public class Bank {
@@ -15,36 +21,4 @@ public class Bank {
 
     @Column
     private String pan;
-
-    public Bank() {
-    }
-
-    public Bank(String name, String pan) {
-        this.name = name;
-        this.pan = pan;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPan() {
-        return pan;
-    }
-
-    public void setPan(String pan) {
-        this.pan = pan;
-    }
 }

@@ -1,13 +1,10 @@
 package com.la.service.impl;
 
-import com.la.dto.BankPaymentUrlDTO;
-import com.la.dto.BankRequestDTO;
-import com.la.dto.BankResponseDTO;
-import com.la.dto.TransactionFormDataDTO;
-import com.la.model.Account;
+import com.la.controller.feigns.PCCFeignClient;
+import com.la.model.dtos.*;
 import com.la.model.Payment;
-import com.la.model.Status;
-import com.la.model.Transaction;
+import com.la.model.*;
+import com.la.model.enums.Status;
 import com.la.repository.*;
 import com.la.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import javax.management.OperationsException;
 import javax.validation.ValidationException;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 
 @Service
@@ -34,6 +34,9 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Autowired
     private TransactionRepository transactionRepository;
+
+    @Autowired
+    private PCCFeignClient pccFeignClient;
 
     public BankPaymentUrlDTO createPayment(BankRequestDTO bankRequestDTO) {
         // Check if merchant id exists
@@ -72,21 +75,53 @@ public class TransactionServiceImpl implements TransactionService {
             if (!transactionFormDataDTO.getSecurityCode().matches("^[0-9]*$") || transactionFormDataDTO.getSecurityCode().length() < 3 || transactionFormDataDTO.getSecurityCode().length() > 4) {
                 throw new ValidationException();
             }
-            String cardholder = transactionFormDataDTO.getCardholderName();
-            account = (cardRepository.findByPanAndSecurityCodeAndExpireDateAndCardholderName(transactionFormDataDTO.getPan(),transactionFormDataDTO.getSecurityCode(),transactionFormDataDTO.getExpireDate(), cardholder)).getAccount();
+            try {
+                MessageDigest md = MessageDigest.getInstance("SHA-512");
+                byte[] bytes = md.digest(transactionFormDataDTO.getPan().getBytes(StandardCharsets.UTF_8));
+                StringBuilder sb = new StringBuilder();
+                for(int i=0; i< bytes.length ;i++){
+                    sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+                }
+                String pan = sb.toString();
+                MessageDigest md1 = MessageDigest.getInstance("SHA-512");
+                byte[] bytes1 = md1.digest(transactionFormDataDTO.getSecurityCode().getBytes(StandardCharsets.UTF_8));
+                StringBuilder sb1 = new StringBuilder();
+                for(int i=0; i< bytes1.length ;i++){
+                    sb1.append(Integer.toString((bytes1[i] & 0xff) + 0x100, 16).substring(1));
+                }
+                String securityCode = sb1.toString();
+                account = (cardRepository.findByPanAndSecurityCodeAndExpireDateAndCardholderName(pan, securityCode, transactionFormDataDTO.getExpireDate(), transactionFormDataDTO.getCardholderName())).getAccount();
+                if (account.getBalance() < payment.getAmount()) {
+                    throw new OperationsException();
+                }
+                account.setBalance(account.getBalance() - payment.getAmount());
+                this.accountRepository.save(account);
 
-            if (account == null){
-                // CALL PCC AND SEARCH FOR BANK
-                // RETURN TRANSACTION OR ERROR
-               throw new ValidationException();
+            } catch (NullPointerException e) {
+                PCCRequestDTO pccRequestDTO = new PCCRequestDTO(transactionFormDataDTO.getPan(),transactionFormDataDTO.getSecurityCode(),transactionFormDataDTO.getExpireDate(),transactionFormDataDTO.getCardholderName(),payment.getMerchantOrderId(),payment.getMerchantTimestamp(),payment.getAmount());
+                PCCResponseDTO pccResponseDTO = this.findIssuerBank(pccRequestDTO);
+                account = null;
+                if (pccResponseDTO.getStatus().equals(Status.ERROR)) {
+                    transaction.setTimestamp(LocalDateTime.now());
+                    transaction.setStatus(Status.ERROR);
+                    transaction.setPayment(payment);
+                    transaction.setIssuerTimestamp(null);
+                    transaction.setIssuerOrderId(null);
+                    transactionRepository.save(transaction);
+                    return new BankResponseDTO(payment.getMerchantOrderId(), transaction.getId(),
+                            transaction.getTimestamp(),paymentId, Status.ERROR);
+                } else if (pccResponseDTO.getStatus().equals(Status.FAILED)) {
+                    transaction.setTimestamp(LocalDateTime.now());
+                    transaction.setStatus(Status.FAILED);
+                    transaction.setPayment(payment);
+                    transaction.setIssuerTimestamp(pccResponseDTO.getIssuerTimestamp());
+                    transaction.setIssuerOrderId(pccResponseDTO.getIssuerOrderId());
+                    transactionRepository.save(transaction);
+                    return new BankResponseDTO(payment.getMerchantOrderId(), transaction.getId(),
+                            transaction.getTimestamp(),paymentId, Status.FAILED);
+                }
+                System.out.println(pccResponseDTO.toString());
             }
-
-            if (account.getBalance() < payment.getAmount()) {
-                throw new OperationsException();
-            }
-
-            account.setBalance(account.getBalance() - payment.getAmount());
-            this.accountRepository.save(account);
 
             Account merchantAccount = payment.getMerchant().getAccount();
             merchantAccount.setBalance(merchantAccount.getBalance() + payment.getAmount());
@@ -119,6 +154,7 @@ public class TransactionServiceImpl implements TransactionService {
             return new BankResponseDTO(payment.getMerchantOrderId(), transaction.getId(),
                     transaction.getTimestamp(),paymentId, Status.ERROR);
         } catch (Exception e) {
+            e.printStackTrace();
             transaction.setTimestamp(LocalDateTime.now());
             transaction.setStatus(Status.ERROR);
             transactionRepository.save(transaction);
@@ -132,6 +168,62 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public Payment getPayment(Long paymentId) {
         return paymentRepository.findById(paymentId).get();
+    }
+
+    @Override
+    public PCCResponseDTO createSecondTransaction(PCCRequestDTO pccRequestDTO) {
+        Account account = new Account();
+        PCCResponseDTO pccResponseDTO = new PCCResponseDTO();
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            byte[] bytes = md.digest(pccRequestDTO.getPan().getBytes(StandardCharsets.UTF_8));
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++){
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            String pan = sb.toString();
+            MessageDigest md1 = MessageDigest.getInstance("SHA-512");
+            byte[] bytes1 = md1.digest(pccRequestDTO.getSecurityCode().getBytes(StandardCharsets.UTF_8));
+            StringBuilder sb1 = new StringBuilder();
+            for(int i=0; i< bytes1.length ;i++){
+                sb1.append(Integer.toString((bytes1[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            String securityCode = sb1.toString();
+            account = (cardRepository.findByPanAndSecurityCodeAndExpireDateAndCardholderName(pan, securityCode, pccRequestDTO.getExpireDate(), pccRequestDTO.getCardholderName())).getAccount();
+        } catch (NullPointerException | NoSuchAlgorithmException e) {
+            pccResponseDTO.setStatus(Status.ERROR);
+            return pccResponseDTO;
+        }
+        Transaction transaction = new Transaction();
+        transaction.setAccount(account);
+        transaction.setTimestamp(LocalDateTime.now());
+        transaction.setIssuerOrderId(null);
+        transaction.setIssuerTimestamp(null);
+        transaction.setPayment(null); //amount
+        this.transactionRepository.save(transaction);
+
+        pccResponseDTO.setIssuerTimestamp(LocalDateTime.now());
+        pccResponseDTO.setIssuerOrderId(transaction.getId());
+        pccResponseDTO.setAcquirerOrderId(pccRequestDTO.getAcquirerOrderId());
+        pccResponseDTO.setAcquirerTimestamp(pccRequestDTO.getAcquirerTimestamp());
+
+        if (account.getBalance() < pccRequestDTO.getAmount()) {
+            transaction.setStatus(Status.FAILED);
+            this.transactionRepository.save(transaction);
+            pccResponseDTO.setStatus(Status.FAILED);
+        } else {
+            transaction.setStatus(Status.SUCCESS);
+            this.transactionRepository.save(transaction);
+            pccResponseDTO.setStatus(Status.SUCCESS);
+            account.setBalance(account.getBalance() - pccRequestDTO.getAmount());
+            this.accountRepository.save(account);
+        }
+        return pccResponseDTO;
+    }
+
+
+    public PCCResponseDTO findIssuerBank(PCCRequestDTO pccRequestDTO) {
+        return pccFeignClient.findIssuerBank(pccRequestDTO);
     }
 
 }

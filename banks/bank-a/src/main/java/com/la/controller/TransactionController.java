@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.time.LocalDateTime;
 
 @RestController
@@ -71,7 +73,6 @@ public class TransactionController {
     @PostMapping(value = "/{paymentId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UrlDTO> createTransaction(@RequestBody TransactionFormDataDTO transactionFormDataDTO, @PathVariable Long paymentId) {
         try {
-            //CHECK IF IN THE SAME BANK
             BankResponseDTO bankResponseDTO = this.transactionService.createTransaction(transactionFormDataDTO, paymentId);
 
             System.err.println(bankResponseDTO);
@@ -103,5 +104,10 @@ public class TransactionController {
      */
     private UrlDTO getStatusUrl(BankResponseDTO bankResponseDTO) {
         return paymentConcetratorFeignClient.updateTransaction(bankResponseDTO);
+    }
+
+    @PostMapping(value = "/second", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public PCCResponseDTO createSecondTransaction(@RequestBody PCCRequestDTO pccRequestDTO) {
+        return this.transactionService.createSecondTransaction(pccRequestDTO);
     }
 }

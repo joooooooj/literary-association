@@ -1,7 +1,8 @@
 package com.pcc.service;
 
-import com.pcc.dto.PCCRequestDTO;
+import com.pcc.model.dtos.PCCRequestDTO;
+import com.pcc.model.dtos.PCCResponseDTO;
 
 public interface BankService {
-    void findIssuerBank(PCCRequestDTO pccRequestDTO);
+    PCCResponseDTO findIssuerBank(PCCRequestDTO pccRequestDTO);
 }
