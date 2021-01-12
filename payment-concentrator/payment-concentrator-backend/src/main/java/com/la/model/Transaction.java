@@ -22,7 +22,7 @@ public class Transaction {
     private Long paymentId; // Payment ID from merchant bank
 
     @Column(name = "acq_order_id", nullable = false)
-    private Long acqOrderId; // Order ID from merchant bank
+    private String acqOrderId; // Order ID from merchant bank **** promenio na string zbog pay pala ****
 
     @Column(name = "acq_timestamp")
     private LocalDateTime acqTimestamp; // Order Timestamp from merchant bank

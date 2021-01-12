@@ -49,7 +49,7 @@ public class PurchaseBookRequestServiceImpl implements PurchaseBookRequestServic
 
         UserTokenState userTokenState = feignClient.login(new JwtAuthenticationRequest("vulkan", "123123"));
 
-        return new CreatedBookPurchaseRequestDTO(request.getId(), LocalDateTime.now(), request.getPrice(),
+        return new CreatedBookPurchaseRequestDTO(request.getId(), LocalDateTime.now().toString(), request.getPrice(),
                 userTokenState.getAccessToken(), tokenUtils.getUsernameFromToken(userTokenState.getAccessToken()));
     }
 }

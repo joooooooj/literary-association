@@ -64,24 +64,24 @@ public class PaymentFilter extends ZuulFilter {
         HttpServletRequest request = context.getRequest();
 
         // provera da li je zahtev poslao pretplatnik na KP, u zahtevu je potrebno da ima ID i Secret
-        if (request.getRequestURI().contains("pay-pal")) {
-            if (request.getHeader("ClientId") == null || request.getHeader("ClientSecret") == null) {
-                setFailedRequest("You are not authorized to use services until you subscribe.", 401);
-                return null;
-            }
-
-            String clientId = request.getHeader("ClientId");
-            Subscriber subscriber = subscriberRepository.getByClientId(clientId);
-            if (subscriber == null) {
-                setFailedRequest("You are not authorized to use services.", 401);
-                return null;
-            }
-
-            if (!subscriber.getClientSecret().equals(request.getHeader("ClientSecret"))) {
-                setFailedRequest("You are not authorized to use services.", 401);
-                return null;
-            }
-        }
+//        if (request.getRequestURI().contains("pay-pal")) {
+//            if (request.getHeader("ClientId") == null || request.getHeader("ClientSecret") == null) {
+//                setFailedRequest("You are not authorized to use services until you subscribe.", 401);
+//                return null;
+//            }
+//
+//            String clientId = request.getHeader("ClientId");
+//            Subscriber subscriber = subscriberRepository.getByClientId(clientId);
+//            if (subscriber == null) {
+//                setFailedRequest("You are not authorized to use services.", 401);
+//                return null;
+//            }
+//
+//            if (!subscriber.getClientSecret().equals(request.getHeader("ClientSecret"))) {
+//                setFailedRequest("You are not authorized to use services.", 401);
+//                return null;
+//            }
+//        }
 
 
         PaypalOrderDTO paypalOrderDTO = null;

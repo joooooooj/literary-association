@@ -1,18 +1,18 @@
 package com.la.dto;
 
 public class PaypalCreateOrderDTO {
-    private Long orderId;
+    private String orderId;
     private String redirectUrl;
 
     public PaypalCreateOrderDTO() {
     }
 
-    public PaypalCreateOrderDTO(Long orderId, String redirectUrl) {
+    public PaypalCreateOrderDTO(String orderId, String redirectUrl) {
         this.orderId = orderId;
         this.redirectUrl = redirectUrl;
     }
 
-    public Long getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
