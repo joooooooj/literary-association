@@ -1,7 +1,7 @@
 package com.la.model.mappers;
 
 import com.la.model.dtos.UserDTO;
-import com.la.model.User;
+import com.la.model.users.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

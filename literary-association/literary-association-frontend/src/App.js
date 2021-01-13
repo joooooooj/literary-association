@@ -9,6 +9,7 @@ function App() {
 
     const [loggedIn, setLoggedIn] = UseLocalStorage("token", null);
     const [roles, setRoles] = UseLocalStorage("roles", null);
+    const [cartItems, setCartItems] = UseLocalStorage("cartItems", []);
 
     const logout = () => {
         setLoggedIn(null);
@@ -22,9 +23,14 @@ function App() {
 
       return (
         <div className="app">
-          <NavigationBar loggedIn={loggedIn} logout={logout} roles={roles}/>
+          <NavigationBar cartItemsLength={cartItems.length} loggedIn={loggedIn} logout={logout} roles={roles}/>
           <div className="container-fluid mb-5">
-              <Routes loggedIn={loggedIn} login={login} logout={logout} roles={roles}/>
+              <Routes loggedIn={loggedIn}
+                      login={login}
+                      logout={logout}
+                      roles={roles}
+                      cartItems={cartItems}
+                      setCartItems={setCartItems}/>
           </div>
         </div>
       );

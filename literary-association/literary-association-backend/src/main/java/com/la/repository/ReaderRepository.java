@@ -1,6 +1,6 @@
 package com.la.repository;
 
-import com.la.model.Reader;
+import com.la.model.users.Reader;
 import org.springframework.stereotype.Repository;
 
 @Repository

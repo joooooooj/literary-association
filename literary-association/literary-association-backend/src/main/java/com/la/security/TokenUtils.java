@@ -1,7 +1,7 @@
 package com.la.security;
 
-import com.la.model.Role;
-import com.la.model.User;
+import com.la.model.users.Role;
+import com.la.model.users.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

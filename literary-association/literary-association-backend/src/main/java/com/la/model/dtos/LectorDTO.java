@@ -1,9 +1,10 @@
 package com.la.model.dtos;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@ToString
 public class LectorDTO extends UserDTO {
 }

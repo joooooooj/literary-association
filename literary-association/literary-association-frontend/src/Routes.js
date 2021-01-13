@@ -38,7 +38,9 @@ export default function Routes(props) {
                 <Pricing loggedIn={props.loggedIn} roles={props.roles}/>
             </Route>
             <Route exact path="/books">
-                <Books loggedIn={props.loggedIn}/>
+                <Books loggedIn={props.loggedIn}
+                       cartItems={props.cartItems}
+                       setCartItems={props.setCartItems}/>
             </Route>
             <Route exact path="/success">
                 <Success/>
@@ -50,7 +52,9 @@ export default function Routes(props) {
                 <Error loggedIn={props.loggedIn}/>
             </Route>
             <Route exact path="/cart">
-                <Cart loggedIn={props.loggedIn}/>
+                <Cart loggedIn={props.loggedIn}
+                      cartItems={props.cartItems}
+                      setCartItems={props.setCartItems}/>
             </Route>
             {   !props.loggedIn &&
                 <>
