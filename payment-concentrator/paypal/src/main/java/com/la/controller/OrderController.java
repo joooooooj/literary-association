@@ -24,7 +24,7 @@ public class OrderController {
         // Here, OrdersCreateRequest() creates a POST request to /v2/checkout/orders
         OrderRequest orderRequest = new OrderRequest();
         orderRequest.checkoutPaymentIntent("CAPTURE");
-        orderRequest.applicationContext(new ApplicationContext().returnUrl("http://localhost:3000/"));
+        orderRequest.applicationContext(new ApplicationContext().returnUrl("http://localhost:3000/success"));
         List<PurchaseUnitRequest> purchaseUnits = new ArrayList<>();
         purchaseUnits
                 .add(new PurchaseUnitRequest().amountWithBreakdown

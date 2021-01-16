@@ -2,8 +2,6 @@ package com.la.model.dtos;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -11,7 +9,7 @@ import java.time.LocalDateTime;
 @ToString
 public class CreatedBookPurchaseRequestDTO {
     private Long orderId;
-    private LocalDateTime timestamp;
+    private String timestamp;
     private Double amount;
     private String token;
     private String username;

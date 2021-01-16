@@ -4,11 +4,11 @@ import PayPalIcon from "../../images/paypal.png";
 import BitcoinIcon from "../../images/bitcoin.png";
 import Button from "react-bootstrap/Button";
 
-export default function ChoosePaymentMethod(props){
+export default function ChoosePaymentMethod(props) {
 
     const [buyerRequest, setBuyerRequest] = useState(null);
 
-    useEffect (() => {
+    useEffect(() => {
         fetch('http://localhost:8081/api/auth/buyer-request/' + props.match.params.request_id, {
             method: 'GET',
             headers: {
@@ -17,8 +17,8 @@ export default function ChoosePaymentMethod(props){
         })
             .then(response => response.json())
             .then(data => {
-                console.log(JSON.stringify(data))
-                if (data.username != null){
+                console.log(JSON.stringify(data));
+                if (data.username != null) {
                     setBuyerRequest(data);
                 }
             })
@@ -31,13 +31,37 @@ export default function ChoosePaymentMethod(props){
         let allowed = false;
         if (buyerRequest) {
             buyerRequest.paymentMethods.forEach((m) => {
-                if (m.name === method){
+                if (m.name === method) {
                     allowed = true;
                     return;
                 }
             })
         }
         return allowed;
+    }
+
+    const handlePayWithPayPalClick = () => {
+        fetch('http://localhost:8081/pay-pal/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                userId: 2,
+                merchantOrderId: buyerRequest.merchantOrderId,
+                merchantTimestamp: buyerRequest.merchantTimestamp[0] + '-' + buyerRequest.merchantTimestamp[1]
+                    + '-' + buyerRequest.merchantTimestamp[2] + ' ' + buyerRequest.merchantTimestamp[3] + ':' + buyerRequest.merchantTimestamp[4]
+                    + ':' + buyerRequest.merchantTimestamp[5] + 'Z',
+                amount: buyerRequest.amount
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                window.location.replace(data.redirectUrl);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
 
     const handleBitcoinPayment = () => {
@@ -79,72 +103,85 @@ export default function ChoosePaymentMethod(props){
     }
 
     return (
-        <div className="bg-light w-75 text-center" style={{marginLeft:"12%", opacity:"0.8", borderRadius:"5px"}}>
-            { buyerRequest &&
-            <>
-            <h2 className="pt-5">Order Details</h2>
-            <div className="mt-5" style={{marginLeft:"25%"}}>
-                <h4 className="text-left" >Order Id : {buyerRequest.buyerRequestDTO.merchantOrderId}</h4>
-                <h4 className="text-left" >Merchant: {buyerRequest.username}</h4>
-                <h4 className="text-left" >Total : {buyerRequest.buyerRequestDTO.amount}$</h4>
-            </div>
-            <h2 className="pt-5">Please choose payment method</h2>
-            <div className="row list-inline-item mt-5 pb-5" style={{placeContent: "center"}}>
-                {   methodAllowed("Bank") &&
-                    <div className="border border-dark" style={{height: "270px", width: "300px"}}>
-                        <img
-                            src={BankIcon}
-                            style={{height: "200px"}}
-                            alt="Bank"
-                        />
-                        <div className="row" style={{placeContent: "center"}}>
-                            <Button variant="danger"
-                                    style={{
-                                        fontSize: "22px",
-                                        paddingLeft: "20px",
-                                        paddingRight: "20px",
-                                        width: "100px"
-                                    }}
-                                    onClick={() => handleBankPayment()}>
-                                Pay
-                            </Button>
-                        </div>
+        <div className="bg-light w-75 text-center" style={{marginLeft: "12%", opacity: "0.8", borderRadius: "5px"}}>
+            {
+                buyerRequest &&
+                <>
+                    <h2 className="pt-5">Order Details</h2>
+                    <div className="mt-5" style={{marginLeft: "25%"}}>
+                        <h4 className="text-left">Order Id : {buyerRequest.buyerRequestDTO.merchantOrderId}</h4>
+                        <h4 className="text-left">Merchant: {buyerRequest.username}</h4>
+                        <h4 className="text-left">Total : {buyerRequest.buyerRequestDTO.amount}$</h4>
                     </div>
-                }
-                {   methodAllowed("PayPal") &&
-                    <div className="ml-5 border border-dark" style={{height: "270px", width: "300px"}}>
-                        <img
-                            src={PayPalIcon}
-                            style={{height: "200px"}}
-                            alt="PayPal"
-                        />
-                        <div className="row" style={{placeContent: "center"}}>
-                            <Button variant="danger"
-                                    style={{fontSize: "22px", paddingLeft: "20px", paddingRight: "20px", width: "100px"}}>
-                                Pay
-                            </Button>
+                    <h2 className="pt-5">Please choose payment method</h2>
+                    <div className="row list-inline-item mt-5 pb-5" style={{placeContent: "center"}}>
+                        {methodAllowed("Bank") &&
+                        <div className="border border-dark" style={{height: "270px", width: "300px"}}>
+                            <img
+                                src={BankIcon}
+                                style={{height: "200px"}}
+                                alt="Bank"
+                            />
+                            <div className="row" style={{placeContent: "center"}}>
+                                <Button variant="danger"
+                                        style={{
+                                            fontSize: "22px",
+                                            paddingLeft: "20px", paddingRight: "20px",
+                                            width: "100px"
+                                        }}
+                                        onClick={() => handleBankPayment()}>
+                                    Pay
+                                </Button>
+                            </div>
                         </div>
-                    </div>
-                }
-                {   methodAllowed("Bitcoin") &&
-                    <div className="ml-5 border border-dark" style={{height: "270px", width: "300px"}}>
-                        <img
-                            src={BitcoinIcon}
-                            style={{height: "160px"}}
-                            alt="BitCoin"
-                            className="mt-3"
-                        />
-                        <div className="row mt-4" style={{placeContent: "center"}}>
-                            <Button variant="danger"
-                                    style={{fontSize: "22px", paddingLeft: "20px", paddingRight: "20px", width: "100px"}}
-                                    onClick={() => handleBitcoinPayment()}>
-                                Pay
-                            </Button>
+                        }
+                        {methodAllowed("PayPal") &&
+                        <div className="ml-5 border border-dark" style={{height: "270px", width: "300px"}}>
+                            <img
+                                src={PayPalIcon}
+                                style={{height: "200px"}}
+                                alt="PayPal"
+                            />
+                            <div className="row" style={{placeContent: "center"}}>
+                                <Button variant="danger"
+                                        onClick={() => {
+                                            handlePayWithPayPalClick()
+                                        }}
+                                        style={{
+                                            fontSize: "22px",
+                                            paddingLeft: "20px",
+                                            paddingRight: "20px",
+                                            width: "100px"
+                                        }}>
+                                    Pay
+                                </Button>
+                            </div>
                         </div>
+                        }
+                        {methodAllowed("Bitcoin") &&
+                        <div className="ml-5 border border-dark" style={{height: "270px", width: "300px"}}>
+                            <img
+                                src={BitcoinIcon}
+                                style={{height: "160px"}}
+                                alt="BitCoin"
+                                className="mt-3"
+                            />
+                            <div className="row mt-4" style={{placeContent: "center"}}>
+                                <Button variant="danger"
+                                        style={{
+                                            fontSize: "22px",
+                                            paddingLeft: "20px",
+                                            paddingRight: "20px",
+                                            width: "100px"
+                                        }}>
+                                    onClick = {() => handleBitcoinPayment()}>
+                                    Pay
+                                </Button>
+                            </div>
+                        </div>
+                        }
                     </div>
-                }
-            </div>
-            </>
+                </>
             }
         </div>
     );
