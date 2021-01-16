@@ -8,7 +8,7 @@ public class BankResponseDTO {
 
     private Long merchantOrderId;
 
-    private Long acqOrderId;
+    private String acqOrderId; // **** promenio zbog pay pala ****
 
     private LocalDateTime acqTimestamp;
 
@@ -19,7 +19,7 @@ public class BankResponseDTO {
     public BankResponseDTO() {
     }
 
-    public BankResponseDTO(Long merchantOrderId, Long acqOrderId, LocalDateTime acqTimestamp, Long paymentId, Status status) {
+    public BankResponseDTO(Long merchantOrderId, String acqOrderId, LocalDateTime acqTimestamp, Long paymentId, Status status) {
         this.merchantOrderId = merchantOrderId;
         this.acqOrderId = acqOrderId;
         this.acqTimestamp = acqTimestamp;
@@ -35,11 +35,11 @@ public class BankResponseDTO {
         this.merchantOrderId = merchantOrderId;
     }
 
-    public Long getAcqOrderId() {
+    public String getAcqOrderId() {
         return acqOrderId;
     }
 
-    public void setAcqOrderId(Long acqOrderId) {
+    public void setAcqOrderId(String acqOrderId) {
         this.acqOrderId = acqOrderId;
     }
 

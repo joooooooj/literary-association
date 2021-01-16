@@ -3,13 +3,15 @@ package com.la.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
+@Entity
 public class PaymentMethod {
 
     @Id
@@ -18,12 +20,4 @@ public class PaymentMethod {
 
     @Column
     private String name;
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
 }

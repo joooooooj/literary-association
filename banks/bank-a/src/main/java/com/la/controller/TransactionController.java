@@ -1,28 +1,32 @@
 package com.la.controller;
 
-import com.la.dto.BankPaymentUrlDTO;
-import com.la.dto.BankRequestDTO;
-import com.la.dto.BankResponseDTO;
-import com.la.dto.TransactionFormDataDTO;
+import com.la.controller.feigns.PaymentConcetratorFeignClient;
 import com.la.model.Payment;
-import com.la.model.Transaction;
+import com.la.model.enums.Status;
+import com.la.model.dtos.*;
 import com.la.service.TransactionService;
-import com.netflix.ribbon.proxy.annotation.Http;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.time.LocalDateTime;
 
 @RestController
+@CrossOrigin(value = "http://localhost:3002")
 @RequestMapping(value = "/transaction")
 public class TransactionController {
 
-    @Autowired
-    RestTemplate restTemplate;
+    Logger logger = LoggerFactory.getLogger(TransactionController.class);
 
     @Autowired
     private TransactionService transactionService;
+
+    @Autowired
+    private PaymentConcetratorFeignClient paymentConcetratorFeignClient;
 
     /**
      * POST transaction/
@@ -34,10 +38,27 @@ public class TransactionController {
     @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BankPaymentUrlDTO> createPayment(@RequestBody BankRequestDTO bankRequestDTO) {
         try {
-            // MAKE PAYMENT OBJECT AND GENERATE PAYMENT URL AND ID (SEND TO PAYMENT CONCETRATOR)
-            return new ResponseEntity<>(null, HttpStatus.OK);
+            BankPaymentUrlDTO bankPaymentUrlDTO = transactionService.createPayment(bankRequestDTO);
+            return new ResponseEntity<>(bankPaymentUrlDTO, HttpStatus.OK);
         } catch (Exception e) {
-            // e.printStackTrace();
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    /**
+     * GET transaction/
+     *
+     *
+     * @return bank payment object
+     */
+    @GetMapping(value = "/payment/{paymentId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Payment> getPayment(@PathVariable Long paymentId) {
+        try {
+            Payment payment = transactionService.getPayment(paymentId);
+            return new ResponseEntity<>(payment, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
@@ -47,32 +68,46 @@ public class TransactionController {
      *
      * Buyer submits form
      *
-     * @return HttpStatus
+     * @return STATUS URL WHICH PAYMENT CONCETRATOR RETURNS
      */
     @PostMapping(value = "/{paymentId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<HttpStatus> createTransaction(@RequestBody TransactionFormDataDTO transactionFormDataDTO, @PathVariable Long paymentId) {
+    public ResponseEntity<UrlDTO> createTransaction(@RequestBody TransactionFormDataDTO transactionFormDataDTO, @PathVariable Long paymentId) {
         try {
-            // WHEN TRANSACTION PROCESS DONE CALL PAYMENT CONCETRATOR TO UPDATE TRANSACTION
-            return new ResponseEntity<>(HttpStatus.OK);
+            BankResponseDTO bankResponseDTO = this.transactionService.createTransaction(transactionFormDataDTO, paymentId);
+
+            System.err.println(bankResponseDTO);
+            UrlDTO urlDTO = getStatusUrl(bankResponseDTO);
+
+            if (bankResponseDTO.getStatus().equals(Status.ERROR)) {
+                logger.warn("Date : {}, Wrong user input while paying with bank card. " +
+                        "Warn : {}.", LocalDateTime.now(), "Bank transaction error");
+            } else if (bankResponseDTO.getStatus().equals(Status.FAILED)) {
+                logger.warn("Date : {}, Not enough money in user's bank account. " +
+                        "Warn : {}.", LocalDateTime.now(), "Bank transaction failed");
+            } else {
+                logger.info("Date : {}, Bank payment successful. " +
+                        "Info : {}.", LocalDateTime.now(), "Successful bank transaction");
+            }
+            return new ResponseEntity<>(urlDTO, HttpStatus.OK);
         } catch (Exception e) {
-            // e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            logger.error("Date : {}, Error while paying with bank card. " +
+                    "Error : {}.", LocalDateTime.now(), e.toString());
+
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
     /**
      * Calls payment concetrator to update transaction status
      *
-     * @return bank payment form URL
+     * @return STATUS URL (SUCCESS, FAILED, ERROR)
      */
-    private String getPaymentFormUrl(BankResponseDTO bankResponseDTO) {
-        String response =
-                restTemplate.exchange("http://payment-concentrator/transaction",
-                        HttpMethod.PUT,
-                        new HttpEntity<>(bankResponseDTO),
-                        new ParameterizedTypeReference<String>() {})
-                        .getBody();
+    private UrlDTO getStatusUrl(BankResponseDTO bankResponseDTO) {
+        return paymentConcetratorFeignClient.updateTransaction(bankResponseDTO);
+    }
 
-        return response;
+    @PostMapping(value = "/second", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public PCCResponseDTO createSecondTransaction(@RequestBody PCCRequestDTO pccRequestDTO) {
+        return this.transactionService.createSecondTransaction(pccRequestDTO);
     }
 }

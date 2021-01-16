@@ -1,8 +1,16 @@
 package com.la.model;
 
+import com.la.model.enums.Status;
+import lombok.*;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Entity
 @Table(name = "transactions")
 public class Transaction {
@@ -24,92 +32,11 @@ public class Transaction {
     @JoinColumn(name = "payment_id")
     private Payment payment; // Delegated from LA to Payment Concetrator to Bank
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
 
     @Column
+    @Enumerated(EnumType.STRING)
     private Status status;
-
-    public Transaction() {
-    }
-
-    public Transaction(Long id, LocalDateTime timestamp, Long issuerOrderId, LocalDateTime issuerTimestamp, Payment payment, Account account, Status status) {
-        this.id = id;
-        this.timestamp = timestamp;
-        this.issuerOrderId = issuerOrderId;
-        this.issuerTimestamp = issuerTimestamp;
-        this.payment = payment;
-        this.account = account;
-        this.status = status;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public Long getIssuerOrderId() {
-        return issuerOrderId;
-    }
-
-    public void setIssuerOrderId(Long issuerOrderId) {
-        this.issuerOrderId = issuerOrderId;
-    }
-
-    public LocalDateTime getIssuerTimestamp() {
-        return issuerTimestamp;
-    }
-
-    public void setIssuerTimestamp(LocalDateTime issuerTimestamp) {
-        this.issuerTimestamp = issuerTimestamp;
-    }
-
-    public Payment getPayment() {
-        return payment;
-    }
-
-    public void setPayment(Payment payment) {
-        this.payment = payment;
-    }
-
-    @Override
-    public String toString() {
-        return "Transaction{" +
-                "id=" + id +
-                ", timestamp=" + timestamp +
-                ", issuerOrderId=" + issuerOrderId +
-                ", issuerTimestamp=" + issuerTimestamp +
-                ", payment=" + payment +
-                ", account=" + account +
-                ", status=" + status +
-                '}';
-    }
 }

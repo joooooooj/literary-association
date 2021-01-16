@@ -1,16 +1,24 @@
 package com.la.model;
 
+import lombok.*;
+
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @Entity
-@DiscriminatorValue("SUB")
+@DiscriminatorValue("SUBSCRIBER")
 public class Subscriber extends User {
 
-    @OneToMany
-    @JoinColumn(name = "user_id", unique = true)
-    private List<Transaction> transactions;
+    @Column
+    private String clientId;
+
+    @Column
+    private String clientSecret;
 
     @OneToOne()
     @JoinColumn(name = "subscriber_details_id", referencedColumnName = "id")
@@ -22,13 +30,12 @@ public class Subscriber extends User {
             inverseJoinColumns = @JoinColumn(name = "payment_method_id", referencedColumnName = "id"))
     private Set<PaymentMethod> paymentMethods;
 
-    public Subscriber() {
-    }
-
-    public Subscriber(String username, String password, String email, Set<PaymentMethod> methods) {
+    public Subscriber(String username, String password, String email, Set<PaymentMethod> methods, String clientId, String clientSecret) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.paymentMethods = methods;
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
     }
 }

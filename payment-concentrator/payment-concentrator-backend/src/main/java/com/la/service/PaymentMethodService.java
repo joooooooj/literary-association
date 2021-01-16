@@ -1,6 +1,7 @@
 package com.la.service;
 
-import com.la.dto.PaymentMethodDTO;
+import com.la.model.dtos.BuyerRequestDTO;
+import com.la.model.dtos.PaymentMethodDTO;
 import com.la.model.PaymentMethod;
 
 import java.io.IOException;
@@ -9,11 +10,15 @@ import java.text.ParseException;
 import java.util.List;
 
 public interface PaymentMethodService {
-    List<PaymentMethod> getAll();
 
-    List<PaymentMethod> getAllWithoutFirstThree();
+        List<PaymentMethod> getAll();
 
-    Long createPaymentMethod(PaymentMethodDTO paymentMethodDTO) throws ParseException, NoSuchMethodException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException;
+        List<PaymentMethod> getAllWithoutFirstThree();
 
-    boolean deletePaymentMethod(Long paymentMethodId);
+        Long createPaymentMethod(PaymentMethodDTO paymentMethodDTO) throws ParseException, NoSuchMethodException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException;
+
+        boolean deletePaymentMethod(Long paymentMethodId);
+
+        String getPaymentMethodsUrl(BuyerRequestDTO buyerRequestDTO, String username);
+
 }

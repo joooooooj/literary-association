@@ -1,10 +1,13 @@
 package com.la.controller;
 
-import com.la.dto.PaymentMethodDTO;
-import com.la.mapper.PaymentMethodDTOMapper;
+import com.la.model.dtos.BuyerRequestDTO;
+import com.la.model.dtos.PaymentMethodDTO;
+import com.la.model.dtos.UrlDTO;
+import com.la.model.mappers.PaymentMethodDTOMapper;
 import com.la.service.PaymentMethodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +40,18 @@ public class PaymentMethodController {
             return new ResponseEntity<>(paymentMethodService.deletePaymentMethod(paymentMethodId), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // Return URL to LA to choose payment method
+    @PostMapping(value = "subscriber/{username}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('INITIATE_PAYMENT')")
+    public ResponseEntity<UrlDTO> getPaymentMethodsUrl(@RequestBody BuyerRequestDTO buyerRequestDTO, @PathVariable String username) {
+        try {
+            return new ResponseEntity<>(new UrlDTO(paymentMethodService.getPaymentMethodsUrl(buyerRequestDTO, username)), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 

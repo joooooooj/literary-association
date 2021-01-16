@@ -83,6 +83,10 @@ export default function NavigationBar(props){
                             Login
                         </Link>
                     }
+                    <Link className="nav-link" to="/cart">
+                        <span className="material-icons">shopping_cart</span>
+                        <span style={{verticalAlign:"top"}}>({props.cartItemsLength})</span>
+                    </Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

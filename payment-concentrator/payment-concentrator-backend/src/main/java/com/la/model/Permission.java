@@ -1,14 +1,16 @@
 package com.la.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 
-@Entity
 @Getter
+@Setter
+@AllArgsConstructor
 @NoArgsConstructor
+@ToString
+@Entity
 public class Permission implements GrantedAuthority {
 
     @Id

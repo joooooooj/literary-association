@@ -1,15 +1,16 @@
 package com.la.model.users;
 
-import com.la.model.Permission;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
-@Entity
 @Getter
+@Setter
 @NoArgsConstructor
 public class Role implements Serializable {
 
@@ -25,20 +26,4 @@ public class Role implements Serializable {
             joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id"))
     private Set<Permission> permissions;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<Permission> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(Set<Permission> permissions) {
-        this.permissions = permissions;
-    }
 }

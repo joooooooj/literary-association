@@ -25,8 +25,11 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
+
         String username;
         String authenticationToken = tokenUtils.getToken(httpServletRequest);
+
+        System.err.println(httpServletRequest.getRequestURI());
 
         if (authenticationToken != null) {
             // uzmi username iz tokena
@@ -44,9 +47,11 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }
+
         }
 
         // prosledi request dalje u sledeci filter
         filterChain.doFilter(httpServletRequest, httpServletResponse);
+
     }
 }

@@ -6,10 +6,10 @@ const createRequest = (request) =>
         },
         body: JSON.stringify(request)
     })
-        .then(response => response.json())
-        .catch((error) => {
-            console.error("Error:", error);
-        });
+        .then(response => response.json());
+        // .catch((error) => {
+        //     console.error("Error:", error);
+        // });
 
 const getAll = () =>
     fetch("http://localhost:8081/request", {
@@ -29,7 +29,7 @@ const approve = (requestId) =>
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer " + localStorage.getItem("token")
+            "Authorization": "Bearer " + JSON.parse(localStorage.getItem("token"))
         }
     })
         .then(response => response.json())
@@ -42,7 +42,7 @@ const decline = (requestId) =>
         method: "Delete",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer " + localStorage.getItem("token")
+            "Authorization": "Bearer " + JSON.parse(localStorage.getItem("token"))
         }
     })
         .then(response => response.json())
