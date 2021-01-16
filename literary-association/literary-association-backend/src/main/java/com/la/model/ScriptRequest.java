@@ -1,6 +1,6 @@
 package com.la.model;
 
-import com.la.enumeration.ScriptRequestStatus;
+import com.la.model.enums.ScriptRequestStatus;
 
 import javax.persistence.*;
 import java.util.Date;

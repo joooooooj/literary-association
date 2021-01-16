@@ -1,8 +1,8 @@
 package com.la.controller;
 
-import com.la.dto.PaymentMethodDTO;
-import com.la.dto.SubscriptionRequestDTO;
-import com.la.mapper.PaymentMethodDTOMapper;
+import com.la.model.dtos.PaymentMethodDTO;
+import com.la.model.dtos.SubscriptionRequestDTO;
+import com.la.model.mappers.PaymentMethodDTOMapper;
 import com.la.security.UserTokenState;
 import com.la.security.auth.JwtAuthenticationRequest;
 import com.la.service.AuthService;

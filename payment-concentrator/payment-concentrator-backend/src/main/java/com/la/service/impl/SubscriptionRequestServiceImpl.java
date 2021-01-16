@@ -1,7 +1,7 @@
 package com.la.service.impl;
 
-import com.la.dto.SubscriptionRequestDTO;
-import com.la.mapper.SubscriptionRequestDTOMapper;
+import com.la.model.dtos.SubscriptionRequestDTO;
+import com.la.model.mappers.SubscriptionRequestDTOMapper;
 import com.la.model.PaymentMethod;
 import com.la.model.Subscriber;
 import com.la.model.SubscriptionRequest;

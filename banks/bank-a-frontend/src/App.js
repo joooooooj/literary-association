@@ -44,7 +44,10 @@ function  App() {
     fetch(url, options)
     .then(response => response.json())
     .then(data => {
-       console.log(data);
+      if (data.url != null) {
+        console.log(JSON.stringify(data))
+        window.location.replace(data.url);
+      }
     })
     .catch(error => console.log(error));
   }
@@ -85,12 +88,12 @@ function  App() {
         <Form className="p-3 w-25">
           <Form.Group className="row mb-3 p-2">
             <Form.Label className="w-50" style={{marginTop:"5px"}}>PAN:</Form.Label>
-            <Form.Control className="w-50" autoComplete="off" maxLength="19"
-            type="text" placeholder="Enter PAN" onChange={(e) => panOnChangeHandler(e.target.value)} />
+            <Form.Control type="password" className="w-50" autoComplete="off" maxLength="19"
+            placeholder="Enter PAN" onChange={(e) => panOnChangeHandler(e.target.value)} />
           </Form.Group>
           <Form.Group className="row mb-3 p-2">
             <Form.Label className="w-50" style={{marginTop:"5px"}}>Security code:</Form.Label>
-            <Form.Control className="w-50" type="text"
+            <Form.Control type="password" className="w-50"
             placeholder="Enter security code" onChange={(e) => securityCodeOnChangeHandler(e.target.value)} />
           </Form.Group>
           <Form.Group className="row mb-3 p-2">

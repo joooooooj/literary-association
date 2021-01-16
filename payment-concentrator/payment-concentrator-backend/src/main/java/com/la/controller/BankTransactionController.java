@@ -1,18 +1,18 @@
 package com.la.controller;
 
-import com.la.dto.*;
-import com.la.feign.BankFeignClient;
-import com.la.model.Status;
+import com.la.model.dtos.SubscriberUpdateTransactionDTO;
+import com.la.model.dtos.UrlDTO;
+import com.la.model.dtos.bank.BankPaymentUrlDTO;
+import com.la.model.dtos.bank.BankRequestDTO;
+import com.la.model.dtos.bank.BankResponseDTO;
+import com.la.controller.feigns.BankFeignClient;
 import com.la.service.BankTransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 @RestController
-@RequestMapping("transaction")
+@RequestMapping("/api/auth/bank/transaction")
 public class BankTransactionController {
 
     @Autowired
@@ -28,9 +28,8 @@ public class BankTransactionController {
      *
      * @return bank payment form URL
      */
-    @PreAuthorize("hasAuthority('INITIATE_PAYMENT')")
     @PostMapping(value = "/{buyerRequestId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> create(@PathVariable Long buyerRequestId) {
+    public ResponseEntity<UrlDTO> create(@PathVariable Long buyerRequestId) {
         try {
             BankRequestDTO bankRequestDTO = transactionService.createBankRequestDTO(buyerRequestId);
             System.err.println(bankRequestDTO);
@@ -40,12 +39,12 @@ public class BankTransactionController {
                     BankPaymentUrlDTO bankPaymentUrlDTO = getPaymentFormUrl(bankRequestDTO);
                     if (bankPaymentUrlDTO != null) {
                         transactionService.updateTransactionPaymentId(bankPaymentUrlDTO.getPaymentId(), buyerRequestId);
-                        return new ResponseEntity<>(bankPaymentUrlDTO.getPaymentUrl(), HttpStatus.OK);
+                        return new ResponseEntity<>(new UrlDTO(bankPaymentUrlDTO.getPaymentUrl()), HttpStatus.OK);
                     }
                     String errorUrl = transactionService.updateTransactionError(buyerRequestId);
 //                  finishTransaction(new SubscriberUpdateTransactionDTO(bankRequestDTO.getMerchantOrderId(), Status.FAILED));
 
-                    return new ResponseEntity<>(errorUrl, HttpStatus.PRECONDITION_FAILED);
+                    return new ResponseEntity<>(new UrlDTO(errorUrl), HttpStatus.PRECONDITION_FAILED);
             }
             else {
                 return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
@@ -64,12 +63,13 @@ public class BankTransactionController {
      * @return STATUS URL (SUCCESS, FAILED, ERROR)
      */
     @PutMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> update(@RequestBody BankResponseDTO bankResponseDTO) {
+    public ResponseEntity<UrlDTO> update(@RequestBody BankResponseDTO bankResponseDTO) {
         try {
             String statusUrl = transactionService.updateTransaction(bankResponseDTO);
+            System.err.println(statusUrl);
 //            finishTransaction(new SubscriberUpdateTransactionDTO(bankResponseDTO.getMerchantOrderId(), bankResponseDTO.getStatus()));
             if (statusUrl != null){
-                return new ResponseEntity<>(statusUrl, HttpStatus.OK);
+                return new ResponseEntity<>(new UrlDTO(statusUrl), HttpStatus.OK);
             }
             else {
                 return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
