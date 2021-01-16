@@ -1,6 +1,0 @@
-24-12-2020 07:56:07.547 WARN  [main] o.s.boot.actuate.endpoint.EndpointId - Endpoint ID 'service-registry' contains invalid characters, please migrate to a valid format.
-24-12-2020 07:56:07.570 WARN  [main] o.s.boot.actuate.endpoint.EndpointId - Endpoint ID 'hystrix.stream' contains invalid characters, please migrate to a valid format.
-24-12-2020 07:56:09.427 WARN  [main] c.n.c.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
-24-12-2020 07:56:09.576 WARN  [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-24-12-2020 07:56:26.134 WARN  [main] c.n.c.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
-24-12-2020 07:56:27.271 WARN  [main] o.s.c.l.c.BlockingLoadBalancerClientAutoConfiguration$BlockingLoadBalancerClientRibbonWarnLogger - You already have RibbonLoadBalancerClient on your classpath. It will be used by default. As Spring Cloud Ribbon is in maintenance mode. We recommend switching to BlockingLoadBalancerClient instead. In order to use it, set the value of `spring.cloud.loadbalancer.ribbon.enabled` to `false` or remove spring-cloud-starter-netflix-ribbon from your project.

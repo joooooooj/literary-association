@@ -1,7 +1,7 @@
 package com.la.service;
 
-import com.la.dto.CreatedBookPurchaseRequestDTO;
-import com.la.dto.PurchaseBookRequestDTO;
+import com.la.model.dtos.CreatedBookPurchaseRequestDTO;
+import com.la.model.dtos.PurchaseBookRequestDTO;
 
 import java.text.ParseException;
 

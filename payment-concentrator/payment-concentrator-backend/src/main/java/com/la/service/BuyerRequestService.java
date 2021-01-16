@@ -1,9 +1,12 @@
 package com.la.service;
 
-import com.la.model.BuyerRequest;
+import com.la.model.dtos.PaymentMethodsBuyerRequestDTO;
 
 public interface BuyerRequestService {
 
-    BuyerRequest get(Long id);
+    PaymentMethodsBuyerRequestDTO get(Long id);
 
+    String getErrorUrl(Long id);
+
+    String getFailedUrl(Long id);
 }

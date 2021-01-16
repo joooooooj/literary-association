@@ -1,10 +1,9 @@
 package com.la.controller;
 
-import com.la.dto.CreatedBookPurchaseRequestDTO;
-import com.la.dto.PurchaseBookRequestDTO;
+import com.la.model.dtos.CreatedBookPurchaseRequestDTO;
+import com.la.model.dtos.PurchaseBookRequestDTO;
 import com.la.service.PurchaseBookRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

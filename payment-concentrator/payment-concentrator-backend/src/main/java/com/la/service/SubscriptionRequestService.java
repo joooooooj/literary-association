@@ -1,6 +1,6 @@
 package com.la.service;
 
-import com.la.dto.SubscriptionRequestDTO;
+import com.la.model.dtos.SubscriptionRequestDTO;
 import com.la.model.SubscriptionRequest;
 
 import java.text.ParseException;

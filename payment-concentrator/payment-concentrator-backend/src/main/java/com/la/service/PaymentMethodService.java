@@ -1,7 +1,7 @@
 package com.la.service;
 
-import com.la.dto.BuyerRequestDTO;
-import com.la.dto.PaymentMethodDTO;
+import com.la.model.dtos.BuyerRequestDTO;
+import com.la.model.dtos.PaymentMethodDTO;
 import com.la.model.PaymentMethod;
 
 import java.io.IOException;

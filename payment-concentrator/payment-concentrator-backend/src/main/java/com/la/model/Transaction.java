@@ -1,5 +1,6 @@
 package com.la.model;
 
+import com.la.model.enums.Status;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,7 +22,7 @@ public class Transaction {
     @Column(name = "payment_id")
     private Long paymentId; // Payment ID from merchant bank
 
-    @Column(name = "acq_order_id", nullable = false)
+    @Column(name = "acq_order_id")
     private Long acqOrderId; // Order ID from merchant bank
 
     @Column(name = "acq_timestamp")
@@ -39,7 +40,6 @@ public class Transaction {
     private Status status; // WAITING, SUCCESS, FAILED, ERROR
 
     @OneToOne
-    @JoinColumn(name = "payment_method_id", nullable = false)
+    @JoinColumn(name = "payment_method_id")
     private PaymentMethod paymentMethod;
-
 }
