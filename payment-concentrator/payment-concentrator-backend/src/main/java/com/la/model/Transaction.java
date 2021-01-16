@@ -40,7 +40,6 @@ public class Transaction {
     private Status status; // WAITING, SUCCESS, FAILED, ERROR
 
     @OneToOne
-    @JoinColumn(name = "payment_method_id", nullable = false)
+    @JoinColumn(name = "payment_method_id")
     private PaymentMethod paymentMethod;
-
 }

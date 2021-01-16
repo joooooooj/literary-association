@@ -90,9 +90,9 @@ public class PostPaymentFilter extends ZuulFilter {
             Transaction transaction = new Transaction();
             transaction.setAcqOrderId(orderDTO.getOrderId());
             transaction.setAcqTimestamp(LocalDateTime.now());
-//            transaction.setMerchantOrderId(Long.parseLong(context.get("merchantOrderId").toString()));
+         //   transaction.setMerchantOrderId(Long.parseLong(context.get("merchantOrderId").toString()));
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//            transaction.setMerchantTimestamp(LocalDateTime.parse(context.get("merchantTimestamp").toString(), formatter));
+         //   transaction.setMerchantTimestamp(LocalDateTime.parse(context.get("merchantTimestamp").toString(), formatter));
             transaction.setStatus(Status.PENDING);
             transaction.setPaymentMethod(paymentMethodRepository.findById(2L).get());
             transactionRepository.save(transaction);
