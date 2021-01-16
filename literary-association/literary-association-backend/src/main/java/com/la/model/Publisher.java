@@ -1,7 +1,14 @@
 package com.la.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Entity
 public class Publisher {
     @Id
@@ -18,55 +25,8 @@ public class Publisher {
     private String state;
 
     @Column
-    private String accountNumber;
+    private String username;
 
-    public Publisher() {
-    }
-
-    public Publisher(String name, String city, String state, String accountNumber) {
-        this.name = name;
-        this.city = city;
-        this.state = state;
-        this.accountNumber = accountNumber;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getAccountNumber() {
-        return accountNumber;
-    }
-
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
-    }
+    @Column
+    private String password;
 }

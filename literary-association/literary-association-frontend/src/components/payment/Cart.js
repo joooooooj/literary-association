@@ -1,11 +1,48 @@
-import React, {useState} from "react";
-import {Button, ButtonGroup, Table} from "react-bootstrap";
+import React, {useEffect, useState} from "react";
+import {Button, Table} from "react-bootstrap";
 
-export default function Cart() {
+export default function Cart(props) {
 
-    // const [purchaseData, setPurchaseData] = useState();
+    const [qFlag, setQFlag] = useState(-1);
+    const [cartItemsIds, setCartItemsIds] = useState([]);
+    const [amount, setAmount] = useState(0);
+
+    useEffect(() => {
+        let calculated = 0;
+        let tempQFlag = 0;
+        props.cartItems.forEach((item) => {
+            tempQFlag += item.quantity;
+            for(let i = 0; i < item.quantity; i++){
+                calculated += item.book.price;
+            }
+        })
+        setQFlag(tempQFlag);
+        setAmount(calculated.toFixed(2));
+
+        if(cartItemsIds.length === qFlag){
+            createRequest();
+        }
+    }, [cartItemsIds])
+
+    const removeBook = (book) => {
+        props.setCartItems(props.cartItems.filter(c => c.book.id !== book.id))
+    }
 
     const handleCheckout = () => {
+        getItemsIds();
+    }
+
+    const getItemsIds = () => {
+        let temp = [];
+        props.cartItems.forEach((item, index) => {
+            for(let i = 0; i < item.quantity; i++){
+                temp.push(item.book.id);
+            }
+        })
+        setCartItemsIds(temp);
+    }
+
+    const createRequest = () => {
         fetch('http://localhost:8080/api/auth/purchase-book', {
             method: 'POST',
             headers: {
@@ -13,49 +50,44 @@ export default function Cart() {
             },
             body:
                 JSON.stringify({
-                    price: 30,
-                    bookList: [
-                        {
-                            id: 1
-                        },
-                        {
-                            id: 2
-                        },
-                        {
-                            id: 3
-                        }
-                    ]
+                    amount: amount,
+                    bookList: cartItemsIds
                 })
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
-                // setPurchaseData(data);
-                fetch('http://localhost:8081/payment-method/subscriber/vulkan', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + data.token
-                    },
-                    body:
-                        JSON.stringify({
-                            merchantOrderId: data.orderId,
-                            merchantTimestamp: data.timestamp,
-                            amount: data.amount
-                        })
-                })
-                    .then(result => result.json())
-                    .then(data => {
-                        window.location.replace(data.url);
-                    })
-                    .catch((error) => {
-                        console.log('Error:' + error);
-                    });
+                redirectToPayment(data);
             })
             .catch((error) => {
                 console.log('Error:' + error);
             });
+    }
 
+    const redirectToPayment = (data) => {
+        fetch('http://localhost:8081/payment-method/subscriber/vulkan', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + data.token
+            },
+            body:
+                JSON.stringify({
+                    merchantOrderId: data.orderId,
+                    merchantTimestamp: data.timestamp,
+                    amount: data.amount
+                })
+        })
+            .then(result => result.json())
+            .then(data => {
+                props.setCartItems([]);
+                setCartItemsIds([]);
+                setAmount(0);
+                setQFlag(-1);
+                window.location.replace(data.url);
+            })
+            .catch((error) => {
+                console.log('Error:' + error);
+            });
     }
 
     return (
@@ -72,53 +104,36 @@ export default function Cart() {
                         <th>Author</th>
                         <th>Title</th>
                         <th>Price</th>
+                        <th>Quantity</th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td className="text-center"><img style={{maxHeight: "100px", height: "100px"}}
-                                                         src={"../images/books/5.jpg"}/></td>
-                        <td>Stephen King</td>
-                        <td>RITA HAYWORTH AND SHAWSHANK REDEMPTION</td>
-                        <td>10$</td>
-                        <td className="text-center">
-                            <Button variant="outline-danger">
-                                REMOVE
-                            </Button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td className="text-center"><img style={{maxHeight: "100px", height: "100px"}}
-                                                         src={"../images/books/1.jpg"}/></td>
-                        <td>Bernard Cornwell</td>
-                        <td>THE LAST KINDGDOM</td>
-                        <td>10$</td>
-                        <td className="text-center">
-                            <Button variant="outline-danger">
-                                REMOVE
-                            </Button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td className="text-center"><img style={{maxHeight: "100px", height: "100px"}}
-                                                         src={"../images/books/2.jpg"}/></td>
-                        <td>Elizabeth Gilbert</td>
-                        <td>CITY OF GIRLS</td>
-                        <td>10$</td>
-                        <td className="text-center">
-                            <Button variant="outline-danger">
-                                REMOVE
-                            </Button>
-                        </td>
-                    </tr>
+                    { props.cartItems.map((item, index) => {
+
+                        return (
+                            <tr>
+                                <td>{index + 1}</td>
+                                <td className="text-center"><img style={{maxHeight: "100px", height: "100px"}}
+                                                                 src={"../images/books/" + item.book.id + ".jpg"}/></td>
+                                <td>{item.book.writer.firstName} {item.book.writer.lastName}</td>
+                                <td>{item.book.title}</td>
+                                <td>{item.book.price}$</td>
+                                <td>{item.quantity}</td>
+                                <td className="text-center">
+                                    <Button variant="outline-danger" onClick={() => removeBook(item.book)}>
+                                        REMOVE
+                                    </Button>
+                                </td>
+                            </tr>
+                        )
+
+                      })
+                    }
                     </tbody>
                 </Table>
                 <div className="mb-5 mt-4">
-                    <h2 className="float-left text-light">Total price : 30$</h2>
+                    <h2 className="float-left text-light">Total price : {amount} $</h2>
                     <Button variant="outline-success" className="float-right checkout" onClick={() => {
                         handleCheckout();
                     }}>

@@ -1,12 +1,14 @@
 package com.la.model.dtos;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class BookDTO {
     private Long id;
     private String title;
@@ -20,4 +22,6 @@ public class BookDTO {
     private ScriptDTO script;
     private LectorDTO lector;
     private PublisherDTO publisher;
+    private WriterDTO writer;
+    private EditorDTO editor;
 }

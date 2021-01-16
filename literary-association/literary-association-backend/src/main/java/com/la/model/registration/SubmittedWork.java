@@ -1,4 +1,4 @@
-package com.la.model;
+package com.la.model.registration;
 
 import javax.persistence.*;
 

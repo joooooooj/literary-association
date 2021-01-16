@@ -1,6 +1,6 @@
 package com.la.repository;
 
-import com.la.model.SubmittedWork;
+import com.la.model.registration.SubmittedWork;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
