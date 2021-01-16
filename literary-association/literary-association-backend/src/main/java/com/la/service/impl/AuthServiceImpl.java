@@ -1,7 +1,7 @@
 package com.la.service.impl;
 
-import com.la.model.Role;
-import com.la.model.User;
+import com.la.model.users.Role;
+import com.la.model.users.User;
 import com.la.security.TokenUtils;
 import com.la.security.UserTokenState;
 import com.la.security.auth.JwtAuthenticationRequest;

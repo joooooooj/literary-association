@@ -1,7 +1,7 @@
 package com.la.model.mappers;
 
 import com.la.model.dtos.LectorDTO;
-import com.la.model.Lector;
+import com.la.model.users.Lector;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -1,6 +1,6 @@
 package com.la.service.impl;
 
-import com.la.model.User;
+import com.la.model.users.User;
 import com.la.repository.UserRepository;
 import com.la.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
