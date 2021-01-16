@@ -56,7 +56,7 @@ public class BitcoinTransactionController {
                         case FAILED: {
                             urlDTO.setUrl(buyerRequestService.getFailedUrl(buyerRequestId));
                             logger.error("Date : {}, Bitcoin API / " + "BuyerRequestId = " + buyerRequestId +  " / Method : getBitcoinPaymentUrl() /" +
-                                    " Info : {}.", LocalDateTime.now(), "Created new transaction. Transaction status : FAILED.");
+                                    " Error : {}.", LocalDateTime.now(), "Created new transaction. Transaction status : FAILED.");
                             break;
                         }
                         case SUCCESS: {
@@ -67,13 +67,13 @@ public class BitcoinTransactionController {
                         case ERROR: {
                             urlDTO.setUrl(buyerRequestService.getErrorUrl(buyerRequestId));
                             logger.error("Date : {}, Bitcoin API / " + "BuyerRequestId = " + buyerRequestId +  " / Method : getBitcoinPaymentUrl() /" +
-                                    " Info : {}.", LocalDateTime.now(), "Created new transaction. Transaction status : ERROR.");
+                                    " Error : {}.", LocalDateTime.now(), "Created new transaction. Transaction status : ERROR.");
                             break;
                         }
                         default: {
                             urlDTO.setUrl(buyerRequestService.getErrorUrl(buyerRequestId));
                             logger.warn("Date : {}, Bitcoin API / " + "BuyerRequestId = " + buyerRequestId +  " / Method : getBitcoinPaymentUrl() /" +
-                                    " Info : {}.", LocalDateTime.now(), "Created new transaction. Transaction status : UNDEFINED.");
+                                    " Warn : {}.", LocalDateTime.now(), "Created new transaction. Transaction status : UNDEFINED.");
                             break;
                         }
                     }
