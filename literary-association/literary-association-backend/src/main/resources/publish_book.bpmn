@@ -202,7 +202,7 @@
       <bpmn:outgoing>Flow_0byco0h</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_0byco0h" sourceRef="Gateway_1kyi6p5" targetRef="Writer_Publish_Form" />
-    <bpmn:boundaryEvent id="Event_1a3ukhx" attachedToRef="Writer_Publish_Form">
+    <bpmn:boundaryEvent id="Event_1a3ukhx" name="" attachedToRef="Writer_Publish_Form">
       <bpmn:outgoing>Flow_0gk712m</bpmn:outgoing>
       <bpmn:errorEventDefinition id="ErrorEventDefinition_1ybj4sa" />
     </bpmn:boundaryEvent>

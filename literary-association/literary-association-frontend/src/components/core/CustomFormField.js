@@ -2,17 +2,20 @@ import {Form} from "react-bootstrap";
 import Select from "react-select";
 import React, {useEffect, useState} from "react";
 
-export default function CustomFormField({formField, register, errors}){
+export default function CustomFormField({formField, register, errors}) {
 
     const [selectValue, setSelectValue] = useState("");
 
     const setOptions = (options) => {
         // Rename Objects in SelectDTO instead of Genres (generic) maybe?
-        let removeGenre = options.replaceAll("Genre",'');
-        removeGenre = removeGenre.replaceAll("value",'"label"');
-        removeGenre = removeGenre.replaceAll("id",'"value"');
-        removeGenre = removeGenre.replaceAll("=",":");
-        removeGenre = removeGenre.replaceAll("'",'"');
+        let removeGenre = options.replaceAll("Genre", '');
+        if (!removeGenre) {
+            removeGenre = options.replaceAll("CityAndCountry", '');
+        }
+        removeGenre = removeGenre.replaceAll("value", '"label"');
+        removeGenre = removeGenre.replaceAll("id", '"value"');
+        removeGenre = removeGenre.replaceAll("=", ":");
+        removeGenre = removeGenre.replaceAll("'", '"');
         return JSON.parse(removeGenre);
     }
 
@@ -20,7 +23,7 @@ export default function CustomFormField({formField, register, errors}){
         let refs = "{";
         constraints.forEach((constraint, index) => {
             refs += '"' + constraint.name + '" : ' + constraint.configuration;
-            if (index !== (constraints.length - 1)){
+            if (index !== (constraints.length - 1)) {
                 refs += ","
             }
         })
@@ -30,7 +33,7 @@ export default function CustomFormField({formField, register, errors}){
 
     const checkErrors = (id) => {
         for (let prop in errors) {
-            if(prop === id){
+            if (prop === id) {
                 return true;
             }
         }
@@ -45,35 +48,44 @@ export default function CustomFormField({formField, register, errors}){
     return (
         <Form.Group controlId={formField.id} className="text-left">
             <Form.Label>{formField.label}</Form.Label>
-            {   formField.type.name === "string" &&
+            {formField.type.name === "string" &&
             <>
-                {   !formField.properties.subType &&
+                {!formField.properties.subType &&
                 <>
-                    <Form.Control isInvalid={checkErrors(formField.id)} name={formField.id} type="text" placeholder={formField.properties.placeholder} ref={register(setRef(formField.validationConstraints))}/>
+                    <Form.Control isInvalid={checkErrors(formField.id)} name={formField.id} type="text"
+                                  placeholder={formField.properties.placeholder}
+                                  ref={register(setRef(formField.validationConstraints))}/>
                 </>
                 }
-                {    formField.properties.subType &&
+                {formField.properties.subType &&
                 <>
-                    {   formField.properties.subType === "select" &&
+                    {formField.properties.subType === "select" &&
                     <>
-                        <Select id="select-id" className={(checkErrors(formField.id) ? addClassToSelectChild() : "") + " text-dark"} options={setOptions(formField.properties.options)} placeholder={formField.properties.placeholder}
+                        <Select id="select-id"
+                                className={(checkErrors(formField.id) ? addClassToSelectChild() : "") + " text-dark"}
+                                options={setOptions(formField.properties.options)}
+                                placeholder={formField.properties.placeholder}
                                 onChange={(selected) => {
-                                                let input = document.getElementById('hidden-input');
+                                    let input = document.getElementById('hidden-input');
 
-                                                let nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
-                                                nativeInputValueSetter.call(input, selected.value);
+                                    let nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
+                                    nativeInputValueSetter.call(input, selected.value);
 
-                                                let ev2 = new Event('input', { bubbles: true});
-                                                input.dispatchEvent(ev2);
-                                            }
-                                         }
+                                    let ev2 = new Event('input', {bubbles: true});
+                                    input.dispatchEvent(ev2);
+                                }
+                                }
                         />
-                        <Form.Control id="hidden-input" isInvalid={checkErrors(formField.id)} name={formField.id} type="text" className="hidden" ref={register(setRef(formField.validationConstraints))} readOnly/>
+                        <Form.Control id="hidden-input" isInvalid={checkErrors(formField.id)} name={formField.id}
+                                      type="text" className="hidden"
+                                      ref={register(setRef(formField.validationConstraints))} readOnly/>
                     </>
                     }
-                    {   formField.properties.subType === "textarea" &&
+                    {formField.properties.subType === "textarea" &&
                     <>
-                        <Form.Control isInvalid={checkErrors(formField.id)} name={formField.id} as="textarea" rows={5} placeholder={formField.properties.placeholder} ref={register(setRef(formField.validationConstraints))}/>
+                        <Form.Control isInvalid={checkErrors(formField.id)} name={formField.id} as="textarea" rows={5}
+                                      placeholder={formField.properties.placeholder}
+                                      ref={register(setRef(formField.validationConstraints))}/>
                     </>
                     }
                 </>

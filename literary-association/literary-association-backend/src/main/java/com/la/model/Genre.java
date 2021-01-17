@@ -26,6 +26,10 @@ public class Genre implements Serializable {
     @Column
     private String value;
 
+    public Genre(String value) {
+        this.value = value;
+    }
+
     @Override
     public String toString() {
         return "Genre{" +
