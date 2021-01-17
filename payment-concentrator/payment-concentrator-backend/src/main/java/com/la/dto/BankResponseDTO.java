@@ -1,6 +1,7 @@
 package com.la.dto;
 
-import com.la.model.Status;
+
+import com.la.model.enums.Status;
 
 import java.time.LocalDateTime;
 

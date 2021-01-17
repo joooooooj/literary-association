@@ -2,7 +2,7 @@ package com.la.controller;
 
 import com.la.dto.FormFieldsDTO;
 import com.la.dto.FormSubmissionDTO;
-import com.la.enumeration.PublishStatus;
+import com.la.model.enums.PublishStatus;
 import com.la.model.publish.Decision;
 import com.la.model.publish.EditorRequestView;
 import com.la.model.publish.PublishBookRequest;

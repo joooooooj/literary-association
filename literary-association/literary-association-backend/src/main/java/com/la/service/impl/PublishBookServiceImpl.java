@@ -1,10 +1,8 @@
 package com.la.service.impl;
 
-import com.la.enumeration.PublishStatus;
 import com.la.model.Genre;
 import com.la.model.publish.PublishBookRequest;
 import com.la.model.users.SysUser;
-import com.la.model.users.Writer;
 import com.la.repository.GenreRepository;
 import com.la.repository.UserRepository;
 import com.la.service.PublishBookService;
@@ -17,7 +15,7 @@ import java.util.HashMap;
 public class PublishBookServiceImpl implements PublishBookService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository<SysUser> userRepository;
 
     @Autowired
     private GenreRepository genreRepository;

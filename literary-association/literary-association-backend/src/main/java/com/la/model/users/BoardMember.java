@@ -11,5 +11,5 @@ import javax.persistence.Entity;
 @ToString
 @Entity
 @DiscriminatorValue("BOARD_MEMBER")
-public class BoardMember extends User {
+public class BoardMember extends SysUser {
 }

@@ -1,6 +1,5 @@
 package com.la.model.users;
 
-import com.la.model.Permission;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

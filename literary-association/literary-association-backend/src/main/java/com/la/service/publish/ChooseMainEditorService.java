@@ -5,7 +5,6 @@ import com.la.repository.UserRepository;
 import org.camunda.bpm.engine.TaskService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
-import org.camunda.bpm.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,7 @@ import java.util.Random;
 public class ChooseMainEditorService implements JavaDelegate {
 
     @Autowired
-    UserRepository userRepository;
+    UserRepository<SysUser> userRepository;
 
     @Autowired
     TaskService taskService;
