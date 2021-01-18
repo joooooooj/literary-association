@@ -24,10 +24,13 @@ public class SendVerificationEmailService implements JavaDelegate {
         String registeredUserEmail = userRepository.findByUsername(username).getEmail();
         System.err.println("TO REGISTERED USER");
         System.err.println(registeredUserEmail);
+        System.err.println(delegateExecution.getProcessInstanceId());
+
+        String url = "http://localhost:8080/api/auth/registration/activate-user/" + delegateExecution.getProcessInstanceId();
 
         Email email = new Email();
         email.setSubject("Verify register email");
-        email.setBody("Please verify your account by clicking the link.");
+        email.setBody("Please verify your account by clicking the link. " + url);
         email.setEmailFrom("rento.office@gmail.com");
         email.setEmailTo("rento.office@gmail.com");
         sendEmailService.sendEmail(email);

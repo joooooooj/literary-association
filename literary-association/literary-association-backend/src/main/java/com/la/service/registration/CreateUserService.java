@@ -3,6 +3,7 @@ package com.la.service.registration;
 import com.la.dto.FormSubmissionDTO;
 import com.la.model.users.SysUser;
 import com.la.repository.UserRepository;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.camunda.bpm.engine.IdentityService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
@@ -26,6 +27,7 @@ public class CreateUserService implements JavaDelegate {
         List<FormSubmissionDTO> registration = (List<FormSubmissionDTO>) delegateExecution.getVariable("registration");
         User newUser = identityService.newUser("");
         SysUser newSystemUser = new SysUser();
+        newSystemUser.setActive(Boolean.FALSE);
         registration.forEach(formField -> {
             if (formField.getFieldId().equals("username")) {
                 newUser.setId(formField.getFieldValue());

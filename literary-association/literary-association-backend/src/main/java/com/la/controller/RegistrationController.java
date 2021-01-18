@@ -7,6 +7,7 @@ import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
 import org.camunda.bpm.engine.form.FormField;
 import org.camunda.bpm.engine.form.TaskFormData;
+import org.camunda.bpm.engine.runtime.MessageCorrelationResult;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,6 +101,15 @@ public class RegistrationController {
 
         formService.submitTaskForm(taskId, map);
         return new ResponseEntity<>(processInstanceId, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/activate-user/{processId}")
+    public ResponseEntity<?> activateUser(@PathVariable("processId") String processId) {
+        MessageCorrelationResult result = runtimeService.createMessageCorrelation("activateUserMessage")
+                .processInstanceId(processId)
+                .correlateWithResult();
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 
