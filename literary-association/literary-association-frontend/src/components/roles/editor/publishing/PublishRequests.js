@@ -29,7 +29,9 @@ export default function PublishRequests(props) {
     const handleShowSuggestions = () => setShowSuggestions(true);
     const handleCloseSuggestions = () => setShowSuggestions(false);
 
-    const handleShowPlagiarismCheckResults = () => setShowPlagiarismCheckResults(true);
+    const handleShowPlagiarismCheckResults = () => {
+        setShowPlagiarismCheckResults(true);
+    }
     const handleClosePlagiarismCheckResults = () => setShowPlagiarismCheckResults(false);
 
     const handleCloseDocument = () => setShowDocument(false);
@@ -284,47 +286,6 @@ export default function PublishRequests(props) {
                     })}
                     </tbody>
                 </Table>
-                {/*Delete testing elements from here*/}
-                <div className="row ml-1 mt-5">
-                    <ButtonGroup>
-                        <Button variant="outline-info" onClick={() => setStatus("WAITING_PLAGIARISM_CHECK")}>
-                            WRITER SUBMIT
-                        </Button>
-                    </ButtonGroup>
-                </div>
-                <div className="row ml-1 mt-5">
-                    <ButtonGroup>
-                        <Button variant="outline-danger" onClick={() => setStatus("WAITING_COMMENT_CHECK")}>
-                            BETA READERS COMMENTED
-                        </Button>
-                        <Button variant="outline-light" onClick={() => setStatus("WAITING_SUGGESTIONS")}>
-                            WRITER REVIEWED COMMENTS
-                        </Button>
-                    </ButtonGroup>
-                </div>
-                <div className="row ml-1 mt-5">
-                    <ButtonGroup>
-                        <Button variant="outline-warning" onClick={() => setStatus("WAITING_CORRECTIONS")}>
-                            LECTOR REVIEWED
-                        </Button>
-                        <Button variant="outline-info" onClick={() => setStatus("WAITING_LECTOR_REVIEW")}>
-                            WRITER CORRECTED SCRIPT
-                        </Button>
-                        <Button variant="outline-danger" onClick={() =>
-                                                                    {setCorrections("No corrections");
-                                                                    setStatus("WAITING_SUGGESTIONS");}}>
-                            LECTOR APPROVED
-                        </Button>
-                    </ButtonGroup>
-                </div>
-                <div className="row ml-1 mt-5">
-                    <ButtonGroup>
-                        <Button variant="outline-light" onClick={() => setStatus("WAITING_SUGGESTIONS")}>
-                            WRITER CHANGED
-                        </Button>
-                    </ButtonGroup>
-                </div>
-                {/*End of test elements*/}
             </div>
         </div>
     );

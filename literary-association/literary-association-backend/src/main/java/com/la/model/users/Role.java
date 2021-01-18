@@ -12,6 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity
 public class Role implements Serializable {
 
     @Id

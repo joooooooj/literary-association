@@ -1,6 +1,6 @@
 package com.la.model;
 
-import com.la.enumeration.PublishStatus;
+import com.la.model.enums.PublishStatus;
 import com.la.model.users.Lector;
 
 import javax.persistence.*;
