@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserRepository<R extends SysUser> extends JpaRepository<SysUser, Long> {
+public interface UserRepository<T extends SysUser> extends JpaRepository<T, Long> {
 
     SysUser findByUsername(String username);
     List<SysUser> findByType(String editor);
