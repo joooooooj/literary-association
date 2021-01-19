@@ -1,11 +1,52 @@
 import {Modal, Button, Table, ButtonGroup} from "react-bootstrap";
-import React from "react";
+import React, {useEffect, useState} from "react";
 
-export default function PreviewComments(props) {
+export default function PlagiarismCheckResults(props) {
+
+    const [plagiats, setPlagiats] = useState([]);
+
+    useEffect(() => {
+        if(props.selectedRequest){
+            fetch("http://localhost:8080/publish/editor/plagiats/" + props.selectedRequest.processInstanceId, {
+                method: "GET",
+                headers: {
+                    "Authorization" : "Bearer " + props.loggedIn,
+                    "Content-Type": "application/json"
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    setPlagiats(data);
+                    console.log("PLAGIATS: " + JSON.stringify(data));
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }, [props.selectedRequest])
 
     const handleClose = () => {
         props.onHide();
     };
+
+    const handleDecision = (decision) => {
+        fetch("http://localhost:8080/publish/editor/plagiats/" + props.selectedRequest.taskId, {
+            method: "POST",
+            headers: {
+                "Authorization" : "Bearer " + props.loggedIn,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({approved: decision})
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log("SUCCESS: " + data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        handleClose();
+    }
 
     return (
         <Modal centered show={props.show} onHide={handleClose} className="plagiarism-check-results">
@@ -13,10 +54,10 @@ export default function PreviewComments(props) {
                 <div className="bg-light p-5">
                     <div className="row ml-3">
                         <ButtonGroup>
-                            <Button variant="success" onClick={() => {props.setStatus("WAITING_READING"); props.onHide();}}>
+                            <Button variant="success" onClick={() => handleDecision(true)}>
                                 ORIGINAL
                             </Button>
-                            <Button variant="danger" onClick={() => {props.handleShowExplanation(); props.onHide();}}>
+                            <Button variant="danger" onClick={() => handleDecision(false)}>
                                 PLAGIAT
                             </Button>
                         </ButtonGroup>
@@ -29,18 +70,17 @@ export default function PreviewComments(props) {
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>
-                                https://www.w3schools.com/colors/colors_picker.asp
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>
-                                https://react-bootstrap.netlify.app/components/button-group/
-                            </td>
-                        </tr>
+                        {   plagiats?.map((plagiat, index) => {
+                            return (
+                                <tr key={plagiat.source}>
+                                    <td>{index + 1}</td>
+                                    <td>
+                                        {plagiat.source}
+                                    </td>
+                                </tr>
+                            )
+                            })
+                        }
                         </tbody>
                     </Table>
                 </div>

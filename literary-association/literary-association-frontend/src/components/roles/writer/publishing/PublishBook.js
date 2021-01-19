@@ -124,7 +124,7 @@ export default function PublishBook(props){
         })
             .then(response => response)
             .then(data => {
-                console.log("SUCCESS")
+                console.log("SUCCESS");
                 setPublishBookForm(null);
             })
             .catch((error) => {
@@ -297,7 +297,7 @@ export default function PublishBook(props){
                     <Form className="mt-5 mb-5 w-25" onSubmit={handleSubmit(onSubmit)}>
                         {publishBookForm.formFields.map((formField) => {
                             return (
-                                <CustomFormField formField={formField} errors={errors} register={register}/>
+                                <CustomFormField key={formField.id} formField={formField} errors={errors} register={register}/>
                             )
                             })
                         }
@@ -329,19 +329,19 @@ export default function PublishBook(props){
                     <>
                         {   (status === "WAITING_SUBMIT" || status === "WAITING_COMMENT_CHECK" || status === "WAITING_CORRECTIONS") &&
                             <h5 className="text-danger mb-3">
-                                Submission deadline : 31.12.2020.
+                                Submission deadline : {requestInfo.deadline}
                             </h5>
                         }
                         {   status === "WAITING_CHANGES" &&
                             <h5 className="text-danger mb-3">
-                                Changes deadline : 15.1.2021.
+                                Changes deadline : {requestInfo.deadline}
                             </h5>
                         }
                         { publishBookForm &&
                             <>
                             {publishBookForm.formFields.map((formField) => {
                                 return (
-                                    <CustomFormField formField={formField} handleFileUpload={handleFileUpload}/>
+                                    <CustomFormField key={formField.id} formField={formField} handleFileUpload={handleFileUpload}/>
                                 )
                                 })
                             }

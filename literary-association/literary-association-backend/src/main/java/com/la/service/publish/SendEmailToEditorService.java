@@ -1,6 +1,7 @@
 package com.la.service.publish;
 
 import com.la.model.Email;
+import com.la.model.users.SysUser;
 import com.la.repository.UserRepository;
 import com.la.service.SendEmailService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
@@ -15,7 +16,7 @@ public class SendEmailToEditorService implements JavaDelegate {
     SendEmailService sendEmailService;
 
     @Autowired
-    UserRepository userRepository;
+    UserRepository<SysUser> userRepository;
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {

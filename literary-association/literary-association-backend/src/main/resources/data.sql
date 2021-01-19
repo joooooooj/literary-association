@@ -55,7 +55,7 @@ INSERT INTO `la`.`user_roles` (`user_id`, `role_id`) VALUES ('15', '4');
 /*role-permissions*/
 
 /*genre*/
-INSERT INTO `la`.`genre` (`id`, `value`) VALUES ('1', 'Horor');
+INSERT INTO `la`.`genre` (`id`, `value`) VALUES ('1', 'Horror');
 INSERT INTO `la`.`genre` (`id`, `value`) VALUES ('2', 'Comedy');
 INSERT INTO `la`.`genre` (`id`, `value`) VALUES ('3', 'Drama');
 

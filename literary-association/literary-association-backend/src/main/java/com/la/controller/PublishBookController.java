@@ -19,6 +19,8 @@ import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -330,7 +332,7 @@ public class PublishBookController {
             runtimeService.setVariable(task.getProcessInstanceId(), "publishBookRequest", publishBookRequest);
         }
         else {
-            runtimeService.setVariable(task.getProcessInstanceId(), "editorOriginal", true);
+            runtimeService.setVariable(task.getProcessInstanceId(), "editorOriginal", false);
         }
 
         taskService.complete(taskId);
@@ -338,8 +340,17 @@ public class PublishBookController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/download/{filename:.+}")
+    public ResponseEntity downloadFileFromLocal(@PathVariable String filename) {
+        Resource resource = fileService.downloadFile(filename);
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType("application/octet-stream"))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
+    }
+
     @PostMapping(value = "/editor/decision/2/{taskId}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<HttpStatus> postDecision2(@RequestBody Decision decision, @PathVariable String taskId) {
+    public ResponseEntity<FormFieldsDTO> postDecision2(@RequestBody Decision decision, @PathVariable String taskId) {
         Task task =  taskService.createTaskQuery().taskId(taskId).singleResult();
         if(decision.getApproved()){
             runtimeService.setVariable(task.getProcessInstanceId(), "editorApproved", true);
@@ -349,13 +360,22 @@ public class PublishBookController {
         }
         else {
             runtimeService.setVariable(task.getProcessInstanceId(), "editorApproved", false);
+            // If rejecting initiated send form fields from next task and wait for final deny
         }
 
         taskService.complete(taskId);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        if (!decision.getApproved()){
+            Task nextTask = taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).active().singleResult();
+            TaskFormData taskFormData = formService.getTaskFormData(nextTask.getId());
+            List<FormField> formFields = taskFormData.getFormFields();
+            return new ResponseEntity<>(new FormFieldsDTO(nextTask.getId(), formFields, task.getProcessInstanceId()), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
+    // RETURN SUGGESTION FORMFIELD NEXT TASK IF BETA READERS NO (CHANGE FRONT BUTTON)
     @PostMapping(value = "/editor/send-to-beta/{taskId}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<HttpStatus> wannaSendToBeta(@RequestBody Decision decision, @PathVariable String taskId) {
         Task task =  taskService.createTaskQuery().taskId(taskId).singleResult();

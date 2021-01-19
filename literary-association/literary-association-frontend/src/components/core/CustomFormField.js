@@ -99,7 +99,7 @@ export default function CustomFormField({formField, register, errors, handleFile
                     subtypeFile()
             }
             { formField.properties.subType !== "file" &&
-                <Form.Group controlId={formField.id} className="text-left">
+                <Form.Group className="text-left">
                     <Form.Label>{formField.label}</Form.Label>
                     {formField.type.name === "string" &&
                     <>

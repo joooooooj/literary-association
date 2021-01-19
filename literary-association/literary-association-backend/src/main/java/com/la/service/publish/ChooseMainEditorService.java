@@ -16,7 +16,7 @@ import java.util.Random;
 public class ChooseMainEditorService implements JavaDelegate {
 
     @Autowired
-    UserRepository userRepository;
+    UserRepository<SysUser> userRepository;
 
     @Autowired
     TaskService taskService;

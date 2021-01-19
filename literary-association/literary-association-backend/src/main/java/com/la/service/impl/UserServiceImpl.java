@@ -17,7 +17,7 @@ import javax.transaction.Transactional;
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository<SysUser> userRepository;
 
     @Autowired
     IdentityService identityService;

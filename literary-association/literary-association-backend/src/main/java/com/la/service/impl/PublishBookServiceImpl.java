@@ -15,7 +15,7 @@ import java.util.HashMap;
 public class PublishBookServiceImpl implements PublishBookService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository<SysUser> userRepository;
 
     @Autowired
     private GenreRepository genreRepository;
