@@ -31,6 +31,7 @@ public class RegistrationController {
     @Autowired
     private FormService formService;
 
+    // 1. KORAK / DOBAVLJANJE FORME REGISTRACIJE SA ZANROVIMA
     @GetMapping(value = "/user-input-details")
     public ResponseEntity<FormFieldsDTO> getUserInputDataFormFieldsDTO() {
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("Process_registration");
@@ -43,13 +44,18 @@ public class RegistrationController {
 
         formFields.get(5).getProperties().put("options", citiesAndCountriesString);
 
+        Object genres = runtimeService.getVariables(task.getExecutionId()).get("genres");
+        String genresString = String.valueOf(genres);
+
+        formFields.get(6).getProperties().put("options", genresString);
 
         return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, processInstance.getId()), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/{taskId}/{isWriter}")
+    // 2. KORAK / SLANJE FORME REGISTRACIJE / AKO JE WRITER ILI OBICAN READER MAIL / AKO JE BETA FORMA ZANROVA
+    @PostMapping(value = "/{taskId}/{isWriter}/{isBeta}")
     public ResponseEntity<?> registration(@RequestBody List<FormSubmissionDTO> formSubmissionDTOS, @PathVariable("taskId") String taskId,
-                                          @PathVariable("isWriter") Boolean isWriter) {
+                                          @PathVariable("isWriter") Boolean isWriter, @PathVariable("isBeta") Boolean isBeta) {
         System.out.println(taskId);
         HashMap<String, Object> map = this.mapFormItemsToMap(formSubmissionDTOS);
         Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
@@ -57,14 +63,15 @@ public class RegistrationController {
         runtimeService.setVariable(processInstanceId, "registration", formSubmissionDTOS);
 
         runtimeService.setVariable(processInstanceId, "is_writer", isWriter);
+        runtimeService.setVariable(processInstanceId, "is_beta", isBeta);
 
         formService.submitTaskForm(taskId, map);
         return new ResponseEntity<>(processInstanceId, HttpStatus.OK);
     }
 
+    // 3. KORAK / DOBAVLJANJE FORME ZANROVA UKOLIKO JE BETA READER
     @GetMapping(value = "/reader-preferences/{processId}")
     public ResponseEntity<FormFieldsDTO> getReaderPreferences(@PathVariable("processId") String processId) {
-        //ProcessInstance processInstance = runtimeService.get("Process_registration");
         Task task = taskService.createTaskQuery().processInstanceId(processId).list().get(0);
         TaskFormData taskFormData = formService.getTaskFormData(task.getId());
         List<FormField> formFields = taskFormData.getFormFields();
@@ -76,21 +83,7 @@ public class RegistrationController {
         return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, processId), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/reader-preferences/{taskId}/{isBeta}")
-    public ResponseEntity<?> saveReaderPreferences(@RequestBody List<FormSubmissionDTO> formSubmissionDTOS, @PathVariable("taskId") String taskId,
-                                                   @PathVariable("isBeta") Boolean isBeta) {
-        System.out.println(taskId);
-        HashMap<String, Object> map = this.mapFormItemsToMap(formSubmissionDTOS);
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
-        String processInstanceId = task.getProcessInstanceId();
-        runtimeService.setVariable(processInstanceId, "readerPreferences", formSubmissionDTOS);
-
-        runtimeService.setVariable(processInstanceId, "is_beta", isBeta);
-
-        formService.submitTaskForm(taskId, map);
-        return new ResponseEntity<>(processInstanceId, HttpStatus.OK);
-    }
-
+    // 4. KORAK / SLANJE BETA READER ODABRANIH ZANROVA
     @PostMapping(value = "/reader-wanted-genres/{taskId}")
     public ResponseEntity<?> readerWantedGenres(@RequestBody List<FormSubmissionDTO> formSubmissionDTOS, @PathVariable("taskId") String taskId) {
         System.out.println(taskId);
@@ -103,6 +96,7 @@ public class RegistrationController {
         return new ResponseEntity<>(processInstanceId, HttpStatus.OK);
     }
 
+    // 5. KORAK / AKTIVIRANJE KORISNIKA EMAILOM
     @GetMapping(value = "/activate-user/{processId}")
     public ResponseEntity<?> activateUser(@PathVariable("processId") String processId) {
         MessageCorrelationResult result = runtimeService.createMessageCorrelation("activateUserMessage")

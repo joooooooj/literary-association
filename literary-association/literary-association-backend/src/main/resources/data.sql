@@ -60,10 +60,10 @@ INSERT INTO `la`.`genre` (`id`, `value`) VALUES ('2', 'Comedy');
 INSERT INTO `la`.`genre` (`id`, `value`) VALUES ('3', 'Drama');
 
 /*reader_genre*/
-INSERT INTO `la`.`reader_genre` (`reader_id`, `genre_id`) VALUES ('6','1');
-INSERT INTO `la`.`reader_genre` (`reader_id`, `genre_id`) VALUES ('6','2');
-INSERT INTO `la`.`reader_genre` (`reader_id`, `genre_id`) VALUES ('8','1');
-INSERT INTO `la`.`reader_genre` (`reader_id`, `genre_id`) VALUES ('8','3');
+INSERT INTO `la`.`user_genre` (`user_id`, `genre_id`) VALUES ('6','1');
+INSERT INTO `la`.`user_genre` (`user_id`, `genre_id`) VALUES ('6','2');
+INSERT INTO `la`.`user_genre` (`user_id`, `genre_id`) VALUES ('8','1');
+INSERT INTO `la`.`user_genre` (`user_id`, `genre_id`) VALUES ('8','3');
 
 /*beta_reader_genre*/
 INSERT INTO `la`.`beta_reader_genre` (`beta_reader_id`, `genre_id`) VALUES ('8','1');
