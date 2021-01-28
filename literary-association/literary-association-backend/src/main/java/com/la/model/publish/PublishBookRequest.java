@@ -28,4 +28,6 @@ public class PublishBookRequest implements Serializable {
     private String status;
 
     private String deadline;
+
+    private String path;
 }

@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
+@AllArgsConstructor
 @ToString
 @Entity
 @DiscriminatorValue("BOARD_MEMBER")

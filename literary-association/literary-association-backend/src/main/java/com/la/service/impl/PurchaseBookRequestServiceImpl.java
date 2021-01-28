@@ -1,6 +1,5 @@
 package com.la.service.impl;
 
-import com.la.model.Book;
 import com.la.model.dtos.CreatedBookPurchaseRequestDTO;
 import com.la.model.dtos.PurchaseBookRequestDTO;
 import com.la.model.enums.TransactionStatus;
@@ -20,8 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class PurchaseBookRequestServiceImpl implements PurchaseBookRequestService {

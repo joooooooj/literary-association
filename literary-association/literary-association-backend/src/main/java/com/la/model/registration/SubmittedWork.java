@@ -1,7 +1,5 @@
 package com.la.model.registration;
 
-import com.la.model.users.WriterMembershipRequest;
-
 import javax.persistence.*;
 
 @Entity

@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Confirmation from "../../../core/modals/Confirmation";
-import {Button, ButtonGroup, Form, Table} from "react-bootstrap";
-import Select from "react-select";
+import {Button, Form, Table} from "react-bootstrap";
 import {useForm} from "react-hook-form";
 import CustomFormField from "../../../core/CustomFormField";
 
@@ -33,14 +32,6 @@ export default function PublishBook(props){
     }
 
     const [status, setStatus] = useState("");
-
-    const [submitted, setSubmitted] = useState(false)
-
-    const [showConfirmation, setShowConfirmation] = useState(false);
-
-    const [files, setFiles] = useState([]);
-
-    const hiddenFileInput = React.useRef(null);
 
     useEffect (() =>{
         fetch("http://localhost:8080/publish/writer/form/" + props.loggedIn, {
@@ -77,6 +68,9 @@ export default function PublishBook(props){
                setRequestInfo(data);
                 if (data.status){
                     setStatus(data.status);
+                    if (data.status === "WAITING_SUBMIT"){
+                        getFileFormField();
+                    }
                 }
                 else {
                     setStatus("NO STATUS");
@@ -96,37 +90,65 @@ export default function PublishBook(props){
         return final;
     }
 
-    const handleCloseConfirmation = (confirmed) => {
-        if(confirmed) {
-            setSubmitted(true);
-            switch (status) {
-                case "WAITING_SUBMIT": {setStatus("WAITING_PLAGIARISM_CHECK");break;}
-                case "WAITING_COMMENT_CHECK": {setStatus("WAITING_SUGGESTIONS");break;}
-                case "WAITING_CHANGES": {setStatus("WAITING_SUGGESTIONS");break;}
-                case "WAITING_CORRECTIONS" : {setStatus("WAITING_LECTOR_REVIEW");break;}
-                case "WAITING_LECTOR_REVIEW" : {setStatus("WAITING_SUGGESTIONS");break;}
-            }
-        }
-        else {
-            hiddenFileInput.current.value = "";
-        }
-        setShowConfirmation(false);
+    const handleFileUpload = (files) => {
+        let url = new URL("http://localhost:8080/publish/upload/" + publishBookForm.processInstanceId);
+        const formData = new FormData();
+        formData.append('file', files[0]);
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Authorization" : "Bearer " + props.loggedIn
+            },
+            body: formData
+        })
+            .then(response => response)
+            .then(data => {
+                submitUploadFileForm(files);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
     }
-    const handleShowConfirmation = () => setShowConfirmation(true);
 
-    const handleFileChooserChange = (event) => {
-        const newFiles = event.target.files;
-        setFiles(newFiles);
-        handleFileChooserClose();
-    };
+    const submitUploadFileForm = (files) => {
+        let url = new URL("http://localhost:8080/publish/writer/form/upload/" + publishBookForm.taskId);
+        let data = [{fieldId: publishBookForm.formFields[0].id, fieldValue: files[0].name.split('.')[0]}]
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Authorization" : "Bearer " + props.loggedIn,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response)
+            .then(data => {
+                console.log("SUCCESS")
+                setPublishBookForm(null);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 
-    const handleFileChooserClick = () => {
-        hiddenFileInput.current.click();
-    };
-
-    const handleFileChooserClose = () => {
-        handleShowConfirmation();
-    };
+    const getFileFormField = () => {
+        fetch("http://localhost:8080/publish/writer/form/upload/" + props.loggedIn, {
+            method: "GET",
+            headers: {
+                "Authorization" : "Bearer " + props.loggedIn,
+                "Content-Type": "application/json",
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+               console.log(data);
+               setPublishBookForm(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 
     const renderStatus = (status) => {
         switch (status) {
@@ -260,7 +282,6 @@ export default function PublishBook(props){
 
     return (
         <div className="bg-dark p-5">
-            <Confirmation show={showConfirmation} onHide={(confirmed) => handleCloseConfirmation(confirmed)}/>
             <div className="bg-dark p-5 border border-light text-left text-light">
                 <h2 className="text-light mb-4">
                     Publish book
@@ -289,17 +310,19 @@ export default function PublishBook(props){
                 {status &&
                     <>
                         <h5 className="text-light mb-3">
-                            Title : {requestInfo.title}
+                            Title : {requestInfo?.title}
                         </h5>
                         <h5 className="text-light mb-3">
-                            Genre : {requestInfo.genre}
+                            Genre : {requestInfo?.genre}
                         </h5>
                         <h5 className="text-light mb-3 w-25 text-justify">
-                            Synopsis : {requestInfo.synopsis}
+                            Synopsis : {requestInfo?.synopsis}
                         </h5>
-                        <h5 className="text-warning mt-3 mb-3">
-                            Main editor is reviewing your request ...
-                        </h5>
+                        { status === "NO STATUS" &&
+                            <h5 className="text-warning mt-3 mb-3">
+                                Main editor is reviewing your request ...
+                            </h5>
+                        }
                     </>
                 }
                 {   (status === "WAITING_SUBMIT" || status === "WAITING_COMMENT_CHECK" || status === "WAITING_CORRECTIONS" || status === "WAITING_CHANGES") &&
@@ -314,64 +337,19 @@ export default function PublishBook(props){
                                 Changes deadline : 15.1.2021.
                             </h5>
                         }
-                        <Button onClick={() => handleFileChooserClick()} disabled={submitted} variant="outline-warning" className="mb-4">
-                        SUBMIT WORK
-                        </Button>
-                        <Form>
-                            <Form.File
-                            accept="application/pdf"
-                            className="hidden"
-                            ref={hiddenFileInput}
-                            onChange={(event) => handleFileChooserChange(event)}/>
-                        </Form>
+                        { publishBookForm &&
+                            <>
+                            {publishBookForm.formFields.map((formField) => {
+                                return (
+                                    <CustomFormField formField={formField} handleFileUpload={handleFileUpload}/>
+                                )
+                                })
+                            }
+                            </>
+                        }
                     </>
                 }
                 {renderStatus(status)}
-                {/*/!*Delete testing elements from here*!/*/}
-                {/*<div className="row ml-1">*/}
-                {/*    <ButtonGroup>*/}
-                {/*        <Button variant="outline-info" onClick={() => setStatus("WAITING_READING")}>*/}
-                {/*            PLAGIARISM CHECK PASSED*/}
-                {/*        </Button>*/}
-                {/*        <Button variant="outline-warning" onClick={() => {*/}
-                {/*            setStatus("WAITING_BETA_READERS");}}>*/}
-                {/*            EDITOR READ SCRIPT*/}
-                {/*        </Button>*/}
-                {/*        <Button variant="outline-danger" onClick={() => {*/}
-                {/*            setSubmitted(false);*/}
-                {/*            setStatus("WAITING_COMMENT_CHECK")}}>*/}
-                {/*            BETA READERS COMMENTED*/}
-                {/*        </Button>*/}
-                {/*        <Button variant="outline-light" onClick={() => {*/}
-                {/*            setSubmitted(false);*/}
-                {/*            setStatus("WAITING_CORRECTIONS")}}>*/}
-                {/*            LECTOR REVIEWED*/}
-                {/*        </Button>*/}
-                {/*        <Button variant="outline-info" onClick={() => {*/}
-                {/*            setSubmitted(false);*/}
-                {/*            setStatus("WAITING_SUGGESTIONS")}}>*/}
-                {/*            LECTOR APPROVED*/}
-                {/*        </Button>*/}
-                {/*        <Button variant="outline-danger" onClick={() => {*/}
-                {/*            setSubmitted(false);*/}
-                {/*            setStatus("WAITING_LECTOR_REVIEW")*/}
-                {/*        }}>*/}
-                {/*            EDITOR SEND TO LECTOR*/}
-                {/*        </Button>*/}
-                {/*        <Button variant="outline-success" onClick={() => {*/}
-                {/*            setSubmitted(false);*/}
-                {/*            setStatus("WAITING_CHANGES")*/}
-                {/*        }}>*/}
-                {/*            EDITOR SUGGESTED*/}
-                {/*        </Button>*/}
-                {/*        <Button variant="outline-primary" onClick={() => {*/}
-                {/*            setStatus("DONE")*/}
-                {/*        }}>*/}
-                {/*            EDITOR FINALLY APPROVED*/}
-                {/*        </Button>*/}
-                {/*    </ButtonGroup>*/}
-                {/*</div>*/}
-                {/*/!*End of test elements*!/*/}
             </div>
         </div>
     );
