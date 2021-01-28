@@ -3,7 +3,7 @@ import Select from "react-select";
 import React, {useEffect, useState} from "react";
 import Confirmation from "./modals/Confirmation";
 
-export default function CustomFormField({formField, register, errors, handleFileUpload}){
+export default function CustomFormField({formField, register, errors, handleFileUpload}) {
 
     const setOptions = (options) => {
         // Rename Objects in SelectDTO instead of Genres (generic) maybe?
@@ -58,11 +58,10 @@ export default function CustomFormField({formField, register, errors, handleFile
     };
 
     const handleCloseConfirmation = (confirmed) => {
-        if(confirmed) {
+        if (confirmed) {
             setSubmitted(true);
             handleFileUpload(files);
-        }
-        else {
+        } else {
             hiddenFileInput.current.value = "";
         }
         setShowConfirmation(false);
@@ -94,60 +93,66 @@ export default function CustomFormField({formField, register, errors, handleFile
     }
 
     return (
-            <>
+        <>
             {
                 formField.properties.subType === "file" &&
-                    subtypeFile()
+                subtypeFile()
             }
-            { formField.properties.subType !== "file" &&
-                <Form.Group controlId={formField.id} className="text-left">
-                    <Form.Label>{formField.label}</Form.Label>
-                    {formField.type.name === "string" &&
+            {formField.properties.subType !== "file" &&
+            <Form.Group controlId={formField.id} className="text-left">
+                <Form.Label>{formField.label}</Form.Label>
+                {formField.type.name === "string" &&
+                <>
+                    {!formField.properties.subType &&
                     <>
-                        {!formField.properties.subType &&
+                        <Form.Control isInvalid={checkErrors(formField.id)} name={formField.id} type="text"
+                                      placeholder={formField.properties.placeholder}
+                                      ref={register(setRef(formField.validationConstraints))}/>
+                    </>
+                    }
+                    {formField.properties.subType &&
+                    <>
+                        {formField.properties.subType === "select" &&
                         <>
-                            <Form.Control isInvalid={checkErrors(formField.id)} name={formField.id} type="text"
-                                          placeholder={formField.properties.placeholder}
+                            <Select id="select-id"
+                                    className={(checkErrors(formField.id) ? addClassToSelectChild() : "") + " text-dark"}
+                                    options={setOptions(formField.properties.options)}
+                                    placeholder={formField.properties.placeholder}
+                                    onChange={(selected) => {
+                                        let input = document.getElementById('hidden-input' + formField.id);
+
+                                        let nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
+                                        nativeInputValueSetter.call(input, selected.value);
+
+                                        let ev2 = new Event('input', {bubbles: true});
+                                        input.dispatchEvent(ev2);
+                                    }
+                                    }
+                            />
+                            <Form.Control id={"hidden-input" + formField.id} isInvalid={checkErrors(formField.id)}
+                                          name={formField.id} type="text" className="hidden"
+                                          ref={register(setRef(formField.validationConstraints))} readOnly/>
+                        </>
+                        }
+                        {formField.properties.subType === "textarea" &&
+                        <>
+                            <Form.Control isInvalid={checkErrors(formField.id)} name={formField.id} as="textarea"
+                                          rows={5} placeholder={formField.properties.placeholder}
                                           ref={register(setRef(formField.validationConstraints))}/>
                         </>
                         }
-                        {formField.properties.subType &&
-                        <>
-                            {formField.properties.subType === "select" &&
-                            <>
-                                <Select id="select-id"
-                                        className={(checkErrors(formField.id) ? addClassToSelectChild() : "") + " text-dark"}
-                                        options={setOptions(formField.properties.options)}
-                                        placeholder={formField.properties.placeholder}
-                                        onChange={(selected) => {
-                                                let input = document.('hidden-input' + formField.id);
-
-                                                let nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
-                                                nativeInputValueSetter.call(input, selected.value);
-
-                                                let ev2 = new Event('input', { bubbles: true});
-                                                input.dispatchEvent(ev2);
-                                            }
-                                         }
-                        />
-                        <Form.Control id={"hidden-input" + formField.id}  isInvalid={checkErrors(formField.id)} name={formField.id} type="text" className="hidden" ref={register(setRef(formField.validationConstraints))} readOnly/>
                     </>
                     }
-                    {   formField.properties.subType === "textarea" &&
-                    <>
-                        <Form.Control isInvalid={checkErrors(formField.id)} name={formField.id} as="textarea" rows={5} placeholder={formField.properties.placeholder} ref={register(setRef(formField.validationConstraints))}/>
-                    </>
+                    {
+                        checkErrors(formField.id) &&
+                        <Form.Control.Feedback type="invalid">
+                            <span className="text-danger">{formField.id.toUpperCase()} IS INVALID!</span>
+                        </Form.Control.Feedback>
                     }
                 </>
                 }
-                {
-                    checkErrors(formField.id) &&
-                    <Form.Control.Feedback type="invalid">
-                        <span className="text-danger">{formField.id.toUpperCase()} IS INVALID!</span>
-                    </Form.Control.Feedback>
-                }
-            </>
+            </Form.Group>
             }
-        </Form.Group>
+        </>
     );
 }
