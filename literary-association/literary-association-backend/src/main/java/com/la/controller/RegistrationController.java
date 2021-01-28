@@ -1,7 +1,9 @@
 package com.la.controller;
 
+import camundajar.impl.scala.util.parsing.json.JSON;
 import com.la.dto.FormFieldsDTO;
 import com.la.dto.FormSubmissionDTO;
+import com.la.service.GenreService;
 import org.camunda.bpm.engine.FormService;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
@@ -12,9 +14,11 @@ import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,6 +34,9 @@ public class RegistrationController {
 
     @Autowired
     private FormService formService;
+
+    @Autowired
+    private GenreService genreService;
 
     // 1. KORAK / DOBAVLJANJE FORME REGISTRACIJE SA ZANROVIMA
     @GetMapping(value = "/user-input-details")
@@ -53,7 +60,7 @@ public class RegistrationController {
     }
 
     // 2. KORAK / SLANJE FORME REGISTRACIJE / AKO JE WRITER ILI OBICAN READER MAIL / AKO JE BETA FORMA ZANROVA
-    @PostMapping(value = "/{taskId}/{isWriter}/{isBeta}")
+    @PostMapping(value = "/{taskId}/{isWriter}/{isBeta}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> registration(@RequestBody List<FormSubmissionDTO> formSubmissionDTOS, @PathVariable("taskId") String taskId,
                                           @PathVariable("isWriter") Boolean isWriter, @PathVariable("isBeta") Boolean isBeta) {
         System.out.println(taskId);
@@ -66,7 +73,7 @@ public class RegistrationController {
         runtimeService.setVariable(processInstanceId, "is_beta", isBeta);
 
         formService.submitTaskForm(taskId, map);
-        return new ResponseEntity<>(processInstanceId, HttpStatus.OK);
+        return new ResponseEntity<>(Collections.singletonMap("processInstanceId", processInstanceId), HttpStatus.OK);
     }
 
     // 3. KORAK / DOBAVLJANJE FORME ZANROVA UKOLIKO JE BETA READER
@@ -76,7 +83,8 @@ public class RegistrationController {
         TaskFormData taskFormData = formService.getTaskFormData(task.getId());
         List<FormField> formFields = taskFormData.getFormFields();
 
-        Object genres = runtimeService.getVariables(task.getExecutionId()).get("genres");
+//        Object genres = runtimeService.getVariables(task.getExecutionId()).get("genres");
+        Object genres = genreService.findAll();
         String genresString = String.valueOf(genres);
 
         formFields.get(0).getProperties().put("options", genresString);
@@ -93,7 +101,7 @@ public class RegistrationController {
         runtimeService.setVariable(processInstanceId, "betaReaderWantedGenres", formSubmissionDTOS);
 
         formService.submitTaskForm(taskId, map);
-        return new ResponseEntity<>(processInstanceId, HttpStatus.OK);
+        return new ResponseEntity<>(Collections.singletonMap("processInstanceId", processInstanceId), HttpStatus.OK);
     }
 
     // 5. KORAK / AKTIVIRANJE KORISNIKA EMAILOM

@@ -27,42 +27,8 @@ public class RegistrationStartHandler implements ExecutionListener {
     public List<CityAndCountry> getCitiesAndCountries() {
         List<CityAndCountry> cityAndCountries = new ArrayList<>();
         cityAndCountries.add(new CityAndCountry(1L, "Belgrade, Serbia"));
-        cityAndCountries.add(new CityAndCountry(2L, "Madrid, Spain"));
+        cityAndCountries.add(new CityAndCountry(2L, "Valencia, Spain"));
         cityAndCountries.add(new CityAndCountry(3L, "Rome, Italy"));
         return cityAndCountries;
-    }
-}
-
-class CityAndCountry implements Serializable {
-    private Long id;
-    private String value;
-
-    public CityAndCountry(Long id, String cityAndCountry) {
-        this.id = id;
-        this.value = cityAndCountry;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    @Override
-    public String toString() {
-        return "CityAndCountry{" +
-                "id=" + id +
-                ", value='" + value + '\'' +
-                '}';
     }
 }

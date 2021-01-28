@@ -4,6 +4,7 @@ import com.la.dto.FormSubmissionDTO;
 import com.la.model.Genre;
 import com.la.model.users.Reader;
 import com.la.model.users.SysUser;
+import com.la.repository.GenreRepository;
 import com.la.repository.ReaderRepository;
 import com.la.repository.UserRepository;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
@@ -22,13 +23,14 @@ public class UpdateReaderService implements JavaDelegate {
     @Autowired
     private UserRepository<SysUser> userRepository;
 
+    @Autowired
+    private GenreRepository genreRepository;
+
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
 
         Reader reader = (Reader) userRepository.findByUsername(delegateExecution.getVariable("registeredUser").toString());
         System.out.println("KORISNIK JE " + reader.getUsername());
-
-        // PROVERA DA LI GENRE POSTOJI, JER PRAVI NOVI
 
         List<FormSubmissionDTO> preferences = (List<FormSubmissionDTO>) delegateExecution.getVariable("betaReaderWantedGenres");
         preferences.forEach(formField -> {
@@ -36,11 +38,11 @@ public class UpdateReaderService implements JavaDelegate {
                 System.out.println("OVDE SU ZANROVI KOD PISCA KADA JE BETA" + formField.getFieldValue());
 
                 Set<Genre> genres = new HashSet<>();
-                genres.add(new Genre(formField.getFieldValue()));
+                genres.add(genreRepository.findById(Long.parseLong(formField.getFieldValue())).get());
                 reader.setBetaReaderGenres(genres);
             }
         });
-
+        reader.setBeta(true);
         userRepository.save(reader);
     }
 }
