@@ -70,7 +70,7 @@ export default function Routes(props) {
                     <Route exact path="/register-reader">
                         <RegisterReader/>
                     </Route>
-                    <Route exact path="/register-beta">
+                    <Route exact path="/register-beta-reader">
                         <RegisterBetaReader/>
                     </Route>
                 </>

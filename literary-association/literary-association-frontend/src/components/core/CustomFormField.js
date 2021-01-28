@@ -9,9 +9,7 @@ export default function CustomFormField({formField, register, errors}) {
     const setOptions = (options) => {
         // Rename Objects in SelectDTO instead of Genres (generic) maybe?
         let removeGenre = options.replaceAll("Genre", '');
-        if (!removeGenre) {
-            removeGenre = options.replaceAll("CityAndCountry", '');
-        }
+        removeGenre = removeGenre.replaceAll("CityAndCountry", '');
         removeGenre = removeGenre.replaceAll("value", '"label"');
         removeGenre = removeGenre.replaceAll("id", '"value"');
         removeGenre = removeGenre.replaceAll("=", ":");
@@ -46,7 +44,7 @@ export default function CustomFormField({formField, register, errors}) {
     }
 
     return (
-        <Form.Group controlId={formField.id} className="text-left">
+        <Form.Group className="text-left">
             <Form.Label>{formField.label}</Form.Label>
             {formField.type.name === "string" &&
             <>
@@ -66,7 +64,7 @@ export default function CustomFormField({formField, register, errors}) {
                                 options={setOptions(formField.properties.options)}
                                 placeholder={formField.properties.placeholder}
                                 onChange={(selected) => {
-                                    let input = document.getElementById('hidden-input');
+                                    let input = document.getElementById('hidden-input' + formField.id);
 
                                     let nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
                                     nativeInputValueSetter.call(input, selected.value);
@@ -76,7 +74,8 @@ export default function CustomFormField({formField, register, errors}) {
                                 }
                                 }
                         />
-                        <Form.Control id="hidden-input" isInvalid={checkErrors(formField.id)} name={formField.id}
+                        <Form.Control id={"hidden-input" + formField.id} isInvalid={checkErrors(formField.id)}
+                                      name={formField.id}
                                       type="text" className="hidden"
                                       ref={register(setRef(formField.validationConstraints))} readOnly/>
                     </>

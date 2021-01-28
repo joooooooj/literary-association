@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import CustomFormField from "../CustomFormField";
 import {useForm} from "react-hook-form";
 
-export default function Register() {
+export default function Register(history) {
 
     const options = [
         {value: "Madrid_Spain", label: "Madrid, Spain"},
@@ -15,8 +15,10 @@ export default function Register() {
     const {register, errors, handleSubmit} = useForm();
     const [registerForm, setRegisterForm] = useState(null);
 
+    const [isWriter, setIsWriter] = useState(false);
+    const [isBetaReader, setIsBetaReader] = useState(false);
+
     useEffect(() => {
-        console.error('asfasdfasdfasdf');
         fetch("http://localhost:8080/api/auth/registration/user-input-details", {
             method: "GET",
             headers: {
@@ -32,52 +34,65 @@ export default function Register() {
             });
     }, []);
 
+    const prepareDataForSubmit = (data) => {
+        let final = [];
+        for (let prop in data) {
+            final.push({fieldId: prop, fieldValue: data[prop]})
+        }
+        return final;
+    }
+
+    const submitFormHandler = (data) => {
+        let final = prepareDataForSubmit(data);
+        fetch('http://localhost:8080/api/auth/registration/' + registerForm.taskId + '/' + isWriter + '/' + isBetaReader, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(final)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.error(data);
+
+                if (isBetaReader) {
+                    window.location.href = '/register-beta-reader?id=' + data.processInstanceId;
+                } else {
+                    window.location.replace('/register-success');
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            });
+    }
+
     return (
         <div className="col-4 content bg-dark p-1">
             <div className="m-5 custom-form border-light border pb-5">
-                <Form className="mt-5 mb-5 w-75 pb-5">
+                {registerForm &&
+                <Form className="mt-5 mb-5 w-75 pb-5" onSubmit={handleSubmit(submitFormHandler)}>
                     <h3 className="text-left pb-3">Registration</h3>
-                    {registerForm.formFields.map((formField) => {
+                    {registerForm.formFields.map((formField, index) => {
                         return (
-                            <CustomFormField formField={formField} errors={errors} register={register}/>
+                            <CustomFormField key={index} formField={formField} errors={errors} register={register}/>
                         )
                     })
                     }
-                    {/*<Form.Group controlId="name" className="text-left">*/}
-                    {/*    <Form.Label>Name</Form.Label>*/}
-                    {/*    <Form.Control type="text" placeholder="Enter name"/>*/}
-                    {/*</Form.Group>*/}
-                    {/*<Form.Group controlId="surname" className="text-left">*/}
-                    {/*    <Form.Label>Surname</Form.Label>*/}
-                    {/*    <Form.Control type="text" placeholder="Enter surname"/>*/}
-                    {/*</Form.Group>*/}
-                    {/*<Form.Group controlId="city_state" className="text-left">*/}
-                    {/*    <Form.Label>City and country</Form.Label>*/}
-                    {/*    <Select className="text-dark" options={options}/>*/}
-                    {/*</Form.Group>*/}
-                    {/*<Form.Group controlId="email" className="text-left">*/}
-                    {/*    <Form.Label>Email address</Form.Label>*/}
-                    {/*    <Form.Control type="email" placeholder="Enter email"/>*/}
-                    {/*</Form.Group>*/}
-                    {/*<Form.Group controlId="username" className="text-left">*/}
-                    {/*    <Form.Label>Username</Form.Label>*/}
-                    {/*    <Form.Control type="username" placeholder="Enter username"/>*/}
-                    {/*</Form.Group>*/}
-                    {/*<Form.Group controlId="password" className="text-left">*/}
-                    {/*    <Form.Label>Password</Form.Label>*/}
-                    {/*    <Form.Control type="password" placeholder="Password"/>*/}
-                    {/*</Form.Group>*/}
-                    <Link to="/register-success">
-                        <Button variant="success" type="submit" className="float-right w-100 mt-3">
-                            I wanna be writer
-                        </Button>
-                    </Link>
-                    <Link to="/register-reader">
-                        <Button variant="primary" type="submit" className="float-right w-100 mt-3">
-                            I wanna be reader
-                        </Button>
-                    </Link>
+                    <Button variant="success" type="submit" className="float-right w-100 mt-3"
+                            onClick={() => setIsWriter(true)}
+                    >
+                        I wanna be writer
+                    </Button>
+                    <Button variant="warning" type="submit" className="float-right w-100 mt-3">
+                        I wanna be reader
+                    </Button>
+                    <Button variant="primary" type="submit" className="float-right w-100 mt-3"
+                            onClick={() => setIsBetaReader(true)}>
+                        I wanna be beta reader
+                    </Button>
                 </Form>
+                }
             </div>
         </div>
     );
