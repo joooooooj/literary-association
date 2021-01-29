@@ -1,4 +1,4 @@
-package com.la.controller;
+package com.la.controller.registration;
 
 import camundajar.impl.scala.util.parsing.json.JSON;
 import com.la.dto.FormFieldsDTO;
@@ -24,7 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/auth/registration")
-public class RegistrationController {
+public class RegistrationAuthController {
 
     @Autowired
     private RuntimeService runtimeService;

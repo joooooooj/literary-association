@@ -5,4 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface WriterMembershipRequestRepository extends UserRepository<WriterMembershipRequest> {
+    WriterMembershipRequest findByUsername(String username);
 }

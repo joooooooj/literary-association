@@ -204,7 +204,16 @@
     <bpmn:userTask id="Upload_Two_Pdfs" name="Upload two pdfs" camunda:assignee="${registeredUser}">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="file" label="Submit work" type="string">
+          <camunda:formField id="firstFile" label="Submit work" type="string">
+            <camunda:properties>
+              <camunda:property id="subType" value="file" />
+              <camunda:property id="accept" value="application/pdf" />
+            </camunda:properties>
+            <camunda:validation>
+              <camunda:constraint name="required" config="true" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="secondFile" label="Submit work" type="string">
             <camunda:properties>
               <camunda:property id="subType" value="file" />
               <camunda:property id="accept" value="application/pdf" />

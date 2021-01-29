@@ -49,7 +49,7 @@ public class CreateUserService implements JavaDelegate {
         } else {
             newSystemUser = newReader;
         }
-        newSystemUser.setActive(Boolean.FALSE);
+        newSystemUser.setActive(false);
         registration.forEach(formField -> {
             if (formField.getFieldId().equals("username")) {
                 newUser.setId(formField.getFieldValue());

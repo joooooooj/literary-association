@@ -41,15 +41,15 @@ public class UpdateUserToWriterMembershipRequest implements JavaDelegate {
         writerMembershipRequest.setCity(user.getCity());
         writerMembershipRequest.setState(user.getState());
         writerMembershipRequest.setEmail(user.getEmail());
-        writerMembershipRequest.setActive(Boolean.TRUE);
+        writerMembershipRequest.setActive(true);
         writerMembershipRequest.setGenres(user.getGenres());
         writerMembershipRequest.setRoles(Collections.singleton(roleRepository.findById(7L).get()));
         writerMembershipRequest.setDeleted(user.isDeleted());
         writerMembershipRequest.setStatus(WriterMembershipStatus.WAITING_SUBMIT);
         writerMembershipRequest.setAttemptsNumber(0);
-        
+
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DATE, Calendar.DATE + 14);
+        calendar.add(Calendar.DAY_OF_MONTH, 14);
 
         writerMembershipRequest.setSubmissionDeadline(calendar.getTime());
 
