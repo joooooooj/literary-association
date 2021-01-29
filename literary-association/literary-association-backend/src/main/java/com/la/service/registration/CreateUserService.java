@@ -83,13 +83,6 @@ public class CreateUserService implements JavaDelegate {
             }
         });
 
-//        preferences.forEach(formField -> {
-//            if (formField.getFieldId().equals("genres")) {
-//                System.out.println("OVDE SU ZANROVI KOD KORISNIKA" + formField.getFieldValue());
-//                newSystemUser.setGenres(Collections.singleton(new Genre(formField.getFieldValue())));
-//            }
-//        });
-
         identityService.saveUser(newUser);
         userRepository.save(newSystemUser);
 
