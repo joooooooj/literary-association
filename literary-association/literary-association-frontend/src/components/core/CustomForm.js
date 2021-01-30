@@ -10,7 +10,7 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
 
     const onSubmit = (data) => {
         let final = prepareDataForSubmit(data);
-        fetch("http://localhost:8080/publish/writer/form/" + formFieldsDTO.taskId, {
+        fetch(formFieldsDTO.postFormEndpoint + formFieldsDTO.taskId, {
             method: "POST",
             headers: {
                 "Authorization" : "Bearer " + loggedIn,
@@ -36,7 +36,7 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
     }
 
     const handleFileUpload = (files) => {
-        let url = new URL("http://localhost:8080/publish/upload/" + formFieldsDTO.processInstanceId);
+        let url = new URL(formFieldsDTO.uploadFileEndpoint + formFieldsDTO.processInstanceId);
         const formData = new FormData();
         formData.append('file', files[0]);
         fetch(url, {
@@ -57,7 +57,7 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
     }
 
     const submitUploadFileForm = (files) => {
-        let url = new URL("http://localhost:8080/publish/writer/form/upload/" + formFieldsDTO.taskId);
+        let url = new URL(formFieldsDTO.postFormEndpoint + formFieldsDTO.taskId);
         let data = [{fieldId: formFieldsDTO.formFields[0].id, fieldValue: files[0].name.split('.')[0]}]
         fetch(url, {
             method: "POST",

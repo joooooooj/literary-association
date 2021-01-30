@@ -674,12 +674,35 @@ public class PublishBookController {
 
     /**
      *
+     * @param fieldValues
+     * @param taskId
+     * @return HttpStatus
+     */
+    @PostMapping(value = "/lector/form/correction/{taskId}")
+    public ResponseEntity<HttpStatus> postCorrection(@RequestBody List<FormSubmissionDTO> fieldValues, @PathVariable String taskId) {
+        HashMap<String, Object> map = this.mapListToDto(fieldValues);
+
+        Task task =  taskService.createTaskQuery().taskId(taskId).singleResult();
+        PublishBookRequest publishBookRequest = (PublishBookRequest) runtimeService.getVariable(task.getProcessInstanceId(), "publishBookRequest");
+        publishBookRequest.setStatus(PublishStatus.WAITING_CORRECTION.toString());
+        publishBookRequest.setSuggestion((String) map.get("correction"));
+        publishBookRequest.setDeadline((DateTime.now().plusDays(10)).toLocalDate().toString());
+
+        formService.submitTaskForm(taskId, map);
+
+        System.err.println("WAITING WRITER CORRECTION . . .");
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /**
+     *
      * @param file
      * @param processInstanceId
      * @return HttpStatus
      */
     @PostMapping(value = "/upload-after-correction/{processInstanceId}")
-    public ResponseEntity<HttpStatus> uploadFileAfterSuggestion(@RequestBody MultipartFile file, @PathVariable String processInstanceId){
+    public ResponseEntity<HttpStatus> uploadFileAfterCorrection(@RequestBody MultipartFile file, @PathVariable String processInstanceId){
         try {
             if (file != null){
                 PublishBookRequest publishBookRequest = (PublishBookRequest) runtimeService.getVariable(processInstanceId, "publishBookRequest");
