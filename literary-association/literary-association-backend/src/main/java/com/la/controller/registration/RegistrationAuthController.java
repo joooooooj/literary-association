@@ -1,8 +1,12 @@
 package com.la.controller.registration;
 
 import camundajar.impl.scala.util.parsing.json.JSON;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.la.dto.FormFieldsDTO;
 import com.la.dto.FormSubmissionDTO;
+import com.la.dto.SelectOptionDTO;
 import com.la.service.GenreService;
 import org.camunda.bpm.engine.FormService;
 import org.camunda.bpm.engine.RuntimeService;
@@ -18,6 +22,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -38,6 +44,9 @@ public class RegistrationAuthController {
     @Autowired
     private GenreService genreService;
 
+    private static String submitFormUrl = "http://localhost:8080/api/auth/registration/";
+
+
     // 1. KORAK / DOBAVLJANJE FORME REGISTRACIJE SA ZANROVIMA
     @GetMapping(value = "/user-input-details")
     public ResponseEntity<FormFieldsDTO> getUserInputDataFormFieldsDTO() {
@@ -56,7 +65,8 @@ public class RegistrationAuthController {
 
         formFields.get(6).getProperties().put("options", genresString);
 
-        return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, processInstance.getId()), HttpStatus.OK);
+        String submitFormUrl = "http://localhost:8080/api/auth/registration/";
+        return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, processInstance.getId(), submitFormUrl, ""), HttpStatus.OK);
     }
 
     // 2. KORAK / SLANJE FORME REGISTRACIJE / AKO JE WRITER ILI OBICAN READER MAIL / AKO JE BETA FORMA ZANROVA
@@ -78,17 +88,17 @@ public class RegistrationAuthController {
 
     // 3. KORAK / DOBAVLJANJE FORME ZANROVA UKOLIKO JE BETA READER
     @GetMapping(value = "/reader-preferences/{processId}")
-    public ResponseEntity<FormFieldsDTO> getReaderPreferences(@PathVariable("processId") String processId) {
+    public ResponseEntity<FormFieldsDTO> getReaderPreferences(@PathVariable("processId") String processId) throws IllegalAccessException, NoSuchFieldException, JsonProcessingException {
         Task task = taskService.createTaskQuery().processInstanceId(processId).list().get(0);
         TaskFormData taskFormData = formService.getTaskFormData(task.getId());
         List<FormField> formFields = taskFormData.getFormFields();
 
-//        Object genres = runtimeService.getVariables(task.getExecutionId()).get("genres");
-        Object genres = genreService.findAll();
-        String genresString = String.valueOf(genres);
+        List<Object> genres = (List<Object>) runtimeService.getVariables(task.getExecutionId()).get("genres");
+//        Object genres = genreService.findAll();
+        String genresString = mapListToJSON(genres, "id", "value");
 
         formFields.get(0).getProperties().put("options", genresString);
-        return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, processId), HttpStatus.OK);
+        return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, processId, submitFormUrl + "reader-wanted-genres/", ""), HttpStatus.OK);
     }
 
     // 4. KORAK / SLANJE BETA READER ODABRANIH ZANROVA
@@ -114,6 +124,24 @@ public class RegistrationAuthController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    private String mapListToJSON(List<Object> objects, String valueFieldName, String labelFieldName) throws NoSuchFieldException, IllegalAccessException, JsonProcessingException {
+        List<SelectOptionDTO> selectOptionDTOList = new ArrayList<>();
+
+        for (Object object : objects) {
+            Field valueField = object.getClass().getDeclaredField(valueFieldName);
+            Field labelField = object.getClass().getDeclaredField(labelFieldName);
+            valueField.setAccessible(true);
+            labelField.setAccessible(true);
+            selectOptionDTOList.add(new SelectOptionDTO(String.valueOf(valueField.get(object)), String.valueOf(labelField.get(object))));
+        }
+
+        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        String json = ow.writeValueAsString(selectOptionDTOList);
+
+//        System.err.println(json);
+
+        return json;
+    }
 
     private HashMap<String, Object> mapFormItemsToMap(List<FormSubmissionDTO> formSubmissionDTOS) {
         HashMap<String, Object> map = new HashMap<String, Object>();

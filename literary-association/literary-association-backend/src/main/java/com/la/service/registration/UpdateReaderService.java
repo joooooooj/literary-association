@@ -34,7 +34,7 @@ public class UpdateReaderService implements JavaDelegate {
 
         List<FormSubmissionDTO> preferences = (List<FormSubmissionDTO>) delegateExecution.getVariable("betaReaderWantedGenres");
         preferences.forEach(formField -> {
-            if (formField.getFieldId().equals("genres")) {
+            if (formField.getFieldId().equals("wantedGenres")) {
                 System.out.println("OVDE SU ZANROVI KOD PISCA KADA JE BETA" + formField.getFieldValue());
 
                 Set<Genre> genres = new HashSet<>();

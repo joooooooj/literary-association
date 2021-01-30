@@ -897,11 +897,11 @@
         <di:waypoint x="3006" y="551" />
         <di:waypoint x="2958" y="590" />
       </bpmndi:BPMNEdge>
-    <bpmn:sequenceFlow id="Flow_0ic3a2g" sourceRef="Activity_0as4taa" targetRef="Activity_11jwpmj" />
-    <bpmn:serviceTask id="Activity_0as4taa" name="Set Beta Readers" camunda:expression="true">
-      <bpmn:incoming>Flow_0fw12yh</bpmn:incoming>
-      <bpmn:outgoing>Flow_0ic3a2g</bpmn:outgoing>
-    </bpmn:serviceTask>
+<!--    <bpmn:sequenceFlow id="Flow_0ic3a2g" sourceRef="Activity_0as4taa" targetRef="Activity_11jwpmj" />-->
+<!--    <bpmn:serviceTask id="Activity_0as4taa" name="Set Beta Readers" camunda:expression="true">-->
+<!--      <bpmn:incoming>Flow_0fw12yh</bpmn:incoming>-->
+<!--      <bpmn:outgoing>Flow_0ic3a2g</bpmn:outgoing>-->
+<!--    </bpmn:serviceTask>-->
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

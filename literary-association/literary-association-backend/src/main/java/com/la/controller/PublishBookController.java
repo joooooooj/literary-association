@@ -741,7 +741,7 @@ public class PublishBookController {
     private String mapListToJSON(List<Object> objects, String valueFieldName, String labelFieldName) throws NoSuchFieldException, IllegalAccessException, JsonProcessingException {
         List<SelectOptionDTO> selectOptionDTOList = new ArrayList<>();
 
-        for(Object object : objects){
+        for(Object object : objects) {
             Field valueField = object.getClass().getDeclaredField(valueFieldName);
             Field labelField = object.getClass().getDeclaredField(labelFieldName);
             valueField.setAccessible(true);

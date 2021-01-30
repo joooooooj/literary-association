@@ -77,7 +77,7 @@ public class CreateUserService implements JavaDelegate {
                 newSystemUser.setCity(city);
                 newSystemUser.setState(country);
             }
-            if (formField.getFieldId().equals("genres")) {
+            if (formField.getFieldId().equals("genresInterestedIn")) {
                 System.out.println("OVDE SU ZANROVI KOD KORISNIKA" + formField.getFieldValue());
                 newSystemUser.setGenres(Collections.singleton(genreRepository.findById(Long.parseLong(formField.getFieldValue())).get()));
             }

@@ -56,6 +56,7 @@ public class UpdateUserToWriterMembershipRequest implements JavaDelegate {
         try {
             userRepository.deleteById(user.getId());
             writerMembershipRequestRepository.save(writerMembershipRequest);
+//            delegateExecution.setVariable(user.getUsername() + "pid", delegateExecution.getProcessInstanceId());
         } catch (Exception e) {
             e.printStackTrace();
         }
