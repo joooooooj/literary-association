@@ -231,7 +231,16 @@ export default function PublishBook(props){
                                 loggedIn={props.loggedIn}
                                 submittedForm={submittedForm}
                                 isFileForm={false}
-                                buttonText="SEND REQUEST"/>
+                                checkFlags={false}
+                                buttons={
+                                    [
+                                        {
+                                            index: 0,
+                                            variant: "outline-success",
+                                            text:"SEND REQUEST"
+                                        }
+                                    ]
+                                }/>
                 }
                 {status &&
                     <>

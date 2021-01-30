@@ -1,16 +1,52 @@
 import {Button, Form} from "react-bootstrap";
 import Select from "react-select";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Confirmation from "./modals/Confirmation";
 import {useForm} from "react-hook-form";
 
-export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, buttonText, isFileForm}){
+export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, buttons, checkFlags, isFileForm}){
 
-    const {register, errors, handleSubmit} = useForm();
+    const {register, errors, trigger, handleSubmit} = useForm();
+
+    const [flags, setFlags] = useState([]);
+    const [first, setFirst] = useState(true);
+
+    useEffect(() => {
+        if (first){
+            let tempFlags = [];
+            buttons.forEach(() => {
+                tempFlags.push(false);
+            })
+            setFlags(tempFlags);
+            setFirst(false);
+        }
+    }, [flags])
+
+    const handleFlags = (index) => {
+        trigger().then(r => {
+            if (r) {
+                let newFlags = [];
+                flags.forEach((flag) => {
+                    newFlags.push(flag);
+                })
+                newFlags[index] = true;
+                setFlags(newFlags);
+            }
+        });
+    }
 
     const onSubmit = (data) => {
         let final = prepareDataForSubmit(data);
-        fetch(formFieldsDTO.postFormEndpoint + formFieldsDTO.taskId, {
+        // Setting URL
+        let url = formFieldsDTO.postFormEndpoint;
+        if (checkFlags){
+            flags.forEach((value) => {
+                url += "/" + value;
+            })
+        }
+        url += "/" + formFieldsDTO.taskId;
+        // Fetching data
+        fetch(url, {
             method: "POST",
             headers: {
                 "Authorization" : "Bearer " + loggedIn,
@@ -226,10 +262,20 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
                             </Form.Group>
                         )}
                     )}
-                    <Button variant="outline-success" type="submit"
-                            className="mt-3">
-                        {buttonText}
-                    </Button>
+                    {buttons.map((button, index) => {
+                        return (
+                            <p>
+                                <Button variant={button.variant}
+                                        type="submit"
+                                        name={button.index}
+                                        onClick={(event) => handleFlags(event.target.name)}
+                                        key={index}
+                                        className="mt-3">
+                                    {button.text}
+                                </Button>
+                            </p>)
+                        })
+                    }
                 </Form>
             }
         </>);

@@ -107,7 +107,7 @@ public class PublishBookController {
                 if (task.getTaskDefinitionKey().equals("Writer_Publish_Form")){
                     // SEND WRITER FIELDS FOR PUBLISH BOOK FORM
                     List<FormField> formFields = formService.getTaskFormData(task.getId()).getFormFields();
-                    return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, processInstance.getId(), "", ""), HttpStatus.OK);
+                    return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, processInstance.getId(), "http://localhost:8080/publish/writer/form", ""), HttpStatus.OK);
                 }
                 else{
                     // HE ALREADY SUBMITTED
@@ -139,7 +139,7 @@ public class PublishBookController {
             formFields.get(1).getProperties().put("options", genresJSON);
 
             // SEND WRITER FIELDS FOR PUBLISH BOOK FORM
-            return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, pi.getId(), "http://localhost:8080/publish/writer/form/", ""), HttpStatus.OK);
+            return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, pi.getId(), "http://localhost:8080/publish/writer/form", ""), HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
