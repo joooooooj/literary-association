@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {Button, ButtonGroup, Form, Table} from "react-bootstrap";
-import Confirmation from "../../../core/modals/Confirmation";
 import AddExplanation from "./AddExplanation";
 import PlagiarismCheckResults from "./PlagiarismCheckResults";
 import PreviewPDF from "../../../core/modals/PreviewPDF";
@@ -20,6 +19,8 @@ export default function PublishRequests(props) {
     const [showPlagiarismCheckResults, setShowPlagiarismCheckResults] = useState(false);
     const [showDocument, setShowDocument] = useState(false);
 
+    const [selectedRequest, setSelectedRequest] = useState(null);
+
     const handleShowExplanation = () => setShowExplanation(true);
     const handleCloseExplanation = () => {
         setShowExplanation(false);
@@ -29,18 +30,64 @@ export default function PublishRequests(props) {
     const handleShowSuggestions = () => setShowSuggestions(true);
     const handleCloseSuggestions = () => setShowSuggestions(false);
 
-    const handleShowPlagiarismCheckResults = () => {
+    const handleShowPlagiarismCheckResults = (data) => {
+        setSelectedRequest(data);
         setShowPlagiarismCheckResults(true);
     }
-    const handleClosePlagiarismCheckResults = () => setShowPlagiarismCheckResults(false);
+    const handleClosePlagiarismCheckResults = () => {
+        window.location.reload();
+        setShowPlagiarismCheckResults(false);
+    }
 
-    const handleCloseDocument = () => setShowDocument(false);
-    const handleShowDocument = () => setShowDocument(true);
+    const handleCloseDocument = (data, approved) => {
+        setShowDocument(false);
+        if (!approved){
+            setEditorRefuseForm(data);
+            handleShowExplanation();
+        }
+    }
+
+    const handleShowDocument = (data) => {
+        setSelectedRequest(data);
+        setShowDocument(true);
+    }
+
+    const [betaReaders, setBetaReaders] = useState(null);
 
     const handleCloseBetaReaders = () => setShowBetaReaders(false);
-    const handleShowBetaReaders = () => setShowBetaReaders(true);
+    const handleShowBetaReaders = (data) => {
+        setShowBetaReaders(true);
+        // setBetaReaders({processInstanceId: "be9c4f07-6281-11eb-a1f1-00ff0207cd37",
+        // readerList:[
+        // {id: 17, type: "READER", username: "reader1", password: "$2a$10$xBbFGBwJcF9H3V/s2GfcnuVpM9niJ9oVrhY6CQjrrHZJYzYA6Z5nS", penaltyPoints: -2},
+        // {id: 18, type: "READER", username: "reader2", password: "$2a$10$xBbFGBwJcF9H3V/s2GfcnuVpM9niJ9oVrhY6CQjrrHZJYzYA6Z5nS", penaltyPoints: -3},
+        // {id: 19, type: "READER", username: "reader3", password: "$2a$10$xBbFGBwJcF9H3V/s2GfcnuVpM9niJ9oVrhY6CQjrrHZJYzYA6Z5nS", penaltyPoints: -4}],
+        // taskId: "da0388e4-6281-11eb-a1f1-00ff0207cd37"});
+        fetch("http://localhost:8080/publish/editor/send-to-beta/" + data.taskId, {
+            method: "POST",
+            headers: {
+                "Authorization" : "Bearer " + props.loggedIn,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                approved : true
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                setBetaReaders(data);
+                console.log(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 
     useEffect(() => {
+      getRequests();
+    },[])
+
+    const getRequests = () => {
         fetch("http://localhost:8080/publish/editor/requests/" + props.loggedIn, {
             method: "GET",
             headers: {
@@ -56,7 +103,7 @@ export default function PublishRequests(props) {
             .catch((error) => {
                 console.log(error);
             });
-    },[])
+    }
 
     const renderStatus = (data) => {
         switch (data.publishBookRequest.status) {
@@ -73,7 +120,7 @@ export default function PublishRequests(props) {
             case "WAITING_PLAGIARISM_CHECK" : {
                 return (
                     <>
-                        <Button variant="outline-info" onClick={() => handleShowPlagiarismCheckResults()}>
+                        <Button variant="outline-info" onClick={() => handleShowPlagiarismCheckResults(data)}>
                             PREVIEW PLAGIARISM CHECK RESULTS
                         </Button>
                     </>
@@ -82,7 +129,7 @@ export default function PublishRequests(props) {
             case "WAITING_READING" : {
                 return (
                     <>
-                        <Button variant="outline-success" onClick={() => handleShowDocument()}>
+                        <Button variant="outline-success" onClick={() => handleShowDocument(data)}>
                             READ SCRIPT
                         </Button>
                     </>
@@ -92,7 +139,7 @@ export default function PublishRequests(props) {
                 return (
                     <>
                         <ButtonGroup>
-                            <Button variant="outline-info" onClick={() => handleShowBetaReaders()}>
+                            <Button variant="outline-info" onClick={() => handleShowBetaReaders(data)}>
                                 SEND TO BETA READERS
                             </Button>
                             <Button variant="outline-warning" onClick={() => setStatus("WAITING_LECTOR_REVIEW")}>
@@ -241,9 +288,9 @@ export default function PublishRequests(props) {
                 </>
             }
             <AddSuggestions show={showSuggestions} onHide={handleCloseSuggestions} setStatus={setStatus}/>
-            <ChooseBetaReaders show={showBetaReaders} onHide={handleCloseBetaReaders} setStatus={setStatus}/>
-            <PlagiarismCheckResults show={showPlagiarismCheckResults} onHide={handleClosePlagiarismCheckResults} setStatus={setStatus} handleShowExplanation={handleShowExplanation}/>
-            <PreviewPDF show={showDocument} onHide={handleCloseDocument} status={status} setStatus={setStatus} handleShowExplanation={handleShowExplanation}/>
+            <ChooseBetaReaders show={showBetaReaders} onHide={handleCloseBetaReaders} setStatus={setStatus} betaReaders={betaReaders}/>
+            <PlagiarismCheckResults selectedRequest={selectedRequest} show={showPlagiarismCheckResults} onHide={handleClosePlagiarismCheckResults} setStatus={setStatus} handleShowExplanation={handleShowExplanation}/>
+            <PreviewPDF selectedRequest={selectedRequest} show={showDocument} onHide={handleCloseDocument} status={status} setStatus={setStatus} handleShowExplanation={handleShowExplanation}/>
             <div className="bg-dark p-5 border border-light">
                 <h2 className="text-left text-light mb-4">
                     Publish book requests
@@ -263,7 +310,7 @@ export default function PublishRequests(props) {
                     <tbody>
                     {requests.map((request, index) => {
                        return (
-                           <tr>
+                           <tr key={index}>
                             <td>{index + 1}</td>
                             <td>{request.publishBookRequest.writer}</td>
                             <td>{request.publishBookRequest.title}</td>

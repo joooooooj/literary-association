@@ -1,12 +1,9 @@
 package com.la.model.publish;
 
-import com.la.model.Genre;
-import com.la.model.users.Editor;
-import com.la.model.users.Writer;
 import lombok.*;
 
-import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,4 +27,10 @@ public class PublishBookRequest implements Serializable {
     private String deadline;
 
     private String path;
+
+    private List<BetaReaderComment> betaReaderCommentList;
+
+    private String suggestion;
+
+    private String correction;
 }

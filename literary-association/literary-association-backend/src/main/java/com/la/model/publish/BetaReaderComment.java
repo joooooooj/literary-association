@@ -11,8 +11,6 @@ import java.util.Date;
 @ToString
 public class BetaReaderComment {
 
-    private Date deadline;
-
     private String text;
 
     private String reader;
