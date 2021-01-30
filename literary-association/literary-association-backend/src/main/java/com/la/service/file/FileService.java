@@ -34,7 +34,6 @@ public class FileService {
     }
 
     public String getResourceFilePath(String path) {
-        System.err.println(new FileSystemResource(path).getFile().getAbsolutePath());
         return new FileSystemResource(path).getFile().getAbsolutePath();
     }
 

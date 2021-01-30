@@ -3,10 +3,8 @@ package com.la.controller;
 import com.la.dto.FormFieldsDTO;
 import com.la.dto.FormSubmissionDTO;
 import com.la.model.enums.PublishStatus;
-import com.la.model.publish.Decision;
-import com.la.model.publish.EditorRequestView;
-import com.la.model.publish.Plagiat;
-import com.la.model.publish.PublishBookRequest;
+import com.la.model.publish.*;
+import com.la.model.users.Reader;
 import com.la.security.TokenUtils;
 import com.la.service.PublishBookService;
 import com.la.service.file.FileService;
@@ -67,7 +65,7 @@ public class PublishBookController {
      * Returns PublishBookRequest with status of request to Writer
      *
      * @param token
-     * @return
+     * @return PublishBookRequest
      */
     @GetMapping(value = "/writer/status/{token:.+}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PublishBookRequest> getWriterStatus(@PathVariable String token) {
@@ -87,7 +85,7 @@ public class PublishBookController {
      * This method returns first form (title, genre and synopsys) for publish book request to Writer
      *
      * @param token
-     * @return
+     * @return FormFieldsDTO
      */
     @GetMapping(value = "/writer/form/{token:.+}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<FormFieldsDTO> getFormFieldsWriter(@PathVariable String token) {
@@ -148,7 +146,7 @@ public class PublishBookController {
      *
      * @param fieldValues
      * @param taskId
-     * @return
+     * @return HttpStatus
      */
     @PostMapping(value = "/writer/form/{taskId}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<HttpStatus> postFormWriter(@RequestBody List<FormSubmissionDTO> fieldValues, @PathVariable String taskId) {
@@ -160,6 +158,8 @@ public class PublishBookController {
         runtimeService.setVariable(processInstanceId, "publishBookRequest", publishBookRequest);
         formService.submitTaskForm(taskId, map);
 
+        System.err.println("SUBMITING WRITER'S REQUEST. WAITING EDITOR TO REVIEW . . .");
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -168,7 +168,7 @@ public class PublishBookController {
      * This method sends all active tasks for book publish to Editor
      *
      * @param token
-     * @return
+     * @return List<EditorRequestView>
      */
     @GetMapping(value = "/editor/requests/{token:.+}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<EditorRequestView>> getRequestsEditor(@PathVariable String token) {
@@ -179,7 +179,6 @@ public class PublishBookController {
         // Editor exists as camunda user
         if (user != null){
             List<ProcessInstance> processInstances = getAllRunningProcessInstances("Publish_Book");
-            System.err.println(processInstances);
 
             PublishBookRequest publishBookRequest;
             Task task;
@@ -195,10 +194,11 @@ public class PublishBookController {
                     editorRequestView.setTaskId(task.getId());
                     editorRequestView.setProcessInstanceId(processInstance.getId());
                     editorRequestView.setPublishBookRequest(publishBookRequest);
-                    System.err.println(editorRequestView);
                     editorRequestViews.add(editorRequestView);
                 }
             }
+            System.err.println("SHOWING REQUESTS TO EDITOR . . .");
+
             return new ResponseEntity<>(editorRequestViews, HttpStatus.OK);
         }
 
@@ -212,7 +212,7 @@ public class PublishBookController {
      *
      * @param decision
      * @param taskId
-     * @return
+     * @return FormFieldsDTO
      */
     @PostMapping(value = "/editor/decision/{taskId}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<FormFieldsDTO> postDecision(@RequestBody Decision decision, @PathVariable String taskId) {
@@ -223,6 +223,8 @@ public class PublishBookController {
         taskService.complete(taskId);
 
         if (decision.getApproved()){
+            System.err.println("EDITOR APPROVED SCRIPT . . .");
+
             PublishBookRequest publishBookRequest = (PublishBookRequest) runtimeService.getVariable(processInstanceId, "publishBookRequest");
             // Set request status
             // Set deadline
@@ -232,6 +234,8 @@ public class PublishBookController {
         }
         // If rejecting initiated send form fields from next task and wait for final deny
         if (!decision.getApproved()){
+            System.err.println("EDITOR DIDN'T APPROVE SCRIPT. WAITING EXPLANATION . . .");
+
             Task nextTask = taskService.createTaskQuery().processInstanceId(processInstanceId).active().singleResult();
             TaskFormData taskFormData = formService.getTaskFormData(nextTask.getId());
             List<FormField> formFields = taskFormData.getFormFields();
@@ -247,7 +251,7 @@ public class PublishBookController {
      *
      * @param fieldValues
      * @param taskId
-     * @return
+     * @return HttpStatus
      */
     @PostMapping(value = "/editor/refuse/{taskId}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<HttpStatus> postFormEditorRefuse(@RequestBody List<FormSubmissionDTO> fieldValues, @PathVariable String taskId) {
@@ -258,9 +262,16 @@ public class PublishBookController {
         runtimeService.setVariable(processInstanceId, "explanation", fieldValues.get(0).getFieldValue());
         formService.submitTaskForm(taskId, map);
 
+        System.err.println("EDITOR POSTED EXPLANATION . . .");
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param token
+     * @return FormFieldsDTO
+     */
     @GetMapping(value = "/writer/form/upload/{token:.+}")
     public ResponseEntity<FormFieldsDTO> getUploadFileForm(@PathVariable String token){
         // GET LOGGED IN WRITER USERNAME
@@ -272,7 +283,7 @@ public class PublishBookController {
             ProcessInstance processInstance = hasUserAlreadyStartedProcess("Publish_Book", user.getId());
             if (processInstance != null){
                 Task task = taskService.createTaskQuery().active().processInstanceId(processInstance.getId()).taskAssignee(username).singleResult();
-                if (task.getTaskDefinitionKey().equals("Script_Submit_Form")) {
+                if (task.getName().equals("Script Submit Form")) {
                     // GET TASK FORM DATA
                     TaskFormData taskFormData = formService.getTaskFormData(task.getId());
                     List<FormField> formFields = taskFormData.getFormFields();
@@ -282,19 +293,35 @@ public class PublishBookController {
             }
         }
 
+        System.err.println("SENDING FILE UPLOAD FORM . . .");
+
         return new ResponseEntity<>(new FormFieldsDTO(), HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param fieldValues
+     * @param taskId
+     * @return HttpStatus
+     */
     @PostMapping(value = "/writer/form/upload/{taskId}")
-    public ResponseEntity<HttpStatus> postUploadFileForm(@RequestBody List<FormSubmissionDTO> fieldValues, @PathVariable String taskId) throws IOException {
+    public ResponseEntity<HttpStatus> postUploadFileForm(@RequestBody List<FormSubmissionDTO> fieldValues, @PathVariable String taskId) {
         HashMap<String, Object> map = this.mapListToDto(fieldValues);
         formService.submitTaskForm(taskId, map);
+
+        System.err.println("POST UPLOAD FILE FORM . . .");
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param file
+     * @param processInstanceId
+     * @return HttpStatus
+     */
     @PostMapping(value = "/upload/{processInstanceId}")
-    public ResponseEntity<HttpStatus> uploadFile(@RequestBody MultipartFile file, @PathVariable String processInstanceId) throws IOException {
+    public ResponseEntity<HttpStatus> uploadFile(@RequestBody MultipartFile file, @PathVariable String processInstanceId){
         try {
             if (file != null){
                 PublishBookRequest publishBookRequest = (PublishBookRequest) runtimeService.getVariable(processInstanceId, "publishBookRequest");
@@ -302,6 +329,8 @@ public class PublishBookController {
                 publishBookRequest.setPath(path);
                 publishBookRequest.setStatus("WAITING_PLAGIARISM_CHECK");
                 runtimeService.setVariable(processInstanceId, "publishBookRequest", publishBookRequest);
+
+                System.err.println("FILE SAVED. WAITING PLAGIARISM CHECK . . .");
 
                 return new ResponseEntity<>(HttpStatus.OK);
             }
@@ -314,24 +343,41 @@ public class PublishBookController {
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    /**
+     *
+     * @param processInstanceId
+     * @return List<Plagiat>
+     */
     @GetMapping(value = "/editor/plagiats/{processInstanceId}")
     public ResponseEntity<List<Plagiat>> getPlagiats(@PathVariable String processInstanceId){
         List<Plagiat> plagiatList = (List<Plagiat>) runtimeService.getVariable(processInstanceId, "plagiats");
 
+        System.err.println("SHOWING PLAGIATS LIST . . .");
+
         return new ResponseEntity<>(plagiatList, HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param decision
+     * @param taskId
+     * @return HttpStatus
+     */
     @PostMapping(value = "/editor/plagiats/{taskId}")
     public ResponseEntity<HttpStatus> decideIfOriginal(@RequestBody Decision decision, @PathVariable String taskId){
 
         Task task =  taskService.createTaskQuery().taskId(taskId).singleResult();
         if(decision.getApproved()){
+            System.err.println("EDITOR THINKS IT'S ORIGINAL. WAITING READING . . .");
+
             runtimeService.setVariable(task.getProcessInstanceId(), "editorOriginal", true);
             PublishBookRequest publishBookRequest = (PublishBookRequest) runtimeService.getVariable(task.getProcessInstanceId(), "publishBookRequest");
             publishBookRequest.setStatus(PublishStatus.WAITING_READING.toString());
             runtimeService.setVariable(task.getProcessInstanceId(), "publishBookRequest", publishBookRequest);
         }
         else {
+            System.err.println("EDITOR THINKS IT'S PLAGIAT. SENDING EMAIL TO WRITER . . .");
+
             runtimeService.setVariable(task.getProcessInstanceId(), "editorOriginal", false);
         }
 
@@ -340,8 +386,15 @@ public class PublishBookController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param filename
+     * @return ResponseEntity
+     */
     @GetMapping("/download/{filename:.+}")
     public ResponseEntity downloadFileFromLocal(@PathVariable String filename) {
+        System.err.println("DOWNLOADING FILE . . .");
+
         Resource resource = fileService.downloadFile(filename);
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType("application/octet-stream"))
@@ -349,18 +402,27 @@ public class PublishBookController {
                 .body(resource);
     }
 
+    /**
+     *
+     * @param decision
+     * @param taskId
+     * @return FormFieldsDTO
+     */
     @PostMapping(value = "/editor/decision/2/{taskId}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<FormFieldsDTO> postDecision2(@RequestBody Decision decision, @PathVariable String taskId) {
         Task task =  taskService.createTaskQuery().taskId(taskId).singleResult();
         if(decision.getApproved()){
+            System.err.println("EDITOR APPROVED AFTER READING . . .");
+
             runtimeService.setVariable(task.getProcessInstanceId(), "editorApproved", true);
             PublishBookRequest publishBookRequest = (PublishBookRequest) runtimeService.getVariable(task.getProcessInstanceId(), "publishBookRequest");
             publishBookRequest.setStatus(PublishStatus.WAITING_AFTER_READING.toString());
             runtimeService.setVariable(task.getProcessInstanceId(), "publishBookRequest", publishBookRequest);
         }
         else {
+            System.err.println("EDITOR DIDN'T APPROVE. SHOWING EXPLANATION FORM . . .");
+
             runtimeService.setVariable(task.getProcessInstanceId(), "editorApproved", false);
-            // If rejecting initiated send form fields from next task and wait for final deny
         }
 
         taskService.complete(taskId);
@@ -375,22 +437,268 @@ public class PublishBookController {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
-    // RETURN SUGGESTION FORMFIELD NEXT TASK IF BETA READERS NO (CHANGE FRONT BUTTON)
+    /**
+     *
+     * If beta readers choosed returns list of beta readers and task id for posting selection
+     *
+     * @param decision
+     * @param taskId
+     * @return BetaReadersEditor
+     */
     @PostMapping(value = "/editor/send-to-beta/{taskId}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<HttpStatus> wannaSendToBeta(@RequestBody Decision decision, @PathVariable String taskId) {
+    public ResponseEntity<BetaReadersEditor> wannaSendToBeta(@RequestBody Decision decision, @PathVariable String taskId) {
         Task task =  taskService.createTaskQuery().taskId(taskId).singleResult();
+
         if(decision.getApproved()){
+            System.err.println("EDITOR WANTS TO SEND TO BETA . . .");
+
             runtimeService.setVariable(task.getProcessInstanceId(), "sendToBeta", true);
         }
         else {
+            System.err.println("EDITOR WANTS TO SEND TO LECTOR . . .");
+
             runtimeService.setVariable(task.getProcessInstanceId(), "sendToBeta", false);
         }
 
         taskService.complete(taskId);
 
+        if(decision.getApproved()){
+            List<Reader> readerList = (List<Reader>) runtimeService.getVariable(task.getProcessInstanceId(), "betaBefore");
+            Task nextTask = taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).active().singleResult();
+            System.err.println("SENDING BETA READERS FORM (MULTIPLE SELECT) . . .");
+            return new ResponseEntity<>(new BetaReadersEditor(task.getProcessInstanceId(), nextTask.getId(), readerList), HttpStatus.OK);
+        }
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param fieldValues
+     * @param taskId
+     * @return HttpStatus
+     */
+    @PostMapping(value = "/editor/choose-beta/{taskId}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HttpStatus> postChoosenBetaReaders(@RequestBody List<FormSubmissionDTO> fieldValues, @PathVariable String taskId){
+        HashMap<String, Object> map = this.mapListToDto(fieldValues);
+
+        Task task =  taskService.createTaskQuery().taskId(taskId).singleResult();
+
+        List<String> readers = publishBookService.getReaders(map);
+        runtimeService.setVariable(task.getProcessInstanceId(), "beta", readers);
+        PublishBookRequest publishBookRequest = (PublishBookRequest) runtimeService.getVariable(task.getProcessInstanceId(), "publishBookRequest");
+        publishBookRequest.setDeadline((DateTime.now().plusDays(5)).toLocalDate().toString());
+        publishBookRequest.setStatus(PublishStatus.WAITING_BETA_READERS.toString());
+        runtimeService.setVariable(task.getProcessInstanceId(), "publishBookRequest", publishBookRequest);
+
+        formService.submitTaskForm(taskId, map);
+
+        System.err.println("BETA READERS HAVE BEEN CHOOSEN . . .");
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /**
+     *
+     * @param fieldValues
+     * @param taskId
+     * @return HttpStatus
+     */
+    @PostMapping(value = "/beta-reader/form/comment/{taskId}")
+    public ResponseEntity<HttpStatus> postComment(@RequestBody List<FormSubmissionDTO> fieldValues, @PathVariable String taskId){
+        Task task =  taskService.createTaskQuery().taskId(taskId).singleResult();
+
+        PublishBookRequest publishBookRequest = (PublishBookRequest) runtimeService.getVariable(task.getProcessInstanceId(), "publishBookRequest");
+        List<BetaReaderComment> betaReaderComments = publishBookRequest.getBetaReaderCommentList();
+
+        if (betaReaderComments == null) {
+            System.err.println("FIRST BETA READER COMMENTED . . .");
+
+            List<BetaReaderComment> betaReaderCommentsNew = new ArrayList<>();
+            betaReaderCommentsNew.add(new BetaReaderComment(fieldValues.get(0).getFieldValue(), task.getAssignee()));
+            publishBookRequest.setBetaReaderCommentList(betaReaderCommentsNew);
+        }
+        else {
+            System.err.println("ANOTHER ONE HAS COMMENTED . . .");
+
+            betaReaderComments.add(new BetaReaderComment(fieldValues.get(0).getFieldValue(), task.getAssignee()));
+            publishBookRequest.setBetaReaderCommentList(betaReaderComments);
+        }
+
+        runtimeService.setVariable(task.getProcessInstanceId(), "publishBookRequest", publishBookRequest);
+
+        HashMap<String, Object> map = this.mapListToDto(fieldValues);
+        formService.submitTaskForm(taskId, map);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /**
+     *
+     * @param file
+     * @param processInstanceId
+     * @return HttpStatus
+     */
+    @PostMapping(value = "/upload-after-comment-suggestion/{processInstanceId}")
+    public ResponseEntity<HttpStatus> uploadFileAfterCommentSuggestion(@RequestBody MultipartFile file, @PathVariable String processInstanceId){
+        try {
+            if (file != null){
+                PublishBookRequest publishBookRequest = (PublishBookRequest) runtimeService.getVariable(processInstanceId, "publishBookRequest");
+                String path = fileService.saveUploadedFile(file, processInstanceId);
+                publishBookRequest.setPath(path);
+                publishBookRequest.setStatus(PublishStatus.WAITING_SUGGESTIONS.toString());
+                runtimeService.setVariable(processInstanceId, "publishBookRequest", publishBookRequest);
+
+                System.err.println("FILE UPLOADED. WAITING EDITOR'S SUGGESTIONS . . .");
+
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    /**
+     *
+     * @param decision
+     * @param taskId
+     * @return FormFieldsDTO
+     */
+    @PostMapping(value = "/editor/need-more-changes/{taskId}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<FormFieldsDTO> needMoreChanges(@RequestBody Decision decision, @PathVariable String taskId) {
+        Task task =  taskService.createTaskQuery().taskId(taskId).singleResult();
+        PublishBookRequest publishBookRequest = (PublishBookRequest) runtimeService.getVariable(task.getProcessInstanceId(), "publishBookRequest");
+
+        if (decision == null){
+            System.err.println("READY FOR PRINTING . . .");
+            runtimeService.setVariable(task.getProcessInstanceId(), "moreChanges ", "PRINT");
+
+            return new ResponseEntity<>(null, HttpStatus.OK);
+        }
+
+        if(decision.getApproved()){
+            System.err.println("EDITOR WANTS MORE CHANGES . . .");
+            publishBookRequest.setStatus(PublishStatus.WAITING_SUGGESTIONS.toString());
+            runtimeService.setVariable(task.getProcessInstanceId(), "moreChanges ", true);
+        }
+        else {
+            System.err.println("EDITOR WAITS LECTOR REVIEW . . .");
+            publishBookRequest.setStatus(PublishStatus.WAITING_LECTOR_REVIEW.toString());
+            runtimeService.setVariable(task.getProcessInstanceId(), "moreChanges ", false);
+        }
+
+        taskService.complete(taskId);
+
+        if(decision.getApproved()){
+            Task nextTask = taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).active().singleResult();
+            TaskFormData taskFormData = formService.getTaskFormData(nextTask.getId());
+            List<FormField> formFields = taskFormData.getFormFields();
+            System.err.println("SENDING SUGGESTION FORM . . .");
+
+            return new ResponseEntity<>(new FormFieldsDTO(nextTask.getId(), formFields, task.getProcessInstanceId()), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    /**
+     *
+     * @param fieldValues
+     * @param taskId
+     * @return HttpStatus
+     */
+    @PostMapping(value = "/editor/form/suggestion/{taskId}")
+    public ResponseEntity<HttpStatus> postSuggestion(@RequestBody List<FormSubmissionDTO> fieldValues, @PathVariable String taskId) {
+        HashMap<String, Object> map = this.mapListToDto(fieldValues);
+
+        Task task =  taskService.createTaskQuery().taskId(taskId).singleResult();
+        PublishBookRequest publishBookRequest = (PublishBookRequest) runtimeService.getVariable(task.getProcessInstanceId(), "publishBookRequest");
+        publishBookRequest.setStatus(PublishStatus.WAITING_CHANGES.toString());
+        publishBookRequest.setSuggestion((String) map.get("suggestion"));
+        publishBookRequest.setDeadline((DateTime.now().plusDays(10)).toLocalDate().toString());
+
+        formService.submitTaskForm(taskId, map);
+
+        System.err.println("WAITING WRITER CHANGES . . .");
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /**
+     *
+     * @param decision
+     * @param taskId
+     * @return FormFieldsDTO
+     */
+    @PostMapping(value = "/lector/need-correction/{taskId}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<FormFieldsDTO> postNeedCorrection(@RequestBody Decision decision, @PathVariable String taskId) {
+        Task task =  taskService.createTaskQuery().taskId(taskId).singleResult();
+        PublishBookRequest publishBookRequest = (PublishBookRequest) runtimeService.getVariable(task.getProcessInstanceId(), "publishBookRequest");
+
+        if(decision.getApproved()){
+            System.err.println("LECTOR THINKS SCRIPT NEEDS CORRECTION . . .");
+
+            runtimeService.setVariable(task.getProcessInstanceId(), "needsCorrection ", true);
+            publishBookRequest.setStatus(PublishStatus.WAITING_LECTOR_REVIEW.toString());
+        }
+        else {
+            System.err.println("LECTOR WAITS EDITOR'S SUGGESTIONS . . .");
+
+            runtimeService.setVariable(task.getProcessInstanceId(), "needsCorrection", false);
+            publishBookRequest.setStatus(PublishStatus.WAITING_SUGGESTIONS.toString());
+        }
+
+        runtimeService.setVariable(task.getProcessInstanceId(), "publishBookRequest", publishBookRequest);
+        taskService.complete(taskId);
+
+        if (decision.getApproved()){
+            Task nextTask = taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).active().singleResult();
+            TaskFormData taskFormData = formService.getTaskFormData(nextTask.getId());
+            List<FormField> formFields = taskFormData.getFormFields();
+            return new ResponseEntity<>(new FormFieldsDTO(nextTask.getId(), formFields, task.getProcessInstanceId()), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    /**
+     *
+     * @param file
+     * @param processInstanceId
+     * @return HttpStatus
+     */
+    @PostMapping(value = "/upload-after-correction/{processInstanceId}")
+    public ResponseEntity<HttpStatus> uploadFileAfterSuggestion(@RequestBody MultipartFile file, @PathVariable String processInstanceId){
+        try {
+            if (file != null){
+                PublishBookRequest publishBookRequest = (PublishBookRequest) runtimeService.getVariable(processInstanceId, "publishBookRequest");
+                String path = fileService.saveUploadedFile(file, processInstanceId);
+                publishBookRequest.setPath(path);
+                publishBookRequest.setStatus(PublishStatus.WAITING_LECTOR_REVIEW.toString());
+                runtimeService.setVariable(processInstanceId, "publishBookRequest", publishBookRequest);
+
+                System.err.println("FILE UPLOADED. WAITING LECTOR REVIEW . . .");
+
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    /**
+     *
+     * @param list
+     * @return HashMap<String, Object>
+     */
     private HashMap<String, Object> mapListToDto(List<FormSubmissionDTO> list) {
         HashMap<String, Object> map = new HashMap<String, Object>();
         for (FormSubmissionDTO temp : list) {
@@ -400,6 +708,11 @@ public class PublishBookController {
         return map;
     }
 
+    /**
+     *
+     * @param processDefinitionId
+     * @return List<ProcessInstance>
+     */
     private List<ProcessInstance> getAllRunningProcessInstances(String processDefinitionId) {
         // query for latest process definition with given name
         ProcessDefinition myProcessDefinition =
@@ -418,6 +731,12 @@ public class PublishBookController {
         return processInstances;
     }
 
+    /**
+     *
+     * @param processDefinitionId
+     * @param userId
+     * @return ProcessInstance
+     */
     private ProcessInstance hasUserAlreadyStartedProcess(String processDefinitionId, String userId){
         List<ProcessInstance> processInstances = getAllRunningProcessInstances(processDefinitionId);
 

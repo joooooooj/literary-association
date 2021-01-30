@@ -88,7 +88,6 @@ public class TokenUtils {
         String username;
         try {
             final Claims claims = this.getAllClaimsFromToken(token);
-            System.out.println(claims);
             username = claims.getSubject();
         } catch (Exception e) {
             username = null;
