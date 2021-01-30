@@ -3,6 +3,7 @@ import {Button, Table, Form} from "react-bootstrap";
 import PreviewComments from "./PreviewComments";
 import PreviewPDF from "../../../core/modals/PreviewPDF";
 import Confirmation from "../../../core/modals/Confirmation";
+import CustomForm from "../../../core/CustomForm";
 
 export default function SubmittedWork() {
 
@@ -14,7 +15,7 @@ export default function SubmittedWork() {
 
     const [membershipRequest, setMembershipRequest] = useState(null);
     const [publishWorkForm, setPublishWorkForm] = useState(null);
-    // const []
+
     useEffect(() => {
         const token = JSON.parse(localStorage.getItem("token"));
         fetch('http://localhost:8080/api/registration/request/self/' + token, {
@@ -27,76 +28,103 @@ export default function SubmittedWork() {
             .then(response => response.json())
             .then(data => {
                 setMembershipRequest(data);
+
+                fetch("http://localhost:8080/api/registration/upload-work-form", {
+                    method: "GET",
+                    headers: {
+                        "Authorization": "Bearer " + token,
+                        "Content-Type": "application/json",
+                    },
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        setPublishWorkForm(data);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+
             })
             .catch((error) => {
                 console.log(error);
             });
     }, []);
 
-    const [showDocument, setShowDocument] = useState(false);
-    const [showComments, setShowComments] = useState(false);
-    const [showConfirmation, setShowConfirmation] = useState(false);
+    // const [showDocument, setShowDocument] = useState(false);
+    // const [showComments, setShowComments] = useState(false);
+    // const [showConfirmation, setShowConfirmation] = useState(false);
+    //
+    // const [files, setFiles] = useState([]);
+    //
+    // const hiddenFileInput = React.useRef(null);
+    //
+    // const handleCloseComments = () => setShowComments(false);
+    // const handleShowComments = () => setShowComments(true);
+    //
+    // const handleCloseDocument = () => setShowDocument(false);
+    // const handleShowDocument = () => setShowDocument(true);
+    //
+    // const handleCloseConfirmation = (confirmed) => {
+    //     if (confirmed) {
+    //         alert("Upload confirmed!")
+    //     } else {
+    //         hiddenFileInput.current.value = "";
+    //     }
+    //     setShowConfirmation(false);
+    // }
+    // const handleShowConfirmation = () => setShowConfirmation(true);
+    //
+    // const handleFileChooserChange = (event) => {
+    //     const newFiles = event.target.files;
+    //     setFiles(newFiles);
+    //     handleFileChooserClose();
+    // };
+    //
+    // const handleFileChooserClick = () => {
+    //     hiddenFileInput.current.click();
+    // };
+    //
+    // const handleFileChooserClose = () => {
+    //     handleShowConfirmation();
+    // };
 
-    const [files, setFiles] = useState([]);
-
-    const hiddenFileInput = React.useRef(null);
-
-    const handleCloseComments = () => setShowComments(false);
-    const handleShowComments = () => setShowComments(true);
-
-    const handleCloseDocument = () => setShowDocument(false);
-    const handleShowDocument = () => setShowDocument(true);
-
-    const handleCloseConfirmation = (confirmed) => {
-        if (confirmed) {
-            alert("Upload confirmed!")
-        } else {
-            hiddenFileInput.current.value = "";
-        }
-        setShowConfirmation(false);
+    const handleFileUpload = () => {
+        alert('opo');
     }
-    const handleShowConfirmation = () => setShowConfirmation(true);
-
-    const handleFileChooserChange = (event) => {
-        const newFiles = event.target.files;
-        setFiles(newFiles);
-        handleFileChooserClose();
-    };
-
-    const handleFileChooserClick = () => {
-        hiddenFileInput.current.click();
-    };
-
-    const handleFileChooserClose = () => {
-        handleShowConfirmation();
-    };
 
     return (
         <div className="bg-dark p-5">
-            <PreviewComments show={showComments} onHide={handleCloseComments}/>
-            <PreviewPDF show={showDocument} onHide={handleCloseDocument}/>
-            <Confirmation show={showConfirmation} onHide={(confirmed) => handleCloseConfirmation(confirmed)}/>
+            {/*<PreviewComments show={showComments} onHide={handleCloseComments}/>*/}
+            {/*<PreviewPDF show={showDocument} onHide={handleCloseDocument}/>*/}
+            {/*<Confirmation show={showConfirmation} onHide={(confirmed) => handleCloseConfirmation(confirmed)}/>*/}
             <div className="bg-dark p-5 border border-light text-left">
-                <h2 className="text-light mb-4">
-                    Submitted Work
-                </h2>
-                {/*<h5 className="text-danger">*/}
-                {/*    Submission deadline : 18.12.2020.*/}
-                {/*</h5>*/}
-                {/*<h5 className="text-warning mb-4">*/}
-                {/*    Attempts number : {attemptsNumber}*/}
-                {/*</h5>*/}
-                <Button onClick={() => handleFileChooserClick()} variant="outline-warning" className="mb-4">
-                    SUBMIT WORK
-                </Button>
-                <Form>
-                    <Form.File
-                        multiple
-                        accept="application/pdf"
-                        className="hidden"
-                        ref={hiddenFileInput}
-                        onChange={(event) => handleFileChooserChange(event)}/>
-                </Form>
+                {/*<h2 className="text-light mb-4">*/}
+                {/*    Submitted Work*/}
+                {/*</h2>*/}
+                {/*/!*<h5 className="text-danger">*!/*/}
+                {/*/!*    Submission deadline : 18.12.2020.*!/*/}
+                {/*/!*</h5>*!/*/}
+                {/*/!*<h5 className="text-warning mb-4">*!/*/}
+                {/*/!*    Attempts number : {attemptsNumber}*!/*/}
+                {/*/!*</h5>*!/*/}
+                {/*<Button onClick={() => handleFileChooserClick()} variant="outline-warning" className="mb-4">*/}
+                {/*    SUBMIT WORK*/}
+                {/*</Button>*/}
+                {/*<Form>*/}
+                {/*    <Form.File*/}
+                {/*        multiple*/}
+                {/*        accept="application/pdf"*/}
+                {/*        className="hidden"*/}
+                {/*        ref={hiddenFileInput}*/}
+                {/*        onChange={(event) => handleFileChooserChange(event)}/>*/}
+                {/*</Form>*/}
+                <CustomForm
+                    formFieldsDTO={publishWorkForm}
+                    loggedIn={localStorage.getItem("token")}
+                    submittedForm={handleFileUpload}
+                    isFileForm={true}
+                    buttonText="Upload work"/>
+
                 {/*{   submitted &&*/}
                 {/*    <Table striped bordered hover variant="dark">*/}
                 {/*        <thead>*/}

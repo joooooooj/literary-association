@@ -1,16 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {Button, Form} from "react-bootstrap";
-import {Link} from "react-router-dom";
 import CustomFormField from "../CustomFormField";
 import {useForm} from "react-hook-form";
 
-export default function Register(history) {
+export default function Register() {
 
-    const options = [
-        {value: "Madrid_Spain", label: "Madrid, Spain"},
-        {value: "Mahuma_Aruba", label: "Mahuma, Aruba"},
-        {value: "Toronto_Canada", label: "Toronto, Canada"}
-    ];
 
     const {register, errors, handleSubmit} = useForm();
     const [registerForm, setRegisterForm] = useState(null);
@@ -67,10 +61,21 @@ export default function Register(history) {
             });
     }
 
+
     return (
         <div className="col-4 content bg-dark p-1">
             <div className="m-5 custom-form border-light border pb-5">
                 {registerForm &&
+                // <CustomForm
+                //     formFieldsDTO={registerForm}
+                //     loggedIn={localStorage.getItem("token")}
+                //     submittedForm={submitFormHandler}
+                //     isFileForm={false}
+                //     buttonTexts={[
+                //         "weiter",
+                //         "reader",
+                //         "beta"
+                //     ]} />
                 <Form className="mt-5 mb-5 w-75 pb-5" onSubmit={handleSubmit(submitFormHandler)}>
                     <h3 className="text-left pb-3">Registration</h3>
                     {registerForm.formFields.map((formField, index) => {

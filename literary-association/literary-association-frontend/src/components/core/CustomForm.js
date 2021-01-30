@@ -176,7 +176,7 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
                     subtypeFile()
             }
             {   !isFileForm &&
-                <Form className="mt-5 mb-5 w-25" onSubmit={handleSubmit(onSubmit)}>
+                <Form className="mt-5 mb-5 w-75" onSubmit={handleSubmit(onSubmit)}>
                     {formFieldsDTO.formFields.map((formField) => {
                         return (
                             <Form.Group className="text-left" key={formField.id}>
