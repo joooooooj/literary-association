@@ -14,8 +14,10 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
     useEffect(() => {
         if (first && checkFlags){
             let tempFlags = [];
-            buttons.forEach(() => {
-                tempFlags.push(false);
+            buttons.forEach((button) => {
+                if (button.hasFlag){
+                    tempFlags.push(false);
+                }
             })
             setFlags(tempFlags);
             setFirst(false);
@@ -269,7 +271,7 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
                             <p>
                                 <Button variant={button.variant}
                                         type="submit"
-                                        onClick={() => handleFlags(index)}
+                                        onClick={() => button.hasFlag ? handleFlags(button.flagIndex) : ""}
                                         key={"button-" + index}
                                         className="mt-3">
                                     {button.text}

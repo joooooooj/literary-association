@@ -239,7 +239,28 @@ export default function PublishBook(props){
                                             text:"SEND REQUEST"
                                         }
                                     ]
-                                }/>
+                                }
+                                // buttons={
+                                //     [
+                                //         {
+                                //             flagIndex: 0,
+                                //             hasFlag: true,
+                                //             variant: "outline-success",
+                                //             text:"SEND REQUEST 1"
+                                //         },
+                                //         {
+                                //             hasFlag: false,
+                                //             variant: "outline-success",
+                                //             text:"SEND REQUEST 2"
+                                //         },
+                                //         {
+                                //             flagIndex: 1,
+                                //             hasFlag: true,
+                                //             variant: "outline-success",
+                                //             text:"SEND REQUEST 3"
+                                //         }
+                                //     ]
+                                    />
                 }
                 {status &&
                     <>
@@ -273,10 +294,9 @@ export default function PublishBook(props){
                         }
                         { publishBookForm &&
                             <CustomForm formFieldsDTO={publishBookForm}
-                                    loggedIn={props.loggedIn}
-                                    submittedForm={submittedForm}
-                                    isFileForm={true}
-                                    buttonText=""/>
+                                        loggedIn={props.loggedIn}
+                                        submittedForm={submittedForm}
+                                        isFileForm={true}/>
                         }
                     </>
                 }
