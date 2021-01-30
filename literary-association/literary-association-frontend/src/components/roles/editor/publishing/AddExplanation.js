@@ -1,6 +1,6 @@
 import {Button, Form, Modal} from "react-bootstrap";
 import React from "react";
-import CustomFormField from "../../../core/CustomFormField";
+import CustomForm from "../../../core/CustomForm";
 import {useForm} from "react-hook-form";
 
 export default function AddExplanation(props) {
@@ -45,7 +45,7 @@ export default function AddExplanation(props) {
                 <Form className="mt-5 mb-5 w-100" onSubmit={handleSubmit(onSubmit)}>
                     {props.editorRefuseForm.formFields.map((formField) => {
                         return (
-                            <CustomFormField formField={formField} errors={errors} register={register}/>
+                            <CustomForm formField={formField} errors={errors} register={register}/>
                         )
                     })
                     }

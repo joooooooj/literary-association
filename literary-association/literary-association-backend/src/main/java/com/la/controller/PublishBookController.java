@@ -1,7 +1,11 @@
 package com.la.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.la.dto.FormFieldsDTO;
 import com.la.dto.FormSubmissionDTO;
+import com.la.dto.SelectOptionDTO;
 import com.la.model.enums.PublishStatus;
 import com.la.model.publish.*;
 import com.la.model.users.Reader;
@@ -25,7 +29,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -88,7 +92,7 @@ public class PublishBookController {
      * @return FormFieldsDTO
      */
     @GetMapping(value = "/writer/form/{token:.+}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<FormFieldsDTO> getFormFieldsWriter(@PathVariable String token) {
+    public ResponseEntity<FormFieldsDTO> getFormFieldsWriter(@PathVariable String token) throws NoSuchFieldException, IllegalAccessException, JsonProcessingException {
         // GET LOGGED IN WRITER USERNAME
         String username = tokenUtils.getUsernameFromToken(token);
         User user = identityService.createUserQuery().userId(username).singleResult();
@@ -103,7 +107,7 @@ public class PublishBookController {
                 if (task.getTaskDefinitionKey().equals("Writer_Publish_Form")){
                     // SEND WRITER FIELDS FOR PUBLISH BOOK FORM
                     List<FormField> formFields = formService.getTaskFormData(task.getId()).getFormFields();
-                    return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, processInstance.getId()), HttpStatus.OK);
+                    return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, processInstance.getId(), "", ""), HttpStatus.OK);
                 }
                 else{
                     // HE ALREADY SUBMITTED
@@ -128,14 +132,14 @@ public class PublishBookController {
             TaskFormData taskFormData = formService.getTaskFormData(task.getId());
             List<FormField> formFields = taskFormData.getFormFields();
 
-            // ADD GENRES TO OPTIONS PROPERTY
-            Object genres = runtimeService.getVariables(task.getExecutionId()).get("genres");
-            String genresString = String.valueOf(genres);
+            // ADD GENRES TO OPTIONS PROPERTY (CONVERT TO GENERIC LIST)
+            List<Object> genres = (List<Object>) runtimeService.getVariables(task.getExecutionId()).get("genres");
+            String genresJSON = mapListToJSON(genres, "id", "value");
 
-            formFields.get(1).getProperties().put("options", genresString);
+            formFields.get(1).getProperties().put("options", genresJSON);
 
             // SEND WRITER FIELDS FOR PUBLISH BOOK FORM
-            return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, pi.getId()), HttpStatus.OK);
+            return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, pi.getId(), "http://localhost:8080/publish/writer/form/", ""), HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
@@ -239,7 +243,7 @@ public class PublishBookController {
             Task nextTask = taskService.createTaskQuery().processInstanceId(processInstanceId).active().singleResult();
             TaskFormData taskFormData = formService.getTaskFormData(nextTask.getId());
             List<FormField> formFields = taskFormData.getFormFields();
-            return new ResponseEntity<>(new FormFieldsDTO(nextTask.getId(), formFields, processInstanceId), HttpStatus.OK);
+            return new ResponseEntity<>(new FormFieldsDTO(nextTask.getId(), formFields, processInstanceId, "", ""), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(null, HttpStatus.OK);
@@ -288,7 +292,7 @@ public class PublishBookController {
                     TaskFormData taskFormData = formService.getTaskFormData(task.getId());
                     List<FormField> formFields = taskFormData.getFormFields();
 
-                    return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, task.getProcessInstanceId()), HttpStatus.OK);
+                    return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, task.getProcessInstanceId(), "http://localhost:8080/publish/writer/form/upload/", "http://localhost:8080/publish/upload/"), HttpStatus.OK);
                 }
             }
         }
@@ -431,7 +435,7 @@ public class PublishBookController {
             Task nextTask = taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).active().singleResult();
             TaskFormData taskFormData = formService.getTaskFormData(nextTask.getId());
             List<FormField> formFields = taskFormData.getFormFields();
-            return new ResponseEntity<>(new FormFieldsDTO(nextTask.getId(), formFields, task.getProcessInstanceId()), HttpStatus.OK);
+            return new ResponseEntity<>(new FormFieldsDTO(nextTask.getId(), formFields, task.getProcessInstanceId(), "", ""), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(null, HttpStatus.OK);
@@ -446,7 +450,7 @@ public class PublishBookController {
      * @return BetaReadersEditor
      */
     @PostMapping(value = "/editor/send-to-beta/{taskId}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BetaReadersEditor> wannaSendToBeta(@RequestBody Decision decision, @PathVariable String taskId) {
+    public ResponseEntity<FormFieldsDTO> wannaSendToBeta(@RequestBody Decision decision, @PathVariable String taskId) {
         Task task =  taskService.createTaskQuery().taskId(taskId).singleResult();
 
         if(decision.getApproved()){
@@ -466,7 +470,10 @@ public class PublishBookController {
             List<Reader> readerList = (List<Reader>) runtimeService.getVariable(task.getProcessInstanceId(), "betaBefore");
             Task nextTask = taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).active().singleResult();
             System.err.println("SENDING BETA READERS FORM (MULTIPLE SELECT) . . .");
-            return new ResponseEntity<>(new BetaReadersEditor(task.getProcessInstanceId(), nextTask.getId(), readerList), HttpStatus.OK);
+
+            TaskFormData taskFormData = formService.getTaskFormData(nextTask.getId());
+            List<FormField> formFields = taskFormData.getFormFields();
+            return new ResponseEntity<>(new FormFieldsDTO(nextTask.getId(), formFields, task.getProcessInstanceId(), "", ""), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -599,7 +606,7 @@ public class PublishBookController {
             List<FormField> formFields = taskFormData.getFormFields();
             System.err.println("SENDING SUGGESTION FORM . . .");
 
-            return new ResponseEntity<>(new FormFieldsDTO(nextTask.getId(), formFields, task.getProcessInstanceId()), HttpStatus.OK);
+            return new ResponseEntity<>(new FormFieldsDTO(nextTask.getId(), formFields, task.getProcessInstanceId(), "", ""), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(null, HttpStatus.OK);
@@ -659,7 +666,7 @@ public class PublishBookController {
             Task nextTask = taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).active().singleResult();
             TaskFormData taskFormData = formService.getTaskFormData(nextTask.getId());
             List<FormField> formFields = taskFormData.getFormFields();
-            return new ResponseEntity<>(new FormFieldsDTO(nextTask.getId(), formFields, task.getProcessInstanceId()), HttpStatus.OK);
+            return new ResponseEntity<>(new FormFieldsDTO(nextTask.getId(), formFields, task.getProcessInstanceId(), "", ""), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(null, HttpStatus.OK);
@@ -706,6 +713,25 @@ public class PublishBookController {
         }
 
         return map;
+    }
+
+    private String mapListToJSON(List<Object> objects, String valueFieldName, String labelFieldName) throws NoSuchFieldException, IllegalAccessException, JsonProcessingException {
+        List<SelectOptionDTO> selectOptionDTOList = new ArrayList<>();
+
+        for(Object object : objects){
+            Field valueField = object.getClass().getDeclaredField(valueFieldName);
+            Field labelField = object.getClass().getDeclaredField(labelFieldName);
+            valueField.setAccessible(true);
+            labelField.setAccessible(true);
+            selectOptionDTOList.add(new SelectOptionDTO(String.valueOf(valueField.get(object)), String.valueOf(labelField.get(object))));
+        }
+
+        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        String json = ow.writeValueAsString(selectOptionDTOList);
+
+        System.err.println(json);
+
+        return json;
     }
 
     /**

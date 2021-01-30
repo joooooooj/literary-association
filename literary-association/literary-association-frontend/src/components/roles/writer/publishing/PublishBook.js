@@ -2,34 +2,13 @@ import React, {useEffect, useState} from "react";
 import Confirmation from "../../../core/modals/Confirmation";
 import {Button, Form, Table} from "react-bootstrap";
 import {useForm} from "react-hook-form";
-import CustomFormField from "../../../core/CustomFormField";
+import CustomForm from "../../../core/CustomForm";
 
 export default function PublishBook(props){
 
     const [publishBookForm, setPublishBookForm] = useState(null);
 
     const [requestInfo, setRequestInfo] = useState(null);
-
-    // REACT-HOOK-FORM
-    const {register, errors, handleSubmit} = useForm();
-    const onSubmit = (data) => {
-        let final = prepareDataForSubmit(data);
-        fetch("http://localhost:8080/publish/writer/form/" + publishBookForm.taskId, {
-            method: "POST",
-            headers: {
-                "Authorization" : "Bearer " + props.loggedIn,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(final)
-        })
-            .then(response => response)
-            .then(data => {
-                setPublishBookForm(null);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
 
     const [status, setStatus] = useState("");
 
@@ -82,56 +61,6 @@ export default function PublishBook(props){
             });
     }
 
-    const prepareDataForSubmit = (data) => {
-        let final = [];
-        for(let prop in data){
-            final.push({fieldId:prop, fieldValue:data[prop]})
-        }
-        return final;
-    }
-
-    const handleFileUpload = (files) => {
-        let url = new URL("http://localhost:8080/publish/upload/" + publishBookForm.processInstanceId);
-        const formData = new FormData();
-        formData.append('file', files[0]);
-        fetch(url, {
-            method: "POST",
-            headers: {
-                "Authorization" : "Bearer " + props.loggedIn
-            },
-            body: formData
-        })
-            .then(response => response)
-            .then(data => {
-                submitUploadFileForm(files);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-
-    }
-
-    const submitUploadFileForm = (files) => {
-        let url = new URL("http://localhost:8080/publish/writer/form/upload/" + publishBookForm.taskId);
-        let data = [{fieldId: publishBookForm.formFields[0].id, fieldValue: files[0].name.split('.')[0]}]
-        fetch(url, {
-            method: "POST",
-            headers: {
-                "Authorization" : "Bearer " + props.loggedIn,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-            .then(response => response)
-            .then(data => {
-                console.log("SUCCESS");
-                setPublishBookForm(null);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
-
     const getFileFormField = () => {
         fetch("http://localhost:8080/publish/writer/form/upload/" + props.loggedIn, {
             method: "GET",
@@ -148,6 +77,10 @@ export default function PublishBook(props){
             .catch((error) => {
                 console.log(error);
             });
+    }
+
+    const submittedForm = () => {
+        setPublishBookForm(null);
     }
 
     const renderStatus = (status) => {
@@ -294,18 +227,11 @@ export default function PublishBook(props){
                     </>
                 }
                 {   !status && publishBookForm &&
-                    <Form className="mt-5 mb-5 w-25" onSubmit={handleSubmit(onSubmit)}>
-                        {publishBookForm.formFields.map((formField) => {
-                            return (
-                                <CustomFormField key={formField.id} formField={formField} errors={errors} register={register}/>
-                            )
-                            })
-                        }
-                        <Button variant="outline-success" type="submit"
-                                className="mt-3">
-                            SEND REQUEST
-                        </Button>
-                    </Form>
+                    <CustomForm formFieldsDTO={publishBookForm}
+                                loggedIn={props.loggedIn}
+                                submittedForm={submittedForm}
+                                isFileForm={false}
+                                buttonText="SEND REQUEST"/>
                 }
                 {status &&
                     <>
@@ -338,14 +264,11 @@ export default function PublishBook(props){
                             </h5>
                         }
                         { publishBookForm &&
-                            <>
-                            {publishBookForm.formFields.map((formField) => {
-                                return (
-                                    <CustomFormField key={formField.id} formField={formField} handleFileUpload={handleFileUpload}/>
-                                )
-                                })
-                            }
-                            </>
+                            <CustomForm formFieldsDTO={publishBookForm}
+                                    loggedIn={props.loggedIn}
+                                    submittedForm={submittedForm}
+                                    isFileForm={true}
+                                    buttonText=""/>
                         }
                     </>
                 }
