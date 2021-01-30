@@ -45,6 +45,9 @@ export default function PublishRequests(props) {
             setEditorRefuseForm(data);
             handleShowExplanation();
         }
+        else {
+            window.location.reload();
+        }
     }
 
     const handleShowDocument = (data) => {
@@ -52,17 +55,13 @@ export default function PublishRequests(props) {
         setShowDocument(true);
     }
 
-    const [betaReaders, setBetaReaders] = useState(null);
+    const [betaReadersForm, setBetaReadersForm] = useState(null);
 
-    const handleCloseBetaReaders = () => setShowBetaReaders(false);
+    const handleCloseBetaReaders = () => {
+        setShowBetaReaders(false);
+        window.location.reload();
+    }
     const handleShowBetaReaders = (data) => {
-        setShowBetaReaders(true);
-        // setBetaReaders({processInstanceId: "be9c4f07-6281-11eb-a1f1-00ff0207cd37",
-        // readerList:[
-        // {id: 17, type: "READER", username: "reader1", password: "$2a$10$xBbFGBwJcF9H3V/s2GfcnuVpM9niJ9oVrhY6CQjrrHZJYzYA6Z5nS", penaltyPoints: -2},
-        // {id: 18, type: "READER", username: "reader2", password: "$2a$10$xBbFGBwJcF9H3V/s2GfcnuVpM9niJ9oVrhY6CQjrrHZJYzYA6Z5nS", penaltyPoints: -3},
-        // {id: 19, type: "READER", username: "reader3", password: "$2a$10$xBbFGBwJcF9H3V/s2GfcnuVpM9niJ9oVrhY6CQjrrHZJYzYA6Z5nS", penaltyPoints: -4}],
-        // taskId: "da0388e4-6281-11eb-a1f1-00ff0207cd37"});
         fetch("http://localhost:8080/publish/editor/send-to-beta/" + data.taskId, {
             method: "POST",
             headers: {
@@ -75,7 +74,8 @@ export default function PublishRequests(props) {
         })
             .then(response => response.json())
             .then(data => {
-                setBetaReaders(data);
+                setBetaReadersForm(data);
+                setShowBetaReaders(true);
                 console.log(data);
             })
             .catch((error) => {
@@ -88,7 +88,7 @@ export default function PublishRequests(props) {
     },[])
 
     const getRequests = () => {
-        fetch("http://localhost:8080/publish/editor/requests/" + props.loggedIn, {
+        fetch("http://localhost:8080/publish/requests/" + props.loggedIn, {
             method: "GET",
             headers: {
                 "Authorization" : "Bearer " + props.loggedIn,
@@ -288,7 +288,7 @@ export default function PublishRequests(props) {
                 </>
             }
             <AddSuggestions show={showSuggestions} onHide={handleCloseSuggestions} setStatus={setStatus}/>
-            <ChooseBetaReaders show={showBetaReaders} onHide={handleCloseBetaReaders} setStatus={setStatus} betaReaders={betaReaders}/>
+            <ChooseBetaReaders show={showBetaReaders} onHide={handleCloseBetaReaders} setStatus={setStatus} betaReadersForm={betaReadersForm}/>
             <PlagiarismCheckResults selectedRequest={selectedRequest} show={showPlagiarismCheckResults} onHide={handleClosePlagiarismCheckResults} setStatus={setStatus} handleShowExplanation={handleShowExplanation}/>
             <PreviewPDF selectedRequest={selectedRequest} show={showDocument} onHide={handleCloseDocument} status={status} setStatus={setStatus} handleShowExplanation={handleShowExplanation}/>
             <div className="bg-dark p-5 border border-light">

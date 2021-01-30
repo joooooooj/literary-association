@@ -1,5 +1,6 @@
 import {Button, Form, Modal} from "react-bootstrap";
 import React from "react";
+import CustomForm from "../../../core/CustomForm";
 
 export default function AddComment(props) {
 
@@ -7,16 +8,27 @@ export default function AddComment(props) {
         props.onHide();
     };
 
+    const submittedForm = () => {
+        props.onHide();
+    }
+
     return (
         <Modal centered show={props.show} onHide={handleClose} className="explanation">
             <Modal.Body className="bg-light p-5">
                 <h3>Comment</h3>
-                <Form.Group controlId="synopsys" className="text-left">
-                    <Form.Control as="textarea" rows={5} placeholder="Enter comment"/>
-                </Form.Group>
-                <Button variant="success float-right">
-                    ADD COMMENT
-                </Button>
+                <CustomForm formFieldsDTO={props.commentForm}
+                            loggedIn={props.loggedIn}
+                            submittedForm={submittedForm}
+                            isFileForm={false}
+                            checkFlags={false}
+                            buttons={
+                                [
+                                    {
+                                        variant: "outline-success",
+                                        text:"ADD COMMENT"
+                                    }
+                                ]
+                            }/>
             </Modal.Body>
         </Modal>
     );

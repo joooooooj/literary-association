@@ -1,5 +1,6 @@
 package com.la.model.publish;
 
+import com.la.dto.FormFieldsDTO;
 import lombok.*;
 
 @NoArgsConstructor
@@ -7,7 +8,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class EditorRequestView {
+public class RequestView {
     private String processInstanceId;
     private String taskId;
     private PublishBookRequest publishBookRequest;
