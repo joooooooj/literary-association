@@ -12,7 +12,7 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
     const [first, setFirst] = useState(true);
 
     useEffect(() => {
-        if (first){
+        if (first && checkFlags){
             let tempFlags = [];
             buttons.forEach(() => {
                 tempFlags.push(false);
