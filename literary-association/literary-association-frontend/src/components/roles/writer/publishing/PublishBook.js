@@ -235,7 +235,6 @@ export default function PublishBook(props){
                                 buttons={
                                     [
                                         {
-                                            index: 0,
                                             variant: "outline-success",
                                             text:"SEND REQUEST"
                                         }

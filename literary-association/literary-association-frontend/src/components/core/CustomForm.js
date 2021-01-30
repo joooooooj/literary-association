@@ -72,6 +72,29 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
     }
 
     const handleFileUpload = (files) => {
+        let url = new URL(formFieldsDTO.postFormEndpoint + formFieldsDTO.taskId);
+        let data = [{fieldId: formFieldsDTO.formFields[0].id, fieldValue: files[0].name.split('.')[0]}]
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Authorization" : "Bearer " + loggedIn,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response)
+            .then(() => {
+                submitUploadFile(files);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        //
+
+
+    }
+
+    const submitUploadFile = (files) => {
         let url = new URL(formFieldsDTO.uploadFileEndpoint + formFieldsDTO.processInstanceId);
         const formData = new FormData();
         formData.append('file', files[0]);
@@ -84,27 +107,6 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
         })
             .then(response => response)
             .then((data) => {
-                submitUploadFileForm(files);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-
-    }
-
-    const submitUploadFileForm = (files) => {
-        let url = new URL(formFieldsDTO.postFormEndpoint + formFieldsDTO.taskId);
-        let data = [{fieldId: formFieldsDTO.formFields[0].id, fieldValue: files[0].name.split('.')[0]}]
-        fetch(url, {
-            method: "POST",
-            headers: {
-                "Authorization" : "Bearer " + loggedIn,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-            .then(response => response)
-            .then(data => {
                 submittedForm(data);
             })
             .catch((error) => {
@@ -267,9 +269,8 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
                             <p>
                                 <Button variant={button.variant}
                                         type="submit"
-                                        name={button.index}
-                                        onClick={(event) => handleFlags(event.target.name)}
-                                        key={index}
+                                        onClick={() => handleFlags(index)}
+                                        key={"button-" + index}
                                         className="mt-3">
                                     {button.text}
                                 </Button>
