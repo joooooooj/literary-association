@@ -20,6 +20,8 @@ public class PublishBookRequest implements Serializable {
 
     private String writer;
 
+    private String lector;
+
     private String genre;
 
     private String status;

@@ -244,11 +244,11 @@
     <bpmn:boundaryEvent id="Event_1lf4uzm" attachedToRef="Activity_0t5bmod">
       <bpmn:outgoing>Flow_124eqnu</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_0xsvefk">
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P5DT10S</bpmn:timeDuration>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P5DT3S</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="Flow_124eqnu" sourceRef="Event_1lf4uzm" targetRef="Activity_0x1e6vt" />
-    <bpmn:serviceTask id="Activity_0x1e6vt" name="Punish Beta Reader" camunda:class="com.la.service.publish.PunishBetaReaders">
+    <bpmn:serviceTask id="Activity_0x1e6vt" name="Punish Beta Reader" camunda:class="com.la.service.publish.PunishBetaReadersService">
       <bpmn:incoming>Flow_124eqnu</bpmn:incoming>
       <bpmn:outgoing>Flow_09wbhea</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -275,11 +275,6 @@
       <bpmn:incoming>Flow_1yxc4m9</bpmn:incoming>
       <bpmn:outgoing>Flow_18lnjo8</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:parallelGateway id="Gateway_09b2nu5">
-      <bpmn:incoming>Flow_1tnvr7t</bpmn:incoming>
-      <bpmn:incoming>Flow_09wbhea</bpmn:incoming>
-      <bpmn:outgoing>Flow_0suybi4</bpmn:outgoing>
-    </bpmn:parallelGateway>
     <bpmn:userTask id="Activity_1o3xf6p" name="Script Submit Form" camunda:assignee="${writer}">
       <bpmn:extensionElements>
         <camunda:formData>
@@ -298,7 +293,7 @@
       <bpmn:outgoing>Flow_021pv2e</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_0suybi4" sourceRef="Gateway_09b2nu5" targetRef="Gateway_1kva0aa" />
-    <bpmn:exclusiveGateway id="Gateway_1mrlkm3" default="Flow_0kgvgyv">
+    <bpmn:exclusiveGateway id="Gateway_1mrlkm3">
       <bpmn:incoming>Flow_1dsiid8</bpmn:incoming>
       <bpmn:outgoing>Flow_0mxi6r7</bpmn:outgoing>
       <bpmn:outgoing>Flow_1ejv00b</bpmn:outgoing>
@@ -311,10 +306,10 @@
       <bpmn:outgoing>Flow_1dsiid8</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_0mxi6r7" sourceRef="Gateway_1mrlkm3" targetRef="Activity_15k17tm">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${moreChanges == true}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${moreChanges == 2}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1ejv00b" sourceRef="Gateway_1mrlkm3" targetRef="Gateway_10immh1">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${moreChanges == false}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${moreChanges == 1}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1qq02yp" sourceRef="Activity_15k17tm" targetRef="Gateway_1kva0aa" />
     <bpmn:sequenceFlow id="Flow_1vj701d" sourceRef="Activity_0rmbjdp" targetRef="Gateway_0uoxks4" />
@@ -352,7 +347,9 @@
       <bpmn:outgoing>Flow_07n288q</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_07n288q" sourceRef="Activity_13rluu4" targetRef="Gateway_0wh9aae" />
-    <bpmn:sequenceFlow id="Flow_0kgvgyv" sourceRef="Gateway_1mrlkm3" targetRef="Activity_1ra4rsg" />
+    <bpmn:sequenceFlow id="Flow_0kgvgyv" sourceRef="Gateway_1mrlkm3" targetRef="Activity_1ra4rsg">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${moreChanges == 3}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:serviceTask id="Activity_1ra4rsg" name="PRINT" camunda:class="com.la.service.publish.PrintService">
       <bpmn:incoming>Flow_0kgvgyv</bpmn:incoming>
       <bpmn:outgoing>Flow_0rr9l5e</bpmn:outgoing>
@@ -443,6 +440,14 @@
       <bpmn:outgoing>Flow_093gjbc</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_093gjbc" sourceRef="Gateway_1ic8as9" targetRef="Activity_0e4zdm4" />
+    <bpmn:exclusiveGateway id="Gateway_09b2nu5">
+      <bpmn:extensionElements>
+        <camunda:executionListener class="com.la.service.publish.AllBetaReadersCommented" event="start" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1tnvr7t</bpmn:incoming>
+      <bpmn:incoming>Flow_09wbhea</bpmn:incoming>
+      <bpmn:outgoing>Flow_0suybi4</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
     <bpmn:textAnnotation id="TextAnnotation_1k2g1w1">
       <bpmn:text>- Set "genres" variable
         - Check if user already started process
@@ -784,9 +789,6 @@
       <bpmndi:BPMNShape id="Activity_03gwfya_di" bpmnElement="Activity_07il6ne">
         <dc:Bounds x="660" y="460" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_0gubwq0_di" bpmnElement="Gateway_09b2nu5">
-        <dc:Bounds x="835" y="915" width="50" height="50" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1o3xf6p_di" bpmnElement="Activity_1o3xf6p">
         <dc:Bounds x="500" y="730" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -861,6 +863,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_1ic8as9_di" bpmnElement="Gateway_1ic8as9" isMarkerVisible="true">
         <dc:Bounds x="1025" y="745" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1e571wn_di" bpmnElement="Gateway_09b2nu5" isMarkerVisible="true">
+        <dc:Bounds x="835" y="915" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0268fcr_di" bpmnElement="Event_1a3ukhx">
         <dc:Bounds x="2662" y="182" width="36" height="36" />

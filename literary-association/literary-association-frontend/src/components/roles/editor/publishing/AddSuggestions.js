@@ -1,5 +1,6 @@
 import {Button, Form, Modal} from "react-bootstrap";
 import React from "react";
+import CustomForm from "../../../core/CustomForm";
 
 export default function AddSuggestions(props) {
 
@@ -7,16 +8,27 @@ export default function AddSuggestions(props) {
         props.onHide();
     };
 
+    const submittedForm = () => {
+        props.onHide();
+    }
+
     return (
         <Modal centered show={props.show} onHide={handleClose} className="explanation">
             <Modal.Body className="bg-light p-5">
                 <h3>Suggestion</h3>
-                <Form.Group controlId="synopsys" className="text-left">
-                    <Form.Control as="textarea" rows={5} placeholder="Enter suggestion"/>
-                </Form.Group>
-                <Button variant="success float-right"  onClick={() => {props.setStatus("WAITING_CHANGES"); props.onHide();}}>
-                    SEND SUGGESTIONS
-                </Button>
+                <CustomForm formFieldsDTO={props.suggestionForm}
+                            loggedIn={props.loggedIn}
+                            submittedForm={submittedForm}
+                            isFileForm={false}
+                            checkFlags={false}
+                            buttons={
+                                [
+                                    {
+                                        variant: "outline-success",
+                                        text:"SEND SUGGESTIONS"
+                                    }
+                                ]
+                            }/>
             </Modal.Body>
         </Modal>
     );

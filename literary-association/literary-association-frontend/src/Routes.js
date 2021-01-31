@@ -94,7 +94,7 @@ export default function Routes(props) {
                 }
                 {   props.roles[0] === USER_ROLES.READER &&
                     <Route exact path="/comments-scripts">
-                        <CommentsScripts/>
+                        <CommentsScripts loggedIn={props.loggedIn}/>
                     </Route>
                 }
                 {   props.roles[0] === USER_ROLES.BOARD_MEMBER &&
@@ -109,7 +109,7 @@ export default function Routes(props) {
                 }
                 {   props.roles[0] === USER_ROLES.LECTOR &&
                     <Route exact path="/corrections-scripts">
-                        <CorrectionsScripts/>
+                        <CorrectionsScripts loggedIn={props.loggedIn}/>
                     </Route>
                 }
                 {   props.roles[0] === USER_ROLES.EDITOR &&

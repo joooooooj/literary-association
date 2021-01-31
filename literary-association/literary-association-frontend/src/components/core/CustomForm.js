@@ -1,16 +1,54 @@
 import {Button, Form} from "react-bootstrap";
 import Select from "react-select";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Confirmation from "./modals/Confirmation";
 import {useForm} from "react-hook-form";
 
-export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, buttonText, isFileForm}){
+export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, buttons, checkFlags, isFileForm}){
 
-    const {register, errors, handleSubmit} = useForm();
+    const {register, errors, trigger, handleSubmit} = useForm();
+
+    const [flags, setFlags] = useState([]);
+    const [first, setFirst] = useState(true);
+
+    useEffect(() => {
+        if (first && checkFlags){
+            let tempFlags = [];
+            buttons.forEach((button) => {
+                if (button.hasFlag){
+                    tempFlags.push(false);
+                }
+            })
+            setFlags(tempFlags);
+            setFirst(false);
+        }
+    }, [flags])
+
+    const handleFlags = (index) => {
+        trigger().then(r => {
+            if (r) {
+                let newFlags = [];
+                flags.forEach((flag) => {
+                    newFlags.push(flag);
+                })
+                newFlags[index] = true;
+                setFlags(newFlags);
+            }
+        });
+    }
 
     const onSubmit = (data) => {
         let final = prepareDataForSubmit(data);
-        fetch(formFieldsDTO.postFormEndpoint + formFieldsDTO.taskId, {
+        // Setting URL
+        let url = formFieldsDTO.postFormEndpoint;
+        if (checkFlags){
+            flags.forEach((value) => {
+                url += "/" + value;
+            })
+        }
+        url += "/" + formFieldsDTO.taskId;
+        // Fetching data
+        fetch(url, {
             method: "POST",
             headers: {
                 "Authorization" : "Bearer " + loggedIn,
@@ -36,6 +74,29 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
     }
 
     const handleFileUpload = (files) => {
+        let url = new URL(formFieldsDTO.postFormEndpoint + formFieldsDTO.taskId);
+        let data = [{fieldId: formFieldsDTO.formFields[0].id, fieldValue: files[0].name.split('.')[0]}]
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Authorization" : "Bearer " + loggedIn,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response)
+            .then(() => {
+                submitUploadFile(files);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        //
+
+
+    }
+
+    const submitUploadFile = (files) => {
         let url = new URL(formFieldsDTO.uploadFileEndpoint + formFieldsDTO.processInstanceId);
         const formData = new FormData();
         formData.append('file', files[0]);
@@ -48,27 +109,6 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
         })
             .then(response => response)
             .then((data) => {
-                submitUploadFileForm(files);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-
-    }
-
-    const submitUploadFileForm = (files) => {
-        let url = new URL(formFieldsDTO.postFormEndpoint + formFieldsDTO.taskId);
-        let data = [{fieldId: formFieldsDTO.formFields[0].id, fieldValue: files[0].name.split('.')[0]}]
-        fetch(url, {
-            method: "POST",
-            headers: {
-                "Authorization" : "Bearer " + loggedIn,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-            .then(response => response)
-            .then(data => {
                 submittedForm(data);
             })
             .catch((error) => {
@@ -226,10 +266,19 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
                             </Form.Group>
                         )}
                     )}
-                    <Button variant="outline-success" type="submit"
-                            className="mt-3">
-                        {buttonText}
-                    </Button>
+                    {buttons.map((button, index) => {
+                        return (
+                            <p>
+                                <Button variant={button.variant}
+                                        type="submit"
+                                        onClick={() => button.hasFlag ? handleFlags(button.flagIndex) : ""}
+                                        key={"button-" + index}
+                                        className="mt-3">
+                                    {button.text}
+                                </Button>
+                            </p>)
+                        })
+                    }
                 </Form>
             }
         </>);

@@ -47,7 +47,10 @@ export default function PublishBook(props){
                setRequestInfo(data);
                 if (data.status){
                     setStatus(data.status);
-                    if (data.status === "WAITING_SUBMIT"){
+                    if (data.status === "WAITING_SUBMIT" ||
+                        data.status === "WAITING_COMMENT_CHECK" ||
+                        data.status === "WAITING_CHANGES" ||
+                        data.status === "WAITING_CORRECTION"){
                         getFileFormField();
                     }
                 }
@@ -132,11 +135,11 @@ export default function PublishBook(props){
                         </h5>
                     </>
                 )
-            case "WAITING_CORRECTIONS" :
+            case "WAITING_CORRECTION" :
                 return (
                     <>
                         <h5 className="text-danger mb-3">
-                            Please correct capital letter on "united states"!
+                            Lector correction : {requestInfo.correction}
                         </h5>
                     </>
                 )
@@ -144,7 +147,7 @@ export default function PublishBook(props){
                 return (
                     <>
                         <h5 className="text-danger mb-3">
-                            You should change conclusion to be more specific.
+                            Editor suggestion : {requestInfo.suggestion}
                         </h5>
                     </>
                 )
@@ -155,49 +158,23 @@ export default function PublishBook(props){
                             <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Beta Reader</th>
                                 <th>Comment</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    It's gonna take a lot to take me away from you There's nothing that a hundred men or
-                                    more could ever do I bless the rains down in Africa Gonna take some time to do the
-                                    things we never have.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>
-                                    You can find me in the club, bottle full of bub Look mami I got the X if you into
-                                    taking drugs I'm into having sex, I ain't into makin love So come give me a hug if
-                                    you into getting rubbed.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>
-                                    Don't want to close my eyes I don't want to fall asleep Cause I'd miss you babe And
-                                    I don't want to miss a thing Cause even when I dream of you The sweetest dream will
-                                    never do I'd still miss you babe And I don't want to miss a thing.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>
-                                    I see trees of green........ red roses too I see em bloom..... for me and for you
-                                    And I think to myself.... what a wonderful world.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>
-                                    Buddy you're a young man hard man Shoutin' in the street gonna take on the world
-                                    some day You got blood on yo' face You big disgrace Wavin' your banner all over the
-                                    place.
-                                </td>
-                            </tr>
+                            {requestInfo.betaReaderCommentList?.map((comment, index) => {
+                                return (
+                                    <tr>
+                                        <td>{index + 1}</td>
+                                        <td>{comment.reader}</td>
+                                        <td>
+                                            {comment.text}
+                                        </td>
+                                    </tr>
+                                )
+                                })
+                            }
                             </tbody>
                         </Table>
                     </>
@@ -231,7 +208,36 @@ export default function PublishBook(props){
                                 loggedIn={props.loggedIn}
                                 submittedForm={submittedForm}
                                 isFileForm={false}
-                                buttonText="SEND REQUEST"/>
+                                checkFlags={false}
+                                buttons={
+                                    [
+                                        {
+                                            variant: "outline-success",
+                                            text:"SEND REQUEST"
+                                        }
+                                    ]
+                                }
+                                // buttons={
+                                //     [
+                                //         {
+                                //             flagIndex: 0,
+                                //             hasFlag: true,
+                                //             variant: "outline-success",
+                                //             text:"SEND REQUEST 1"
+                                //         },
+                                //         {
+                                //             hasFlag: false,
+                                //             variant: "outline-success",
+                                //             text:"SEND REQUEST 2"
+                                //         },
+                                //         {
+                                //             flagIndex: 1,
+                                //             hasFlag: true,
+                                //             variant: "outline-success",
+                                //             text:"SEND REQUEST 3"
+                                //         }
+                                //     ]
+                                    />
                 }
                 {status &&
                     <>
@@ -251,24 +257,16 @@ export default function PublishBook(props){
                         }
                     </>
                 }
-                {   (status === "WAITING_SUBMIT" || status === "WAITING_COMMENT_CHECK" || status === "WAITING_CORRECTIONS" || status === "WAITING_CHANGES") &&
+                {   (status === "WAITING_SUBMIT" || status === "WAITING_COMMENT_CHECK" || status === "WAITING_CORRECTION" || status === "WAITING_CHANGES") &&
                     <>
-                        {   (status === "WAITING_SUBMIT" || status === "WAITING_COMMENT_CHECK" || status === "WAITING_CORRECTIONS") &&
-                            <h5 className="text-danger mb-3">
-                                Submission deadline : {requestInfo.deadline}
-                            </h5>
-                        }
-                        {   status === "WAITING_CHANGES" &&
-                            <h5 className="text-danger mb-3">
-                                Changes deadline : {requestInfo.deadline}
-                            </h5>
-                        }
+                        <h5 className="text-danger mb-3">
+                            Submission deadline : {requestInfo.deadline}
+                        </h5>
                         { publishBookForm &&
                             <CustomForm formFieldsDTO={publishBookForm}
-                                    loggedIn={props.loggedIn}
-                                    submittedForm={submittedForm}
-                                    isFileForm={true}
-                                    buttonText=""/>
+                                        loggedIn={props.loggedIn}
+                                        submittedForm={submittedForm}
+                                        isFileForm={true}/>
                         }
                     </>
                 }

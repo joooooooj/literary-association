@@ -2,6 +2,7 @@ package com.la.model.publish;
 
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Getter
@@ -9,7 +10,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class BetaReaderComment {
+public class BetaReaderComment implements Serializable {
 
     private String text;
 

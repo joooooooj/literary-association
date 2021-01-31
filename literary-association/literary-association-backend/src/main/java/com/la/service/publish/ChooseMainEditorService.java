@@ -1,5 +1,6 @@
 package com.la.service.publish;
 
+import com.la.model.publish.PublishBookRequest;
 import com.la.model.users.SysUser;
 import com.la.repository.UserRepository;
 import org.camunda.bpm.engine.TaskService;
@@ -27,6 +28,10 @@ public class ChooseMainEditorService implements JavaDelegate {
         SysUser randUser = userList.get(rand.nextInt(userList.size()));
 
         delegateExecution.setVariable("editor", randUser.getUsername());
+
+        PublishBookRequest publishBookRequest = (PublishBookRequest) delegateExecution.getVariable("publishBookRequest");
+        publishBookRequest.setEditor(randUser.getUsername());
+        delegateExecution.setVariable("publishBookRequest", publishBookRequest);
 
         System.err.println("Choosen editor with ID : " + delegateExecution.getVariable("editor"));
     }

@@ -12,10 +12,6 @@ html {
     .container-fluid {
       text-align: -webkit-center;
 
-      .hidden {
-        display: none;
-      }
-
       .content {
         .custom-form {
           color: white;
@@ -27,6 +23,10 @@ html {
       }
     }
   }
+}
+
+.hidden {
+  display: none;
 }
 
 .adjust-carousel {
