@@ -22,6 +22,7 @@ public class RegistrationStartHandler implements ExecutionListener {
         List<Genre> genres = genreService.findAll();
         delegateExecution.setVariable("genres", genres);
         delegateExecution.setVariable("citiesAndCountries", getCitiesAndCountries());
+        delegateExecution.setVariable("boardMemberPossibleOpinions", getCitiesAndCountries());
     }
 
     public List<CityAndCountry> getCitiesAndCountries() {
@@ -30,5 +31,13 @@ public class RegistrationStartHandler implements ExecutionListener {
         cityAndCountries.add(new CityAndCountry(2L, "Valencia, Spain"));
         cityAndCountries.add(new CityAndCountry(3L, "Rome, Italy"));
         return cityAndCountries;
+    }
+
+    public List<BoardMemberOpinion> getPossibleOpinions() {
+        List<BoardMemberOpinion> boardMemberOpinions = new ArrayList<>();
+        boardMemberOpinions.add(new BoardMemberOpinion(1L, "Approved"));
+        boardMemberOpinions.add(new BoardMemberOpinion(2L, "Not approved"));
+        boardMemberOpinions.add(new BoardMemberOpinion(3L, "Need more work"));
+        return boardMemberOpinions;
     }
 }

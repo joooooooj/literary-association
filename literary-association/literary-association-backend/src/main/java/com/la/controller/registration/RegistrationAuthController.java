@@ -49,23 +49,23 @@ public class RegistrationAuthController {
 
     // 1. KORAK / DOBAVLJANJE FORME REGISTRACIJE SA ZANROVIMA
     @GetMapping(value = "/user-input-details")
-    public ResponseEntity<FormFieldsDTO> getUserInputDataFormFieldsDTO() {
+    public ResponseEntity<FormFieldsDTO> getUserInputDataFormFieldsDTO() throws IllegalAccessException, NoSuchFieldException, JsonProcessingException {
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("Process_registration");
         Task task = taskService.createTaskQuery().processInstanceId(processInstance.getId()).list().get(0);
         TaskFormData taskFormData = formService.getTaskFormData(task.getId());
         List<FormField> formFields = taskFormData.getFormFields();
 
-        Object citiesAndCountries = runtimeService.getVariables(task.getExecutionId()).get("citiesAndCountries");
-        String citiesAndCountriesString = String.valueOf(citiesAndCountries);
+        List<Object> citiesAndCountries = (List<Object>) runtimeService.getVariables(task.getExecutionId()).get("citiesAndCountries");
+        String citiesAndCountriesString = mapListToJSON(citiesAndCountries, "id", "value");
 
         formFields.get(5).getProperties().put("options", citiesAndCountriesString);
 
-        Object genres = runtimeService.getVariables(task.getExecutionId()).get("genres");
-        String genresString = String.valueOf(genres);
+        List<Object> genres = (List<Object>) runtimeService.getVariables(task.getExecutionId()).get("genres");
+        String genresString = mapListToJSON(genres, "id", "value");
 
         formFields.get(6).getProperties().put("options", genresString);
 
-        String submitFormUrl = "http://localhost:8080/api/auth/registration/";
+        String submitFormUrl = "http://localhost:8080/api/auth/registration";
         return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, processInstance.getId(), submitFormUrl, ""), HttpStatus.OK);
     }
 

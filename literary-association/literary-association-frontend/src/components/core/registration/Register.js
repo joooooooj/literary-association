@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Button, Form} from "react-bootstrap";
 import CustomFormField from "../CustomFormField";
 import {useForm} from "react-hook-form";
+import CustomForm from "../CustomForm";
 
 export default function Register() {
 
@@ -22,6 +23,7 @@ export default function Register() {
             .then(response => response.json())
             .then(data => {
                 setRegisterForm(data);
+                console.error(data);
             })
             .catch((error) => {
                 console.log(error);
@@ -36,29 +38,34 @@ export default function Register() {
         return final;
     }
 
-    const submitFormHandler = (data) => {
-        let final = prepareDataForSubmit(data);
-        fetch('http://localhost:8080/api/auth/registration/' + registerForm.taskId + '/' + isWriter + '/' + isBetaReader, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify(final)
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.error(data);
-
-                if (isBetaReader) {
-                    window.location.href = '/register-beta-reader?id=' + data.processInstanceId;
+    const submitFormHandler = (data, flags) => {
+                if (flags[1]) {
+                    window.location.href = '/register-beta-reader?id=' + registerForm.processInstanceId;
                 } else {
                     window.location.replace('/register-success');
                 }
-            })
-            .catch((error) => {
-                console.log(error)
-            });
+        // let final = prepareDataForSubmit(data);
+        // fetch('http://localhost:8080/api/auth/registration/' + registerForm.taskId + '/' + isWriter + '/' + isBetaReader, {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         "Accept": "application/json"
+        //     },
+        //     body: JSON.stringify(final)
+        // })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         console.error(data);
+        //
+        //         if (isBetaReader) {
+        //             window.location.href = '/register-beta-reader?id=' + data.processInstanceId;
+        //         } else {
+        //             window.location.replace('/register-success');
+        //         }
+        //     })
+        //     .catch((error) => {
+        //         console.log(error)
+        //     });
     }
 
 
@@ -66,37 +73,53 @@ export default function Register() {
         <div className="col-4 content bg-dark p-1">
             <div className="m-5 custom-form border-light border pb-5">
                 {registerForm &&
-                // <CustomForm
-                //     formFieldsDTO={registerForm}
-                //     loggedIn={localStorage.getItem("token")}
-                //     submittedForm={submitFormHandler}
-                //     isFileForm={false}
-                //     buttonTexts={[
-                //         "weiter",
-                //         "reader",
-                //         "beta"
-                //     ]} />
-                <Form className="mt-5 mb-5 w-75 pb-5" onSubmit={handleSubmit(submitFormHandler)}>
-                    <h3 className="text-left pb-3">Registration</h3>
-                    {registerForm.formFields.map((formField, index) => {
-                        return (
-                            <CustomFormField key={index} formField={formField} errors={errors} register={register}/>
-                        )
-                    })
-                    }
-                    <Button variant="success" type="submit" className="float-right w-100 mt-3"
-                            onClick={() => setIsWriter(true)}
-                    >
-                        I wanna be writer
-                    </Button>
-                    <Button variant="warning" type="submit" className="float-right w-100 mt-3">
-                        I wanna be reader
-                    </Button>
-                    <Button variant="primary" type="submit" className="float-right w-100 mt-3"
-                            onClick={() => setIsBetaReader(true)}>
-                        I wanna be beta reader
-                    </Button>
-                </Form>
+                <CustomForm
+                    formFieldsDTO={registerForm}
+                    loggedIn={localStorage.getItem("token")}
+                    submittedForm={submitFormHandler}
+                    isFileForm={false}
+                    checkFlags={true}
+                    buttons={
+                        [
+                            {
+                                flagIndex: 0,
+                                hasFlag: true,
+                                variant: "success",
+                                text: "I wanna be writer"
+                            },
+                            {
+                                hasFlag: false,
+                                variant: "warning",
+                                text: "I wanna be reader"
+                            },
+                            {
+                                flagIndex: 1,
+                                hasFlag: true,
+                                variant: "primary",
+                                text: "I wanna be beta reader"
+                            }
+                        ]}/>
+                    // <Form className="mt-5 mb-5 w-75 pb-5" onSubmit={handleSubmit(submitFormHandler)}>
+                    //     <h3 className="text-left pb-3">Registration</h3>
+                    //     {registerForm.formFields.map((formField, index) => {
+                    //         return (
+                    //             <CustomFormField key={index} formField={formField} errors={errors} register={register}/>
+                    //         )
+                    //     })
+                    //     }
+                    //     <Button variant="success" type="submit" className="float-right w-100 mt-3"
+                    //             onClick={() => setIsWriter(true)}
+                    //     >
+                    //         I wanna be writer
+                    //     </Button>
+                    //     <Button variant="warning" type="submit" className="float-right w-100 mt-3">
+                    //         I wanna be reader
+                    //     </Button>
+                    //     <Button variant="primary" type="submit" className="float-right w-100 mt-3"
+                    //             onClick={() => setIsBetaReader(true)}>
+                    //         I wanna be beta reader
+                    //     </Button>
+                    // </Form>
                 }
             </div>
         </div>

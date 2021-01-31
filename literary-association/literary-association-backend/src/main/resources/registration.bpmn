@@ -163,13 +163,13 @@
               <camunda:constraint name="required" config="true" />
             </camunda:validation>
           </camunda:formField>
-          <camunda:formField id="opinion" label="Opinion" type="enum">
+          <camunda:formField id="opinion" label="Opinion" type="string">
+            <camunda:properties>
+              <camunda:property id="sybType" value="select" />
+            </camunda:properties>
             <camunda:validation>
               <camunda:constraint name="required" config="true" />
             </camunda:validation>
-            <camunda:value id="approved" name="Approved" />
-            <camunda:value id="notApproved" name="Not approved" />
-            <camunda:value id="moreMaterial" name="More material" />
           </camunda:formField>
         </camunda:formData>
       </bpmn:extensionElements>

@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 import Confirmation from "./modals/Confirmation";
 import {useForm} from "react-hook-form";
 
-export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, buttons, checkFlags, isFileForm}){
+export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, buttons, checkFlags, isFileForm}) {
 
     const {register, errors, trigger, handleSubmit} = useForm();
 
@@ -12,10 +12,10 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
     const [first, setFirst] = useState(true);
 
     useEffect(() => {
-        if (first && checkFlags){
+        if (first && checkFlags) {
             let tempFlags = [];
             buttons.forEach((button) => {
-                if (button.hasFlag){
+                if (button.hasFlag) {
                     tempFlags.push(false);
                 }
             })
@@ -41,24 +41,24 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
         let final = prepareDataForSubmit(data);
         // Setting URL
         let url = formFieldsDTO.postFormEndpoint;
-        if (checkFlags){
+        url += "/" + formFieldsDTO.taskId;
+        if (checkFlags) {
             flags.forEach((value) => {
                 url += "/" + value;
             })
         }
-        url += "/" + formFieldsDTO.taskId;
         // Fetching data
         fetch(url, {
             method: "POST",
             headers: {
-                "Authorization" : "Bearer " + loggedIn,
+                "Authorization": "Bearer " + loggedIn,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(final)
         })
             .then(response => response)
             .then(data => {
-                submittedForm(data);
+                submittedForm(data, flags);
             })
             .catch((error) => {
                 console.log(error);
@@ -67,8 +67,8 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
 
     const prepareDataForSubmit = (data) => {
         let final = [];
-        for(let prop in data){
-            final.push({fieldId:prop, fieldValue:data[prop]})
+        for (let prop in data) {
+            final.push({fieldId: prop, fieldValue: data[prop]})
         }
         return final;
     }
@@ -79,7 +79,7 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
         fetch(url, {
             method: "POST",
             headers: {
-                "Authorization" : "Bearer " + loggedIn,
+                "Authorization": "Bearer " + loggedIn,
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(data)
@@ -103,7 +103,7 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
         fetch(url, {
             method: "POST",
             headers: {
-                "Authorization" : "Bearer " + loggedIn
+                "Authorization": "Bearer " + loggedIn
             },
             body: formData
         })
@@ -120,7 +120,7 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
         let refs = "{";
         constraints.forEach((constraint, index) => {
             refs += '"' + constraint.name + '" : ' + constraint.configuration;
-            if (index !== (constraints.length - 1)){
+            if (index !== (constraints.length - 1)) {
                 refs += ","
             }
         })
@@ -130,7 +130,7 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
 
     const checkErrors = (id) => {
         for (let prop in errors) {
-            if(prop === id){
+            if (prop === id) {
                 return true;
             }
         }
@@ -174,11 +174,10 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
     };
 
     const handleCloseConfirmation = (confirmed) => {
-        if(confirmed) {
+        if (confirmed) {
             setSubmitted(true);
             handleFileUpload(files);
-        }
-        else {
+        } else {
             hiddenFileInput.current.value = "";
         }
         setShowConfirmation(false);
@@ -213,11 +212,11 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
         <>
             {
                 isFileForm &&
-                    subtypeFile()
+                subtypeFile()
             }
-            {   !isFileForm &&
-                <Form className="mt-5 mb-5 w-75" onSubmit={handleSubmit(onSubmit)}>
-                    {formFieldsDTO.formFields.map((formField) => {
+            {!isFileForm &&
+            <Form className="mt-5 mb-5 w-75" onSubmit={handleSubmit(onSubmit)}>
+                {formFieldsDTO.formFields.map((formField) => {
                         return (
                             <Form.Group className="text-left" key={formField.id}>
                                 <Form.Label>{formField.label}</Form.Label>
@@ -241,14 +240,17 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
                                                     isMulti={formField.properties.multiselect === "true"}
                                                     onChange={(selectValue) => setHiddenInput(formField, selectValue)}
                                             />
-                                            <Form.Control id={"hidden-input-" + formField.id} isInvalid={checkErrors(formField.id)} name={formField.id}
-                                                          type="text" className="hidden" ref={register(setRef(formField.validationConstraints))}
+                                            <Form.Control id={"hidden-input-" + formField.id}
+                                                          isInvalid={checkErrors(formField.id)} name={formField.id}
+                                                          type="text" className="hidden"
+                                                          ref={register(setRef(formField.validationConstraints))}
                                                           readOnly/>
                                         </>
                                         }
                                         {formField.properties.subType === "textarea" &&
                                         <>
-                                            <Form.Control isInvalid={checkErrors(formField.id)} name={formField.id} as="textarea" rows={5}
+                                            <Form.Control isInvalid={checkErrors(formField.id)} name={formField.id}
+                                                          as="textarea" rows={5}
                                                           placeholder={formField.properties.placeholder}
                                                           ref={register(setRef(formField.validationConstraints))}/>
                                         </>
@@ -264,22 +266,23 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
                                 </>
                                 }
                             </Form.Group>
-                        )}
-                    )}
-                    {buttons.map((button, index) => {
-                        return (
-                            <p>
-                                <Button variant={button.variant}
-                                        type="submit"
-                                        onClick={() => button.hasFlag ? handleFlags(button.flagIndex) : ""}
-                                        key={"button-" + index}
-                                        className="mt-3">
-                                    {button.text}
-                                </Button>
-                            </p>)
-                        })
+                        )
                     }
-                </Form>
+                )}
+                {buttons.map((button, index) => {
+                    return (
+                        <p>
+                            <Button variant={button.variant}
+                                    type="submit"
+                                    onClick={() => button.hasFlag ? handleFlags(button.flagIndex) : ""}
+                                    key={"button-" + index}
+                                    className="mt-3 w-100">
+                                {button.text}
+                            </Button>
+                        </p>)
+                })
+                }
+            </Form>
             }
         </>);
 }
