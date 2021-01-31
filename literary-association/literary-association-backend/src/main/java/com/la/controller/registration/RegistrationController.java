@@ -98,8 +98,10 @@ public class RegistrationController {
 
                 String username = (String) runtimeService.getVariable(processInstanceId, "registeredUser");
                 WriterMembershipRequest request = writerMembershipRequestRepository.findByUsername(username);
-                request.setStatus(WriterMembershipStatus.WAITING_PAYMENT);
+                request.setStatus(WriterMembershipStatus.WAITING_OPINION);
                 writerMembershipRequestRepository.save(request);
+
+                // DODATI CUVANJE SUBMITTED WORKA
 
                 return new ResponseEntity<>(HttpStatus.OK);
             }

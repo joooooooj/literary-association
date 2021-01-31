@@ -151,7 +151,7 @@
       <bpmn:outgoing>Flow_0ljm9o8</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_0ljm9o8" sourceRef="Assign_Board_Members" targetRef="Board_Member_Comment_Input" />
-    <bpmn:userTask id="Board_Member_Comment_Input" name="Board member comment input">
+    <bpmn:userTask id="Board_Member_Comment_Input" name="Board member comment input" camunda:assignee="${board_member.username}">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="comment" label="Comment" type="string">
