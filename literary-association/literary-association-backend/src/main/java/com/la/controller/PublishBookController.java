@@ -331,7 +331,24 @@ public class PublishBookController {
                 PublishBookRequest publishBookRequest = (PublishBookRequest) runtimeService.getVariable(processInstanceId, "publishBookRequest");
                 String path = fileService.saveUploadedFile(file, processInstanceId);
                 publishBookRequest.setPath(path);
-                publishBookRequest.setStatus("WAITING_PLAGIARISM_CHECK");
+                switch (publishBookRequest.getStatus()){
+                    case ("WAITING_SUBMIT"):{
+                        publishBookRequest.setStatus(PublishStatus.WAITING_PLAGIARISM_CHECK.toString());
+                        break;
+                    }
+                    case ("WAITING_COMMENT_CHECK"):
+                    case ("WAITING_CHANGES"): {
+                        publishBookRequest.setStatus(PublishStatus.WAITING_SUGGESTIONS.toString());
+                        break;
+                    }
+                    case ("WAITING_CORRECTION"):{
+                        publishBookRequest.setStatus(PublishStatus.WAITING_LECTOR_REVIEW.toString());
+                        break;
+                    }
+                    default:{
+                        break;
+                    }
+                }
                 runtimeService.setVariable(processInstanceId, "publishBookRequest", publishBookRequest);
 
                 System.err.println("FILE SAVED. WAITING PLAGIARISM CHECK . . .");
@@ -563,35 +580,6 @@ public class PublishBookController {
 
     /**
      *
-     * @param file
-     * @param processInstanceId
-     * @return HttpStatus
-     */
-    @PostMapping(value = "/upload-after-comment-suggestion/{processInstanceId}")
-    public ResponseEntity<HttpStatus> uploadFileAfterCommentSuggestion(@RequestBody MultipartFile file, @PathVariable String processInstanceId){
-        try {
-            if (file != null){
-                PublishBookRequest publishBookRequest = (PublishBookRequest) runtimeService.getVariable(processInstanceId, "publishBookRequest");
-                String path = fileService.saveUploadedFile(file, processInstanceId);
-                publishBookRequest.setPath(path);
-                publishBookRequest.setStatus(PublishStatus.WAITING_SUGGESTIONS.toString());
-                runtimeService.setVariable(processInstanceId, "publishBookRequest", publishBookRequest);
-
-                System.err.println("FILE UPLOADED. WAITING EDITOR'S SUGGESTIONS . . .");
-
-                return new ResponseEntity<>(HttpStatus.OK);
-            }
-
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    /**
-     *
      * @param decision
      * @param taskId
      * @return FormFieldsDTO
@@ -611,14 +599,15 @@ public class PublishBookController {
         if(decision.getApproved()){
             System.err.println("EDITOR WANTS MORE CHANGES . . .");
             publishBookRequest.setStatus(PublishStatus.WAITING_SUGGESTIONS.toString());
-            runtimeService.setVariable(task.getProcessInstanceId(), "moreChanges ", true);
+            runtimeService.setVariable(task.getProcessInstanceId(), "moreChanges", true);
         }
         else {
             System.err.println("EDITOR WAITS LECTOR REVIEW . . .");
             publishBookRequest.setStatus(PublishStatus.WAITING_LECTOR_REVIEW.toString());
-            runtimeService.setVariable(task.getProcessInstanceId(), "moreChanges ", false);
+            runtimeService.setVariable(task.getProcessInstanceId(), "moreChanges", false);
         }
 
+        runtimeService.setVariable(task.getProcessInstanceId(), "publishBookRequest", publishBookRequest);
         taskService.complete(taskId);
 
         if(decision.getApproved()){
@@ -649,6 +638,8 @@ public class PublishBookController {
         publishBookRequest.setSuggestion((String) map.get("suggestion"));
         publishBookRequest.setDeadline((DateTime.now().plusDays(10)).toLocalDate().toString());
 
+        runtimeService.setVariable(task.getProcessInstanceId(), "publishBookRequest", publishBookRequest);
+
         formService.submitTaskForm(taskId, map);
 
         System.err.println("WAITING WRITER CHANGES . . .");
@@ -670,7 +661,7 @@ public class PublishBookController {
         if(decision.getApproved()){
             System.err.println("LECTOR THINKS SCRIPT NEEDS CORRECTION . . .");
 
-            runtimeService.setVariable(task.getProcessInstanceId(), "needsCorrection ", true);
+            runtimeService.setVariable(task.getProcessInstanceId(), "needsCorrection", true);
             publishBookRequest.setStatus(PublishStatus.WAITING_LECTOR_REVIEW.toString());
         }
         else {
@@ -708,6 +699,8 @@ public class PublishBookController {
         publishBookRequest.setStatus(PublishStatus.WAITING_CORRECTION.toString());
         publishBookRequest.setSuggestion((String) map.get("correction"));
         publishBookRequest.setDeadline((DateTime.now().plusDays(10)).toLocalDate().toString());
+
+        runtimeService.setVariable(task.getProcessInstanceId(), "publishBookRequest", publishBookRequest);
 
         formService.submitTaskForm(taskId, map);
 

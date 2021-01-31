@@ -28,7 +28,10 @@ export default function PublishRequests(props) {
     };
 
     const handleShowSuggestions = () => setShowSuggestions(true);
-    const handleCloseSuggestions = () => setShowSuggestions(false);
+    const handleCloseSuggestions = () => {
+        setShowSuggestions(false);
+        window.location.reload();
+    }
 
     const handleShowPlagiarismCheckResults = (data) => {
         setSelectedRequest(data);
@@ -103,6 +106,36 @@ export default function PublishRequests(props) {
             .catch((error) => {
                 console.log(error);
             });
+    }
+
+    const [suggestionForm, setSuggestionForm] = useState({});
+
+    const handleNeedMoreChanges = (needMoreChanges, taskId) => {
+        fetch("http://localhost:8080/publish/editor/need-more-changes/" + taskId, {
+            method: "POST",
+            headers: {
+                "Authorization" : "Bearer " + props.loggedIn,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                approved : needMoreChanges
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (needMoreChanges) {
+                    setSuggestionForm(data);
+                    handleShowSuggestions();
+                }
+                console.log(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        if (!needMoreChanges){
+            window.location.reload();
+        }
     }
 
     const renderStatus = (data) => {
@@ -208,11 +241,11 @@ export default function PublishRequests(props) {
                             </Button>
                             }
                             {   !corrections &&
-                            <Button variant="outline-success" onClick={() => setStatus("WAITING_LECTOR_REVIEW")}>
+                            <Button variant="outline-success" onClick={() => handleNeedMoreChanges(false, data.taskId)}>
                                 SEND TO LECTOR
                             </Button>
                             }
-                            <Button variant="outline-danger" onClick={() => handleShowSuggestions()}>
+                            <Button variant="outline-danger" onClick={() => handleNeedMoreChanges(true, data.taskId)}>
                                 GIVE SUGGESTION
                             </Button>
                         </ButtonGroup>
@@ -287,7 +320,7 @@ export default function PublishRequests(props) {
                 }
                 </>
             }
-            <AddSuggestions show={showSuggestions} onHide={handleCloseSuggestions} setStatus={setStatus}/>
+            <AddSuggestions suggestionForm={suggestionForm} show={showSuggestions} onHide={handleCloseSuggestions} setStatus={setStatus}/>
             <ChooseBetaReaders show={showBetaReaders} onHide={handleCloseBetaReaders} setStatus={setStatus} betaReadersForm={betaReadersForm}/>
             <PlagiarismCheckResults selectedRequest={selectedRequest} show={showPlagiarismCheckResults} onHide={handleClosePlagiarismCheckResults} setStatus={setStatus} handleShowExplanation={handleShowExplanation}/>
             <PreviewPDF selectedRequest={selectedRequest} show={showDocument} onHide={handleCloseDocument} status={status} setStatus={setStatus} handleShowExplanation={handleShowExplanation}/>
@@ -322,8 +355,8 @@ export default function PublishRequests(props) {
                                 {renderStatus(request)}
                             </td>
                             <td className="text-center" style={{verticalAlign:"middle"}}>
-                                {status === "WAITING_SUGGESTIONS" &&
-                                <Button variant="outline-info" onClick={() => handleShowDocument()}>
+                                {request.publishBookRequest.status === "WAITING_SUGGESTIONS" &&
+                                <Button variant="outline-info" onClick={() => handleShowDocument(request)}>
                                     READ SCRIPT
                                 </Button>
                                 }
