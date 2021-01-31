@@ -22,7 +22,7 @@ public class RegistrationStartHandler implements ExecutionListener {
         List<Genre> genres = genreService.findAll();
         delegateExecution.setVariable("genres", genres);
         delegateExecution.setVariable("citiesAndCountries", getCitiesAndCountries());
-        delegateExecution.setVariable("boardMemberPossibleOpinions", getCitiesAndCountries());
+        delegateExecution.setVariable("boardMemberPossibleOpinions", getPossibleOpinions());
     }
 
     public List<CityAndCountry> getCitiesAndCountries() {

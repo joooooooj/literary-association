@@ -6,11 +6,17 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.la.dto.FormFieldsDTO;
 import com.la.dto.FormSubmissionDTO;
 import com.la.dto.SelectOptionDTO;
+import com.la.handler.RegistrationStartHandler;
 import com.la.model.dtos.BoardMemberWorkToApproveDTO;
 import com.la.model.dtos.WriterMembershipRequestDataNeededDTO;
+import com.la.model.enums.Opinion;
 import com.la.model.enums.WriterMembershipStatus;
+import com.la.model.registration.BoardMemberComment;
 import com.la.model.registration.SubmittedWork;
 import com.la.model.registration.WriterMembershipRequest;
+import com.la.model.users.BoardMember;
+import com.la.repository.BoardMemberCommentRepository;
+import com.la.repository.BoardMemberRepository;
 import com.la.repository.SubmittedWorkRepository;
 import com.la.repository.WriterMembershipRequestRepository;
 import com.la.security.TokenUtils;
@@ -33,10 +39,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping(value = "/api/registration")
@@ -67,7 +70,16 @@ public class RegistrationController {
     private SubmittedWorkRepository submittedWorkRepository;
 
     @Autowired
+    private BoardMemberRepository boardMemberRepository;
+
+    @Autowired
+    private BoardMemberCommentRepository boardMemberCommentRepository;
+
+    @Autowired
     private FileService fileService;
+
+    @Autowired
+    private RegistrationStartHandler registrationStartHandler;
 
     // 6.1 KORAK / PREDUSLOV
     @GetMapping(value = "/request/self/{token:.+}")
@@ -160,6 +172,8 @@ public class RegistrationController {
             if (task != null) {
                 WriterMembershipRequest request = writerMembershipRequestRepository.findByUsername((String) runtimeService.getVariables(pi.getId()).get("registeredUser"));
 
+
+                //if po tome da li je komentar postavljen za ovaj rad
                 BoardMemberWorkToApproveDTO workToApproveDTO = new BoardMemberWorkToApproveDTO();
                 workToApproveDTO.setWriterFirstName(request.getFirstName());
                 workToApproveDTO.setWriterLastName(request.getLastName());
@@ -205,9 +219,30 @@ public class RegistrationController {
     // 10. KORAK
     @PostMapping(value = "/board-member/leave-comment/{taskId}")
     public ResponseEntity<?> submitComment(@RequestBody List<FormSubmissionDTO> formSubmissionDTOS,
-                                           @PathVariable String taskId) {
+                                           @PathVariable String taskId, @RequestHeader("Authorization") String token) {
+        token = token.substring(7);
+        BoardMember boardMember = boardMemberRepository.findByUsername(tokenUtils.getUsernameFromToken(token));
+
         Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
         HashMap<String, Object> map = this.mapListToDto(formSubmissionDTOS);
+
+        BoardMemberComment comment = new BoardMemberComment();
+        comment.setBoardMember(boardMember);
+        comment.setDate(new Date());
+        comment.setSubmittedWork(submittedWorkRepository.findByPathContaining(task.getProcessInstanceId()));
+        formSubmissionDTOS.forEach(formField -> {
+            if (formField.getFieldId().equals("comment")) {
+                comment.setText(formField.getFieldValue());
+            }
+            if (formField.getFieldValue().equals("1")) {
+                comment.setOpinion(Opinion.APPROVED);
+            } else if (formField.getFieldValue().equals("2")) {
+                comment.setOpinion(Opinion.NOT_APPROVED);
+            } else {
+                comment.setOpinion(Opinion.MORE_MATERIAL);
+            }
+        });
+        boardMemberCommentRepository.save(comment);
 
         formService.submitTaskForm(taskId, map);
         return new ResponseEntity<>(Collections.singletonMap("processInstanceId", task.getProcessInstanceId()), HttpStatus.OK);

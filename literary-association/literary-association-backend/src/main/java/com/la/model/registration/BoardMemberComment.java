@@ -26,6 +26,7 @@ public class BoardMemberComment {
     private Date date;
 
     @Column
+    @Enumerated(EnumType.STRING)
     private Opinion opinion;
 
     @ManyToOne

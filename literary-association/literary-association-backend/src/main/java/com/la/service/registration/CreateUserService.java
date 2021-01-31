@@ -72,8 +72,8 @@ public class CreateUserService implements JavaDelegate {
                 newSystemUser.setEmail(formField.getFieldValue());
             }
             if (formField.getFieldId().equals("cityandcountry")) {
-                String city = registrationStartHandler.getCitiesAndCountries().get(Integer.parseInt(formField.getFieldValue())).getValue().split(",")[0];
-                String country = registrationStartHandler.getCitiesAndCountries().get(Integer.parseInt(formField.getFieldValue())).getValue().split(",")[1];
+                String city = registrationStartHandler.getCitiesAndCountries().get(Integer.parseInt(formField.getFieldValue()) - 1).getValue().split(",")[0];
+                String country = registrationStartHandler.getCitiesAndCountries().get(Integer.parseInt(formField.getFieldValue()) - 1).getValue().split(",")[1];
                 newSystemUser.setCity(city);
                 newSystemUser.setState(country);
             }
