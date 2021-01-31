@@ -1,5 +1,6 @@
 package com.la.service.publish;
 
+import com.la.model.publish.PublishBookRequest;
 import com.la.model.users.Lector;
 import com.la.model.users.SysUser;
 import com.la.repository.LectorRepository;
@@ -24,6 +25,10 @@ public class SetLector implements JavaDelegate {
         Lector randLector = lectorList.get(rand.nextInt(lectorList.size()));
 
         delegateExecution.setVariable("lector", randLector.getUsername());
+
+        PublishBookRequest publishBookRequest = (PublishBookRequest) delegateExecution.getVariable("publishBookRequest");
+        publishBookRequest.setLector(randLector.getUsername());
+        delegateExecution.setVariable("publishBookRequest", publishBookRequest);
 
         System.err.println("Choosen lector with ID : " + delegateExecution.getVariable("lector"));
     }

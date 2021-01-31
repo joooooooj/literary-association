@@ -11,6 +11,7 @@ import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,31 +27,38 @@ public class PunishBetaReadersService implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        List<Reader> readerList = (List<Reader>) delegateExecution.getVariable("beta");
+        List<String> readerList = (List<String>) delegateExecution.getVariable("beta");
         PublishBookRequest publishBookRequest = (PublishBookRequest) delegateExecution.getVariable("publishBookRequest");
         List<BetaReaderComment> betaReaderCommentList = publishBookRequest.getBetaReaderCommentList();
+
+        if (betaReaderCommentList == null) {
+            betaReaderCommentList = new ArrayList<>();
+        }
+
         Map<String, BetaReaderComment> betaReaderComments = new HashMap<>();
         for (BetaReaderComment betaReaderComment : betaReaderCommentList) {
             betaReaderComments.put(betaReaderComment.getReader(), betaReaderComment);
         }
-        for(Reader reader : readerList) {
-            if (!betaReaderComments.containsKey(reader.getUsername())){
+        for(String reader : readerList) {
+            if (!betaReaderComments.containsKey(reader)){
                 punishBetaReader(reader);
             }
         }
     }
 
-    private void punishBetaReader(Reader reader) {
-        if (readerRepository.findById(reader.getId()).isPresent()){
-            if ((reader.getPenaltyPoints() - 1) == -5){
-                reader.setBeta(false);
-                sendEmail(reader, true, -5);
+    private void punishBetaReader(String reader) {
+        if (readerRepository.findByUsername(reader) != null){
+            Reader readerObject = (Reader) readerRepository.findByUsername(reader);
+            if ((readerObject.getPenaltyPoints() - 1) == -5){
+                readerObject.setPenaltyPoints(-5);
+                readerObject.setBeta(false);
+                sendEmail(readerObject, true, -5);
             }
             else {
-                reader.setPenaltyPoints(reader.getPenaltyPoints() - 1);
-                sendEmail(reader, false, reader.getPenaltyPoints() - 1);
+                readerObject.setPenaltyPoints(readerObject.getPenaltyPoints() - 1);
+                sendEmail(readerObject, false, readerObject.getPenaltyPoints() - 1);
             }
-            readerRepository.save(reader);
+            readerRepository.save(readerObject);
         }
     }
 

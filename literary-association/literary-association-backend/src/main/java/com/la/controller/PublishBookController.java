@@ -589,34 +589,35 @@ public class PublishBookController {
         Task task =  taskService.createTaskQuery().taskId(taskId).singleResult();
         PublishBookRequest publishBookRequest = (PublishBookRequest) runtimeService.getVariable(task.getProcessInstanceId(), "publishBookRequest");
 
-        if (decision == null){
+        if (decision.getApproved() == null){
             System.err.println("READY FOR PRINTING . . .");
-            runtimeService.setVariable(task.getProcessInstanceId(), "moreChanges ", "PRINT");
-
-            return new ResponseEntity<>(null, HttpStatus.OK);
-        }
-
-        if(decision.getApproved()){
-            System.err.println("EDITOR WANTS MORE CHANGES . . .");
-            publishBookRequest.setStatus(PublishStatus.WAITING_SUGGESTIONS.toString());
-            runtimeService.setVariable(task.getProcessInstanceId(), "moreChanges", true);
+            runtimeService.setVariable(task.getProcessInstanceId(), "moreChanges", 3);
         }
         else {
-            System.err.println("EDITOR WAITS LECTOR REVIEW . . .");
-            publishBookRequest.setStatus(PublishStatus.WAITING_LECTOR_REVIEW.toString());
-            runtimeService.setVariable(task.getProcessInstanceId(), "moreChanges", false);
+            if(decision.getApproved()){
+                System.err.println("EDITOR WANTS MORE CHANGES . . .");
+                publishBookRequest.setStatus(PublishStatus.WAITING_SUGGESTIONS.toString());
+                runtimeService.setVariable(task.getProcessInstanceId(), "moreChanges", 2);
+            }
+            else {
+                System.err.println("EDITOR WAITS LECTOR REVIEW . . .");
+                publishBookRequest.setStatus(PublishStatus.WAITING_LECTOR_REVIEW.toString());
+                runtimeService.setVariable(task.getProcessInstanceId(), "moreChanges", 1);
+            }
         }
 
         runtimeService.setVariable(task.getProcessInstanceId(), "publishBookRequest", publishBookRequest);
         taskService.complete(taskId);
 
-        if(decision.getApproved()){
-            Task nextTask = taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).active().singleResult();
-            TaskFormData taskFormData = formService.getTaskFormData(nextTask.getId());
-            List<FormField> formFields = taskFormData.getFormFields();
-            System.err.println("SENDING SUGGESTION FORM . . .");
+        if (decision.getApproved() != null) {
+            if (decision.getApproved()) {
+                Task nextTask = taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).active().singleResult();
+                TaskFormData taskFormData = formService.getTaskFormData(nextTask.getId());
+                List<FormField> formFields = taskFormData.getFormFields();
+                System.err.println("SENDING SUGGESTION FORM . . .");
 
-            return new ResponseEntity<>(new FormFieldsDTO(nextTask.getId(), formFields, task.getProcessInstanceId(), "http://localhost:8080/publish/editor/form/suggestion", ""), HttpStatus.OK);
+                return new ResponseEntity<>(new FormFieldsDTO(nextTask.getId(), formFields, task.getProcessInstanceId(), "http://localhost:8080/publish/editor/form/suggestion", ""), HttpStatus.OK);
+            }
         }
 
         return new ResponseEntity<>(null, HttpStatus.OK);
@@ -668,6 +669,7 @@ public class PublishBookController {
             System.err.println("LECTOR WAITS EDITOR'S SUGGESTIONS . . .");
 
             runtimeService.setVariable(task.getProcessInstanceId(), "needsCorrection", false);
+            publishBookRequest.setCorrection("Script doesn't need corrections");
             publishBookRequest.setStatus(PublishStatus.WAITING_SUGGESTIONS.toString());
         }
 

@@ -163,7 +163,7 @@ export default function PublishBook(props){
                             </tr>
                             </thead>
                             <tbody>
-                            {requestInfo.betaReaderCommentList.map((comment, index) => {
+                            {requestInfo.betaReaderCommentList?.map((comment, index) => {
                                 return (
                                     <tr>
                                         <td>{index + 1}</td>

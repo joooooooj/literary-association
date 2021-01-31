@@ -256,12 +256,12 @@ export default function PublishRequests(props) {
                 return (
                     <>
                         <ButtonGroup>
-                            {   corrections &&
-                            <Button variant="outline-success" onClick={() => setStatus("DONE")}>
+                            {   data.publishBookRequest.correction &&
+                            <Button variant="outline-success" onClick={() => handleNeedMoreChanges(null, data.taskId)}>
                                 SEND TO PRINTING
                             </Button>
                             }
-                            {   !corrections &&
+                            {   !data.publishBookRequest.correction &&
                             <Button variant="outline-success" onClick={() => handleNeedMoreChanges(false, data.taskId)}>
                                 SEND TO LECTOR
                             </Button>
