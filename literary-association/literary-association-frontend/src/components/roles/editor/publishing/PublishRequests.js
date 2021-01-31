@@ -86,6 +86,27 @@ export default function PublishRequests(props) {
             });
     }
 
+    const handleSendToLector = (data) => {
+        fetch("http://localhost:8080/publish/editor/send-to-beta/" + data.taskId, {
+            method: "POST",
+            headers: {
+                "Authorization" : "Bearer " + props.loggedIn,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                approved : false
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        window.location.reload();
+    }
+
     useEffect(() => {
       getRequests();
     },[])
@@ -175,7 +196,7 @@ export default function PublishRequests(props) {
                             <Button variant="outline-info" onClick={() => handleShowBetaReaders(data)}>
                                 SEND TO BETA READERS
                             </Button>
-                            <Button variant="outline-warning" onClick={() => setStatus("WAITING_LECTOR_REVIEW")}>
+                            <Button variant="outline-warning" onClick={() => handleSendToLector(data)}>
                                 SEND TO LECTOR
                             </Button>
                         </ButtonGroup>

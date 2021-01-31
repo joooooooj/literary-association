@@ -23,6 +23,8 @@ public class SetLector implements JavaDelegate {
         Random rand = new Random();
         Lector randLector = lectorList.get(rand.nextInt(lectorList.size()));
 
-        delegateExecution.setVariable("lector", randLector);
+        delegateExecution.setVariable("lector", randLector.getUsername());
+
+        System.err.println("Choosen lector with ID : " + delegateExecution.getVariable("lector"));
     }
 }

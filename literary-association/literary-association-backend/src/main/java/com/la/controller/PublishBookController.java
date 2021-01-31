@@ -697,7 +697,7 @@ public class PublishBookController {
         Task task =  taskService.createTaskQuery().taskId(taskId).singleResult();
         PublishBookRequest publishBookRequest = (PublishBookRequest) runtimeService.getVariable(task.getProcessInstanceId(), "publishBookRequest");
         publishBookRequest.setStatus(PublishStatus.WAITING_CORRECTION.toString());
-        publishBookRequest.setSuggestion((String) map.get("correction"));
+        publishBookRequest.setCorrection((String) map.get("correction"));
         publishBookRequest.setDeadline((DateTime.now().plusDays(10)).toLocalDate().toString());
 
         runtimeService.setVariable(task.getProcessInstanceId(), "publishBookRequest", publishBookRequest);
@@ -707,35 +707,6 @@ public class PublishBookController {
         System.err.println("WAITING WRITER CORRECTION . . .");
 
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    /**
-     *
-     * @param file
-     * @param processInstanceId
-     * @return HttpStatus
-     */
-    @PostMapping(value = "/upload-after-correction/{processInstanceId}")
-    public ResponseEntity<HttpStatus> uploadFileAfterCorrection(@RequestBody MultipartFile file, @PathVariable String processInstanceId){
-        try {
-            if (file != null){
-                PublishBookRequest publishBookRequest = (PublishBookRequest) runtimeService.getVariable(processInstanceId, "publishBookRequest");
-                String path = fileService.saveUploadedFile(file, processInstanceId);
-                publishBookRequest.setPath(path);
-                publishBookRequest.setStatus(PublishStatus.WAITING_LECTOR_REVIEW.toString());
-                runtimeService.setVariable(processInstanceId, "publishBookRequest", publishBookRequest);
-
-                System.err.println("FILE UPLOADED. WAITING LECTOR REVIEW . . .");
-
-                return new ResponseEntity<>(HttpStatus.OK);
-            }
-
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     /**

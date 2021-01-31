@@ -47,7 +47,10 @@ export default function PublishBook(props){
                setRequestInfo(data);
                 if (data.status){
                     setStatus(data.status);
-                    if (data.status === "WAITING_SUBMIT" || data.status === "WAITING_COMMENT_CHECK"){
+                    if (data.status === "WAITING_SUBMIT" ||
+                        data.status === "WAITING_COMMENT_CHECK" ||
+                        data.status === "WAITING_CHANGES" ||
+                        data.status === "WAITING_CORRECTION"){
                         getFileFormField();
                     }
                 }
@@ -132,11 +135,11 @@ export default function PublishBook(props){
                         </h5>
                     </>
                 )
-            case "WAITING_CORRECTIONS" :
+            case "WAITING_CORRECTION" :
                 return (
                     <>
                         <h5 className="text-danger mb-3">
-                            Please correct capital letter on "united states"!
+                            Lector correction : {requestInfo.correction}
                         </h5>
                     </>
                 )
@@ -144,7 +147,7 @@ export default function PublishBook(props){
                 return (
                     <>
                         <h5 className="text-danger mb-3">
-                            You should change conclusion to be more specific.
+                            Editor suggestion : {requestInfo.suggestion}
                         </h5>
                     </>
                 )
@@ -254,7 +257,7 @@ export default function PublishBook(props){
                         }
                     </>
                 }
-                {   (status === "WAITING_SUBMIT" || status === "WAITING_COMMENT_CHECK" || status === "WAITING_CORRECTIONS" || status === "WAITING_CHANGES") &&
+                {   (status === "WAITING_SUBMIT" || status === "WAITING_COMMENT_CHECK" || status === "WAITING_CORRECTION" || status === "WAITING_CHANGES") &&
                     <>
                         <h5 className="text-danger mb-3">
                             Submission deadline : {requestInfo.deadline}
