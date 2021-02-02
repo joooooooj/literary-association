@@ -44,6 +44,8 @@ export default function PublishRequests(props) {
 
     const handleCloseDocument = (data, approved) => {
         setShowDocument(false);
+        console.log(data)
+        console.log(approved)
         if (!approved){
             setEditorRefuseForm(data);
             handleShowExplanation();
@@ -193,10 +195,13 @@ export default function PublishRequests(props) {
                 return (
                     <>
                         <ButtonGroup>
-                            <Button variant="outline-info" onClick={() => handleShowBetaReaders(data)}>
+                            <Button variant="outline-info"
+                                    onClick={() => handleShowBetaReaders(data)}>
                                 SEND TO BETA READERS
                             </Button>
-                            <Button variant="outline-warning" onClick={() => handleSendToLector(data)}>
+                            <Button variant="outline-warning"
+                                    className={data.taskIsForm ? "hidden" : ""}
+                                    onClick={() => handleSendToLector(data)}>
                                 SEND TO LECTOR
                             </Button>
                         </ButtonGroup>
@@ -257,16 +262,21 @@ export default function PublishRequests(props) {
                     <>
                         <ButtonGroup>
                             {   data.publishBookRequest.correction &&
-                            <Button variant="outline-success" onClick={() => handleNeedMoreChanges(null, data.taskId)}>
+                            <Button variant="outline-success"
+                                    className={data.taskIsForm ? "hidden" : ""}
+                                    onClick={() => handleNeedMoreChanges(null, data.taskId)}>
                                 SEND TO PRINTING
                             </Button>
                             }
                             {   !data.publishBookRequest.correction &&
-                            <Button variant="outline-success" onClick={() => handleNeedMoreChanges(false, data.taskId)}>
+                            <Button variant="outline-success"
+                                    className={data.taskIsForm ? "hidden" : ""}
+                                    onClick={() => handleNeedMoreChanges(false, data.taskId)}>
                                 SEND TO LECTOR
                             </Button>
                             }
-                            <Button variant="outline-danger" onClick={() => handleNeedMoreChanges(true, data.taskId)}>
+                            <Button variant="outline-danger"
+                                    onClick={() => handleNeedMoreChanges(true, data.taskId)}>
                                 GIVE SUGGESTION
                             </Button>
                         </ButtonGroup>
@@ -285,7 +295,9 @@ export default function PublishRequests(props) {
             default: {
                 return (
                 <ButtonGroup>
-                    <Button variant="outline-success" onClick={() => handleApproveRequest(data, true)}>
+                    <Button variant="outline-success"
+                            className={data.taskIsForm ? "hidden" : ""}
+                            onClick={() => handleApproveRequest(data, true)}>
                         APPROVE
                     </Button>
                     <Button variant="outline-danger"

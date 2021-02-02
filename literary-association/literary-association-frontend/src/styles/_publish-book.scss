@@ -1,7 +1,11 @@
 .explanation {
   .modal-content {
     width: 500px;
-    height: 100px;
+    height: fit-content;
+
+    .modal-body {
+      height: fit-content;
+    }
   }
 }
 

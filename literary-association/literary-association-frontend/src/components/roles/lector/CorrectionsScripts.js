@@ -108,10 +108,13 @@ export default function CorrectionsScripts(props) {
                                 </td>
                                 <td className="text-center" style={{verticalAlign:"middle"}}>
                                     <ButtonGroup>
-                                        <Button variant="outline-warning" onClick={() => handleNeedCorrection(true, request.taskId)}>
+                                        <Button variant="outline-warning"
+                                                onClick={() => handleNeedCorrection(true, request.taskId)}>
                                             ADD CORRECTIONS
                                         </Button>
-                                        <Button variant="outline-success" onClick={() => handleNeedCorrection(false, request.taskId)}>
+                                        <Button variant="outline-success"
+                                                className={request.taskIsForm ? "hidden" : ""}
+                                                onClick={() => handleNeedCorrection(false, request.taskId)}>
                                             SEND TO EDITOR
                                         </Button>
                                     </ButtonGroup>

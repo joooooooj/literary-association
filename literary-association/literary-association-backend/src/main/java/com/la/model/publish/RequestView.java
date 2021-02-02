@@ -12,4 +12,5 @@ public class RequestView {
     private String processInstanceId;
     private String taskId;
     private PublishBookRequest publishBookRequest;
+    private Boolean taskIsForm;
 }

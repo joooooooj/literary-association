@@ -1,5 +1,6 @@
 package com.la.model.users;
 
+import com.la.model.Genre;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -57,6 +58,12 @@ public class User implements UserDetails {
 
     @Column
     private boolean deleted;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_genre",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))
+    private Set<Genre> genres;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",

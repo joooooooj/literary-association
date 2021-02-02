@@ -197,6 +197,15 @@ public class PublishBookController {
                     requestView.setTaskId(task.getId());
                     requestView.setProcessInstanceId(processInstance.getId());
                     requestView.setPublishBookRequest(publishBookRequest);
+
+                    System.err.println(formService.getTaskFormData(task.getId()).getFormFields());
+                    if (formService.getTaskFormData(task.getId()).getFormFields().size() > 0){
+                        requestView.setTaskIsForm(true);
+                    }
+                    else {
+                        requestView.setTaskIsForm(false);
+                    }
+
                     requestViews.add(requestView);
                 }
             }
@@ -222,18 +231,20 @@ public class PublishBookController {
         Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
         String processInstanceId = task.getProcessInstanceId();
 
-        runtimeService.setVariable(processInstanceId, "editorApproved", decision.getApproved());
-        taskService.complete(taskId);
+        if (!task.getName().equals("Editor Refuse Form")){
+            runtimeService.setVariable(processInstanceId, "editorApproved", decision.getApproved());
+            taskService.complete(taskId);
 
-        if (decision.getApproved()){
-            System.err.println("EDITOR APPROVED SCRIPT . . .");
+            if (decision.getApproved()){
+                System.err.println("EDITOR APPROVED SCRIPT . . .");
 
-            PublishBookRequest publishBookRequest = (PublishBookRequest) runtimeService.getVariable(processInstanceId, "publishBookRequest");
-            // Set request status
-            // Set deadline
-            publishBookRequest.setStatus(PublishStatus.WAITING_SUBMIT.toString());
-            publishBookRequest.setDeadline((DateTime.now().plusDays(10)).toLocalDate().toString());
-            runtimeService.setVariable(processInstanceId, "publishBookRequest", publishBookRequest);
+                PublishBookRequest publishBookRequest = (PublishBookRequest) runtimeService.getVariable(processInstanceId, "publishBookRequest");
+                // Set request status
+                // Set deadline
+                publishBookRequest.setStatus(PublishStatus.WAITING_SUBMIT.toString());
+                publishBookRequest.setDeadline((DateTime.now().plusDays(10)).toLocalDate().toString());
+                runtimeService.setVariable(processInstanceId, "publishBookRequest", publishBookRequest);
+            }
         }
         // If rejecting initiated send form fields from next task and wait for final deny
         if (!decision.getApproved()){
@@ -432,21 +443,22 @@ public class PublishBookController {
     @PostMapping(value = "/editor/decision/2/{taskId}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<FormFieldsDTO> postDecision2(@RequestBody Decision decision, @PathVariable String taskId) {
         Task task =  taskService.createTaskQuery().taskId(taskId).singleResult();
-        if(decision.getApproved()){
+        if (!task.getName().equals("Editor Refuse Form")){
+            if(decision.getApproved()){
             System.err.println("EDITOR APPROVED AFTER READING . . .");
 
             runtimeService.setVariable(task.getProcessInstanceId(), "editorApproved", true);
             PublishBookRequest publishBookRequest = (PublishBookRequest) runtimeService.getVariable(task.getProcessInstanceId(), "publishBookRequest");
             publishBookRequest.setStatus(PublishStatus.WAITING_AFTER_READING.toString());
             runtimeService.setVariable(task.getProcessInstanceId(), "publishBookRequest", publishBookRequest);
-        }
-        else {
-            System.err.println("EDITOR DIDN'T APPROVE. SHOWING EXPLANATION FORM . . .");
+            }
+            else {
+                System.err.println("EDITOR DIDN'T APPROVE. SHOWING EXPLANATION FORM . . .");
 
-            runtimeService.setVariable(task.getProcessInstanceId(), "editorApproved", false);
+                runtimeService.setVariable(task.getProcessInstanceId(), "editorApproved", false);
+            }
+            taskService.complete(taskId);
         }
-
-        taskService.complete(taskId);
 
         if (!decision.getApproved()){
             Task nextTask = taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).active().singleResult();
@@ -470,18 +482,19 @@ public class PublishBookController {
     public ResponseEntity<FormFieldsDTO> wannaSendToBeta(@RequestBody Decision decision, @PathVariable String taskId) throws IllegalAccessException, NoSuchFieldException, JsonProcessingException {
         Task task =  taskService.createTaskQuery().taskId(taskId).singleResult();
 
-        if(decision.getApproved()){
-            System.err.println("EDITOR WANTS TO SEND TO BETA . . .");
+        if (!task.getName().equals("Choose Beta Readers")) {
+            if(decision.getApproved()){
+                System.err.println("EDITOR WANTS TO SEND TO BETA . . .");
 
-            runtimeService.setVariable(task.getProcessInstanceId(), "sendToBeta", true);
+                runtimeService.setVariable(task.getProcessInstanceId(), "sendToBeta", true);
+            }
+            else {
+                System.err.println("EDITOR WANTS TO SEND TO LECTOR . . .");
+
+                runtimeService.setVariable(task.getProcessInstanceId(), "sendToBeta", false);
+            }
+            taskService.complete(taskId);
         }
-        else {
-            System.err.println("EDITOR WANTS TO SEND TO LECTOR . . .");
-
-            runtimeService.setVariable(task.getProcessInstanceId(), "sendToBeta", false);
-        }
-
-        taskService.complete(taskId);
 
         if(decision.getApproved()){
             List<Object> readerList = (List<Object>) runtimeService.getVariable(task.getProcessInstanceId(), "betaBefore");
@@ -589,25 +602,27 @@ public class PublishBookController {
         Task task =  taskService.createTaskQuery().taskId(taskId).singleResult();
         PublishBookRequest publishBookRequest = (PublishBookRequest) runtimeService.getVariable(task.getProcessInstanceId(), "publishBookRequest");
 
-        if (decision.getApproved() == null){
-            System.err.println("READY FOR PRINTING . . .");
-            runtimeService.setVariable(task.getProcessInstanceId(), "moreChanges", 3);
-        }
-        else {
-            if(decision.getApproved()){
-                System.err.println("EDITOR WANTS MORE CHANGES . . .");
-                publishBookRequest.setStatus(PublishStatus.WAITING_SUGGESTIONS.toString());
-                runtimeService.setVariable(task.getProcessInstanceId(), "moreChanges", 2);
+        if (!task.getName().equals("Editor Suggestions")) {
+            if (decision.getApproved() == null){
+                System.err.println("READY FOR PRINTING . . .");
+                runtimeService.setVariable(task.getProcessInstanceId(), "moreChanges", 3);
             }
             else {
-                System.err.println("EDITOR WAITS LECTOR REVIEW . . .");
-                publishBookRequest.setStatus(PublishStatus.WAITING_LECTOR_REVIEW.toString());
-                runtimeService.setVariable(task.getProcessInstanceId(), "moreChanges", 1);
+                if(decision.getApproved()){
+                    System.err.println("EDITOR WANTS MORE CHANGES . . .");
+                    publishBookRequest.setStatus(PublishStatus.WAITING_SUGGESTIONS.toString());
+                    runtimeService.setVariable(task.getProcessInstanceId(), "moreChanges", 2);
+                }
+                else {
+                    System.err.println("EDITOR WAITS LECTOR REVIEW . . .");
+                    publishBookRequest.setStatus(PublishStatus.WAITING_LECTOR_REVIEW.toString());
+                    runtimeService.setVariable(task.getProcessInstanceId(), "moreChanges", 1);
+                }
             }
-        }
 
-        runtimeService.setVariable(task.getProcessInstanceId(), "publishBookRequest", publishBookRequest);
-        taskService.complete(taskId);
+            runtimeService.setVariable(task.getProcessInstanceId(), "publishBookRequest", publishBookRequest);
+            taskService.complete(taskId);
+        }
 
         if (decision.getApproved() != null) {
             if (decision.getApproved()) {
@@ -659,22 +674,24 @@ public class PublishBookController {
         Task task =  taskService.createTaskQuery().taskId(taskId).singleResult();
         PublishBookRequest publishBookRequest = (PublishBookRequest) runtimeService.getVariable(task.getProcessInstanceId(), "publishBookRequest");
 
-        if(decision.getApproved()){
-            System.err.println("LECTOR THINKS SCRIPT NEEDS CORRECTION . . .");
+        if (!task.getName().equals("Lector Correction")) {
+            if(decision.getApproved()){
+                System.err.println("LECTOR THINKS SCRIPT NEEDS CORRECTION . . .");
 
-            runtimeService.setVariable(task.getProcessInstanceId(), "needsCorrection", true);
-            publishBookRequest.setStatus(PublishStatus.WAITING_LECTOR_REVIEW.toString());
+                runtimeService.setVariable(task.getProcessInstanceId(), "needsCorrection", true);
+                publishBookRequest.setStatus(PublishStatus.WAITING_LECTOR_REVIEW.toString());
+            }
+            else {
+                System.err.println("LECTOR WAITS EDITOR'S SUGGESTIONS . . .");
+
+                runtimeService.setVariable(task.getProcessInstanceId(), "needsCorrection", false);
+                publishBookRequest.setCorrection("Script doesn't need corrections");
+                publishBookRequest.setStatus(PublishStatus.WAITING_SUGGESTIONS.toString());
+            }
+
+            runtimeService.setVariable(task.getProcessInstanceId(), "publishBookRequest", publishBookRequest);
+            taskService.complete(taskId);
         }
-        else {
-            System.err.println("LECTOR WAITS EDITOR'S SUGGESTIONS . . .");
-
-            runtimeService.setVariable(task.getProcessInstanceId(), "needsCorrection", false);
-            publishBookRequest.setCorrection("Script doesn't need corrections");
-            publishBookRequest.setStatus(PublishStatus.WAITING_SUGGESTIONS.toString());
-        }
-
-        runtimeService.setVariable(task.getProcessInstanceId(), "publishBookRequest", publishBookRequest);
-        taskService.complete(taskId);
 
         if (decision.getApproved()){
             Task nextTask = taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).active().singleResult();

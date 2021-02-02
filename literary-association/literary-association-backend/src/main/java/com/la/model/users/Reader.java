@@ -24,12 +24,6 @@ public class Reader extends SysUser implements Serializable {
     private Integer penaltyPoints;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "reader_genre",
-            joinColumns = @JoinColumn(name = "reader_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))
-    private Set<Genre> genres;
-
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "beta_reader_genre",
             joinColumns = @JoinColumn(name = "beta_reader_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))

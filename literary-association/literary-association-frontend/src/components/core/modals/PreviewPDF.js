@@ -63,7 +63,6 @@ export default function PreviewPDF(props) {
     }
 
     const handleDecision = (decision) => {
-        let response = null;
         fetch("http://localhost:8080/publish/editor/decision/2/" + props.selectedRequest.taskId, {
             method: "POST",
             headers: {
@@ -74,13 +73,11 @@ export default function PreviewPDF(props) {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
-                response = data;
+                handleClose(data, decision);
             })
             .catch((error) => {
                 console.log(error);
             });
-        handleClose(response, decision);
     }
 
     return (
@@ -92,7 +89,9 @@ export default function PreviewPDF(props) {
                     onLoadSuccess={onDocumentLoadSuccess}>
                     {   props.selectedRequest?.publishBookRequest?.status === "WAITING_READING" &&
                         <ButtonGroup className="mb-3 mt-2">
-                            <Button variant="success" onClick={() => {handleDecision(true)}}>
+                            <Button variant="success"
+                                    className={props.selectedRequest.taskIsForm ? "hidden" : ""}
+                                    onClick={() => {handleDecision(true)}}>
                                 APPROVE
                             </Button>
                             <Button variant="danger" onClick={() => {handleDecision(false)}}>
