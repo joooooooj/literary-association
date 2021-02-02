@@ -50,46 +50,39 @@ export default function SubmittedWork() {
             });
     }, []);
 
-    // const [showDocument, setShowDocument] = useState(false);
-    // const [showComments, setShowComments] = useState(false);
-    // const [showConfirmation, setShowConfirmation] = useState(false);
-    //
-    // const [files, setFiles] = useState([]);
-    //
-    // const hiddenFileInput = React.useRef(null);
-    //
-    // const handleCloseComments = () => setShowComments(false);
-    // const handleShowComments = () => setShowComments(true);
-    //
-    // const handleCloseDocument = () => setShowDocument(false);
-    // const handleShowDocument = () => setShowDocument(true);
-    //
-    // const handleCloseConfirmation = (confirmed) => {
-    //     if (confirmed) {
-    //         alert("Upload confirmed!")
-    //     } else {
-    //         hiddenFileInput.current.value = "";
-    //     }
-    //     setShowConfirmation(false);
-    // }
-    // const handleShowConfirmation = () => setShowConfirmation(true);
-    //
-    // const handleFileChooserChange = (event) => {
-    //     const newFiles = event.target.files;
-    //     setFiles(newFiles);
-    //     handleFileChooserClose();
-    // };
-    //
-    // const handleFileChooserClick = () => {
-    //     hiddenFileInput.current.click();
-    // };
-    //
-    // const handleFileChooserClose = () => {
-    //     handleShowConfirmation();
-    // };
 
     const handleFileUpload = () => {
-        alert('opo');
+        const token = JSON.parse(localStorage.getItem("token"));
+        fetch('http://localhost:8080/api/registration/request/self/' + token, {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + token,
+                "Content-Type": "application/json",
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                setMembershipRequest(data);
+                setPublishWorkForm(null);
+                fetch("http://localhost:8080/api/registration/upload-work-form", {
+                    method: "GET",
+                    headers: {
+                        "Authorization": "Bearer " + token,
+                        "Content-Type": "application/json",
+                    },
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        setPublishWorkForm(data);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     return (
@@ -98,15 +91,19 @@ export default function SubmittedWork() {
             {/*<PreviewPDF show={showDocument} onHide={handleCloseDocument}/>*/}
             {/*<Confirmation show={showConfirmation} onHide={(confirmed) => handleCloseConfirmation(confirmed)}/>*/}
             <div className="bg-dark p-5 border border-light text-left">
-                {/*<h2 className="text-light mb-4">*/}
-                {/*    Submitted Work*/}
-                {/*</h2>*/}
-                {/*/!*<h5 className="text-danger">*!/*/}
-                {/*/!*    Submission deadline : 18.12.2020.*!/*/}
-                {/*/!*</h5>*!/*/}
-                {/*/!*<h5 className="text-warning mb-4">*!/*/}
-                {/*/!*    Attempts number : {attemptsNumber}*!/*/}
-                {/*/!*</h5>*!/*/}
+                {membershipRequest &&
+                <>
+                    <h2 className="text-light mb-4">
+                        Submitted Work
+                    </h2>
+                    <h5 className="text-danger">
+                        Submission deadline : {membershipRequest.submissionDeadline}
+                    </h5>
+                    <h5 className="text-warning mb-4">
+                        Attempts number : {membershipRequest.attemptsNumber}
+                    </h5>
+                </>
+                }
                 {/*<Button onClick={() => handleFileChooserClick()} variant="outline-warning" className="mb-4">*/}
                 {/*    SUBMIT WORK*/}
                 {/*</Button>*/}
@@ -118,12 +115,26 @@ export default function SubmittedWork() {
                 {/*        ref={hiddenFileInput}*/}
                 {/*        onChange={(event) => handleFileChooserChange(event)}/>*/}
                 {/*</Form>*/}
-                <CustomForm
-                    formFieldsDTO={publishWorkForm}
-                    loggedIn={localStorage.getItem("token")}
-                    submittedForm={handleFileUpload}
-                    isFileForm={true}
-                    buttonText="Upload work"/>
+                {publishWorkForm &&
+                <div hidden={membershipRequest.attemptsNumber >= 2 && membershipRequest.status === "WAITING_OPINION"}>
+                    <CustomForm
+                        formFieldsDTO={publishWorkForm}
+                        loggedIn={localStorage.getItem("token")}
+                        submittedForm={handleFileUpload}
+                        isFileForm={true}
+                        checkFlags={false}
+                        buttons={
+                            [
+                                {
+                                    flagIndex: 0,
+                                    hasFlag: false,
+                                    variant: "success",
+                                    text: "Submit work"
+                                }
+                            ]}/>
+                </div>
+                }
+
 
                 {/*{   submitted &&*/}
                 {/*    <Table striped bordered hover variant="dark">*/}

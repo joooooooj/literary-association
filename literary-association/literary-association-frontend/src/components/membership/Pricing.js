@@ -3,7 +3,7 @@ import {Button, Card, Form} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
 export default function Pricing(props) {
-    
+
     const handlePayMembership = (id) => {
         fetch("http://localhost:8080/api/registration/writer/pay/" + id, {
             method: "POST",

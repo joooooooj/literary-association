@@ -7,6 +7,7 @@ export default function RegistrationRequests() {
 
     const [registrationRequests, setRegistrationRequests] = useState(null);
     const [selectedRequest, setSelectedRequest] = useState(null);
+    const [index, setIndex] = useState(null);
 
     useEffect(() => {
         fetch("http://localhost:8080/api/registration/writer-submitted-work", {
@@ -36,7 +37,7 @@ export default function RegistrationRequests() {
     }
     return (
         <div className="bg-dark p-5">
-            <PreviewPDF selectedRequest={selectedRequest} show={showDocuments}
+            <PreviewPDF selectedRequest={selectedRequest} show={showDocuments} suffix={index + 1}
                         onHide={handleHideModal}/>
             {selectedRequest &&
             <DocumentsComments show={showDocumentsComments} selectedRequest={selectedRequest}
@@ -74,12 +75,22 @@ export default function RegistrationRequests() {
                                         </Button>
                                     </td>
                                     <td>
-                                        <Button onClick={() => {
-                                            setSelectedRequest(request);
-                                            setShowDocuments(true);
-                                        }}>
-                                            Read work
-                                        </Button>
+                                        {
+                                            request.filenames &&
+                                            request.filenames.map((filename, index) => {
+                                                return (
+                                                    <Button
+                                                        className="mr-2"
+                                                        onClick={() => {
+                                                            setSelectedRequest(request);
+                                                            setIndex(index);
+                                                            setShowDocuments(true);
+                                                        }}>
+                                                        Read work {index + 1}
+                                                    </Button>
+                                                );
+                                            })
+                                        }
                                     </td>
                                 </tr>
                             );

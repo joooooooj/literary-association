@@ -199,6 +199,7 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
                 </Button>
                 <Form>
                     <Form.File
+                        multiple={true}
                         accept="application/pdf"
                         className="hidden"
                         ref={hiddenFileInput}
@@ -224,7 +225,8 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
                                 <>
                                     {!formField.properties.subType &&
                                     <>
-                                        <Form.Control isInvalid={checkErrors(formField.id)} name={formField.id} type="text"
+                                        <Form.Control isInvalid={checkErrors(formField.id)} name={formField.id}
+                                                      type={formField.id === "password" ? "password" : "text"}
                                                       placeholder={formField.properties.placeholder}
                                                       ref={register(setRef(formField.validationConstraints))}/>
                                     </>

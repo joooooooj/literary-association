@@ -44,23 +44,25 @@ export default function RegisterReader(props) {
         return final;
     }
 
-    const submitFormHandler = (data) => {
-        let final = prepareDataForSubmit(data);
-        fetch('http://localhost:8080/api/auth/registration/reader-wanted-genres/' + wantedGenresForm.taskId, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify(final)
-        })
-            .then(response => response.json())
-            .then(data => {
-                window.location.replace('/register-success');
-            })
-            .catch((error) => {
-                console.log(error)
-            });
+    const submitFormHandler = () => {
+        window.location.replace('/register-success');
+
+        // let final = prepareDataForSubmit(data);
+        // fetch('http://localhost:8080/api/auth/registration/reader-wanted-genres/' + wantedGenresForm.taskId, {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         "Accept": "application/json"
+        //     },
+        //     body: JSON.stringify(final)
+        // })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         window.location.replace('/register-success');
+        //     })
+        //     .catch((error) => {
+        //         console.log(error)
+        //     });
     }
 
     return (
@@ -72,7 +74,16 @@ export default function RegisterReader(props) {
                     loggedIn={localStorage.getItem("token")}
                     submittedForm={submitFormHandler}
                     isFileForm={false}
-                    buttonText="Continue"/>
+                    checkFlags={false}
+                    buttons={
+                        [
+                            {
+                                flagIndex: 0,
+                                hasFlag: false,
+                                variant: "success",
+                                text: "Continue"
+                            }
+                        ]}/>
                 }
             </div>
         </div>
