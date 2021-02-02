@@ -1,4 +1,4 @@
-import {Button, Form, Modal} from "react-bootstrap";
+import {Modal} from "react-bootstrap";
 import React from "react";
 import CustomForm from "../../../core/CustomForm";
 
@@ -25,7 +25,7 @@ export default function AddExplanation(props) {
                                 [
                                     {
                                         variant: "outline-success",
-                                        text:"SEND EXPLANATION"
+                                        text: "SEND EXPLANATION"
                                     }
                                 ]
                             }/>

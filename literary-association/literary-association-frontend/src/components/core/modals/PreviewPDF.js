@@ -78,6 +78,10 @@ export default function PreviewPDF(props) {
             .catch((error) => {
                 console.log(error);
             });
+
+        if (decision) {
+            handleClose(null, decision);
+        }
     }
 
     return (

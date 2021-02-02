@@ -8,6 +8,7 @@ import com.la.model.users.Lector;
 import com.la.model.users.Writer;
 import com.la.repository.*;
 import org.apache.commons.lang.RandomStringUtils;
+import org.camunda.bpm.engine.delegate.BpmnError;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,29 +42,36 @@ public class PrintService implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        PublishBookRequest publishBookRequest = (PublishBookRequest) delegateExecution.getVariable("publishBookRequest");
+        try {
+            PublishBookRequest publishBookRequest = (PublishBookRequest) delegateExecution.getVariable("publishBookRequest");
 
-        Book book = new Book();
-        book.setEditor((Editor) editorRepository.findByUsername(publishBookRequest.getEditor()));
-        book.setWriter((Writer) writerRepository.findByUsername(publishBookRequest.getWriter()));
-        book.setLector((Lector) lectorRepository.findByUsername(publishBookRequest.getLector()));
-        book.setGenre(genreRepository.findByValue(publishBookRequest.getGenre()));
-        book.setIsbn(generateISBN().toUpperCase());
-        book.setKeyWords(null);
-        book.setPagesNumber(522);
-        book.setPrice(200.99);
-        book.setPublishedYear(LocalDate.now().getYear());
-        book.setSynopsis(publishBookRequest.getSynopsis());
-        book.setTitle(publishBookRequest.getTitle());
-        book.setPublisher(publisherRepository.findAll().get(0));
+            Book book = new Book();
+            book.setEditor((Editor) editorRepository.findByUsername(publishBookRequest.getEditor()));
+            book.setWriter((Writer) writerRepository.findByUsername(publishBookRequest.getWriter()));
+            book.setLector((Lector) lectorRepository.findByUsername(publishBookRequest.getLector()));
+            book.setGenre(genreRepository.findByValue(publishBookRequest.getGenre()));
+            book.setIsbn(generateISBN().toUpperCase());
+            book.setKeyWords(null);
+            book.setPagesNumber(522);
+            book.setPrice(200.99);
+            book.setPublishedYear(LocalDate.now().getYear());
+            book.setSynopsis(publishBookRequest.getSynopsis());
+            book.setTitle(publishBookRequest.getTitle());
+            book.setPublisher(publisherRepository.findAll().get(0));
 
-        Script script = new Script();
-        script.setPath(publishBookRequest.getPath());
-        script = scriptRepository.save(script);
+            Script script = new Script();
+            script.setPath(publishBookRequest.getPath());
+            script = scriptRepository.save(script);
 
-        book.setScript(script);
+            book.setScript(script);
 
-        bookRepository.save(book);
+            bookRepository.save(book);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            throw new BpmnError("PrintFailed");
+        }
+
     }
 
     public static String generateISBN() {

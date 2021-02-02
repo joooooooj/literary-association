@@ -1,4 +1,4 @@
-import {Button, Form, Modal} from "react-bootstrap";
+import {Modal} from "react-bootstrap";
 import React from "react";
 import CustomForm from "../../core/CustomForm";
 
@@ -13,7 +13,7 @@ export default function AddCorrections(props) {
     }
 
     return (
-        <Modal centered show={props.show} onHide={handleClose} className="explanation">
+        <Modal centered show={props.show} onHide={handleClose} backdrop="static" className="explanation">
             <Modal.Body className="bg-light p-5">
                 <h3>Corrections</h3>
                 <CustomForm formFieldsDTO={props.correctionForm}
@@ -25,7 +25,7 @@ export default function AddCorrections(props) {
                                 [
                                     {
                                         variant: "outline-success",
-                                        text:"ADD CORRECTIONS"
+                                        text: "ADD CORRECTIONS"
                                     }
                                 ]
                             }/>

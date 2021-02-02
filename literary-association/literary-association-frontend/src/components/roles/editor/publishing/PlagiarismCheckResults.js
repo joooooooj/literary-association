@@ -1,4 +1,4 @@
-import {Modal, Button, Table, ButtonGroup} from "react-bootstrap";
+import {Button, ButtonGroup, Modal, Table} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 
 export default function PlagiarismCheckResults(props) {
@@ -6,18 +6,17 @@ export default function PlagiarismCheckResults(props) {
     const [plagiats, setPlagiats] = useState([]);
 
     useEffect(() => {
-        if(props.selectedRequest){
+        if (props.selectedRequest) {
             fetch("http://localhost:8080/publish/editor/plagiats/" + props.selectedRequest.processInstanceId, {
                 method: "GET",
                 headers: {
-                    "Authorization" : "Bearer " + props.loggedIn,
+                    "Authorization": "Bearer " + props.loggedIn,
                     "Content-Type": "application/json"
                 }
             })
                 .then(response => response.json())
                 .then(data => {
                     setPlagiats(data);
-                    console.log("PLAGIATS: " + JSON.stringify(data));
                 })
                 .catch((error) => {
                     console.log(error);
@@ -33,14 +32,13 @@ export default function PlagiarismCheckResults(props) {
         fetch("http://localhost:8080/publish/editor/plagiats/" + props.selectedRequest.taskId, {
             method: "POST",
             headers: {
-                "Authorization" : "Bearer " + props.loggedIn,
+                "Authorization": "Bearer " + props.loggedIn,
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({approved: decision})
         })
             .then(response => response.json())
             .then(data => {
-                console.log("SUCCESS: " + data);
             })
             .catch((error) => {
                 console.log(error);
@@ -49,7 +47,7 @@ export default function PlagiarismCheckResults(props) {
     }
 
     return (
-        <Modal centered show={props.show} onHide={handleClose} className="plagiarism-check-results">
+        <Modal centered show={props.show} onHide={handleClose} backdrop="static" className="plagiarism-check-results">
             <Modal.Body className="bg-light">
                 <div className="bg-light p-5">
                     <div className="row ml-3">
@@ -70,7 +68,7 @@ export default function PlagiarismCheckResults(props) {
                         </tr>
                         </thead>
                         <tbody>
-                        {   plagiats?.map((plagiat, index) => {
+                        {plagiats?.map((plagiat, index) => {
                             return (
                                 <tr key={plagiat.source}>
                                     <td>{index + 1}</td>
@@ -79,7 +77,7 @@ export default function PlagiarismCheckResults(props) {
                                     </td>
                                 </tr>
                             )
-                            })
+                        })
                         }
                         </tbody>
                     </Table>

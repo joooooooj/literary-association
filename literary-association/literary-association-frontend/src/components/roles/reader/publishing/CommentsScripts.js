@@ -15,7 +15,6 @@ export default function CommentsScripts(props) {
 
     const handleCloseDocument = () => setShowDocument(false);
     const handleShowDocument = (request) => {
-        console.log(request)
         setSelectedRequest(request);
         setShowDocument(true);
     }
@@ -28,7 +27,7 @@ export default function CommentsScripts(props) {
         fetch("http://localhost:8080/publish/beta-reader/" + request.taskId, {
             method: "GET",
             headers: {
-                "Authorization" : "Bearer " + props.loggedIn,
+                "Authorization": "Bearer " + props.loggedIn,
                 "Content-Type": "application/json",
             }
         })
@@ -36,7 +35,6 @@ export default function CommentsScripts(props) {
             .then(data => {
                 setCommentForm(data);
                 setShowComment(true);
-                console.log(data);
             })
             .catch((error) => {
                 console.log(error);
@@ -45,20 +43,19 @@ export default function CommentsScripts(props) {
 
     useEffect(() => {
         getRequests();
-    },[])
+    }, [])
 
     const getRequests = () => {
         fetch("http://localhost:8080/publish/requests/" + props.loggedIn, {
             method: "GET",
             headers: {
-                "Authorization" : "Bearer " + props.loggedIn,
+                "Authorization": "Bearer " + props.loggedIn,
                 "Content-Type": "application/json",
             },
         })
             .then(response => response.json())
             .then(data => {
                 setRequests(data);
-                console.log(data);
             })
             .catch((error) => {
                 console.log(error);
@@ -97,15 +94,15 @@ export default function CommentsScripts(props) {
                                 <td>
                                     {request.publishBookRequest.synopsis}
                                 </td>
-                                <td className="text-center text-danger" style={{verticalAlign:"middle"}}>
+                                <td className="text-center text-danger" style={{verticalAlign: "middle"}}>
                                     {request.publishBookRequest.deadline}
                                 </td>
-                                <td className="text-center" style={{verticalAlign:"middle"}}>
+                                <td className="text-center" style={{verticalAlign: "middle"}}>
                                     <Button variant="outline-warning" onClick={() => handleShowComment(request)}>
                                         ADD COMMENT
                                     </Button>
                                 </td>
-                                <td className="text-center" style={{verticalAlign:"middle"}}>
+                                <td className="text-center" style={{verticalAlign: "middle"}}>
                                     <Button variant="outline-info" onClick={() => handleShowDocument(request)}>
                                         READ SCRIPT
                                     </Button>

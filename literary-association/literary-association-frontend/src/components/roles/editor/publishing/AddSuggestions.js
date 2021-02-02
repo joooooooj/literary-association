@@ -1,4 +1,4 @@
-import {Button, Form, Modal} from "react-bootstrap";
+import {Modal} from "react-bootstrap";
 import React from "react";
 import CustomForm from "../../../core/CustomForm";
 
@@ -13,7 +13,7 @@ export default function AddSuggestions(props) {
     }
 
     return (
-        <Modal centered show={props.show} onHide={handleClose} className="explanation">
+        <Modal centered show={props.show} onHide={handleClose} backdrop="static" className="explanation">
             <Modal.Body className="bg-light p-5">
                 <h3>Suggestion</h3>
                 <CustomForm formFieldsDTO={props.suggestionForm}
@@ -25,7 +25,7 @@ export default function AddSuggestions(props) {
                                 [
                                     {
                                         variant: "outline-success",
-                                        text:"SEND SUGGESTIONS"
+                                        text: "SEND SUGGESTIONS"
                                     }
                                 ]
                             }/>

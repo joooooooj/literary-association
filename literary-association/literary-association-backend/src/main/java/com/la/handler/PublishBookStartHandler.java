@@ -33,6 +33,10 @@ public class PublishBookStartHandler implements ExecutionListener {
 
         List<Genre> genres = genreService.findAll();
 
+        if (genres.size() == 0) {
+            runtimeService.suspendProcessInstanceById(execution.getProcessInstanceId());
+        }
+
         execution.setVariable("genres", genres);
         execution.setVariable("writer", "none");
         execution.setVariable("editor", "none");

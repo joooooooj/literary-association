@@ -84,7 +84,7 @@ INSERT INTO `la`.`beta_reader_genre` (`beta_reader_id`, `genre_id`) VALUES ('17'
 
 INSERT INTO `la`.`beta_reader_genre` (`beta_reader_id`, `genre_id`) VALUES ('18','1');
 
-INSERT INTO `la`.`beta_reader_genre` (`beta_reader_id`, `genre_id`) VALUES ('19','3');
+INSERT INTO `la`.`beta_reader_genre` (`beta_reader_id`, `genre_id`) VALUES ('19','2');
 
 -- Publishers
 INSERT INTO `la`.`publisher` (`city`, `name`, `password`, `state`, `username`) VALUES ('Madrid', 'Vulkan', '$2a$10$xBbFGBwJcF9H3V/s2GfcnuVpM9niJ9oVrhY6CQjrrHZJYzYA6Z5nS', 'Spain', 'vulkan');
