@@ -1,13 +1,17 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, ButtonGroup, Table} from "react-bootstrap";
-import Confirmation from "../../../core/modals/Confirmation";
 import AddExplanation from "./AddExplanation";
 import PlagiarismCheckResults from "./PlagiarismCheckResults";
 import PreviewPDF from "../../../core/modals/PreviewPDF";
 import ChooseBetaReaders from "./ChooseBetaReaders";
 import AddSuggestions from "./AddSuggestions";
+import LoadingOverlay from 'react-loading-overlay';
 
-export default function PublishRequests() {
+export default function PublishRequests(props) {
+
+    const [loading, setLoading] = useState(false);
+
+    const [requests, setRequests] = useState([]);
 
     const [status, setStatus] = useState("");
     const [corrections, setCorrections] = useState(null);
@@ -18,29 +22,153 @@ export default function PublishRequests() {
     const [showPlagiarismCheckResults, setShowPlagiarismCheckResults] = useState(false);
     const [showDocument, setShowDocument] = useState(false);
 
+    const [selectedRequest, setSelectedRequest] = useState(null);
+
     const handleShowExplanation = () => setShowExplanation(true);
-    const handleCloseExplanation = () => setShowExplanation(false);
+    const handleCloseExplanation = () => {
+        setShowExplanation(false);
+        window.location.reload();
+    };
 
     const handleShowSuggestions = () => setShowSuggestions(true);
-    const handleCloseSuggestions = () => setShowSuggestions(false);
+    const handleCloseSuggestions = () => {
+        setShowSuggestions(false);
+        window.location.reload();
+    }
 
-    const handleShowPlagiarismCheckResults = () => setShowPlagiarismCheckResults(true);
-    const handleClosePlagiarismCheckResults = () => setShowPlagiarismCheckResults(false);
+    const handleShowPlagiarismCheckResults = (data) => {
+        setSelectedRequest(data);
+        setShowPlagiarismCheckResults(true);
+    }
+    const handleClosePlagiarismCheckResults = () => {
+        window.location.reload();
+        setShowPlagiarismCheckResults(false);
+    }
 
-    const handleCloseDocument = () => setShowDocument(false);
-    const handleShowDocument = () => setShowDocument(true);
+    const handleCloseDocument = (data, approved) => {
+        setShowDocument(false);
+        if (!approved) {
+            setEditorRefuseForm(data);
+            handleShowExplanation();
+        } else {
+            window.location.reload();
+        }
+    }
 
-    const handleCloseBetaReaders = () => setShowBetaReaders(false);
-    const handleShowBetaReaders = () => setShowBetaReaders(true);
+    const handleShowDocument = (data) => {
+        setSelectedRequest(data);
+        setShowDocument(true);
+    }
 
-    const renderStatus = (status) => {
-        switch (status) {
+    const [betaReadersForm, setBetaReadersForm] = useState(null);
+
+    const handleCloseBetaReaders = () => {
+        setShowBetaReaders(false);
+        window.location.reload();
+    }
+    const handleShowBetaReaders = (data) => {
+        fetch("http://localhost:8080/publish/editor/send-to-beta/" + data.taskId, {
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer " + props.loggedIn,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                approved: true
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                setBetaReadersForm(data);
+                setShowBetaReaders(true);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    const handleSendToLector = (data) => {
+        fetch("http://localhost:8080/publish/editor/send-to-beta/" + data.taskId, {
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer " + props.loggedIn,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                approved: false
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        window.location.reload();
+    }
+
+    useEffect(() => {
+        getRequests();
+    }, [])
+
+    const getRequests = () => {
+        setLoading(true);
+        setTimeout(() => {
+            fetch("http://localhost:8080/publish/requests/" + props.loggedIn, {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + props.loggedIn,
+                    "Content-Type": "application/json",
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    setRequests(data);
+                    setLoading(false);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }, 1000);
+    }
+
+    const [suggestionForm, setSuggestionForm] = useState({});
+
+    const handleNeedMoreChanges = (needMoreChanges, taskId) => {
+        fetch("http://localhost:8080/publish/editor/need-more-changes/" + taskId, {
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer " + props.loggedIn,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                approved: needMoreChanges
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (needMoreChanges) {
+                    setSuggestionForm(data);
+                    handleShowSuggestions();
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        if (!needMoreChanges) {
+            window.location.reload();
+        }
+    }
+
+    const renderStatus = (data) => {
+        switch (data.publishBookRequest.status) {
             case "WAITING_SUBMIT" : {
                 return (
                     <>
                         <h5 className="text-warning text-left">
                             Waiting for reader to submit script...
-                            Submission deadline : 15.1.2021.
+                            Submission deadline : {data.publishBookRequest.deadline}
                         </h5>
                     </>
                 );
@@ -48,7 +176,7 @@ export default function PublishRequests() {
             case "WAITING_PLAGIARISM_CHECK" : {
                 return (
                     <>
-                        <Button variant="outline-info" onClick={() => handleShowPlagiarismCheckResults()}>
+                        <Button variant="outline-info" onClick={() => handleShowPlagiarismCheckResults(data)}>
                             PREVIEW PLAGIARISM CHECK RESULTS
                         </Button>
                     </>
@@ -57,7 +185,7 @@ export default function PublishRequests() {
             case "WAITING_READING" : {
                 return (
                     <>
-                        <Button variant="outline-success" onClick={() => handleShowDocument()}>
+                        <Button variant="outline-success" onClick={() => handleShowDocument(data)}>
                             READ SCRIPT
                         </Button>
                     </>
@@ -67,10 +195,13 @@ export default function PublishRequests() {
                 return (
                     <>
                         <ButtonGroup>
-                            <Button variant="outline-info" onClick={() => handleShowBetaReaders()}>
+                            <Button variant="outline-info"
+                                    onClick={() => handleShowBetaReaders(data)}>
                                 SEND TO BETA READERS
                             </Button>
-                            <Button variant="outline-warning" onClick={() => setStatus("WAITING_LECTOR_REVIEW")}>
+                            <Button variant="outline-warning"
+                                    className={data.taskIsForm ? "hidden" : ""}
+                                    onClick={() => handleSendToLector(data)}>
                                 SEND TO LECTOR
                             </Button>
                         </ButtonGroup>
@@ -119,8 +250,8 @@ export default function PublishRequests() {
                     <>
                         <h5 className="text-warning text-left">
                             Writer is still changing script...
-                            {   corrections &&
-                               <> Changes deadline : 15.1.2021.</>
+                            {corrections &&
+                            <> Changes deadline : 15.1.2021.</>
                             }
                         </h5>
                     </>
@@ -130,17 +261,22 @@ export default function PublishRequests() {
                 return (
                     <>
                         <ButtonGroup>
-                            {   corrections &&
-                            <Button variant="outline-success" onClick={() => setStatus("DONE")}>
+                            {data.publishBookRequest.correction &&
+                            <Button variant="outline-success"
+                                    className={data.taskIsForm ? "hidden" : ""}
+                                    onClick={() => handleNeedMoreChanges(null, data.taskId)}>
                                 SEND TO PRINTING
                             </Button>
                             }
-                            {   !corrections &&
-                            <Button variant="outline-success" onClick={() => setStatus("WAITING_LECTOR_REVIEW")}>
+                            {!data.publishBookRequest.correction &&
+                            <Button variant="outline-success"
+                                    className={data.taskIsForm ? "hidden" : ""}
+                                    onClick={() => handleNeedMoreChanges(false, data.taskId)}>
                                 SEND TO LECTOR
                             </Button>
                             }
-                            <Button variant="outline-danger" onClick={() => handleShowSuggestions()}>
+                            <Button variant="outline-danger"
+                                    onClick={() => handleNeedMoreChanges(true, data.taskId)}>
                                 GIVE SUGGESTION
                             </Button>
                         </ButtonGroup>
@@ -151,118 +287,127 @@ export default function PublishRequests() {
                 return (
                     <>
                         <h5 className="text-success text-left">
-                           ALL DONE
+                            ALL DONE
                         </h5>
                     </>
                 );
             }
             default: {
                 return (
-                <ButtonGroup>
-                    <Button variant="outline-success" onClick={() => setStatus("WAITING_SUBMIT")}>
-                        APPROVE
-                    </Button>
-                    <Button variant="outline-danger" onClick={() => handleShowExplanation()}>
-                        REJECT
-                    </Button>
-                </ButtonGroup>
+                    <ButtonGroup>
+                        <Button variant="outline-success"
+                                className={data.taskIsForm ? "hidden" : ""}
+                                onClick={() => handleApproveRequest(data, true)}>
+                            APPROVE
+                        </Button>
+                        <Button variant="outline-danger"
+                                onClick={() => {
+                                    handleApproveRequest(data, false);
+                                }}>
+                            REJECT
+                        </Button>
+                    </ButtonGroup>
                 );
             }
         }
     }
 
+    const [editorRefuseForm, setEditorRefuseForm] = useState(null);
+
+    const handleApproveRequest = (data, approved) => {
+        fetch("http://localhost:8080/publish/editor/decision/" + data.taskId, {
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer " + props.loggedIn,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                approved: approved
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (!approved) {
+                    setEditorRefuseForm(data);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        if (approved) {
+            window.location.reload();
+        } else {
+            handleShowExplanation();
+        }
+    }
+
     return (
-        <div className="bg-dark p-5">
-            <AddExplanation show={showExplanation} onHide={handleCloseExplanation} setStatus={setStatus}/>
-            <AddSuggestions show={showSuggestions} onHide={handleCloseSuggestions} setStatus={setStatus}/>
-            <ChooseBetaReaders show={showBetaReaders} onHide={handleCloseBetaReaders} setStatus={setStatus}/>
-            <PlagiarismCheckResults show={showPlagiarismCheckResults} onHide={handleClosePlagiarismCheckResults} setStatus={setStatus} handleShowExplanation={handleShowExplanation}/>
-            <PreviewPDF show={showDocument} onHide={handleCloseDocument} status={status} setStatus={setStatus} handleShowExplanation={handleShowExplanation}/>
-            <div className="bg-dark p-5 border border-light">
-                <h2 className="text-left text-light mb-4">
-                    Publish book requests
-                </h2>
-                <Table striped bordered hover variant="dark">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Title</th>
-                        <th>Genre</th>
-                        <th className="w-25">Synopsys</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Neil</td>
-                        <td>Gaiman</td>
-                        <td>Hello world</td>
-                        <td>Romance</td>
-                        <td>
-                            Look! In the sky. It's a bird, it's a plane.
-                            Or is it a hellicopter? No actually I think it is a bird.
-                            Or maybe I'm just seeing things. Who knows...
-                            After 10 shots of Whiskey things start to get a bit strange.
-                        </td>
-                        <td className="text-center" style={{verticalAlign:"middle"}}>
-                            {renderStatus(status)}
-                        </td>
-                        <td className="text-center" style={{verticalAlign:"middle"}}>
-                            {status === "WAITING_SUGGESTIONS" &&
-                                <Button variant="outline-info" onClick={() => handleShowDocument()}>
-                                    READ SCRIPT
-                                </Button>
-                            }
-                        </td>
-                    </tr>
-                    </tbody>
-                </Table>
-                {/*Delete testing elements from here*/}
-                <div className="row ml-1 mt-5">
-                    <ButtonGroup>
-                        <Button variant="outline-info" onClick={() => setStatus("WAITING_PLAGIARISM_CHECK")}>
-                            WRITER SUBMIT
-                        </Button>
-                    </ButtonGroup>
+        <LoadingOverlay
+            active={loading}
+            spinner
+            text="Loading...">
+            <div className="bg-dark p-5">
+                {editorRefuseForm &&
+                <>
+                    {editorRefuseForm.formFields &&
+                    <AddExplanation show={showExplanation} onHide={handleCloseExplanation} setStatus={setStatus}
+                                    editorRefuseForm={editorRefuseForm} loggedIn={props.loggedIn}/>
+                    }
+                </>
+                }
+                <AddSuggestions suggestionForm={suggestionForm} show={showSuggestions} onHide={handleCloseSuggestions}
+                                setStatus={setStatus}/>
+                <ChooseBetaReaders show={showBetaReaders} onHide={handleCloseBetaReaders} setStatus={setStatus}
+                                   betaReadersForm={betaReadersForm}/>
+                <PlagiarismCheckResults selectedRequest={selectedRequest} show={showPlagiarismCheckResults}
+                                        onHide={handleClosePlagiarismCheckResults} setStatus={setStatus}
+                                        handleShowExplanation={handleShowExplanation}/>
+                <PreviewPDF selectedRequest={selectedRequest} show={showDocument} onHide={handleCloseDocument}
+                            status={status} setStatus={setStatus} handleShowExplanation={handleShowExplanation}/>
+                <div className="bg-dark p-5 border border-light">
+                    <h2 className="text-left text-light mb-4">
+                        Publish book requests
+                    </h2>
+                    <Table striped bordered hover variant="dark">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Username</th>
+                            <th>Title</th>
+                            <th>Genre</th>
+                            <th className="w-25">Synopsys</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {requests.map((request, index) => {
+                            return (
+                                <tr key={index}>
+                                    <td>{index + 1}</td>
+                                    <td>{request.publishBookRequest.writer}</td>
+                                    <td>{request.publishBookRequest.title}</td>
+                                    <td>{request.publishBookRequest.genre}</td>
+                                    <td>
+                                        {request.publishBookRequest.synopsis}
+                                    </td>
+                                    <td className="text-center" style={{verticalAlign: "middle"}}>
+                                        {renderStatus(request)}
+                                    </td>
+                                    <td className="text-center" style={{verticalAlign: "middle"}}>
+                                        {request.publishBookRequest.status === "WAITING_SUGGESTIONS" &&
+                                        <Button variant="outline-info" onClick={() => handleShowDocument(request)}>
+                                            READ SCRIPT
+                                        </Button>
+                                        }
+                                    </td>
+                                </tr>
+                            )
+                        })}
+                        </tbody>
+                    </Table>
                 </div>
-                <div className="row ml-1 mt-5">
-                    <ButtonGroup>
-                        <Button variant="outline-danger" onClick={() => setStatus("WAITING_COMMENT_CHECK")}>
-                            BETA READERS COMMENTED
-                        </Button>
-                        <Button variant="outline-light" onClick={() => setStatus("WAITING_SUGGESTIONS")}>
-                            WRITER REVIEWED COMMENTS
-                        </Button>
-                    </ButtonGroup>
-                </div>
-                <div className="row ml-1 mt-5">
-                    <ButtonGroup>
-                        <Button variant="outline-warning" onClick={() => setStatus("WAITING_CORRECTIONS")}>
-                            LECTOR REVIEWED
-                        </Button>
-                        <Button variant="outline-info" onClick={() => setStatus("WAITING_LECTOR_REVIEW")}>
-                            WRITER CORRECTED SCRIPT
-                        </Button>
-                        <Button variant="outline-danger" onClick={() =>
-                                                                    {setCorrections("No corrections");
-                                                                    setStatus("WAITING_SUGGESTIONS");}}>
-                            LECTOR APPROVED
-                        </Button>
-                    </ButtonGroup>
-                </div>
-                <div className="row ml-1 mt-5">
-                    <ButtonGroup>
-                        <Button variant="outline-light" onClick={() => setStatus("WAITING_SUGGESTIONS")}>
-                            WRITER CHANGED
-                        </Button>
-                    </ButtonGroup>
-                </div>
-                {/*End of test elements*/}
             </div>
-        </div>
+        </LoadingOverlay>
     );
 }

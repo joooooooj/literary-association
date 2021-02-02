@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import {Navbar, Nav} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {USER_ROLES} from "../../Enums";
 import Logout from "./Logout";
 
 export default function NavigationBar(props){
+
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="mb-5">
             <Navbar.Brand href="#home">Books & Beyond</Navbar.Brand>

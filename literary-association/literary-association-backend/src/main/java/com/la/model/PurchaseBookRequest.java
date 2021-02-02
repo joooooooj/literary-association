@@ -1,7 +1,7 @@
 package com.la.model;
 
-import com.la.model.enums.TransactionStatus;
 import com.la.model.users.Reader;
+import com.la.model.enums.TransactionStatus;
 import lombok.*;
 
 import javax.persistence.*;

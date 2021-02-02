@@ -1,49 +1,82 @@
-import React, {useState} from "react";
-import {Button, Table, ButtonGroup} from "react-bootstrap";
+import React, {useEffect, useState} from "react";
+import {Button, ButtonGroup, Table} from "react-bootstrap";
 import PreviewPDF from "../../core/modals/PreviewPDF";
 import AddCorrections from "./AddCorrections";
 
-export default function CorrectionsScripts() {
-
-    const [status, setStatus] = useState("WAITING_LECTOR_REVIEW");
+export default function CorrectionsScripts(props) {
 
     const [showDocument, setShowDocument] = useState(false);
     const [showCorrections, setShowCorrections] = useState(false);
 
-    const handleCloseDocument = () => setShowDocument(false);
-    const handleShowDocument = () => setShowDocument(true);
+    const [requests, setRequests] = useState([]);
+    const [selectedRequest, setSelectedRequest] = useState({});
 
-    const handleCloseCorrections = () => setShowCorrections(false);
+    const handleCloseDocument = () => setShowDocument(false);
+    const handleShowDocument = (request) => {
+        setSelectedRequest(request);
+        setShowDocument(true);
+    }
+
+    const handleCloseCorrections = () => {
+        setShowCorrections(false);
+        window.location.reload();
+    }
     const handleShowCorrections = () => setShowCorrections(true);
 
-    const renderStatus = () => {
-        switch (status) {
-            case "WAITING_LECTOR_REVIEW" : return (
-                <>
-                    <ButtonGroup>
-                        <Button variant="outline-warning" onClick={() => handleShowCorrections()}>
-                            ADD CORRECTIONS
-                        </Button>
-                        <Button variant="outline-success" onClick={() => ""}>
-                            SEND TO EDITOR
-                        </Button>
-                    </ButtonGroup>
-                </>
-            );
-            case "WAITING_CORRECTIONS" : return (
-                <>
-                    <h5 className="text-warning text-left">
-                        Writer is still correcting script...
-                    </h5>
-                </>
-            );
+    useEffect(() => {
+        getRequests();
+    }, [])
+
+    const getRequests = () => {
+        fetch("http://localhost:8080/publish/requests/" + props.loggedIn, {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + props.loggedIn,
+                "Content-Type": "application/json",
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                setRequests(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    const [correctionForm, setCorrectionForm] = useState({});
+
+    const handleNeedCorrection = (needCorrection, taskId) => {
+        fetch("http://localhost:8080/publish/lector/need-correction/" + taskId, {
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer " + props.loggedIn,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                approved: needCorrection
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (needCorrection) {
+                    setCorrectionForm(data);
+                    handleShowCorrections();
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        if (!needCorrection) {
+            window.location.reload();
         }
     }
 
     return (
         <div className="bg-dark p-5">
-            <PreviewPDF show={showDocument} onHide={handleCloseDocument}/>
-            <AddCorrections show={showCorrections} onHide={handleCloseCorrections} setStatus={setStatus}/>
+            <PreviewPDF selectedRequest={selectedRequest} show={showDocument} onHide={handleCloseDocument}/>
+            <AddCorrections correctionForm={correctionForm} show={showCorrections} onHide={handleCloseCorrections}/>
             <div className="bg-dark p-5 border border-light">
                 <h2 className="text-left text-light mb-4">
                     Correction requests
@@ -52,8 +85,7 @@ export default function CorrectionsScripts() {
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
+                        <th>Username</th>
                         <th>Title</th>
                         <th>Genre</th>
                         <th className="w-25">Synopsys</th>
@@ -62,63 +94,39 @@ export default function CorrectionsScripts() {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Neil</td>
-                        <td>Gaiman</td>
-                        <td>Hello world</td>
-                        <td>Romance</td>
-                        <td>
-                            Look! In the sky. It's a bird, it's a plane.
-                            Or is it a hellicopter? No actually I think it is a bird.
-                            Or maybe I'm just seeing things. Who knows...
-                            After 10 shots of Whiskey things start to get a bit strange.
-                        </td>
-                        <td className="text-center" style={{verticalAlign:"middle"}}>
-                            {renderStatus(status)}
-                        </td>
-                        <td className="text-center" style={{verticalAlign:"middle"}}>
-                            <Button variant="outline-info" onClick={() => handleShowDocument()}>
-                                READ SCRIPT
-                            </Button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Moris</td>
-                        <td>Jackson</td>
-                        <td>Flowers</td>
-                        <td>Fantasy</td>
-                        <td>
-                            Life is full of temporary situations, ultimately ending in a permanent solution.
-                        </td>
-                        <td className="text-center" style={{verticalAlign:"middle"}}>
-                            <ButtonGroup>
-                                <Button variant="outline-warning" onClick={() => handleShowCorrections()}>
-                                    ADD CORRECTIONS
-                                </Button>
-                                <Button variant="outline-success" onClick={() => ""}>
-                                    SEND TO EDITOR
-                                </Button>
-                            </ButtonGroup>
-                        </td>
-                        <td className="text-center" style={{verticalAlign:"middle"}}>
-                            <Button variant="outline-info" onClick={() => handleShowDocument()}>
-                                READ SCRIPT
-                            </Button>
-                        </td>
-                    </tr>
+                    {requests.map((request, index) => {
+                        return (
+                            <tr key={index}>
+                                <td>{index + 1}</td>
+                                <td>{request.publishBookRequest.writer}</td>
+                                <td>{request.publishBookRequest.title}</td>
+                                <td>{request.publishBookRequest.genre}</td>
+                                <td>
+                                    {request.publishBookRequest.synopsis}
+                                </td>
+                                <td className="text-center" style={{verticalAlign: "middle"}}>
+                                    <ButtonGroup>
+                                        <Button variant="outline-warning"
+                                                onClick={() => handleNeedCorrection(true, request.taskId)}>
+                                            ADD CORRECTIONS
+                                        </Button>
+                                        <Button variant="outline-success"
+                                                className={request.taskIsForm ? "hidden" : ""}
+                                                onClick={() => handleNeedCorrection(false, request.taskId)}>
+                                            SEND TO EDITOR
+                                        </Button>
+                                    </ButtonGroup>
+                                </td>
+                                <td className="text-center" style={{verticalAlign: "middle"}}>
+                                    <Button variant="outline-info" onClick={() => handleShowDocument(request)}>
+                                        READ SCRIPT
+                                    </Button>
+                                </td>
+                            </tr>
+                        )
+                    })}
                     </tbody>
                 </Table>
-                {/*Delete testing elements from here*/}
-                <div className="row ml-1 mt-5">
-                    <ButtonGroup>
-                        <Button variant="outline-info" onClick={() => setStatus("WAITING_LECTOR_REVIEW")}>
-                            WRITER CORRECTED
-                        </Button>
-                    </ButtonGroup>
-                </div>
-                {/*End of test elements*/}
             </div>
         </div>
     );

@@ -1,5 +1,6 @@
 package com.la.model;
 
+import com.la.model.users.Lector;
 import com.la.model.users.Editor;
 import com.la.model.users.Lector;
 import com.la.model.users.Writer;

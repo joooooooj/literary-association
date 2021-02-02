@@ -5,28 +5,23 @@ import com.la.model.Membership;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @DiscriminatorValue("READER")
-public class Reader extends User {
+public class Reader extends SysUser implements Serializable {
 
     @Column
-    private boolean isBeta;
+    private boolean beta;
 
     @Column
     private Integer penaltyPoints;
-
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "reader_genre",
-            joinColumns = @JoinColumn(name = "reader_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))
-    private Set<Genre> genres;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "beta_reader_genre",

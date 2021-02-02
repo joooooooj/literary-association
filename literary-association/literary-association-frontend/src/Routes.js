@@ -85,7 +85,7 @@ export default function Routes(props) {
                 {  props.roles[0] === USER_ROLES.WRITER &&
                     <>
                         <Route exact path="/publish-book">
-                            <PublishBook/>
+                            <PublishBook loggedIn={props.loggedIn}/>
                         </Route>
                         <Route exact path="/plagiarism-complaint">
                             <PlagiarismComplaint/>
@@ -94,7 +94,7 @@ export default function Routes(props) {
                 }
                 {   props.roles[0] === USER_ROLES.READER &&
                     <Route exact path="/comments-scripts">
-                        <CommentsScripts/>
+                        <CommentsScripts loggedIn={props.loggedIn}/>
                     </Route>
                 }
                 {   props.roles[0] === USER_ROLES.BOARD_MEMBER &&
@@ -109,13 +109,13 @@ export default function Routes(props) {
                 }
                 {   props.roles[0] === USER_ROLES.LECTOR &&
                     <Route exact path="/corrections-scripts">
-                        <CorrectionsScripts/>
+                        <CorrectionsScripts loggedIn={props.loggedIn}/>
                     </Route>
                 }
                 {   props.roles[0] === USER_ROLES.EDITOR &&
                     <>
                         <Route exact path="/publish-requests">
-                            <PublishRequests/>
+                            <PublishRequests loggedIn={props.loggedIn}/>
                         </Route>
                         <Route exact path="/main-editor-complaints">
                             <MainEditorComplaints/>

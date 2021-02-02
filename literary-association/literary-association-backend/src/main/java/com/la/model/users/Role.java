@@ -1,17 +1,19 @@
 package com.la.model.users;
 
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@ToString
 @Entity
-public class Role {
+public class Role implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

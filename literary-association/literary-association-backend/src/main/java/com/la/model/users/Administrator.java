@@ -1,15 +1,17 @@
 package com.la.model.users;
 
-import lombok.*;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import java.io.Serializable;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@ToString
 @Entity
 @DiscriminatorValue("ADMINISTRATOR")
-public class Administrator extends User {
+public class Administrator extends SysUser implements Serializable {
+
+    public Administrator() {
+    }
+
+    public Administrator(String username, String password, String firstName, String lastName, String state, String city, String email) {
+        super(username, password, firstName, lastName, state, city, email);
+    }
 }

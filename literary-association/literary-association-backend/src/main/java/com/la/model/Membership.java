@@ -1,9 +1,10 @@
 package com.la.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Membership {
+public class Membership implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

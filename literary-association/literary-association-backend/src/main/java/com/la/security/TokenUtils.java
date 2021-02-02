@@ -1,7 +1,7 @@
 package com.la.security;
 
 import com.la.model.users.Role;
-import com.la.model.users.User;
+import com.la.model.users.SysUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -77,7 +77,7 @@ public class TokenUtils {
 
     // Funkcija za validaciju JWT tokena
     public Boolean validateToken(String token, UserDetails userDetails) {
-        User user = (User) userDetails;
+        SysUser sysUser = (SysUser) userDetails;
         final String username = getUsernameFromToken(token);
         final Date created = getIssuedAtDateFromToken(token);
 
@@ -88,7 +88,6 @@ public class TokenUtils {
         String username;
         try {
             final Claims claims = this.getAllClaimsFromToken(token);
-            System.out.println(claims);
             username = claims.getSubject();
         } catch (Exception e) {
             username = null;

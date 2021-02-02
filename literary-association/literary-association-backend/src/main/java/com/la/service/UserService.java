@@ -1,7 +1,9 @@
 package com.la.service;
 
-import com.la.model.users.User;
+import com.la.model.users.SysUser;
 
 public interface UserService {
-    User findByUsername(String username);
+    SysUser findByUsername(String username);
+
+    void createCamundaUser(SysUser sysUser);
 }
