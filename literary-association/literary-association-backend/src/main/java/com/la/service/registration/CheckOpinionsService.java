@@ -40,7 +40,7 @@ public class CheckOpinionsService implements JavaDelegate {
         int notApproved = (int) boardMemberComments.stream().filter(comment -> comment.getOpinion().equals(Opinion.NOT_APPROVED)).count();
         int needMoreWork = (int) boardMemberComments.stream().filter(comment -> comment.getOpinion().equals(Opinion.MORE_MATERIAL)).count();
 
-        if (notApproved >= ((approved + notApproved + needMoreWork) / 2)) {
+        if ((float) notApproved >= ((float)(approved + notApproved + needMoreWork) / 2)) {
             delegateExecution.setVariable("submitted_work_status", "not_approved");
         } else if (needMoreWork > 0) {
             delegateExecution.setVariable("submitted_work_status", "need_more_work");

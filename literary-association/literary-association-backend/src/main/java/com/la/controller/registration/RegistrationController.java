@@ -248,6 +248,27 @@ public class RegistrationController {
         return new ResponseEntity<>(Collections.singletonMap("processInstanceId", task.getProcessInstanceId()), HttpStatus.OK);
     }
 
+    // 11. KORAK / WRITER JE APPROVED, MORA DA PLATI
+    @PostMapping(value = "/writer/pay/{membershipId}")
+    public ResponseEntity<?> writerPay(@PathVariable Long membershipId, @RequestHeader("Authorization") String token) {
+        String username = tokenUtils.getUsernameFromToken(token.substring(7));
+
+        List<ProcessInstance> allProcessInstances = getAllRunningProcessInstances("Process_registration");
+
+        Task task = null;
+        for (ProcessInstance pi : allProcessInstances) {
+            task = taskService.createTaskQuery().processInstanceId(pi.getId()).taskAssignee(username).active().singleResult();
+            break;
+        }
+
+        if (task != null) {
+            runtimeService.setVariable(task.getProcessInstanceId(), "membership_id", membershipId.toString());
+            taskService.complete(task.getId());
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
     private String mapListToJSON(List<Object> objects, String valueFieldName, String labelFieldName) throws NoSuchFieldException, IllegalAccessException, JsonProcessingException {
         List<SelectOptionDTO> selectOptionDTOList = new ArrayList<>();
 
