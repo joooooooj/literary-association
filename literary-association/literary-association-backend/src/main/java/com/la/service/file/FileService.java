@@ -22,11 +22,11 @@ public class FileService {
     @Value("${dataDir}")
     String dataDir;
 
-    public String saveUploadedFile(MultipartFile file, String processInstanceId) throws IOException {
+    public String saveUploadedFile(MultipartFile file, String processInstanceId, Integer numberSuffix) throws IOException {
         String retVal = null;
-        if (! file.isEmpty()) {
+        if (!file.isEmpty()) {
             byte[] bytes = file.getBytes();
-            Path path = Paths.get(getResourceFilePath(dataDir) + File.separator + processInstanceId + ".pdf");
+            Path path = Paths.get(getResourceFilePath(dataDir) + File.separator + processInstanceId + "__" + numberSuffix + ".pdf");
             Files.write(path, bytes);
             retVal = path.toString();
         }
@@ -37,8 +37,8 @@ public class FileService {
         return new FileSystemResource(path).getFile().getAbsolutePath();
     }
 
-    public Resource downloadFile(String filename){
-        Path path = Paths.get(getResourceFilePath(dataDir) +  File.separator + filename);
+    public Resource downloadFile(String filename) {
+        Path path = Paths.get(getResourceFilePath(dataDir) + File.separator + filename);
         Resource resource = null;
         try {
             resource = new UrlResource(path.toUri());

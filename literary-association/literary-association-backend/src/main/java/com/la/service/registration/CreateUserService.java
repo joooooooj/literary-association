@@ -13,10 +13,11 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.camunda.bpm.engine.identity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class CreateUserService implements JavaDelegate {
@@ -33,12 +34,13 @@ public class CreateUserService implements JavaDelegate {
     @Autowired
     private RegistrationStartHandler registrationStartHandler;
 
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
         List<FormSubmissionDTO> registration = (List<FormSubmissionDTO>) delegateExecution.getVariable("registration");
         Boolean isWriter = (Boolean) delegateExecution.getVariable("is_writer");
         Boolean isBeta = (Boolean) delegateExecution.getVariable("is_beta");
-//        List<FormSubmissionDTO> preferences = (List<FormSubmissionDTO>) delegateExecution.getVariable("userPreferences");
 
         User newUser = identityService.newUser("");
         SysUser newSystemUser;
@@ -57,7 +59,7 @@ public class CreateUserService implements JavaDelegate {
             }
             if (formField.getFieldId().equals("password")) {
                 newUser.setPassword(formField.getFieldValue());
-                newSystemUser.setPassword(formField.getFieldValue());
+                newSystemUser.setPassword(passwordEncoder.encode(formField.getFieldValue()));
             }
             if (formField.getFieldId().equals("name")) {
                 newUser.setFirstName(formField.getFieldValue());
@@ -78,8 +80,14 @@ public class CreateUserService implements JavaDelegate {
                 newSystemUser.setState(country);
             }
             if (formField.getFieldId().equals("genresInterestedIn")) {
-                System.out.println("OVDE SU ZANROVI KOD KORISNIKA" + formField.getFieldValue());
-                newSystemUser.setGenres(Collections.singleton(genreRepository.findById(Long.parseLong(formField.getFieldValue())).get()));
+                String[] genres = formField.getFieldValue().split(",");
+
+                Set<Genre> genreSet = new HashSet<>();
+                for (String genre : genres) {
+                    genreSet.add(genreRepository.findById(Long.parseLong(genre)).get());
+                }
+                newSystemUser.setGenres(genreSet);
+
             }
         });
 

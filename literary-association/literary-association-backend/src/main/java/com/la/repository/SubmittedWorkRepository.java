@@ -5,9 +5,11 @@ import com.la.model.registration.WriterMembershipRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface SubmittedWorkRepository extends JpaRepository<SubmittedWork, Long> {
-    SubmittedWork findByPathContaining(String processInstanceIdString);
+    List<SubmittedWork> findByPathContaining(String processInstanceIdString);
 
-    SubmittedWork findByWriterMembershipRequest(WriterMembershipRequest writerMembershipRequest);
+    List<SubmittedWork> findByWriterMembershipRequest(WriterMembershipRequest writerMembershipRequest);
 }

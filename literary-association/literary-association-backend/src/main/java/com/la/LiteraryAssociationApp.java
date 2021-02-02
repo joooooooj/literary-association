@@ -19,4 +19,5 @@ public class LiteraryAssociationApp {
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
+
 }

@@ -98,7 +98,7 @@ public class RegistrationAuthController {
         String genresString = mapListToJSON(genres, "id", "value");
 
         formFields.get(0).getProperties().put("options", genresString);
-        return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, processId, submitFormUrl + "reader-wanted-genres/", ""), HttpStatus.OK);
+        return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, processId, submitFormUrl + "reader-wanted-genres", ""), HttpStatus.OK);
     }
 
     // 4. KORAK / SLANJE BETA READER ODABRANIH ZANROVA

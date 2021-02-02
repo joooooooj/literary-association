@@ -329,7 +329,7 @@ public class PublishBookController {
         try {
             if (file != null){
                 PublishBookRequest publishBookRequest = (PublishBookRequest) runtimeService.getVariable(processInstanceId, "publishBookRequest");
-                String path = fileService.saveUploadedFile(file, processInstanceId);
+                String path = fileService.saveUploadedFile(file, processInstanceId, 0);
                 publishBookRequest.setPath(path);
                 switch (publishBookRequest.getStatus()){
                     case ("WAITING_SUBMIT"):{

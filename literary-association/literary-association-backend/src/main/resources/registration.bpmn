@@ -64,6 +64,7 @@
             <camunda:properties>
               <camunda:property id="placeholder" value="Select preferenced genres" />
               <camunda:property id="subType" value="select" />
+              <camunda:property id="multiselect" value="true" />
             </camunda:properties>
             <camunda:validation>
               <camunda:constraint name="required" config="true" />
@@ -102,6 +103,7 @@
             <camunda:properties>
               <camunda:property id="placeholder" value="Select wanted genres" />
               <camunda:property id="subType" value="select" />
+              <camunda:property id="multiselect" value="true" />
             </camunda:properties>
             <camunda:validation>
               <camunda:constraint name="required" config="true" />
@@ -147,7 +149,7 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${is_writer == true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:serviceTask id="Assign_Board_Members" name="Assign board members to review uploaded work" camunda:class="com.la.service.registration.AssignBoardMembersService">
-      <bpmn:incoming>Flow_1hokx8h</bpmn:incoming>
+      <bpmn:incoming>Flow_1pikxay</bpmn:incoming>
       <bpmn:outgoing>Flow_0ljm9o8</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_0ljm9o8" sourceRef="Assign_Board_Members" targetRef="Board_Member_Comment_Input" />
@@ -197,8 +199,8 @@
       <bpmn:incoming>Flow_1t49xqm</bpmn:incoming>
       <bpmn:outgoing>Flow_136uqq0</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="Flow_1hokx8h" sourceRef="Upload_Two_Pdfs" targetRef="Assign_Board_Members" />
-    <bpmn:userTask id="Upload_Two_Pdfs" name="Upload two pdfs" camunda:assignee="${registeredUser}">
+    <bpmn:sequenceFlow id="Flow_1hokx8h" sourceRef="Upload_Two_Pdfs" targetRef="Upload_Second_Pdf" />
+    <bpmn:userTask id="Upload_Two_Pdfs" name="Upload first pdf" camunda:assignee="${registeredUser}">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="uploadWorkFile" label="Submit work" type="string">
@@ -279,6 +281,24 @@
       <bpmn:incoming>Flow_17gwwmb</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_17gwwmb" sourceRef="Create_Writrer" targetRef="Event_0fotw16" />
+    <bpmn:sequenceFlow id="Flow_1pikxay" sourceRef="Upload_Second_Pdf" targetRef="Assign_Board_Members" />
+    <bpmn:userTask id="Upload_Second_Pdf" name="Upload second pdf" camunda:assignee="${registeredUser}">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="uploadWorkFile2" label="Submit work" type="string">
+            <camunda:properties>
+              <camunda:property id="subType" value="file" />
+              <camunda:property id="accept" value="application/pdf" />
+            </camunda:properties>
+            <camunda:validation>
+              <camunda:constraint name="required" config="true" />
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1hokx8h</bpmn:incoming>
+      <bpmn:outgoing>Flow_1pikxay</bpmn:outgoing>
+    </bpmn:userTask>
     <bpmn:textAnnotation id="TextAnnotation_0ogwvhs">
       <bpmn:text>Creating reader or writer ?</bpmn:text>
     </bpmn:textAnnotation>
@@ -338,12 +358,12 @@
         <di:waypoint x="415" y="907" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1hokx8h_di" bpmnElement="Flow_1hokx8h">
+        <di:waypoint x="1270" y="907" />
         <di:waypoint x="1210" y="907" />
-        <di:waypoint x="1070" y="907" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_136uqq0_di" bpmnElement="Flow_136uqq0">
         <di:waypoint x="1430" y="907" />
-        <di:waypoint x="1310" y="907" />
+        <di:waypoint x="1370" y="907" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1olpr1t_di" bpmnElement="Flow_1olpr1t">
         <di:waypoint x="1520" y="487" />
@@ -379,7 +399,7 @@
         <di:waypoint x="640" y="907" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0ljm9o8_di" bpmnElement="Flow_0ljm9o8">
-        <di:waypoint x="970" y="907" />
+        <di:waypoint x="930" y="907" />
         <di:waypoint x="840" y="907" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1t49xqm_di" bpmnElement="Flow_1t49xqm">
@@ -451,6 +471,10 @@
         <di:waypoint x="390" y="190" />
         <di:waypoint x="390" y="118" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1pikxay_di" bpmnElement="Flow_1pikxay">
+        <di:waypoint x="1110" y="907" />
+        <di:waypoint x="1030" y="907" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="732" y="396" width="36" height="36" />
       </bpmndi:BPMNShape>
@@ -487,9 +511,6 @@
       <bpmndi:BPMNShape id="Event_1h0fg7u_di" bpmnElement="Event_1h0fg7u">
         <dc:Bounds x="1782" y="889" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1u26lac_di" bpmnElement="Assign_Board_Members">
-        <dc:Bounds x="970" y="867" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_045qm3n_di" bpmnElement="Board_Member_Comment_Input">
         <dc:Bounds x="740" y="867" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -498,9 +519,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0rk3frr_di" bpmnElement="Create_Writer_Membership_Request">
         <dc:Bounds x="1430" y="867" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1cosxww_di" bpmnElement="Upload_Two_Pdfs">
-        <dc:Bounds x="1210" y="867" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_08f8d3l_di" bpmnElement="Check_Opinions">
         <dc:Bounds x="540" y="867" width="100" height="80" />
@@ -537,6 +555,15 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0fotw16_di" bpmnElement="Event_0fotw16">
         <dc:Bounds x="372" y="82" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1cosxww_di" bpmnElement="Upload_Two_Pdfs">
+        <dc:Bounds x="1270" y="867" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1u26lac_di" bpmnElement="Assign_Board_Members">
+        <dc:Bounds x="930" y="867" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0m593oj_di" bpmnElement="Upload_Second_Pdf">
+        <dc:Bounds x="1110" y="867" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_1kewxsv_di" bpmnElement="Association_1kewxsv">
         <di:waypoint x="1350" y="222" />

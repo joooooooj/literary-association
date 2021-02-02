@@ -122,11 +122,18 @@ public class RegistrationController {
     public ResponseEntity<?> uploadSubmittedWork(@RequestBody MultipartFile file, @PathVariable String processInstanceId) {
         try {
             if (file != null) {
-                String path = fileService.saveUploadedFile(file, processInstanceId);
-
                 String username = (String) runtimeService.getVariable(processInstanceId, "registeredUser");
                 WriterMembershipRequest request = writerMembershipRequestRepository.findByUsername(username);
-                request.setStatus(WriterMembershipStatus.WAITING_OPINION);
+
+                String path = fileService.saveUploadedFile(file, processInstanceId, request.getAttemptsNumber() + 1);
+
+                int times = request.getAttemptsNumber();
+                ++times;
+                request.setAttemptsNumber(times);
+
+                if (times >= 2) {
+                    request.setStatus(WriterMembershipStatus.WAITING_OPINION);
+                }
                 writerMembershipRequestRepository.save(request);
 
                 // DODATI CUVANJE SUBMITTED WORKA
@@ -177,7 +184,13 @@ public class RegistrationController {
                 BoardMemberWorkToApproveDTO workToApproveDTO = new BoardMemberWorkToApproveDTO();
                 workToApproveDTO.setWriterFirstName(request.getFirstName());
                 workToApproveDTO.setWriterLastName(request.getLastName());
-                workToApproveDTO.setFilenames(Collections.singletonList(fileService.getResourceFilePath(pi.getId())));
+
+                List<String> filenames = new ArrayList<>();
+
+                for (int i = 1; i < request.getAttemptsNumber() + 1; i++) {
+                    filenames.add(fileService.getResourceFilePath(pi.getId() + "__" + i));
+                }
+                workToApproveDTO.setFilenames(filenames);
                 workToApproveDTO.setTaskId(task.getId());
                 workToApproveDTO.setProcessInstanceId(pi.getId());
                 boardMemberWorkToApproveDTOS.add(workToApproveDTO);
@@ -229,7 +242,7 @@ public class RegistrationController {
         BoardMemberComment comment = new BoardMemberComment();
         comment.setBoardMember(boardMember);
         comment.setDate(new Date());
-        comment.setSubmittedWork(submittedWorkRepository.findByPathContaining(task.getProcessInstanceId()));
+        comment.setSubmittedWork(submittedWorkRepository.findByPathContaining(task.getProcessInstanceId()).get(0));
         formSubmissionDTOS.forEach(formField -> {
             if (formField.getFieldId().equals("comment")) {
                 comment.setText(formField.getFieldValue());
