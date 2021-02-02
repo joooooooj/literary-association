@@ -31,6 +31,7 @@ public class SetBetaReadersService implements JavaDelegate {
 
             List<Reader> readerList = readerRepository.findByBetaIsTrueAndBetaReaderGenresContains(genre);
 
+            System.err.println(readerList.size());
             if (readerList.size() == 0) {
                 throw new BpmnError("UserNotFound");
             }
