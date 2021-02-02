@@ -13,9 +13,7 @@ import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.Charset;
 import java.time.LocalDate;
-import java.util.Random;
 
 @Service
 public class PrintService implements JavaDelegate {
@@ -68,8 +66,7 @@ public class PrintService implements JavaDelegate {
         bookRepository.save(book);
     }
 
-    public static String generateISBN()
-    {
+    public static String generateISBN() {
         String generatedString = RandomStringUtils.random(13, true, true);
         return generatedString;
     }

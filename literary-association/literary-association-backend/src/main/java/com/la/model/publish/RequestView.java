@@ -1,6 +1,5 @@
 package com.la.model.publish;
 
-import com.la.dto.FormFieldsDTO;
 import lombok.*;
 
 @NoArgsConstructor

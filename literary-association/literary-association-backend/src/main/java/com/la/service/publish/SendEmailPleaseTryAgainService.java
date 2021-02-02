@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SendEmailToWriterApprovedService implements JavaDelegate {
+public class SendEmailPleaseTryAgainService implements JavaDelegate {
 
     @Autowired
     SendEmailService sendEmailService;
@@ -24,12 +24,12 @@ public class SendEmailToWriterApprovedService implements JavaDelegate {
         try {
             String username = (String) delegateExecution.getVariable("writer");
             String writerEmail = userRepository.findByUsername(username).getEmail();
-            System.err.println("APPROVED");
+            System.err.println("TO WRITER");
             System.err.println(writerEmail);
 
             Email email = new Email();
-            email.setSubject("Your book request has been approved");
-            email.setBody("You were given a deadline to submit your script.");
+            email.setSubject("There was an error processing your request");
+            email.setBody("Try again and if problem persists, please contact support for further information.");
             email.setEmailFrom("VULKAN");
             email.setEmailTo("rento.office@gmail.com");
             sendEmailService.sendEmail(email);
@@ -37,5 +37,6 @@ public class SendEmailToWriterApprovedService implements JavaDelegate {
             e.printStackTrace();
             throw new BpmnError("EmailFailedToSend");
         }
+
     }
 }

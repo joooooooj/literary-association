@@ -10,6 +10,5 @@ import java.io.Serializable;
 @NoArgsConstructor
 @ToString
 public class Plagiat implements Serializable {
-
     private String source;
 }

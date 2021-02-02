@@ -27,34 +27,37 @@ public class PunishBetaReadersService implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        List<String> readerList = (List<String>) delegateExecution.getVariable("beta");
-        PublishBookRequest publishBookRequest = (PublishBookRequest) delegateExecution.getVariable("publishBookRequest");
-        List<BetaReaderComment> betaReaderCommentList = publishBookRequest.getBetaReaderCommentList();
+        try {
+            List<String> readerList = (List<String>) delegateExecution.getVariable("beta");
+            PublishBookRequest publishBookRequest = (PublishBookRequest) delegateExecution.getVariable("publishBookRequest");
+            List<BetaReaderComment> betaReaderCommentList = publishBookRequest.getBetaReaderCommentList();
 
-        if (betaReaderCommentList == null) {
-            betaReaderCommentList = new ArrayList<>();
-        }
-
-        Map<String, BetaReaderComment> betaReaderComments = new HashMap<>();
-        for (BetaReaderComment betaReaderComment : betaReaderCommentList) {
-            betaReaderComments.put(betaReaderComment.getReader(), betaReaderComment);
-        }
-        for(String reader : readerList) {
-            if (!betaReaderComments.containsKey(reader)){
-                punishBetaReader(reader);
+            if (betaReaderCommentList == null) {
+                betaReaderCommentList = new ArrayList<>();
             }
+
+            Map<String, BetaReaderComment> betaReaderComments = new HashMap<>();
+            for (BetaReaderComment betaReaderComment : betaReaderCommentList) {
+                betaReaderComments.put(betaReaderComment.getReader(), betaReaderComment);
+            }
+            for (String reader : readerList) {
+                if (!betaReaderComments.containsKey(reader)) {
+                    punishBetaReader(reader);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     private void punishBetaReader(String reader) {
-        if (readerRepository.findByUsername(reader) != null){
+        if (readerRepository.findByUsername(reader) != null) {
             Reader readerObject = (Reader) readerRepository.findByUsername(reader);
-            if ((readerObject.getPenaltyPoints() - 1) == -5){
+            if ((readerObject.getPenaltyPoints() - 1) == -5) {
                 readerObject.setPenaltyPoints(-5);
                 readerObject.setBeta(false);
                 sendEmail(readerObject, true, -5);
-            }
-            else {
+            } else {
                 readerObject.setPenaltyPoints(readerObject.getPenaltyPoints() - 1);
                 sendEmail(readerObject, false, readerObject.getPenaltyPoints() - 1);
             }
@@ -71,8 +74,7 @@ public class PunishBetaReadersService implements JavaDelegate {
         email.setSubject("You have been punished");
         if (lostBeta) {
             email.setBody("You have -5 penalty points. You are no longer beta reader!");
-        }
-        else {
+        } else {
             email.setBody("Watch watch, if you reach -5 penalty points, you will lose beta reader role! You now have " + penalty + " points.");
         }
         email.setEmailFrom("VULKAN");
