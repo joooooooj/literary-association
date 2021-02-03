@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import { Document, Page } from 'react-pdf';
+import {Document, Page} from 'react-pdf';
 import {Button, ButtonGroup, Modal} from "react-bootstrap";
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
-import { pdfjs } from 'react-pdf';
-import { saveAs } from 'file-saver'
+import {pdfjs} from 'react-pdf';
+import {saveAs} from 'file-saver'
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -12,12 +12,12 @@ export default function PreviewPDF(props) {
     const [pageNumber, setPageNumber] = useState(1);
 
     useEffect(() => {
-        if (props.selectedRequest){
+        if (props.selectedRequest) {
             console.log(props.selectedRequest)
-            fetch("http://localhost:8080/publish/download/" + props.selectedRequest.processInstanceId + ".pdf", {
+            fetch("http://localhost:8080/publish/download/" + props.selectedRequest.processInstanceId + "__" + props.suffix + ".pdf", {
                 method: "GET",
                 headers: {
-                    "Authorization" : "Bearer " + props.loggedIn,
+                    "Authorization": "Bearer " + props.loggedIn,
                     "Content-Type": "application/octet-stream",
                 }
             })
@@ -31,7 +31,7 @@ export default function PreviewPDF(props) {
         }
     }, [props.selectedRequest])
 
-    function onDocumentLoadSuccess({ numPages }) {
+    function onDocumentLoadSuccess({numPages}) {
         setNumPages(numPages);
     }
 
@@ -43,11 +43,11 @@ export default function PreviewPDF(props) {
     const [file, setFile] = useState(null);
 
     const handleDownload = () => {
-        if (props.selectedRequest){
+        if (props.selectedRequest) {
             fetch("http://localhost:8080/publish/download/" + props.selectedRequest.processInstanceId + ".pdf", {
                 method: "GET",
                 headers: {
-                    "Authorization" : "Bearer " + props.loggedIn,
+                    "Authorization": "Bearer " + props.loggedIn,
                     "Content-Type": "application/octet-stream",
                     responseType: 'blob',
                 }
@@ -67,7 +67,7 @@ export default function PreviewPDF(props) {
         fetch("http://localhost:8080/publish/editor/decision/2/" + props.selectedRequest.taskId, {
             method: "POST",
             headers: {
-                "Authorization" : "Bearer " + props.loggedIn,
+                "Authorization": "Bearer " + props.loggedIn,
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({approved: decision})
@@ -90,26 +90,34 @@ export default function PreviewPDF(props) {
                     className="center-document mt-0 pt-0"
                     file={file}
                     onLoadSuccess={onDocumentLoadSuccess}>
-                    {   props.selectedRequest?.publishBookRequest?.status === "WAITING_READING" &&
-                        <ButtonGroup className="mb-3 mt-2">
-                            <Button variant="success" onClick={() => {handleDecision(true)}}>
-                                APPROVE
-                            </Button>
-                            <Button variant="danger" onClick={() => {handleDecision(false)}}>
-                                REJECT
-                            </Button>
-                        </ButtonGroup>
+                    {props.selectedRequest?.publishBookRequest?.status === "WAITING_READING" &&
+                    <ButtonGroup className="mb-3 mt-2">
+                        <Button variant="success" onClick={() => {
+                            handleDecision(true)
+                        }}>
+                            APPROVE
+                        </Button>
+                        <Button variant="danger" onClick={() => {
+                            handleDecision(false)
+                        }}>
+                            REJECT
+                        </Button>
+                    </ButtonGroup>
                     }
                     <div className="row controls-center mt-2">
-                        <i onClick={() => setPageNumber(pageNumber > 1 ? (pageNumber - 1) : 1)} className="material-icons">keyboard_arrow_left</i>
+                        <i onClick={() => setPageNumber(pageNumber > 1 ? (pageNumber - 1) : 1)}
+                           className="material-icons">keyboard_arrow_left</i>
                         <p>Page {pageNumber} of {numPages}</p>
-                        <i onClick={() => setPageNumber(numPages > pageNumber ? (pageNumber + 1) : numPages)} className="material-icons">keyboard_arrow_right</i>
+                        <i onClick={() => setPageNumber(numPages > pageNumber ? (pageNumber + 1) : numPages)}
+                           className="material-icons">keyboard_arrow_right</i>
                     </div>
-                    <Page className="mb-3" pageNumber={pageNumber} />
+                    <Page className="mb-3" pageNumber={pageNumber}/>
                     <div className="row controls-center">
-                        <i onClick={() => setPageNumber(pageNumber > 1 ? (pageNumber - 1) : 1)} className="material-icons">keyboard_arrow_left</i>
+                        <i onClick={() => setPageNumber(pageNumber > 1 ? (pageNumber - 1) : 1)}
+                           className="material-icons">keyboard_arrow_left</i>
                         <p>Page {pageNumber} of {numPages}</p>
-                        <i onClick={() => setPageNumber(numPages > pageNumber ? (pageNumber + 1) : numPages)} className="material-icons">keyboard_arrow_right</i>
+                        <i onClick={() => setPageNumber(numPages > pageNumber ? (pageNumber + 1) : numPages)}
+                           className="material-icons">keyboard_arrow_right</i>
                     </div>
                     <Button variant="info" onClick={() => handleDownload()}>
                         DOWNLOAD
