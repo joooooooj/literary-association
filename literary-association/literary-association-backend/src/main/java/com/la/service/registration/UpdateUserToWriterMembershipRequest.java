@@ -47,11 +47,13 @@ public class UpdateUserToWriterMembershipRequest implements JavaDelegate {
         writerMembershipRequest.setDeleted(user.isDeleted());
         writerMembershipRequest.setStatus(WriterMembershipStatus.WAITING_SUBMIT);
         writerMembershipRequest.setAttemptsNumber(0);
+        writerMembershipRequest.setFilesPosted(0);
 
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_MONTH, 14);
 
         writerMembershipRequest.setSubmissionDeadline(calendar.getTime());
+        delegateExecution.setVariable("submissionDeadline", calendar.getTime());
 
         try {
             userRepository.deleteById(user.getId());

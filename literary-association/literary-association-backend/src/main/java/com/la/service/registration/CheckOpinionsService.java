@@ -31,9 +31,7 @@ public class CheckOpinionsService implements JavaDelegate {
         String username = (String) delegateExecution.getVariable("registeredUser");
         WriterMembershipRequest request = writerMembershipRequestRepository.findByUsername(username);
 
-        List<SubmittedWork> submittedWork = submittedWorkRepository.findByWriterMembershipRequest(request);
-
-        List<BoardMemberComment> boardMemberComments = boardMemberCommentRepository.findBySubmittedWork(submittedWork.get(0));
+        List<BoardMemberComment> boardMemberComments = boardMemberCommentRepository.findByWriterMembershipRequest(request);
         System.err.println("BOARD MEMBERS COUNT " + boardMemberComments.size());
 
         int approved = (int) boardMemberComments.stream().filter(comment -> comment.getOpinion().equals(Opinion.APPROVED)).count();

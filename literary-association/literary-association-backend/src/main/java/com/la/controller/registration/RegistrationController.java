@@ -95,6 +95,7 @@ public class RegistrationController {
             dataNeeded.setPaymentDeadline(request.getPaymentDeadline());
             dataNeeded.setStatus(request.getStatus());
             dataNeeded.setSubmissionDeadline(request.getSubmissionDeadline());
+            dataNeeded.setFilesPosted(request.getFilesPosted());
 
             return new ResponseEntity<>(dataNeeded, HttpStatus.OK);
         }
@@ -125,14 +126,16 @@ public class RegistrationController {
                 String username = (String) runtimeService.getVariable(processInstanceId, "registeredUser");
                 WriterMembershipRequest request = writerMembershipRequestRepository.findByUsername(username);
 
-                String path = fileService.saveUploadedFile(file, processInstanceId, request.getAttemptsNumber() + 1);
+                String path = fileService.saveUploadedFile(file, processInstanceId, request.getFilesPosted() + 1);
 
-                int times = request.getAttemptsNumber();
-                ++times;
-                request.setAttemptsNumber(times);
+                int files = request.getFilesPosted();
+                ++files;
+                request.setFilesPosted(files);
 
-                if (times >= 2) {
+                if (files >= 2) {
                     request.setStatus(WriterMembershipStatus.WAITING_OPINION);
+                    int attempts = request.getAttemptsNumber();
+                    request.setAttemptsNumber(++attempts);
                 }
                 writerMembershipRequestRepository.save(request);
 
@@ -155,6 +158,13 @@ public class RegistrationController {
     @PostMapping(value = "/writer-upload/{taskId}")
     public ResponseEntity<HttpStatus> postUploadFileForm(@RequestBody List<FormSubmissionDTO> fieldValues, @PathVariable String taskId) {
         HashMap<String, Object> map = this.mapListToDto(fieldValues);
+
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        String username = (String) runtimeService.getVariable(task.getProcessInstanceId(), "registeredUser");
+        WriterMembershipRequest request = writerMembershipRequestRepository.findByUsername(username);
+        if (request.getAttemptsNumber() > 1) {
+            map.put("uploadWorkFile2", "uploadMoreWork" + request.getAttemptsNumber());
+        }
         formService.submitTaskForm(taskId, map);
 
         System.err.println("POST UPLOAD FILE FORM . . .");
@@ -187,7 +197,7 @@ public class RegistrationController {
 
                 List<String> filenames = new ArrayList<>();
 
-                for (int i = 1; i < request.getAttemptsNumber() + 1; i++) {
+                for (int i = 1; i < request.getFilesPosted() + 1; i++) {
                     filenames.add(fileService.getResourceFilePath(pi.getId() + "__" + i));
                 }
                 workToApproveDTO.setFilenames(filenames);
@@ -242,7 +252,8 @@ public class RegistrationController {
         BoardMemberComment comment = new BoardMemberComment();
         comment.setBoardMember(boardMember);
         comment.setDate(new Date());
-        comment.setSubmittedWork(submittedWorkRepository.findByPathContaining(task.getProcessInstanceId()).get(0));
+
+        comment.setWriterMembershipRequest(writerMembershipRequestRepository.findByUsername((String) runtimeService.getVariables(task.getProcessInstanceId()).get("registeredUser")));
         formSubmissionDTOS.forEach(formField -> {
             if (formField.getFieldId().equals("comment")) {
                 comment.setText(formField.getFieldValue());

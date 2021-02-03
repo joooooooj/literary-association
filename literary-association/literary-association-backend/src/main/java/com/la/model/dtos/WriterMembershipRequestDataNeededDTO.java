@@ -15,4 +15,5 @@ public class WriterMembershipRequestDataNeededDTO {
     private Date paymentDeadline;
     private Integer attemptsNumber;
     private Date submissionDeadline;
+    private Integer filesPosted;
 }

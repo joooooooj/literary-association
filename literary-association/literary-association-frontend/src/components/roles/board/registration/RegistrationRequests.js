@@ -35,12 +35,31 @@ export default function RegistrationRequests() {
     const handleHideModal = () => {
         setShowDocuments(false);
     }
+
+    const resetRequests = () => {
+        fetch("http://localhost:8080/api/registration/writer-submitted-work", {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + JSON.parse(localStorage.getItem("token")),
+                "Content-Type": "application/json",
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                setRegistrationRequests(data);
+            })
+            .catch((error) => {
+                console.log(error)
+            });
+    }
+
     return (
         <div className="bg-dark p-5">
             <PreviewPDF selectedRequest={selectedRequest} show={showDocuments} suffix={index + 1}
                         onHide={handleHideModal}/>
             {selectedRequest &&
             <DocumentsComments show={showDocumentsComments} selectedRequest={selectedRequest}
+                               hasCallback={true} callBack={resetRequests}
                                onHide={handleCloseDocumentsComments}/>
             }
             <div className="bg-dark p-5 border border-light">

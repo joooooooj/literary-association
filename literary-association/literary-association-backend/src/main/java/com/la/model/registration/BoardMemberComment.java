@@ -30,8 +30,8 @@ public class BoardMemberComment {
     private Opinion opinion;
 
     @ManyToOne
-    @JoinColumn(name = "submitted_work_id")
-    private SubmittedWork submittedWork;
+    @JoinColumn(name = "writer_membership_request_id")
+    private WriterMembershipRequest writerMembershipRequest;
 
     @ManyToOne
     @JoinColumn(name = "board_member_id")

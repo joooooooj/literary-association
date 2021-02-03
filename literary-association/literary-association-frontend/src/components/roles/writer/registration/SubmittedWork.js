@@ -97,26 +97,18 @@ export default function SubmittedWork() {
                         Submitted Work
                     </h2>
                     <h5 className="text-danger">
-                        Submission deadline : {membershipRequest.submissionDeadline}
+                        Submission deadline : {new Date(membershipRequest.submissionDeadline * 1000).toString()}
                     </h5>
                     <h5 className="text-warning mb-4">
                         Attempts number : {membershipRequest.attemptsNumber}
                     </h5>
+                    <h5 className="text-warning mb-4">
+                        Files posted : {membershipRequest.filesPosted}
+                    </h5>
                 </>
                 }
-                {/*<Button onClick={() => handleFileChooserClick()} variant="outline-warning" className="mb-4">*/}
-                {/*    SUBMIT WORK*/}
-                {/*</Button>*/}
-                {/*<Form>*/}
-                {/*    <Form.File*/}
-                {/*        multiple*/}
-                {/*        accept="application/pdf"*/}
-                {/*        className="hidden"*/}
-                {/*        ref={hiddenFileInput}*/}
-                {/*        onChange={(event) => handleFileChooserChange(event)}/>*/}
-                {/*</Form>*/}
                 {publishWorkForm &&
-                <div hidden={membershipRequest.attemptsNumber >= 2 && membershipRequest.status === "WAITING_OPINION"}>
+                <div hidden={membershipRequest.filesPosted >= 2 && membershipRequest.status === "WAITING_OPINION"}>
                     <CustomForm
                         formFieldsDTO={publishWorkForm}
                         loggedIn={localStorage.getItem("token")}
@@ -134,85 +126,6 @@ export default function SubmittedWork() {
                             ]}/>
                 </div>
                 }
-
-
-                {/*{   submitted &&*/}
-                {/*    <Table striped bordered hover variant="dark">*/}
-                {/*        <thead>*/}
-                {/*        <tr>*/}
-                {/*            <th>#</th>*/}
-                {/*            <th>Status</th>*/}
-                {/*            <th></th>*/}
-                {/*            <th></th>*/}
-                {/*        </tr>*/}
-                {/*        </thead>*/}
-                {/*        <tbody>*/}
-                {/*        <tr>*/}
-                {/*            <td>1</td>*/}
-                {/*            <td>{allReviewed ? "Reviewed" : "Not reviewed"}</td>*/}
-                {/*            <td className="text-center">*/}
-                {/*                <Button variant="outline-info" onClick={() => handleShowComments()}>*/}
-                {/*                    PREVIEW COMMENTS*/}
-                {/*                </Button>*/}
-                {/*            </td>*/}
-                {/*            <td className="text-center">*/}
-                {/*                <Button variant="outline-light" onClick={() => handleShowDocument()}>*/}
-                {/*                    PREVIEW WORK*/}
-                {/*                </Button>*/}
-                {/*            </td>*/}
-                {/*        </tr>*/}
-                {/*        <tr>*/}
-                {/*            <td>2</td>*/}
-                {/*            <td>Reviewed</td>*/}
-                {/*            <td className="text-center">*/}
-                {/*                <Button variant="outline-info">*/}
-                {/*                    PREVIEW COMMENTS*/}
-                {/*                </Button>*/}
-                {/*            </td>*/}
-                {/*            <td className="text-center">*/}
-                {/*                <Button variant="outline-light">*/}
-                {/*                    PREVIEW WORK*/}
-                {/*                </Button>*/}
-                {/*            </td>*/}
-                {/*        </tr>*/}
-                {/*        <tr>*/}
-                {/*            <td>3</td>*/}
-                {/*            <td>{allReviewed ? "Reviewed" : "Not reviewed"}</td>*/}
-                {/*            <td className="text-center">*/}
-                {/*                <Button variant="outline-info">*/}
-                {/*                    PREVIEW COMMENTS*/}
-                {/*                </Button>*/}
-                {/*            </td>*/}
-                {/*            <td className="text-center">*/}
-                {/*                <Button variant="outline-light">*/}
-                {/*                    PREVIEW WORK*/}
-                {/*                </Button>*/}
-                {/*            </td>*/}
-                {/*        </tr>*/}
-                {/*        </tbody>*/}
-                {/*    </Table>*/}
-                {/*}*/}
-                {/*Delete testing elements from here*/}
-                {/*<div className="row">*/}
-                {/*    <Button onClick={() => setAllReviewed(!allReviewed)} variant="outline-danger" className="mb-3 ml-3">*/}
-                {/*        CHANGE ALL REVIEWED TO {allReviewed ? "FALSE" : "TRUE"}*/}
-                {/*    </Button>*/}
-                {/*</div>*/}
-                {/*<div className="row">*/}
-                {/*    <Button onClick={() => setSubmitted(!submitted)} variant="outline-danger" className="ml-3 mb-3">*/}
-                {/*        CHANGE SUBMITTED TO {submitted ? "FALSE" : "TRUE"}*/}
-                {/*    </Button>*/}
-                {/*</div>*/}
-                {/*<div className="row">*/}
-                {/*    <Button onClick={() => setAttemptsNumber(attemptsNumber - 1)} variant="outline-danger" className="ml-3">*/}
-                {/*        -*/}
-                {/*    </Button>*/}
-                {/*    <Button variant={"outline-light"} disabled={true} className="ml-3">ATTEMPT</Button>*/}
-                {/*    <Button onClick={() => setAttemptsNumber(attemptsNumber + 1)} variant="outline-danger" className="ml-3">*/}
-                {/*       +*/}
-                {/*    </Button>*/}
-                {/*</div>*/}
-                {/*End of test elements*/}
             </div>
         </div>
     );

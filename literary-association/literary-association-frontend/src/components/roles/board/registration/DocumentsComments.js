@@ -7,6 +7,9 @@ export default function DocumentsComments(props) {
 
     const handleClose = () => {
         props.onHide();
+        if (props.hasCallback) {
+            props.callBack();
+        }
     };
 
     const [commentForm, setCommentForm] = useState(null);

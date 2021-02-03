@@ -33,4 +33,7 @@ public class WriterMembershipRequest extends SysUser implements Serializable {
 
     @Column
     private Date submissionDeadline;
+
+    @Column
+    private Integer filesPosted;
 }
