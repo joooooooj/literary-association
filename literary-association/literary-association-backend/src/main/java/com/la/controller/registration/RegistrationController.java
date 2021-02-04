@@ -162,8 +162,10 @@ public class RegistrationController {
         Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
         String username = (String) runtimeService.getVariable(task.getProcessInstanceId(), "registeredUser");
         WriterMembershipRequest request = writerMembershipRequestRepository.findByUsername(username);
-        if (request.getAttemptsNumber() > 1) {
-            map.put("uploadWorkFile2", "uploadMoreWork" + request.getAttemptsNumber());
+        if (request.getAttemptsNumber() >= 1) {
+            Object o = map.get("uploadWorkFile2");
+            map.remove("uploadWorkFile2");
+            map.put("uploadMoreWork" + request.getAttemptsNumber(), o);
         }
         formService.submitTaskForm(taskId, map);
 

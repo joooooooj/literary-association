@@ -32,5 +32,7 @@ public class SendReachLimitEmailService implements JavaDelegate {
         email.setEmailFrom("rento.office@gmail.com");
         email.setEmailTo("rento.office@gmail.com");
         sendEmailService.sendEmail(email);
+
+        System.err.println("END OF PROCESS..");
     }
 }

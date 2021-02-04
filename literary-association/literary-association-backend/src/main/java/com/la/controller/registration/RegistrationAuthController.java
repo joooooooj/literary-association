@@ -9,6 +9,7 @@ import com.la.dto.FormSubmissionDTO;
 import com.la.dto.SelectOptionDTO;
 import com.la.service.GenreService;
 import org.camunda.bpm.engine.FormService;
+import org.camunda.bpm.engine.IdentityService;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
 import org.camunda.bpm.engine.form.FormField;
@@ -42,7 +43,7 @@ public class RegistrationAuthController {
     private FormService formService;
 
     @Autowired
-    private GenreService genreService;
+    private IdentityService identityService;
 
     private static String submitFormUrl = "http://localhost:8080/api/auth/registration/";
 
@@ -73,7 +74,11 @@ public class RegistrationAuthController {
     @PostMapping(value = "/{taskId}/{isWriter}/{isBeta}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> registration(@RequestBody List<FormSubmissionDTO> formSubmissionDTOS, @PathVariable("taskId") String taskId,
                                           @PathVariable("isWriter") Boolean isWriter, @PathVariable("isBeta") Boolean isBeta) {
-        System.out.println(taskId);
+
+        if (identityService.createUserQuery().userId(formSubmissionDTOS.get(3).getFieldValue()).singleResult() != null) {
+            return new ResponseEntity<>("User with that username already exists.", HttpStatus.BAD_REQUEST);
+        }
+
         HashMap<String, Object> map = this.mapFormItemsToMap(formSubmissionDTOS);
         Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
         String processInstanceId = task.getProcessInstanceId();

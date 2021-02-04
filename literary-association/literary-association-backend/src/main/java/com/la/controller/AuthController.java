@@ -10,6 +10,8 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+
 @RestController
 @RequestMapping(value = "/api/auth")
 @CrossOrigin
@@ -31,8 +33,7 @@ public class AuthController {
         } catch (BadCredentialsException bce) {
             return new ResponseEntity<>("Wrong username or password.", HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            e.printStackTrace();
+            return new ResponseEntity<>(Collections.singletonMap("message", "User is not activated. Please activate your account."), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }
