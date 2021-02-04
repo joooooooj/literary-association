@@ -27,13 +27,19 @@ export default function Login(props) {
                 username: username,
                 password: password
             }),
-             })
+        })
             .then(response => response.json())
             .then(data => {
+                if (data.message) {
+                    alert(data.message);
+                    setError(true);
+                    return;
+                }
                 props.login(data.accessToken, data.roles);
 
             })
             .catch((error) => {
+                alert('Wrong credentials. Please check username and password, or activate your account.');
                 setError(true);
             });
     }
@@ -42,16 +48,19 @@ export default function Login(props) {
         <div className="m-5 custom-form border-light border pb-5">
             <Form className="mt-5 mb-5 w-50">
                 <h3 className="text-left pb-3">Login</h3>
-                {   error &&
+                {error &&
                 <h6 className="text-danger text-left pb-1">Invalid user credentials!</h6>
                 }
                 <Form.Group controlId="username" className="text-left">
                     <Form.Label>Username</Form.Label>
-                    <Form.Control type="text" className={error ? "border border-danger" : ""} placeholder="Enter username" onChange={(e) => usernameOnChangeHandler(e.target.value)}/>
+                    <Form.Control type="text" className={error ? "border border-danger" : ""}
+                                  placeholder="Enter username"
+                                  onChange={(e) => usernameOnChangeHandler(e.target.value)}/>
                 </Form.Group>
                 <Form.Group controlId="password" className="text-left">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" className={error ? "border border-danger" : ""} placeholder="Password" onChange={(e) => passwordOnChangeHandler(e.target.value)}/>
+                    <Form.Control type="password" className={error ? "border border-danger" : ""} placeholder="Password"
+                                  onChange={(e) => passwordOnChangeHandler(e.target.value)}/>
                 </Form.Group>
                 <Form.Text className="text-muted text-left">
                     <Link to="/reset-password">Forgot your password?</Link>

@@ -39,33 +39,15 @@ export default function Register() {
     }
 
     const submitFormHandler = (data, flags) => {
-                if (flags[1]) {
-                    window.location.href = '/register-beta-reader?id=' + registerForm.processInstanceId;
-                } else {
-                    window.location.replace('/register-success');
-                }
-        // let final = prepareDataForSubmit(data);
-        // fetch('http://localhost:8080/api/auth/registration/' + registerForm.taskId + '/' + isWriter + '/' + isBetaReader, {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         "Accept": "application/json"
-        //     },
-        //     body: JSON.stringify(final)
-        // })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         console.error(data);
-        //
-        //         if (isBetaReader) {
-        //             window.location.href = '/register-beta-reader?id=' + data.processInstanceId;
-        //         } else {
-        //             window.location.replace('/register-success');
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.log(error)
-        //     });
+        if (data.status === 400) {
+            alert('Please use different username. This one is taken.');
+            return;
+        }
+        if (flags[1]) {
+            window.location.href = '/register-beta-reader?id=' + registerForm.processInstanceId;
+        } else {
+            window.location.replace('/register-success');
+        }
     }
 
 

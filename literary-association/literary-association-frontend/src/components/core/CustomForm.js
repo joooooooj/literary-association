@@ -62,6 +62,7 @@ export default function CustomForm({formFieldsDTO, loggedIn, submittedForm, butt
             })
             .catch((error) => {
                 console.log(error);
+                alert(error);
             });
     }
 
