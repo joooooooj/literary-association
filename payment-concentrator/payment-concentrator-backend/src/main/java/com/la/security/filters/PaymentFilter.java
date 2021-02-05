@@ -24,7 +24,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 
 @Component
-@CrossOrigin(value = "http://localhost:3000")
+@CrossOrigin(value = "https://localhost:3000")
 public class PaymentFilter extends ZuulFilter {
     @Override
     public String filterType() {

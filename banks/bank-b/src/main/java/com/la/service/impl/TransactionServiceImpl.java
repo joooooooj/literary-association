@@ -1,6 +1,5 @@
 package com.la.service.impl;
 
-import com.la.controller.feigns.PCCFeignClient;
 import com.la.model.dtos.*;
 import com.la.model.Payment;
 import com.la.model.*;
@@ -8,7 +7,11 @@ import com.la.model.enums.Status;
 import com.la.repository.*;
 import com.la.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import javax.management.OperationsException;
 import javax.validation.ValidationException;
@@ -36,7 +39,7 @@ public class TransactionServiceImpl implements TransactionService {
     private TransactionRepository transactionRepository;
 
     @Autowired
-    private PCCFeignClient pccFeignClient;
+    private RestTemplate restTemplate;
 
     public BankPaymentUrlDTO createPayment(BankRequestDTO bankRequestDTO) {
         // Check if merchant id exists
@@ -53,7 +56,7 @@ public class TransactionServiceImpl implements TransactionService {
             payment.setMerchant(merchantRepository.getOne(bankRequestDTO.getMerchantId()));
             payment = paymentRepository.save(payment);
 
-            return new BankPaymentUrlDTO(payment.getId(), "http://localhost:3002/" + payment.getId());
+            return new BankPaymentUrlDTO(payment.getId(), "https://localhost:3002/" + payment.getId());
         }
 
         return null;
@@ -223,7 +226,8 @@ public class TransactionServiceImpl implements TransactionService {
 
 
     public PCCResponseDTO findIssuerBank(PCCRequestDTO pccRequestDTO) {
-        return pccFeignClient.findIssuerBank(pccRequestDTO);
+        return restTemplate.exchange("https://pcc/bank",
+                HttpMethod.POST, new HttpEntity<>(pccRequestDTO), new ParameterizedTypeReference<PCCResponseDTO>() {}).getBody();
     }
 
 }

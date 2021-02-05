@@ -28,7 +28,7 @@ export default function CorrectionsScripts(props) {
     }, [])
 
     const getRequests = () => {
-        fetch("http://localhost:8080/publish/requests/" + props.loggedIn, {
+        fetch("https://localhost:8080/publish/requests/" + props.loggedIn, {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + props.loggedIn,
@@ -47,7 +47,7 @@ export default function CorrectionsScripts(props) {
     const [correctionForm, setCorrectionForm] = useState({});
 
     const handleNeedCorrection = (needCorrection, taskId) => {
-        fetch("http://localhost:8080/publish/lector/need-correction/" + taskId, {
+        fetch("https://localhost:8080/publish/lector/need-correction/" + taskId, {
             method: "POST",
             headers: {
                 "Authorization": "Bearer " + props.loggedIn,

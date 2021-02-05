@@ -12,7 +12,7 @@ export default function Books(props) {
     const handleClose = () => setShow(false);
 
     useEffect(() => {
-        fetch('http://localhost:8080/api/auth/book', {
+        fetch('https://localhost:8080/api/auth/book', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

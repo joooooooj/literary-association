@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @ToString
 public class BankResponseDTO {
-
     private Long merchantOrderId;
     private Long acqOrderId;
     private LocalDateTime acqTimestamp;

@@ -8,7 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class PaypalCreateOrderDTO {
-
-    private Long orderId;
+    private String orderId;
     private String redirectUrl;
 }

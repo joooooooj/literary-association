@@ -105,7 +105,7 @@ public class PublishBookController {
                 if (task.getTaskDefinitionKey().equals("Writer_Publish_Form")) {
                     // SEND WRITER FIELDS FOR PUBLISH BOOK FORM
                     List<FormField> formFields = formService.getTaskFormData(task.getId()).getFormFields();
-                    return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, processInstance.getId(), "http://localhost:8080/publish/writer/form", ""), HttpStatus.OK);
+                    return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, processInstance.getId(), "https://localhost:8080/publish/writer/form", ""), HttpStatus.OK);
                 } else {
                     // HE ALREADY SUBMITTED
                     // WE CALL ON FRONTEND PROCESS STATUS VARIABLE
@@ -136,7 +136,7 @@ public class PublishBookController {
             formFields.get(1).getProperties().put("options", genresJSON);
 
             // SEND WRITER FIELDS FOR PUBLISH BOOK FORM
-            return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, pi.getId(), "http://localhost:8080/publish/writer/form", ""), HttpStatus.OK);
+            return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, pi.getId(), "https://localhost:8080/publish/writer/form", ""), HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
@@ -255,7 +255,7 @@ public class PublishBookController {
                 Task nextTask = taskService.createTaskQuery().processInstanceId(processInstanceId).active().singleResult();
                 TaskFormData taskFormData = formService.getTaskFormData(nextTask.getId());
                 List<FormField> formFields = taskFormData.getFormFields();
-                return new ResponseEntity<>(new FormFieldsDTO(nextTask.getId(), formFields, processInstanceId, "http://localhost:8080/publish/editor/refuse", ""), HttpStatus.OK);
+                return new ResponseEntity<>(new FormFieldsDTO(nextTask.getId(), formFields, processInstanceId, "https://localhost:8080/publish/editor/refuse", ""), HttpStatus.OK);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -312,7 +312,7 @@ public class PublishBookController {
                     TaskFormData taskFormData = formService.getTaskFormData(task.getId());
                     List<FormField> formFields = taskFormData.getFormFields();
 
-                    return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, task.getProcessInstanceId(), "http://localhost:8080/publish/writer/form/upload/", "http://localhost:8080/publish/upload/"), HttpStatus.OK);
+                    return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, task.getProcessInstanceId(), "https://localhost:8080/publish/writer/form/upload/", "https://localhost:8080/publish/upload/"), HttpStatus.OK);
                 }
             }
         }
@@ -486,7 +486,7 @@ public class PublishBookController {
                 Task nextTask = taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).active().singleResult();
                 TaskFormData taskFormData = formService.getTaskFormData(nextTask.getId());
                 List<FormField> formFields = taskFormData.getFormFields();
-                return new ResponseEntity<>(new FormFieldsDTO(nextTask.getId(), formFields, task.getProcessInstanceId(), "http://localhost:8080/publish/editor/refuse", ""), HttpStatus.OK);
+                return new ResponseEntity<>(new FormFieldsDTO(nextTask.getId(), formFields, task.getProcessInstanceId(), "https://localhost:8080/publish/editor/refuse", ""), HttpStatus.OK);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -533,7 +533,7 @@ public class PublishBookController {
 
                 formFields.get(0).getProperties().put("options", readersJSON);
 
-                return new ResponseEntity<>(new FormFieldsDTO(nextTask.getId(), formFields, task.getProcessInstanceId(), "http://localhost:8080/publish/editor/choose-beta", ""), HttpStatus.OK);
+                return new ResponseEntity<>(new FormFieldsDTO(nextTask.getId(), formFields, task.getProcessInstanceId(), "https://localhost:8080/publish/editor/choose-beta", ""), HttpStatus.OK);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -586,7 +586,7 @@ public class PublishBookController {
             TaskFormData taskFormData = formService.getTaskFormData(taskId);
             List<FormField> formFields = taskFormData.getFormFields();
 
-            return new ResponseEntity<>(new FormFieldsDTO(taskId, formFields, task.getProcessInstanceId(), "http://localhost:8080/publish/beta-reader/form/comment", ""), HttpStatus.OK);
+            return new ResponseEntity<>(new FormFieldsDTO(taskId, formFields, task.getProcessInstanceId(), "https://localhost:8080/publish/beta-reader/form/comment", ""), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -671,7 +671,7 @@ public class PublishBookController {
                     List<FormField> formFields = taskFormData.getFormFields();
                     System.err.println("SENDING SUGGESTION FORM . . .");
 
-                    return new ResponseEntity<>(new FormFieldsDTO(nextTask.getId(), formFields, task.getProcessInstanceId(), "http://localhost:8080/publish/editor/form/suggestion", ""), HttpStatus.OK);
+                    return new ResponseEntity<>(new FormFieldsDTO(nextTask.getId(), formFields, task.getProcessInstanceId(), "https://localhost:8080/publish/editor/form/suggestion", ""), HttpStatus.OK);
                 }
             }
         } catch (Exception e) {
@@ -743,7 +743,7 @@ public class PublishBookController {
                 Task nextTask = taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).active().singleResult();
                 TaskFormData taskFormData = formService.getTaskFormData(nextTask.getId());
                 List<FormField> formFields = taskFormData.getFormFields();
-                return new ResponseEntity<>(new FormFieldsDTO(nextTask.getId(), formFields, task.getProcessInstanceId(), "http://localhost:8080/publish/lector/form/correction", ""), HttpStatus.OK);
+                return new ResponseEntity<>(new FormFieldsDTO(nextTask.getId(), formFields, task.getProcessInstanceId(), "https://localhost:8080/publish/lector/form/correction", ""), HttpStatus.OK);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -42,15 +42,9 @@ export default function Routes(props) {
                        cartItems={props.cartItems}
                        setCartItems={props.setCartItems}/>
             </Route>
-            <Route exact path="/success">
-                <Success/>
-            </Route>
-            <Route exact path="/failed">
-                <Failed loggedIn={props.loggedIn}/>
-            </Route>
-            <Route exact path="/error">
-                <Error loggedIn={props.loggedIn}/>
-            </Route>
+            <Route component={Success} path="/success/:request_id" exact/>
+            <Route component={Failed} path="/failed/:request_id" exact/>
+            <Route component={Error} path="/error/:request_id" exact/>
             <Route exact path="/cart">
                 <Cart loggedIn={props.loggedIn}
                       cartItems={props.cartItems}

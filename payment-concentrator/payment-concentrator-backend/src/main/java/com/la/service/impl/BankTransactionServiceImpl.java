@@ -66,7 +66,7 @@ public class BankTransactionServiceImpl implements BankTransactionService {
     @Override
     public String updateTransaction(BankResponseDTO bankResponseDTO) {
         Transaction transaction = transactionRepository.findById(bankResponseDTO.getMerchantOrderId()).get();
-        transaction.setAcqOrderId(bankResponseDTO.getAcqOrderId());
+        transaction.setAcqOrderId(String.valueOf(bankResponseDTO.getAcqOrderId()));
         transaction.setAcqTimestamp(bankResponseDTO.getAcqTimestamp());
 
         String returnUrl = "";
@@ -76,17 +76,17 @@ public class BankTransactionServiceImpl implements BankTransactionService {
         switch (bankResponseDTO.getStatus()){
             case SUCCESS : {
                 transaction.setStatus(Status.SUCCESS);
-                returnUrl = transaction.getBuyerRequest().getSubscriber().getSubscriberDetails().getSuccessUrl();
+                returnUrl = transaction.getBuyerRequest().getSubscriber().getSubscriberDetails().getSuccessUrl() + "/" + transaction.getBuyerRequest().getMerchantOrderId();
                 break;
             }
             case ERROR: {
                 transaction.setStatus(Status.ERROR);
-                returnUrl = transaction.getBuyerRequest().getSubscriber().getSubscriberDetails().getErrorUrl();
+                returnUrl = transaction.getBuyerRequest().getSubscriber().getSubscriberDetails().getErrorUrl() + "/" + transaction.getBuyerRequest().getMerchantOrderId();
                 break;
             }
             case FAILED: {
                 transaction.setStatus(Status.FAILED);
-                returnUrl = transaction.getBuyerRequest().getSubscriber().getSubscriberDetails().getFailedUrl();
+                returnUrl = transaction.getBuyerRequest().getSubscriber().getSubscriberDetails().getFailedUrl() + "/" + transaction.getBuyerRequest().getMerchantOrderId();
                 break;
             }
         }

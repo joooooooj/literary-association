@@ -8,7 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class BankPaymentUrlDTO {
-
     private Long paymentId;
     private String paymentUrl;
 }

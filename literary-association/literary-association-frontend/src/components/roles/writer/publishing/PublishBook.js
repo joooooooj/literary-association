@@ -11,7 +11,7 @@ export default function PublishBook(props) {
     const [status, setStatus] = useState("");
 
     useEffect(() => {
-        fetch("http://localhost:8080/publish/writer/form/" + props.loggedIn, {
+        fetch("https://localhost:8080/publish/writer/form/" + props.loggedIn, {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + props.loggedIn,
@@ -32,7 +32,7 @@ export default function PublishBook(props) {
     }, [])
 
     const handleRequestInfo = () => {
-        fetch("http://localhost:8080/publish/writer/status/" + props.loggedIn, {
+        fetch("https://localhost:8080/publish/writer/status/" + props.loggedIn, {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + props.loggedIn,
@@ -60,7 +60,7 @@ export default function PublishBook(props) {
     }
 
     const getFileFormField = () => {
-        fetch("http://localhost:8080/publish/writer/form/upload/" + props.loggedIn, {
+        fetch("https://localhost:8080/publish/writer/form/upload/" + props.loggedIn, {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + props.loggedIn,

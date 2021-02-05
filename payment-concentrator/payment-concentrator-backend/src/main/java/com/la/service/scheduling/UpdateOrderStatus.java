@@ -43,7 +43,7 @@ public class UpdateOrderStatus {
         List<Transaction> transactionList = transactionRepository.findByStatusAndPaymentMethod(Status.PENDING, paymentMethodRepository.findByName("Bitcoin"));
         OrderResult orderResult;
         for (Transaction transaction : transactionList){
-            orderResult = getOrder(transaction.getAcqOrderId());
+            orderResult = getOrder(Long.parseLong(transaction.getAcqOrderId()));
             if (orderResult != null){
                 Status status = bitcoinTransactionService.updateTransaction(orderResult);
 
@@ -89,7 +89,7 @@ public class UpdateOrderStatus {
             HttpHeaders headers = new HttpHeaders();
             headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 
-            orderResult = restTemplate.exchange("http://bitcoin/order/" + orderId,
+            orderResult = restTemplate.exchange("https://bitcoin/order/" + orderId,
                     HttpMethod.GET, null, new ParameterizedTypeReference<OrderResult>() {}).getBody();
         }
         catch (Exception e){

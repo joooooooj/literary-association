@@ -1,5 +1,5 @@
 const createRequest = (request) =>
-    fetch("http://localhost:8081/api/auth/subscribe", {
+    fetch("https://localhost:8081/api/auth/subscribe", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -12,7 +12,7 @@ const createRequest = (request) =>
         // });
 
 const getAll = () =>
-    fetch("http://localhost:8081/request", {
+    fetch("https://localhost:8081/request", {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -25,7 +25,7 @@ const getAll = () =>
         })
 
 const approve = (requestId) =>
-    fetch("http://localhost:8081/request/approve/" + requestId, {
+    fetch("https://localhost:8081/request/approve/" + requestId, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -38,7 +38,7 @@ const approve = (requestId) =>
         })
 
 const decline = (requestId) =>
-    fetch("http://localhost:8081/request/decline/" + requestId, {
+    fetch("https://localhost:8081/request/decline/" + requestId, {
         method: "Delete",
         headers: {
             "Content-Type": "application/json",

@@ -106,7 +106,7 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
                 buyerRequest.setTimestamp(LocalDateTime.now());
                 buyerRequest = buyerRequestRepository.save(buyerRequest);
 
-                return "http://localhost:3001/payment-methods/" + buyerRequest.getId();
+                return "https://localhost:3001/payment-methods/" + buyerRequest.getId();
             }
             return subscriberRepository.findByUsername(username).getSubscriberDetails().getErrorUrl();
         }

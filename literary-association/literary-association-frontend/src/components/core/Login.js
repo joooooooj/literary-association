@@ -18,7 +18,7 @@ export default function Login(props) {
     }
 
     const login = () => {
-        fetch("http://localhost:8080/api/auth/login", {
+        fetch("https://localhost:8080/api/auth/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

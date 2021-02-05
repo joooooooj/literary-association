@@ -67,7 +67,7 @@ export default function PublishRequests(props) {
         window.location.reload();
     }
     const handleShowBetaReaders = (data) => {
-        fetch("http://localhost:8080/publish/editor/send-to-beta/" + data.taskId, {
+        fetch("https://localhost:8080/publish/editor/send-to-beta/" + data.taskId, {
             method: "POST",
             headers: {
                 "Authorization": "Bearer " + props.loggedIn,
@@ -88,7 +88,7 @@ export default function PublishRequests(props) {
     }
 
     const handleSendToLector = (data) => {
-        fetch("http://localhost:8080/publish/editor/send-to-beta/" + data.taskId, {
+        fetch("https://localhost:8080/publish/editor/send-to-beta/" + data.taskId, {
             method: "POST",
             headers: {
                 "Authorization": "Bearer " + props.loggedIn,
@@ -114,7 +114,7 @@ export default function PublishRequests(props) {
     const getRequests = () => {
         setLoading(true);
         setTimeout(() => {
-            fetch("http://localhost:8080/publish/requests/" + props.loggedIn, {
+            fetch("https://localhost:8080/publish/requests/" + props.loggedIn, {
                 method: "GET",
                 headers: {
                     "Authorization": "Bearer " + props.loggedIn,
@@ -135,7 +135,7 @@ export default function PublishRequests(props) {
     const [suggestionForm, setSuggestionForm] = useState({});
 
     const handleNeedMoreChanges = (needMoreChanges, taskId) => {
-        fetch("http://localhost:8080/publish/editor/need-more-changes/" + taskId, {
+        fetch("https://localhost:8080/publish/editor/need-more-changes/" + taskId, {
             method: "POST",
             headers: {
                 "Authorization": "Bearer " + props.loggedIn,
@@ -315,7 +315,7 @@ export default function PublishRequests(props) {
     const [editorRefuseForm, setEditorRefuseForm] = useState(null);
 
     const handleApproveRequest = (data, approved) => {
-        fetch("http://localhost:8080/publish/editor/decision/" + data.taskId, {
+        fetch("https://localhost:8080/publish/editor/decision/" + data.taskId, {
             method: "POST",
             headers: {
                 "Authorization": "Bearer " + props.loggedIn,
