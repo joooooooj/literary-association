@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SendVerificationEmailService implements JavaDelegate {
+public class SendPaymentDeadlineExpiredEmailService implements JavaDelegate {
 
     @Autowired
     SendEmailService sendEmailService;
@@ -26,11 +26,9 @@ public class SendVerificationEmailService implements JavaDelegate {
         System.err.println(registeredUserEmail);
         System.err.println(delegateExecution.getProcessInstanceId());
 
-        String url = "http://localhost:3000/activate-account?id=" + delegateExecution.getProcessInstanceId();
-
         Email email = new Email();
-        email.setSubject("Verify register email");
-        email.setBody("Please verify your account by clicking the link. " + url);
+        email.setSubject("Payment deadline has expired.");
+        email.setBody("Payment deadline has expired. Your request has been denied. Please respect our time.");
         email.setEmailFrom("rento.office@gmail.com");
         email.setEmailTo("rento.office@gmail.com");
         sendEmailService.sendEmail(email);

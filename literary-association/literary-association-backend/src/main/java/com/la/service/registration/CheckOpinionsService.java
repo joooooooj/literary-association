@@ -31,15 +31,19 @@ public class CheckOpinionsService implements JavaDelegate {
         String username = (String) delegateExecution.getVariable("registeredUser");
         WriterMembershipRequest request = writerMembershipRequestRepository.findByUsername(username);
 
-        List<BoardMemberComment> boardMemberComments = boardMemberCommentRepository.findByWriterMembershipRequest(request);
+        List<BoardMemberComment> boardMemberComments = boardMemberCommentRepository.findByWriterMembershipRequestAndReviewedIsFalse(request);
         System.err.println("BOARD MEMBERS COUNT " + boardMemberComments.size());
 
         int approved = (int) boardMemberComments.stream().filter(comment -> comment.getOpinion().equals(Opinion.APPROVED)).count();
         int notApproved = (int) boardMemberComments.stream().filter(comment -> comment.getOpinion().equals(Opinion.NOT_APPROVED)).count();
         int needMoreWork = (int) boardMemberComments.stream().filter(comment -> comment.getOpinion().equals(Opinion.MORE_MATERIAL)).count();
 
-        if ((float) notApproved >= ((float) (approved + notApproved + needMoreWork) / 2)) {
+        if (((float) notApproved >= ((float) (approved + notApproved + needMoreWork) / 2)) || (needMoreWork == 0 && notApproved > 0)) {
             delegateExecution.setVariable("submitted_work_status", "not_approved");
+            boardMemberComments.forEach(boardMemberComment -> {
+                boardMemberComment.setReviewed(true);
+                boardMemberCommentRepository.save(boardMemberComment);
+            });
         } else if (needMoreWork > 0) {
             delegateExecution.setVariable("submitted_work_status", "need_more_work");
         } else {

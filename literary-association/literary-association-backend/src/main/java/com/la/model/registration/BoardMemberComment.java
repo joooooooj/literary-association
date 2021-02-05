@@ -36,4 +36,7 @@ public class BoardMemberComment {
     @ManyToOne
     @JoinColumn(name = "board_member_id")
     private BoardMember boardMember;
+
+    @Column
+    private Boolean reviewed;
 }

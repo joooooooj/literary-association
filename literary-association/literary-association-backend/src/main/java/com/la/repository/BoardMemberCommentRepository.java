@@ -11,5 +11,5 @@ import java.util.List;
 
 @Repository
 public interface BoardMemberCommentRepository extends JpaRepository<BoardMemberComment, Long> {
-    List<BoardMemberComment> findByWriterMembershipRequest(WriterMembershipRequest request);
+    List<BoardMemberComment> findByWriterMembershipRequestAndReviewedIsFalse(WriterMembershipRequest writerMembershipRequest);
 }

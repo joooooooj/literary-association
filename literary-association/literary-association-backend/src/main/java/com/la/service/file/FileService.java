@@ -15,6 +15,7 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 @Service
 public class FileService {
@@ -22,11 +23,15 @@ public class FileService {
     @Value("${dataDir}")
     String dataDir;
 
-    public String saveUploadedFile(MultipartFile file, String processInstanceId, Integer numberSuffix) throws IOException {
+    public String saveUploadedFile(MultipartFile file, String processInstanceId) throws IOException {
+        return saveUploadedFile(file, processInstanceId, "");
+    }
+
+    public String saveUploadedFile(MultipartFile file, String processInstanceId, String numberSuffix) throws IOException {
         String retVal = null;
         if (!file.isEmpty()) {
             byte[] bytes = file.getBytes();
-            Path path = Paths.get(getResourceFilePath(dataDir) + File.separator + processInstanceId + "__" + numberSuffix + ".pdf");
+            Path path = Paths.get(getResourceFilePath(dataDir) + File.separator + processInstanceId + numberSuffix + ".pdf");
             Files.write(path, bytes);
             retVal = path.toString();
         }

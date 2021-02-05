@@ -12,4 +12,6 @@ public interface SubmittedWorkRepository extends JpaRepository<SubmittedWork, Lo
     List<SubmittedWork> findByPathContaining(String processInstanceIdString);
 
     List<SubmittedWork> findByWriterMembershipRequest(WriterMembershipRequest writerMembershipRequest);
+
+    void deleteAllByWriterMembershipRequest(WriterMembershipRequest request);
 }

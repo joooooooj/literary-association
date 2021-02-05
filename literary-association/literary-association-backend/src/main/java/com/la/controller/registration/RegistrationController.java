@@ -126,7 +126,7 @@ public class RegistrationController {
                 String username = (String) runtimeService.getVariable(processInstanceId, "registeredUser");
                 WriterMembershipRequest request = writerMembershipRequestRepository.findByUsername(username);
 
-                String path = fileService.saveUploadedFile(file, processInstanceId, request.getFilesPosted() + 1);
+                String path = fileService.saveUploadedFile(file, processInstanceId, "__" + (request.getFilesPosted() + 1));
 
                 int files = request.getFilesPosted();
                 ++files;
@@ -254,7 +254,7 @@ public class RegistrationController {
         BoardMemberComment comment = new BoardMemberComment();
         comment.setBoardMember(boardMember);
         comment.setDate(new Date());
-
+        comment.setReviewed(false);
         comment.setWriterMembershipRequest(writerMembershipRequestRepository.findByUsername((String) runtimeService.getVariables(task.getProcessInstanceId()).get("registeredUser")));
         formSubmissionDTOS.forEach(formField -> {
             if (formField.getFieldId().equals("comment")) {
