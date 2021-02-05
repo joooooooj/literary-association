@@ -8,7 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class PaypalOrderDTO {
-
     private Long userId;
     private Long merchantOrderId;
     private String merchantTimestamp;

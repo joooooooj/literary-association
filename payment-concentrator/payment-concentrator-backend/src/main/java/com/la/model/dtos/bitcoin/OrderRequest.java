@@ -8,7 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class OrderRequest {
-
     private String order_id;
     private Double price_amount;
     private String price_currency;
@@ -19,5 +18,4 @@ public class OrderRequest {
     private String cancel_url;
     private String success_url;
     private String token;
-
 }

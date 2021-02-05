@@ -3,7 +3,6 @@ package com.la.service.impl;
 import com.la.model.dtos.CreatedBookPurchaseRequestDTO;
 import com.la.model.dtos.PurchaseBookRequestDTO;
 import com.la.model.enums.TransactionStatus;
-import com.la.controller.feigns.PaymentConcentratorFeignClient;
 import com.la.model.mappers.PurchaseBookRequestDTOMapper;
 import com.la.model.PurchaseBookRequest;
 import com.la.repository.BookRepository;
@@ -15,7 +14,11 @@ import com.la.security.auth.JwtAuthenticationRequest;
 import com.la.service.PurchaseBookRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
@@ -39,7 +42,7 @@ public class PurchaseBookRequestServiceImpl implements PurchaseBookRequestServic
     private TokenUtils tokenUtils;
 
     @Autowired
-    private PaymentConcentratorFeignClient feignClient;
+    private RestTemplate restTemplate;
 
     @Value("${pc.username}")
     private String username;
@@ -69,12 +72,45 @@ public class PurchaseBookRequestServiceImpl implements PurchaseBookRequestServic
 
         PurchaseBookRequest request = purchaseBookRequestDTOMapper.toEntity(purchaseBookRequestDTO);
         request.setStatus(TransactionStatus.WAITING_PAYMENT);
+        request.setBookList(bookRepository.findAllById(purchaseBookRequestDTO.getBookList()));
 //        request.setReader(reader);
         purchaseBookRequestRepository.saveAndFlush(request);
 
-        UserTokenState userTokenState = feignClient.login(new JwtAuthenticationRequest(username, password));
+        JwtAuthenticationRequest jwtAuthenticationRequest = new JwtAuthenticationRequest(username, password);
+
+        UserTokenState userTokenState = restTemplate.exchange("https://localhost:8081/api/auth/login",
+                HttpMethod.POST, new HttpEntity<>(jwtAuthenticationRequest), new ParameterizedTypeReference<UserTokenState>() {}).getBody();
 
         return new CreatedBookPurchaseRequestDTO(request.getId(), LocalDateTime.now().toString(), request.getAmount(),
                 userTokenState.getAccessToken(), tokenUtils.getUsernameFromToken(userTokenState.getAccessToken()));
+    }
+
+    @Override
+    public boolean updateRequest(Long transactionId, String transactionStatus) {
+        if (purchaseBookRequestRepository.findById(transactionId).isPresent()){
+            PurchaseBookRequest purchaseBookRequest = purchaseBookRequestRepository.findById(transactionId).get();
+
+            TransactionStatus status = TransactionStatus.FAILED;
+            switch (transactionStatus) {
+                case "PAYED" : {
+                    status = TransactionStatus.PAYED;
+                    break;
+                }
+                case "WAITING_PAYMENT" : {
+                    status = TransactionStatus.WAITING_PAYMENT;
+                    break;
+                }
+                case "FAILED" : {
+                    status = TransactionStatus.FAILED;
+                    break;
+                }
+            }
+
+            purchaseBookRequest.setStatus(status);
+            purchaseBookRequestRepository.saveAndFlush(purchaseBookRequest);
+
+            return true;
+        }
+        return false;
     }
 }

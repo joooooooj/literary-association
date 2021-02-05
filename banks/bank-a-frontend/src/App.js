@@ -20,7 +20,7 @@ function  App() {
         'Content-Type': 'application/json'
       },
     };
-    fetch("http://localhost:8084/transaction/payment/" + url[3], options)
+    fetch("https://localhost:8084/transaction/payment/" + url[3], options)
     .then(response => response.json())
     .then(data => setPayment(data));
 
@@ -33,7 +33,7 @@ function  App() {
       cardholderName: cardholderName,
       expireDate: expireMonth + "/" + expireYear
     }
-    const url = 'http://localhost:8084/transaction/' + payment.id;
+    const url = 'https://localhost:8084/transaction/' + payment.id;
     const options = {
         method: 'POST',
         headers: {

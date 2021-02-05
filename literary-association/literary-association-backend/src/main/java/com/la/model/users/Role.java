@@ -3,7 +3,7 @@ package com.la.model.users;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.*;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;

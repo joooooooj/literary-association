@@ -1,6 +1,5 @@
 package com.la.controller;
 
-import com.la.controller.feigns.PaymentConcetratorFeignClient;
 import com.la.model.Payment;
 import com.la.model.enums.Status;
 import com.la.model.dtos.*;
@@ -8,13 +7,15 @@ import com.la.service.TransactionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 
 @RestController
-@CrossOrigin(value = "http://localhost:3002")
+@CrossOrigin(value = "https://localhost:3002")
 @RequestMapping(value = "/transaction")
 public class TransactionController {
 
@@ -24,7 +25,7 @@ public class TransactionController {
     private TransactionService transactionService;
 
     @Autowired
-    private PaymentConcetratorFeignClient paymentConcetratorFeignClient;
+    private RestTemplate restTemplate;
 
     /**
      * POST transaction/
@@ -101,7 +102,8 @@ public class TransactionController {
      * @return STATUS URL (SUCCESS, FAILED, ERROR)
      */
     private UrlDTO getStatusUrl(BankResponseDTO bankResponseDTO) {
-        return paymentConcetratorFeignClient.updateTransaction(bankResponseDTO);
+        return restTemplate.exchange("https://zuul-api-gateway/api/auth/bank/transaction/update",
+                HttpMethod.PUT, new HttpEntity<>(bankResponseDTO), new ParameterizedTypeReference<UrlDTO>() {}).getBody();
     }
 
     @PostMapping(value = "/second", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

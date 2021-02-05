@@ -14,7 +14,7 @@ export default function PreviewPDF(props) {
     useEffect(() => {
         if (props.selectedRequest){
             console.log(props.selectedRequest)
-            fetch("http://localhost:8080/publish/download/" + props.selectedRequest.processInstanceId + ".pdf", {
+            fetch("https://localhost:8080/publish/download/" + props.selectedRequest.processInstanceId + ".pdf", {
                 method: "GET",
                 headers: {
                     "Authorization" : "Bearer " + props.loggedIn,
@@ -44,7 +44,7 @@ export default function PreviewPDF(props) {
 
     const handleDownload = () => {
         if (props.selectedRequest){
-            fetch("http://localhost:8080/publish/download/" + props.selectedRequest.processInstanceId + ".pdf", {
+            fetch("https://localhost:8080/publish/download/" + props.selectedRequest.processInstanceId + ".pdf", {
                 method: "GET",
                 headers: {
                     "Authorization" : "Bearer " + props.loggedIn,
@@ -63,7 +63,7 @@ export default function PreviewPDF(props) {
     }
 
     const handleDecision = (decision) => {
-        fetch("http://localhost:8080/publish/editor/decision/2/" + props.selectedRequest.taskId, {
+        fetch("https://localhost:8080/publish/editor/decision/2/" + props.selectedRequest.taskId, {
             method: "POST",
             headers: {
                 "Authorization" : "Bearer " + props.loggedIn,

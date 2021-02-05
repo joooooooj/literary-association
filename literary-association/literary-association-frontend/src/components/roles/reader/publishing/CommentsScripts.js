@@ -24,7 +24,7 @@ export default function CommentsScripts(props) {
         window.location.reload();
     }
     const handleShowComment = (request) => {
-        fetch("http://localhost:8080/publish/beta-reader/" + request.taskId, {
+        fetch("https://localhost:8080/publish/beta-reader/" + request.taskId, {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + props.loggedIn,
@@ -46,7 +46,7 @@ export default function CommentsScripts(props) {
     }, [])
 
     const getRequests = () => {
-        fetch("http://localhost:8080/publish/requests/" + props.loggedIn, {
+        fetch("https://localhost:8080/publish/requests/" + props.loggedIn, {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + props.loggedIn,
