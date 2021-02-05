@@ -23,6 +23,7 @@ import Cart from "./components/payment/Cart";
 import Success from "./components/payment/Success";
 import Failed from "./components/payment/Failed";
 import Error from "./components/payment/Error";
+import ActivateAccount from "./components/core/registration/ActivateAccount";
 
 export default function Routes(props) {
 
@@ -72,6 +73,9 @@ export default function Routes(props) {
                     </Route>
                     <Route exact path="/register-beta-reader">
                         <RegisterBetaReader/>
+                    </Route>
+                    <Route path="/activate-account">
+                        <ActivateAccount/>
                     </Route>
                 </>
             }

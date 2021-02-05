@@ -44,7 +44,7 @@ export default function DocumentsComments(props) {
                                 [
                                     {
                                         variant: "success",
-                                        text: "leaveComment"
+                                        text: "Leave Comment"
                                     }
                                 ]
                             }/>
