@@ -2589,3 +2589,108 @@ Error starting ApplicationContext. To display the conditions report re-run your 
 05-02-2021 18:01:58.986 INFO  [https-jsse-nio-8081-exec-9] c.l.c.BitcoinTransactionController - Date : 2021-02-05T18:01:58.986221, Bitcoin API / BuyerRequestId = 1 / Method : getBitcoinPaymentUrl() / Info : Created new transaction. Transaction status : PENDING..
 05-02-2021 18:01:58.987 INFO  [https-jsse-nio-8081-exec-9] c.l.c.BitcoinTransactionController - Date : 2021-02-05T18:01:58.987219500, Bitcoin API / BuyerRequestId = 1 / Method : getBitcoinPaymentUrl() / Info : Bitcoin API returned payment URL. Bitcoin payment process started. Transaction status : PENDING..
 05-02-2021 18:02:00.657 INFO  [scheduling-1] c.l.s.scheduling.UpdateOrderStatus - Date : 2021-02-05T18:02:00.657975600, Bitcoin API / TransactionId = 1 / Method : checkOrderStatus() / Info : Bitcoin API returned new transaction status. Transaction status : PENDING..
+05-02-2021 18:02:10.688 INFO  [scheduling-1] c.l.s.scheduling.UpdateOrderStatus - Date : 2021-02-05T18:02:10.688895500, Bitcoin API / TransactionId = 1 / Method : checkOrderStatus() / Info : Bitcoin API returned new transaction status. Transaction status : SUCCESS..
+05-02-2021 23:47:47.451 INFO  [main] c.u.j.c.EnableEncryptablePropertiesBeanFactoryPostProcessor - Post-processing PropertySource instances
+05-02-2021 23:47:47.522 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource configurationProperties [org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource] to AOP Proxy
+05-02-2021 23:47:47.522 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource bootstrap [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+05-02-2021 23:47:47.522 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+05-02-2021 23:47:47.522 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+05-02-2021 23:47:47.522 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+05-02-2021 23:47:47.522 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource springCloudClientHostInfo [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+05-02-2021 23:47:47.522 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource applicationConfig: [classpath:/bootstrap.properties] [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+05-02-2021 23:47:47.630 INFO  [main] c.u.j.f.DefaultLazyPropertyFilter - Property Filter custom Bean not found with name 'encryptablePropertyFilter'. Initializing Default Property Filter
+05-02-2021 23:47:47.709 INFO  [main] c.u.j.r.DefaultLazyPropertyResolver - Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+05-02-2021 23:47:47.709 INFO  [main] c.u.j.d.DefaultLazyPropertyDetector - Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+05-02-2021 23:47:48.232 INFO  [main] com.la.PaymentConcentratorApp - No active profile set, falling back to default profiles: default
+05-02-2021 23:47:50.468 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+05-02-2021 23:47:50.669 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 180ms. Found 8 JPA repository interfaces.
+05-02-2021 23:47:51.016 INFO  [main] o.s.cloud.context.scope.GenericScope - BeanFactory id=8d567cfd-6a2e-3ec6-8078-61387c1160e6
+05-02-2021 23:47:51.054 INFO  [main] c.u.j.c.EnableEncryptablePropertiesBeanFactoryPostProcessor - Post-processing PropertySource instances
+05-02-2021 23:47:51.054 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource configurationProperties [org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource] to AOP Proxy
+05-02-2021 23:47:51.054 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource servletConfigInitParams [org.springframework.core.env.PropertySource$StubPropertySource] to EncryptablePropertySourceWrapper
+05-02-2021 23:47:51.054 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource servletContextInitParams [org.springframework.core.env.PropertySource$StubPropertySource] to EncryptablePropertySourceWrapper
+05-02-2021 23:47:51.054 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+05-02-2021 23:47:51.054 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+05-02-2021 23:47:51.054 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+05-02-2021 23:47:51.054 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource springCloudClientHostInfo [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+05-02-2021 23:47:51.054 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource applicationConfig: [classpath:/application.properties] [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+05-02-2021 23:47:51.054 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource applicationConfig: [classpath:/application.yml] [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+05-02-2021 23:47:51.054 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource springCloudDefaultProperties [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+05-02-2021 23:47:51.188 INFO  [main] c.u.j.f.DefaultLazyPropertyFilter - Property Filter custom Bean not found with name 'encryptablePropertyFilter'. Initializing Default Property Filter
+05-02-2021 23:47:51.494 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+05-02-2021 23:47:51.494 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+05-02-2021 23:47:51.494 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@6839203b' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+05-02-2021 23:47:51.494 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+05-02-2021 23:47:51.510 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+05-02-2021 23:47:51.618 INFO  [main] c.u.j.r.DefaultLazyPropertyResolver - Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+05-02-2021 23:47:51.618 INFO  [main] c.u.j.d.DefaultLazyPropertyDetector - Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+05-02-2021 23:47:51.987 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8081 (https)
+05-02-2021 23:47:52.019 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["https-jsse-nio-8081"]
+05-02-2021 23:47:52.019 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+05-02-2021 23:47:52.019 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.33]
+05-02-2021 23:47:52.334 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+05-02-2021 23:47:52.334 INFO  [main] o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 4071 ms
+05-02-2021 23:47:52.603 INFO  [main] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+05-02-2021 23:47:52.618 INFO  [main] c.n.config.DynamicPropertyFactory - DynamicPropertyFactory is initialized with configuration sources: com.netflix.config.ConcurrentCompositeConfiguration@42aa1324
+05-02-2021 23:47:52.922 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+05-02-2021 23:47:53.093 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.12.Final
+05-02-2021 23:47:53.308 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+05-02-2021 23:47:53.446 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+05-02-2021 23:47:54.729 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+05-02-2021 23:47:56.585 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+05-02-2021 23:47:57.670 INFO  [main] o.a.catalina.core.StandardService - Stopping service [Tomcat]
+05-02-2021 23:47:57.722 INFO  [main] o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+05-02-2021 23:51:12.084 INFO  [main] c.u.j.c.EnableEncryptablePropertiesBeanFactoryPostProcessor - Post-processing PropertySource instances
+05-02-2021 23:51:12.131 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource configurationProperties [org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource] to AOP Proxy
+05-02-2021 23:51:12.131 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource bootstrap [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+05-02-2021 23:51:12.131 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+05-02-2021 23:51:12.131 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+05-02-2021 23:51:12.131 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+05-02-2021 23:51:12.131 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource springCloudClientHostInfo [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+05-02-2021 23:51:12.131 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource applicationConfig: [classpath:/bootstrap.properties] [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+05-02-2021 23:51:12.200 INFO  [main] c.u.j.f.DefaultLazyPropertyFilter - Property Filter custom Bean not found with name 'encryptablePropertyFilter'. Initializing Default Property Filter
+05-02-2021 23:51:12.262 INFO  [main] c.u.j.r.DefaultLazyPropertyResolver - Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+05-02-2021 23:51:12.262 INFO  [main] c.u.j.d.DefaultLazyPropertyDetector - Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+05-02-2021 23:51:12.717 INFO  [main] com.la.PaymentConcentratorApp - No active profile set, falling back to default profiles: default
+05-02-2021 23:51:14.035 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+05-02-2021 23:51:14.220 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 162ms. Found 8 JPA repository interfaces.
+05-02-2021 23:51:14.552 INFO  [main] o.s.cloud.context.scope.GenericScope - BeanFactory id=8d567cfd-6a2e-3ec6-8078-61387c1160e6
+05-02-2021 23:51:14.590 INFO  [main] c.u.j.c.EnableEncryptablePropertiesBeanFactoryPostProcessor - Post-processing PropertySource instances
+05-02-2021 23:51:14.590 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource configurationProperties [org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource] to AOP Proxy
+05-02-2021 23:51:14.590 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource servletConfigInitParams [org.springframework.core.env.PropertySource$StubPropertySource] to EncryptablePropertySourceWrapper
+05-02-2021 23:51:14.590 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource servletContextInitParams [org.springframework.core.env.PropertySource$StubPropertySource] to EncryptablePropertySourceWrapper
+05-02-2021 23:51:14.590 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+05-02-2021 23:51:14.590 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+05-02-2021 23:51:14.590 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+05-02-2021 23:51:14.590 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource springCloudClientHostInfo [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+05-02-2021 23:51:14.590 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource applicationConfig: [classpath:/application.properties] [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+05-02-2021 23:51:14.590 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource applicationConfig: [classpath:/application.yml] [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+05-02-2021 23:51:14.590 INFO  [main] c.u.j.EncryptablePropertySourceConverter - Converting PropertySource springCloudDefaultProperties [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+05-02-2021 23:51:14.721 INFO  [main] c.u.j.f.DefaultLazyPropertyFilter - Property Filter custom Bean not found with name 'encryptablePropertyFilter'. Initializing Default Property Filter
+05-02-2021 23:51:14.953 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+05-02-2021 23:51:14.953 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+05-02-2021 23:51:14.969 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@3dbd7107' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+05-02-2021 23:51:14.969 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+05-02-2021 23:51:14.969 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+05-02-2021 23:51:15.069 INFO  [main] c.u.j.r.DefaultLazyPropertyResolver - Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+05-02-2021 23:51:15.069 INFO  [main] c.u.j.d.DefaultLazyPropertyDetector - Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+05-02-2021 23:51:15.369 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8081 (https)
+05-02-2021 23:51:15.369 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["https-jsse-nio-8081"]
+05-02-2021 23:51:15.369 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+05-02-2021 23:51:15.369 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.33]
+05-02-2021 23:51:15.586 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+05-02-2021 23:51:15.586 INFO  [main] o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2838 ms
+05-02-2021 23:51:15.724 INFO  [main] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+05-02-2021 23:51:15.739 INFO  [main] c.n.config.DynamicPropertyFactory - DynamicPropertyFactory is initialized with configuration sources: com.netflix.config.ConcurrentCompositeConfiguration@22b7ef2b
+05-02-2021 23:51:16.093 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+05-02-2021 23:51:16.193 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.12.Final
+05-02-2021 23:51:16.341 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+05-02-2021 23:51:16.456 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+05-02-2021 23:51:17.616 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+05-02-2021 23:51:18.865 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+05-02-2021 23:51:19.905 INFO  [main] o.a.catalina.core.StandardService - Stopping service [Tomcat]
+05-02-2021 23:51:19.936 INFO  [main] o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
