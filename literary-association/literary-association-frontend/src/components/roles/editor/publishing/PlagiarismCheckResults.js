@@ -7,7 +7,7 @@ export default function PlagiarismCheckResults(props) {
 
     useEffect(() => {
         if (props.selectedRequest) {
-            fetch("http://localhost:8080/publish/editor/plagiats/" + props.selectedRequest.processInstanceId, {
+            fetch("https://localhost:8080/publish/editor/plagiats/" + props.selectedRequest.processInstanceId, {
                 method: "GET",
                 headers: {
                     "Authorization": "Bearer " + props.loggedIn,
@@ -29,7 +29,7 @@ export default function PlagiarismCheckResults(props) {
     };
 
     const handleDecision = (decision) => {
-        fetch("http://localhost:8080/publish/editor/plagiats/" + props.selectedRequest.taskId, {
+        fetch("https://localhost:8080/publish/editor/plagiats/" + props.selectedRequest.taskId, {
             method: "POST",
             headers: {
                 "Authorization": "Bearer " + props.loggedIn,

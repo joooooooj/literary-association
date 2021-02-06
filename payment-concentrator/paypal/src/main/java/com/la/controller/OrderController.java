@@ -5,11 +5,22 @@ import com.la.dto.CreateOrderDTO;
 import com.la.dto.PaypalCreateOrderDTO;
 import com.paypal.http.HttpResponse;
 import com.paypal.orders.*;
+import org.apache.http.client.HttpClient;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.ssl.SSLContextBuilder;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.bind.annotation.*;
 
+import javax.net.ssl.*;
 import java.io.IOException;
+import java.io.InputStream;
+import java.security.KeyStore;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +35,7 @@ public class OrderController {
         // Here, OrdersCreateRequest() creates a POST request to /v2/checkout/orders
         OrderRequest orderRequest = new OrderRequest();
         orderRequest.checkoutPaymentIntent("CAPTURE");
-        orderRequest.applicationContext(new ApplicationContext().returnUrl("http://localhost:3000/success"));
+        orderRequest.applicationContext(new ApplicationContext().returnUrl("https://localhost:3000/success"));
         List<PurchaseUnitRequest> purchaseUnits = new ArrayList<>();
         purchaseUnits
                 .add(new PurchaseUnitRequest().amountWithBreakdown
@@ -86,6 +97,36 @@ public class OrderController {
         } catch (IOException e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    private void setClientSSL() {
+        KeyStore keyStore;
+
+        try {
+            keyStore = KeyStore.getInstance("jks");
+            ClassPathResource classPathResource = new ClassPathResource("paypal-ms.jks");
+            InputStream inputStream = classPathResource.getInputStream();
+            keyStore.load(inputStream, "123456".toCharArray());
+
+            KeyManagerFactory kmf = KeyManagerFactory.getInstance(
+                    KeyManagerFactory.getDefaultAlgorithm());
+            kmf.init(keyStore, "123456".toCharArray());
+            KeyManager[] keyManagers = kmf.getKeyManagers();
+
+            TrustManagerFactory tmfactory = TrustManagerFactory.getInstance(
+                    TrustManagerFactory.getDefaultAlgorithm());
+            tmfactory.init(keyStore);
+            TrustManager[] trustManagers = tmfactory.getTrustManagers();
+
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(keyManagers, trustManagers, null);
+            SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
+
+            Credentials.client.setSSLSocketFactory(sslSocketFactory);
+        } catch (Exception exception) {
+            System.out.println("Exception occured while creating restTemplate "+exception);
+            exception.printStackTrace();
         }
     }
 

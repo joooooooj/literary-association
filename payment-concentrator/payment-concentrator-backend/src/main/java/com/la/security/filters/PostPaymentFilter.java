@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Component
-@CrossOrigin(value = "http://localhost:3000")
+@CrossOrigin(value = "https://localhost:3000")
 public class PostPaymentFilter extends ZuulFilter {
 
     @Autowired

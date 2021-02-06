@@ -5,11 +5,12 @@ import com.la.model.dtos.UrlDTO;
 import com.la.model.dtos.bank.BankPaymentUrlDTO;
 import com.la.model.dtos.bank.BankRequestDTO;
 import com.la.model.dtos.bank.BankResponseDTO;
-import com.la.controller.feigns.BankFeignClient;
 import com.la.service.BankTransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping("/api/auth/bank/transaction")
@@ -19,7 +20,7 @@ public class BankTransactionController {
     private BankTransactionService transactionService;
 
     @Autowired
-    private BankFeignClient bankFeignClient;
+    private RestTemplate restTemplate;
 
     /**
      * POST transaction/
@@ -86,7 +87,8 @@ public class BankTransactionController {
      * @return bank payment form URL and ID
      */
     private BankPaymentUrlDTO getPaymentFormUrl(BankRequestDTO bankRequestDTO) {
-        return bankFeignClient.getPaymentUrlDTO(bankRequestDTO);
+        return restTemplate.exchange("https://bank-a/transaction",
+                HttpMethod.POST, new HttpEntity<>(bankRequestDTO), new ParameterizedTypeReference<BankPaymentUrlDTO>() {}).getBody();
     }
 
     /**

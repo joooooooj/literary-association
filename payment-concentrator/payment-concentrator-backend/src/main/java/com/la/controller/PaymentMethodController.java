@@ -4,6 +4,7 @@ import com.la.model.dtos.BuyerRequestDTO;
 import com.la.model.dtos.PaymentMethodDTO;
 import com.la.model.dtos.UrlDTO;
 import com.la.model.mappers.PaymentMethodDTOMapper;
+import com.la.security.TokenUtils;
 import com.la.service.PaymentMethodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,9 @@ public class PaymentMethodController {
 
     @Autowired
     private PaymentMethodDTOMapper mapper;
+
+    @Autowired
+    private TokenUtils tokenUtils;
 
     @PostMapping("")
     @PreAuthorize("hasAuthority('CREATE_PAYMENT_METHOD')")
@@ -44,10 +48,11 @@ public class PaymentMethodController {
     }
 
     // Return URL to LA to choose payment method
-    @PostMapping(value = "subscriber/{username}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "subscriber/{token:.+}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('INITIATE_PAYMENT')")
-    public ResponseEntity<UrlDTO> getPaymentMethodsUrl(@RequestBody BuyerRequestDTO buyerRequestDTO, @PathVariable String username) {
+    public ResponseEntity<UrlDTO> getPaymentMethodsUrl(@RequestBody BuyerRequestDTO buyerRequestDTO, @PathVariable String token) {
         try {
+            String username = tokenUtils.getUsernameFromToken(token);
             return new ResponseEntity<>(new UrlDTO(paymentMethodService.getPaymentMethodsUrl(buyerRequestDTO, username)), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

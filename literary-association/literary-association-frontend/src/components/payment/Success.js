@@ -1,13 +1,12 @@
 import React, {useEffect} from "react";
 
-export default function Success() {
+export default function Success(props) {
     useEffect(() => {
         const route = window.location.href;
-        const token = route.split('?')[1].split('&')[0].split('=')[1];
-        console.log('token je ' + token);
+        const token = route?.split('?')[1]?.split('&')[0]?.split('=')[1];
 
         if (token !== undefined) {
-            fetch('http://localhost:8081/pay-pal/capture/' + token, {
+            fetch('https://localhost:8081/pay-pal/capture/' + token, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -22,7 +21,24 @@ export default function Success() {
                 .then(response => response.json())
                 .catch((error) => console.error(error));
         }
-    });
+
+        if (props?.match?.params?.request_id) {
+            fetch('https://localhost:8080/api/auth/purchase-book/update/' + props.match.params.request_id, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: "PAYED"
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+    }, [props?.match?.params?.request_id]);
 
     return (
         <div className="bg-dark p-5 cart">

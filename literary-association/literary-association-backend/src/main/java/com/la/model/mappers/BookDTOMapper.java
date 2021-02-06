@@ -1,13 +1,12 @@
 package com.la.model.mappers;
 
-import com.la.model.dtos.BookDTO;
 import com.la.model.Book;
+import com.la.model.dtos.BookDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
-import java.util.List;
 
 @Component
 public class BookDTOMapper implements MapperInterface<Book, BookDTO> {

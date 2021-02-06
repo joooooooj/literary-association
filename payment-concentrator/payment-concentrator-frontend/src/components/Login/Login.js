@@ -22,7 +22,7 @@ export default function LoginComponent(props) {
     }
 
     const login = () => {
-        fetch("http://localhost:8081/api/auth/login", {
+        fetch("https://localhost:8081/api/auth/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

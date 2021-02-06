@@ -28,6 +28,7 @@ public class BuyerRequestServiceImpl implements BuyerRequestService {
             BuyerRequestDTO buyerRequestDTO = new BuyerRequestDTO();
             buyerRequestDTO.setAmount(buyerRequest.getAmount());
             buyerRequestDTO.setMerchantOrderId(buyerRequest.getId());
+            buyerRequestDTO.setMerchantTimestamp(buyerRequest.getMerchantTimestamp());
 
             paymentMethodsBuyerRequestDTO.setBuyerRequestDTO(buyerRequestDTO);
 

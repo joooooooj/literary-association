@@ -9,7 +9,7 @@ import ChoosePaymentMethod from "./components/Payment/ChoosePaymentMethod";
 export default function Routes(props) {
     return (<Switch>
         <Route component={WelcomeCard} path="/" exact/>
-        <Route component={ChoosePaymentMethod} path="/payment-methods/:request_id" exact/>
+        <Route component={ChoosePaymentMethod} path="/payment-methods/:request_id/:token" exact/>
         <Route render={() => (<LoginComponent log={props.log}/>)} path="/login" exact/>
         <Route
             component={PaymentMethodsComponent}

@@ -120,7 +120,7 @@ public class BitcoinTransactionController {
 
             HttpEntity<OrderRequest> body = new HttpEntity<>(orderRequest, headers);
 
-            orderResult = restTemplate.exchange("http://bitcoin/order",
+            orderResult = restTemplate.exchange("https://bitcoin/order",
                     HttpMethod.POST, body, new ParameterizedTypeReference<OrderResult>() {}).getBody();
         }
         catch (Exception e){

@@ -1,7 +1,7 @@
 package com.la.model.mappers;
 
-import com.la.model.dtos.ScriptDTO;
 import com.la.model.Script;
+import com.la.model.dtos.ScriptDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

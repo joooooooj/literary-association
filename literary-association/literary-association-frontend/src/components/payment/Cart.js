@@ -43,7 +43,7 @@ export default function Cart(props) {
     }
 
     const createRequest = () => {
-        fetch('http://localhost:8080/api/auth/purchase-book', {
+        fetch('https://localhost:8080/api/auth/purchase-book', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -63,18 +63,18 @@ export default function Cart(props) {
             });
     }
 
-    const redirectToPayment = (data) => {
-        fetch('http://localhost:8081/payment-method/subscriber/vulkan', {
+    const redirectToPayment = (mainData) => {
+        fetch('https://localhost:8081/payment-method/subscriber/' + mainData.token, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + data.token
+                'Authorization': 'Bearer ' + mainData.token
             },
             body:
                 JSON.stringify({
-                    merchantOrderId: data.orderId,
-                    merchantTimestamp: data.timestamp,
-                    amount: data.amount
+                    merchantOrderId: mainData.orderId,
+                    merchantTimestamp: mainData.timestamp,
+                    amount: mainData.amount
                 })
         })
             .then(result => result.json())
@@ -83,7 +83,7 @@ export default function Cart(props) {
                 setCartItemsIds([]);
                 setAmount(0);
                 setQFlag(-1);
-                window.location.replace(data.url);
+                window.location.replace(data.url + "/" + mainData.token);
             })
             .catch((error) => {
                 console.log('Error:' + error);

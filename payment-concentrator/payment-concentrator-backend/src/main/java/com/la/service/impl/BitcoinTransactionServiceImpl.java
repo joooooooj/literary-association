@@ -40,8 +40,8 @@ public class BitcoinTransactionServiceImpl implements BitcoinTransactionService 
             orderRequest.setPrice_currency("USD");
             orderRequest.setReceive_currency("BTC");
             orderRequest.setPrice_amount((double) buyerRequest.getAmount());
-            orderRequest.setSuccess_url(buyerRequest.getSubscriber().getSubscriberDetails().getSuccessUrl());
-            orderRequest.setCancel_url(buyerRequest.getSubscriber().getSubscriberDetails().getFailedUrl());
+            orderRequest.setSuccess_url(buyerRequest.getSubscriber().getSubscriberDetails().getSuccessUrl() + "/" + buyerRequest.getMerchantOrderId());
+            orderRequest.setCancel_url(buyerRequest.getSubscriber().getSubscriberDetails().getFailedUrl() + "/" + buyerRequest.getMerchantOrderId());
 
             return orderRequest;
         }
@@ -71,7 +71,7 @@ public class BitcoinTransactionServiceImpl implements BitcoinTransactionService 
                 }
             }
             transaction.setAcqTimestamp(LocalDateTime.parse(orderResult.getCreated_at(), DateTimeFormatter.ISO_ZONED_DATE_TIME));
-            transaction.setAcqOrderId(orderResult.getId());
+            transaction.setAcqOrderId(String.valueOf(orderResult.getId()));
             transaction = transactionRepository.save(transaction);
             return  transaction.getStatus();
         }

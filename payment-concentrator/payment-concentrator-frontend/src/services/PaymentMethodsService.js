@@ -1,5 +1,5 @@
 const getAll = () =>
-    fetch("http://localhost:8081/api/auth/payment-method", {
+    fetch("https://localhost:8081/api/auth/payment-method", {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -12,7 +12,7 @@ const getAll = () =>
         });
 
 const getAllWithoutFirstThree = () =>
-    fetch("http://localhost:8081/api/auth/payment-method/other", {
+    fetch("https://localhost:8081/api/auth/payment-method/other", {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -25,7 +25,7 @@ const getAllWithoutFirstThree = () =>
         });
 
 const deletePaymentMethod = (paymentMethodId) =>
-    fetch("http://localhost:8081/payment-method/" + paymentMethodId, {
+    fetch("https://localhost:8081/payment-method/" + paymentMethodId, {
         method: "Delete",
         headers: {
             "Content-Type": "application/json",
@@ -38,7 +38,7 @@ const deletePaymentMethod = (paymentMethodId) =>
         })
 
 const createPaymentMethod = (name) =>
-    fetch("http://localhost:8081/payment-method", {
+    fetch("https://localhost:8081/payment-method", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
