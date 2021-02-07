@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,6 +36,21 @@ public class User implements UserDetails {
 
     @Column
     protected String email;
+
+    @Column
+    protected LocalDateTime createdAt;
+
+    @Column
+    protected LocalDateTime updatedAt;
+
+    @Column
+    protected LocalDateTime lastLogin;
+
+    @Column
+    protected Boolean active;
+
+    @Column
+    protected int attempts;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",

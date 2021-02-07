@@ -1,27 +1,38 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
+import {Alert, Form} from "react-bootstrap";
 import {useForm} from "react-hook-form";
-
-import "./WelcomeCard.scss";
-import {Form, Alert,Button} from "react-bootstrap";
 import PaymentMethodsService from "../../services/PaymentMethodsService";
 
-export default function WelcomeCard(props) {
-    const [visible, setVisible] = useState(false);
+export default function UserDetails(props) {
     const [paymentMethods, setPaymentMethods] = useState([]);
     const [choosenPaymentMethods, setChoosenPaymentMethods] = useState([])
     const [showAlert, setShowAlert] = useState(false);
     const [alertVariant, setAlertVariant] = useState('success');
+
+    const [userInfo, setUserInfo] = useState({})
 
     /* Validation */
     const {register, errors, handleSubmit} = useForm();
 
     useEffect(() => {
         PaymentMethodsService.getAll().then((data) => setPaymentMethods(data));
+        fetch("https://localhost:8081/user/details/" + JSON.parse(localStorage.getItem("token")), {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + JSON.parse(localStorage.getItem("token"))
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                setChoosenPaymentMethods(data.paymentMethods)
+                setUserInfo(data);
+                console.log(data);
+            })
+            .catch((error) => {
+                console.error("Error", error);
+            })
     }, []);
-
-    const showFormClickHandler = () => {
-        setVisible(true);
-    };
 
     function methodsOnChangeHandler(event) {
         const selectedOptions = [...event.target.selectedOptions].map(o => o.value);
@@ -34,50 +45,12 @@ export default function WelcomeCard(props) {
     }
 
     const createRequestClickHandler = (formData) => {
-        formData.paymentMethods = choosenPaymentMethods;
-        fetch("https://localhost:8081/api/auth/subscribe", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData)
-        })
-            .then(response => response.json())
-            .then((data) => {
-                console.log(data);
-                setShowAlert(true);
-                setAlertVariant('success');
-                setTimeout(() => {
-                    setShowAlert(false);
-                    props.history.push( "/login");
-                }, 2000);
-            }).catch((error) => {
-            setShowAlert(true);
-            setAlertVariant('danger');
-            setTimeout(() => {
-                setShowAlert(false);
-            }, 2000);
-        });;
+        alert("DATA SAVED");
     }
 
     return (
-        <div className="Content">
-            <div className="WelcomeCard">
-                <h1 className="WelcomeTittle">Sign up right now!</h1>
-                <p className="WelcomeText">
-                    {" "}
-                    We are a company that proved payment services to anyone who needs it.
-                    We provide different kind of payment services such as via Bank, Paypal
-                    and Bitcoin. If you think this is what you need, feel free to submit
-                    your request and we will contact you soon!
-                </p>
-                <button
-                    className="Button Green"
-                    onClick={showFormClickHandler}>
-                    Sign up!
-                </button>
-            </div>
-            <div className="Subscribe p-5 mb-5" hidden={!visible}>
+        <div style={{textAlign: "-webkit-center", marginLeft:"-200px"}}>
+            <div className="Subscribe p-5 mb-5">
                 <Form onSubmit={handleSubmit(createRequestClickHandler)}>
                     <Form.Group
                         className="InputElement">
@@ -87,6 +60,7 @@ export default function WelcomeCard(props) {
                         <Form.Label className="Label text-warning mt-2">ACCOUNT INFO</Form.Label>
                         <Form.Label className="Label">Username</Form.Label>
                         <Form.Control type="text" placeholder="Enter username"
+                                      defaultValue={userInfo.username}
                                       name="username" ref={register({required: true})}
                                       isInvalid={!!errors.username}/>
                         {errors.organizationName &&
@@ -95,33 +69,12 @@ export default function WelcomeCard(props) {
                         </Form.Control.Feedback>}
                     </Form.Group>
                     <Form.Group
-                        className="InputElement">
-                        <Form.Label className="Label">Password</Form.Label>
-                        <Form.Control type="password" placeholder="Enter password"
-                                      name="password"
-                                      ref={register(
-                                            {
-                                              required: {
-                                                  value: true,
-                                                  message: "Password is required."
-                                              },
-                                              pattern: {
-                                                  value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-.]).{8,}$/,
-                                                  message: "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character!"
-                                              }
-                                          })}
-                                      isInvalid={!!errors.password}/>
-                        {errors.password &&
-                        <Form.Control.Feedback type="invalid">
-                            {errors.password.message}
-                        </Form.Control.Feedback>}
-                    </Form.Group>
-                    <Form.Group
                         className="InputElement"
                         controlId="exampleForm.ControlInput1">
                         <Form.Label className="Label text-warning mt-2">ORGANIZATION INFO</Form.Label>
                         <Form.Label className="Label">Organization name</Form.Label>
                         <Form.Control type="text" placeholder="Enter organization name"
+                                      defaultValue={userInfo.subscriberDetails?.organizationName}
                                       name="organizationName" ref={register({required: true})}
                                       isInvalid={!!errors.organizationName}/>
                         {errors.organizationName &&
@@ -135,6 +88,7 @@ export default function WelcomeCard(props) {
                     >
                         <Form.Label className="Label">Organization email</Form.Label>
                         <Form.Control type="text" placeholder="Enter organization email"
+                                      defaultValue={userInfo.subscriberDetails?.organizationEmail}
                                       name="organizationEmail" ref={register({required: true})}
                                       isInvalid={!!errors.organizationEmail}/>
                         {errors.organizationEmail &&
@@ -153,6 +107,7 @@ export default function WelcomeCard(props) {
                             rows={3}
                             placeholder="Describe what you do"
                             style={{resize: "none"}}
+                            defaultValue={userInfo.subscriberDetails?.organizationDescription}
                             name="organizationDescription" ref={register({required: true})}
                             isInvalid={!!errors.organizationDescription}
                         />
@@ -168,10 +123,10 @@ export default function WelcomeCard(props) {
                         <Form.Label className="Label">Select payment methods</Form.Label>
                         { paymentMethods &&
                         <Form.Control as="select" multiple onChange={e => methodsOnChangeHandler(e)}
-                            name="organizationPaymentMethods" ref={register({required: true})}
-                            isInvalid={!!errors.organizationPaymentMethods}>
+                                      name="organizationPaymentMethods" ref={register({required: true})}
+                                      isInvalid={!!errors.organizationPaymentMethods}>
                             { paymentMethods.map(method => {
-                                return <option key={method.id} value={method.name}>{method.name}</option>
+                                return <option key={method.id} value={method.name} selected={userInfo.paymentMethods?.find((m => m.id === method.id))}>{method.name}</option>
                             })}
                         </Form.Control>
                         }
@@ -184,6 +139,7 @@ export default function WelcomeCard(props) {
                         className="InputElement">
                         <Form.Label className="Label">Success URL</Form.Label>
                         <Form.Control type="text" placeholder="Enter success URL"
+                                      defaultValue={userInfo.subscriberDetails?.successUrl}
                                       name="successUrl" ref={register({required: true})}
                                       isInvalid={!!errors.successUrl}/>
                         {errors.successUrl &&
@@ -195,6 +151,7 @@ export default function WelcomeCard(props) {
                         className="InputElement">
                         <Form.Label className="Label">Failed URL</Form.Label>
                         <Form.Control type="text" placeholder="Enter failed URL"
+                                      defaultValue={userInfo.subscriberDetails?.failedUrl}
                                       name="failedUrl" ref={register({required: true})}
                                       isInvalid={!!errors.failedUrl}/>
                         {errors.failedUrl &&
@@ -206,6 +163,7 @@ export default function WelcomeCard(props) {
                         className="InputElement">
                         <Form.Label className="Label">Error URL</Form.Label>
                         <Form.Control type="text" placeholder="Enter error URL"
+                                      defaultValue={userInfo.subscriberDetails?.errorUrl}
                                       name="errorUrl" ref={register({required: true})}
                                       isInvalid={!!errors.errorUrl}/>
                         {errors.errorUrl &&
@@ -268,22 +226,22 @@ export default function WelcomeCard(props) {
                     </>
                     }
                     {   choosenPaymentMethods.find((method) => method.name === "Bitcoin") &&
-                        <Form.Group
-                            className="InputElement">
-                            <Form.Label className="Label text-warning mt-2">BITCOIN PAYMENT INFO</Form.Label>
-                            <Form.Label className="Label">Bitcoin token</Form.Label>
-                            <Form.Control type="password" placeholder="Enter Bitcoin token"
-                                          name="bitcoinToken" ref={register({required: true})}
-                                          isInvalid={!!errors.bitcoinToken}/>
-                            {errors.bitcoinToken &&
-                            <Form.Control.Feedback type="invalid">
-                                Bitcoin token is required.
-                            </Form.Control.Feedback>}
-                        </Form.Group>
+                    <Form.Group
+                        className="InputElement">
+                        <Form.Label className="Label text-warning mt-2">BITCOIN PAYMENT INFO</Form.Label>
+                        <Form.Label className="Label">Bitcoin token</Form.Label>
+                        <Form.Control type="password" placeholder="Enter Bitcoin token"
+                                      name="bitcoinToken" ref={register({required: true})}
+                                      isInvalid={!!errors.bitcoinToken}/>
+                        {errors.bitcoinToken &&
+                        <Form.Control.Feedback type="invalid">
+                            Bitcoin token is required.
+                        </Form.Control.Feedback>}
+                    </Form.Group>
                     }
                     <div className="ButtonWrapper">
-                        <button className="Button Gray mt-3" type="submit"
-                        >Subscribe
+                        <button className="Button Gray mt-3" type="submit">
+                            Save
                         </button>
                     </div>
                 </Form>

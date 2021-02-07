@@ -37,50 +37,50 @@ public class UpdateOrderStatus {
     RestTemplate restTemplate;
 
     Logger logger = LoggerFactory.getLogger(UpdateOrderStatus.class);
+    
+    @Scheduled(fixedRate = 86400000)
+    public void checkOrderStatus() {
+        List<Transaction> transactionList = transactionRepository.findByStatusAndPaymentMethod(Status.PENDING, paymentMethodRepository.findByName("Bitcoin"));
+        OrderResult orderResult;
+        for (Transaction transaction : transactionList){
+            orderResult = getOrder(Long.parseLong(transaction.getAcqOrderId()));
+            if (orderResult != null){
+                Status status = bitcoinTransactionService.updateTransaction(orderResult);
 
-//    @Scheduled(fixedRate = 10000)
-//    public void checkOrderStatus() {
-//        List<Transaction> transactionList = transactionRepository.findByStatusAndPaymentMethod(Status.PENDING, paymentMethodRepository.findByName("Bitcoin"));
-//        OrderResult orderResult;
-//        for (Transaction transaction : transactionList){
-//            orderResult = getOrder(Long.parseLong(transaction.getAcqOrderId()));
-//            if (orderResult != null){
-//                Status status = bitcoinTransactionService.updateTransaction(orderResult);
-//
-//                switch (status) {
-//                    case PENDING: {
-//                        logger.info("Date : {}, Bitcoin API / " + "TransactionId = " + transaction.getId() + " / Method : checkOrderStatus() /" +
-//                                " Info : {}.", LocalDateTime.now(), "Bitcoin API returned new transaction status. Transaction status : PENDING.");
-//                        break;
-//                    }
-//                    case FAILED: {
-//                        logger.error("Date : {}, Bitcoin API / " + "TransactionId = " + transaction.getId() + " / Method : checkOrderStatus() /" +
-//                                " Error : {}.", LocalDateTime.now(), "Bitcoin API returned new transaction status. Transaction status : FAILED.");
-//                        break;
-//                    }
-//                    case SUCCESS: {
-//                        logger.info("Date : {}, Bitcoin API / " + "TransactionId = " + transaction.getId() + " / Method : checkOrderStatus() /" +
-//                                " Info : {}.", LocalDateTime.now(), "Bitcoin API returned new transaction status. Transaction status : SUCCESS.");
-//                        break;
-//                    }
-//                    case ERROR: {
-//                        logger.error("Date : {}, Bitcoin API / " + "TransactionId = " + transaction.getId() + " / Method : checkOrderStatus() /" +
-//                                " Error : {}.", LocalDateTime.now(), "Bitcoin API returned new transaction status. Transaction status : ERROR.");
-//                        break;
-//                    }
-//                    default: {
-//                        logger.warn("Date : {}, Bitcoin API / " + "TransactionId = " + transaction.getId() + " / Method : checkOrderStatus() /" +
-//                                " Warn : {}.", LocalDateTime.now(), "Bitcoin API returned new transaction status. Transaction status : UNDEFINED.");
-//                        break;
-//                    }
-//                }
-//            }
-//            else {
-//                logger.error("Date : {}, Bitcoin API / " + "TransactionId = " + transaction.getId() + " / Method : checkOrderStatus() /" +
-//                        " Error : {}.", LocalDateTime.now(), "Bitcoin API didn't return result. Transaction status : UNDEFINED.");
-//            }
-//        }
-//    }
+                switch (status) {
+                    case PENDING: {
+                        logger.info("Date : {}, Bitcoin API / " + "TransactionId = " + transaction.getId() + " / Method : checkOrderStatus() /" +
+                                " Info : {}.", LocalDateTime.now(), "Bitcoin API returned new transaction status. Transaction status : PENDING.");
+                        break;
+                    }
+                    case FAILED: {
+                        logger.error("Date : {}, Bitcoin API / " + "TransactionId = " + transaction.getId() + " / Method : checkOrderStatus() /" +
+                                " Error : {}.", LocalDateTime.now(), "Bitcoin API returned new transaction status. Transaction status : FAILED.");
+                        break;
+                    }
+                    case SUCCESS: {
+                        logger.info("Date : {}, Bitcoin API / " + "TransactionId = " + transaction.getId() + " / Method : checkOrderStatus() /" +
+                                " Info : {}.", LocalDateTime.now(), "Bitcoin API returned new transaction status. Transaction status : SUCCESS.");
+                        break;
+                    }
+                    case ERROR: {
+                        logger.error("Date : {}, Bitcoin API / " + "TransactionId = " + transaction.getId() + " / Method : checkOrderStatus() /" +
+                                " Error : {}.", LocalDateTime.now(), "Bitcoin API returned new transaction status. Transaction status : ERROR.");
+                        break;
+                    }
+                    default: {
+                        logger.warn("Date : {}, Bitcoin API / " + "TransactionId = " + transaction.getId() + " / Method : checkOrderStatus() /" +
+                                " Warn : {}.", LocalDateTime.now(), "Bitcoin API returned new transaction status. Transaction status : UNDEFINED.");
+                        break;
+                    }
+                }
+            }
+            else {
+                logger.error("Date : {}, Bitcoin API / " + "TransactionId = " + transaction.getId() + " / Method : checkOrderStatus() /" +
+                        " Error : {}.", LocalDateTime.now(), "Bitcoin API didn't return result. Transaction status : UNDEFINED.");
+            }
+        }
+    }
 
     private OrderResult getOrder(Long orderId){
         OrderResult orderResult = null;

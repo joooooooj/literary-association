@@ -3,6 +3,7 @@ package com.la.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -16,11 +17,29 @@ public class SubscriberDetails {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "merchant_id", nullable = false)
-    private Long merchantId;
+    @Column
+    private String organizationName;
 
-    @Column(name = "merchant_password", nullable = false)
+    @Column
+    private String organizationDescription;
+
+    @Column
+    private String organizationEmail;
+
+    @Column(name = "merchant_id")
+    private String merchantId;
+
+    @Column(name = "merchant_password")
     private String merchantPassword;
+
+    @Column(name = "client_id")
+    private String clientId;
+
+    @Column(name = "client_secret")
+    private String clientSecret;
+
+    @Column(name = "bitcoin_token")
+    private String bitcoinToken;
 
     @Column(name = "merchant_success_url", nullable = false)
     private String successUrl;

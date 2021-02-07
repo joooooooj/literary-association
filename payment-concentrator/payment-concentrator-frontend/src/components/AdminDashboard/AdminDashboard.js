@@ -5,6 +5,8 @@ import SubscriptionRequests from "../SubsciptionRequests/SubscriptionRequests";
 import PaymentMethodsOverview from "../PaymentMethodsOverview/PaymentMethodsOverview";
 import PaymentMethodsService from "../../services/PaymentMethodsService";
 import "./AdminDashboard.css";
+import Users from "../Users/Users";
+import Transactions from "../Transactions/Transactions";
 
 export default function AdminDashboard() {
     const [radioValue, setRadioValue] = useState("1");
@@ -51,25 +53,50 @@ export default function AdminDashboard() {
                         name="radio"
                         value="1"
                         checked={radioValue === "1"}
-                        onChange={(e) => setRadioValue(e.currentTarget.value)}
-                    >
+                        onChange={(e) => setRadioValue(e.currentTarget.value)}>
                         Subscription Requests
                     </ToggleButton>
                     <ToggleButton
+                        className="mr-sm-1"
                         type="radio"
                         variant={radioValue === "2" ? "primary" : "secondary"}
                         name="radio" value="2"
                         checked={radioValue === "2"}
-                        onChange={(e) => setRadioValue(e.currentTarget.value)}
-                    >
+                        onChange={(e) => setRadioValue(e.currentTarget.value)}>
                         Payment methods
+                    </ToggleButton>
+                    <ToggleButton
+                        className="mr-sm-1"
+                        type="radio"
+                        variant={radioValue === "3" ? "primary" : "secondary"}
+                        name="radio" value="3"
+                        checked={radioValue === "3"}
+                        onChange={(e) => setRadioValue(e.currentTarget.value)}>
+                        Transactions
+                    </ToggleButton>
+                    <ToggleButton
+                        type="radio"
+                        variant={radioValue === "4" ? "primary" : "secondary"}
+                        name="radio" value="4"
+                        checked={radioValue === "4"}
+                        onChange={(e) => setRadioValue(e.currentTarget.value)}>
+                        Users
                     </ToggleButton>
                 </ButtonGroup>
             </div>
-            {+radioValue === 1 ? <SubscriptionRequests requests={requests} approve={approveOnClickHandler}
-                                                       decline={declineOnClickHandler}/>
-                : <PaymentMethodsOverview methods={paymentMethods} delete={deletePaymentMethod}
-                                          create={createPaymentMethod}/>
+            { radioValue == 1 &&
+                <SubscriptionRequests requests={requests} approve={approveOnClickHandler}
+                                  decline={declineOnClickHandler}/>
+            }
+            { radioValue == 2 &&
+                <PaymentMethodsOverview methods={paymentMethods} delete={deletePaymentMethod}
+                                  create={createPaymentMethod}/>
+            }
+            { radioValue == 3 &&
+                <Transactions/>
+            }
+            { radioValue == 4 &&
+                <Users/>
             }
         </React.Fragment>);
 }

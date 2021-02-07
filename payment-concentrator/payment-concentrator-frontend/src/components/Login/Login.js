@@ -3,12 +3,13 @@ import "./Login.scss";
 import LoginIcon from "@material-ui/icons/AccountCircleSharp";
 import PassIcon from "@material-ui/icons/LockSharp";
 import {Redirect} from "react-router";
+import {Alert} from "react-bootstrap";
 
 export default function LoginComponent(props) {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const [redirect, setRedirect] = useState(false);
-    const [redirectSubscriber, setRedirectSubscriber] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
 
     const usernameOnChangeHandler = (value) => {
         setUsername(value);
@@ -18,8 +19,8 @@ export default function LoginComponent(props) {
         setPassword(value);
     }
 
-    const saveToken = (value) => {
-        props.log(value);
+    const a = (value, role) => {
+        props.log(value, role);
     }
 
     const login = () => {
@@ -28,35 +29,35 @@ export default function LoginComponent(props) {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({username, password}),
+            body: JSON.stringify({
+                username : username,
+                password : password
+            }),
         })
             .then(response => response.json())
             .then(data => {
-                // localStorage.setItem("token", data.accessToken);
-                // localStorage.setItem("roles", data.roles);
-                saveToken(data.accessToken);
-                if (data.roles[0] === 'ROLE_SUBSCRIBER') {
-                    setRedirectSubscriber(true);
-                } else {
-                    setRedirect(true);
-                }
+                a(data.accessToken, data.roles[0]);
+                setRedirect(true);
             })
             .catch((error) => {
-                console.error('Error:', error);
+                setShowAlert(true);
+                console.error('ERROR:', error);
             });
     }
 
     if (redirect) {
         return <Redirect to="/dashboard"/>
     }
-    if (redirectSubscriber) {
-        return <Redirect to="/home"/>
-    }
-
 
     return (
 
-        <div className="Login">
+        <div className="Login" style={{height:"400px"}}>
+            <Alert style={{
+                width: "350px",
+                height: "fit-content",
+                marginBottom: "50px"}} className="Alert" variant={"danger"} show={showAlert} transition={true}>
+                Wrong username or password
+            </Alert>
             <div className="input-container">
                 <input type="text" placeholder="Username" onChange={e => usernameOnChangeHandler(e.target.value)}/>
                 <i>

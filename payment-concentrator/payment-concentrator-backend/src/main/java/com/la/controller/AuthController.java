@@ -37,6 +37,7 @@ public class AuthController {
 
     @PostMapping(value = "/login")
     public ResponseEntity<?> login(@RequestBody JwtAuthenticationRequest authenticationRequest) {
+        System.err.println(authenticationRequest);
         try {
             UserTokenState userTokenState = authService.login(authenticationRequest);
             if (userTokenState == null) {
