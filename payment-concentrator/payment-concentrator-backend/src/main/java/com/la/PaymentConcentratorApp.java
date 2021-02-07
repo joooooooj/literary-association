@@ -1,5 +1,5 @@
 package com.la;
-import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
+
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
