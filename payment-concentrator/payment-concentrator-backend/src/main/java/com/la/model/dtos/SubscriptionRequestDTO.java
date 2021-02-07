@@ -31,4 +31,21 @@ public class SubscriptionRequestDTO {
 
     @NotEmpty
     private String password;
+
+    private String merchantId;
+    private String merchantPassword;
+
+    private String clientId;
+    private String clientSecret;
+
+    private String bitcoinToken;
+
+    @NotEmpty
+    private String successUrl;
+
+    @NotEmpty
+    private String errorUrl;
+
+    @NotEmpty
+    private String failedUrl;
 }

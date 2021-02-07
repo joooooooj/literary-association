@@ -5,15 +5,17 @@ import Routes from "./Routes"
 
 export default function App() {
     const [loggedIn, setLoggedIn] = useLocalStorage("token", null);
+    const [roles, setRoles] = useLocalStorage("roles", null);
 
-    const log = (value) => {
+    const log = (value, role) => {
         setLoggedIn(value);
+        setRoles(role);
     }
 
     return (
         <div>
             <Navbar loggedIn={loggedIn} log={log}/>
-            <Routes loggedIn={loggedIn} log={log}/>
+            <Routes loggedIn={loggedIn} log={log} roles={roles}/>
         </div>
     );
 }

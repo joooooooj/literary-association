@@ -29,4 +29,11 @@ public class JwtAuthenticationRequest {
         this.password = password;
     }
 
+    @Override
+    public String toString() {
+        return "JwtAuthenticationRequest{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

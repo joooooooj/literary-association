@@ -36,6 +36,30 @@ public class SubscriptionRequest {
     @Column
     private String password;
 
+    @Column
+    private String merchantId;
+
+    @Column
+    private String merchantPassword;
+
+    @Column
+    private String clientId;
+
+    @Column
+    private String clientSecret;
+
+    @Column
+    private String bitcoinToken;
+
+    @Column
+    private String successUrl;
+
+    @Column
+    private String errorUrl;
+
+    @Column
+    private String failedUrl;
+
     @ManyToMany()
     @JoinTable(name = "subscription_requests_payment_methods",
             joinColumns = @JoinColumn(name = "request_id", referencedColumnName = "id"),

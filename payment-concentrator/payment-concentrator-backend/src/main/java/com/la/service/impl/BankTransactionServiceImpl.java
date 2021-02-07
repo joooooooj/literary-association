@@ -6,9 +6,18 @@ import com.la.model.*;
 import com.la.model.enums.Status;
 import com.la.repository.*;
 import com.la.service.BankTransactionService;
+import com.la.service.CipherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -24,8 +33,11 @@ public class BankTransactionServiceImpl implements BankTransactionService {
     @Autowired
     private BuyerRequestRepository buyerRequestRepository;
 
+    @Autowired
+    private CipherService cipherService;
+
     @Override
-    public BankRequestDTO createBankRequestDTO(Long buyerRequestId) {
+    public BankRequestDTO createBankRequestDTO(Long buyerRequestId) throws NoSuchPaddingException, InvalidKeyException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, InvalidKeySpecException {
         Optional<BuyerRequest> buyerRequest = buyerRequestRepository.findById(buyerRequestId);
         if (buyerRequest.isPresent()){
             SubscriberDetails subscriberDetails = buyerRequest.get().getSubscriber().getSubscriberDetails();
@@ -36,8 +48,12 @@ public class BankTransactionServiceImpl implements BankTransactionService {
                 transaction.setPaymentMethod(paymentMethodRepository.findByName("Bank"));
                 transaction.setTimestamp(LocalDateTime.now());
                 Transaction t = transactionRepository.save(transaction);
-                return new BankRequestDTO(subscriberDetails.getMerchantId(),
-                                        subscriberDetails.getMerchantPassword(),
+
+                System.err.println("MERCHANT ID : " + Long.parseLong(cipherService.decrypt(subscriberDetails.getMerchantId())));
+                System.err.println("MERCHANT PASSWORD : " + cipherService.decrypt(subscriberDetails.getMerchantPassword()));
+
+                return new BankRequestDTO(Long.parseLong(cipherService.decrypt(subscriberDetails.getMerchantId())),
+                                        cipherService.decrypt(subscriberDetails.getMerchantPassword()),
                                         transaction.getId(),
                                         transaction.getTimestamp(),
                                         buyerRequest.get().getAmount());

@@ -14,12 +14,6 @@ import java.util.Set;
 @DiscriminatorValue("SUBSCRIBER")
 public class Subscriber extends User {
 
-    @Column
-    private String clientId;
-
-    @Column
-    private String clientSecret;
-
     @OneToOne()
     @JoinColumn(name = "subscriber_details_id", referencedColumnName = "id")
     private SubscriberDetails subscriberDetails;
@@ -30,12 +24,10 @@ public class Subscriber extends User {
             inverseJoinColumns = @JoinColumn(name = "payment_method_id", referencedColumnName = "id"))
     private Set<PaymentMethod> paymentMethods;
 
-    public Subscriber(String username, String password, String email, Set<PaymentMethod> methods, String clientId, String clientSecret) {
+    public Subscriber(String username, String password, String email, Set<PaymentMethod> methods) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.paymentMethods = methods;
-        this.clientId = clientId;
-        this.clientSecret = clientSecret;
     }
 }

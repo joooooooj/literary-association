@@ -1,18 +1,3 @@
-const createRequest = (request) => {
-    console.log(JSON.stringify(request));
-    fetch("https://localhost:8081/api/auth/subscribe", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(request)
-    })
-        .then(response => response.json());
-    // .catch((error) => {
-    //     console.error("Error:", error);
-    // });
-}
-
 const getAll = () =>
     fetch("https://localhost:8081/request", {
         method: "GET",
@@ -53,7 +38,6 @@ const decline = (requestId) =>
         })
 
 const service = {
-    createRequest,
     getAll,
     approve,
     decline

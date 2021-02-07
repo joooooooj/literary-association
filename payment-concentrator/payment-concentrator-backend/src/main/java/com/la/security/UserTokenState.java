@@ -42,4 +42,13 @@ public class UserTokenState {
     public void setRoles(List<String> roles) {
         this.roles = roles;
     }
+
+    @Override
+    public String toString() {
+        return "UserTokenState{" +
+                "accessToken='" + accessToken + '\'' +
+                ", expiresIn=" + expiresIn +
+                ", roles=" + roles +
+                '}';
+    }
 }

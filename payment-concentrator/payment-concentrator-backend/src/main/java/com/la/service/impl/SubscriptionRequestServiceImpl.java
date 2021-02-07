@@ -1,5 +1,6 @@
 package com.la.service.impl;
 
+import com.la.model.SubscriberDetails;
 import com.la.model.dtos.PaymentMethodDTO;
 import com.la.model.dtos.SubscriptionRequestDTO;
 import com.la.model.mappers.SubscriptionRequestDTOMapper;
@@ -7,15 +8,29 @@ import com.la.model.PaymentMethod;
 import com.la.model.Subscriber;
 import com.la.model.SubscriptionRequest;
 import com.la.repository.RoleRepository;
+import com.la.repository.SubscriberDetailsRepository;
 import com.la.repository.SubscriptionRequestRepository;
 import com.la.repository.UserRepository;
+import com.la.service.CipherService;
 import com.la.service.SubscriptionRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.*;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.SecretKeySpec;
 import java.lang.reflect.Array;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -34,7 +49,13 @@ public class SubscriptionRequestServiceImpl implements SubscriptionRequestServic
     private SubscriptionRequestDTOMapper mapper;
 
     @Autowired
+    private SubscriberDetailsRepository subscriberDetailsRepository;
+
+    @Autowired
     private PasswordEncoder encoder;
+
+    @Autowired
+    private CipherService cipherService;
 
     @Override
     public List<SubscriptionRequest> getAll() {
@@ -42,19 +63,37 @@ public class SubscriptionRequestServiceImpl implements SubscriptionRequestServic
     }
 
     @Override
-    public Long createRequest(SubscriptionRequestDTO requestDTO) throws ParseException {
+    public Long createRequest(SubscriptionRequestDTO requestDTO) throws ParseException, NoSuchPaddingException, InvalidKeyException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, InvalidKeySpecException {
         SubscriptionRequest newRequest = new SubscriptionRequest();
+
         newRequest.setOrganizationDescription(requestDTO.getOrganizationDescription());
         newRequest.setOrganizationEmail(requestDTO.getOrganizationEmail());
         newRequest.setOrganizationName(requestDTO.getOrganizationName());
+
         newRequest.setPassword(encoder.encode(requestDTO.getPassword()));
         newRequest.setUsername(requestDTO.getUsername());
+
         Set<PaymentMethod> paymentMethods = new HashSet<>();
         for (PaymentMethodDTO dto : requestDTO.getPaymentMethods()) {
             PaymentMethod method = new PaymentMethod(dto.getId(), dto.getName());
+            if (method.getName().equals("Bank")){
+                newRequest.setMerchantId(cipherService.encrypt(requestDTO.getMerchantId()));
+                newRequest.setMerchantPassword(cipherService.encrypt(requestDTO.getMerchantPassword()));
+            }
+            else if (method.getName().equals("PayPal")){
+                newRequest.setClientId(cipherService.encrypt(requestDTO.getClientId()));
+                newRequest.setClientSecret(cipherService.encrypt(requestDTO.getClientSecret()));
+            }
+            else if (method.getName().equals("Bitcoin")){
+                newRequest.setBitcoinToken(cipherService.encrypt(requestDTO.getBitcoinToken()));
+            }
             paymentMethods.add(method);
         }
         newRequest.setPaymentMethods(paymentMethods);
+
+        newRequest.setErrorUrl(requestDTO.getErrorUrl());
+        newRequest.setFailedUrl(requestDTO.getFailedUrl());
+        newRequest.setSuccessUrl(requestDTO.getSuccessUrl());
         return (subscriptionRequestRepository.saveAndFlush(newRequest)).getId();
     }
 
@@ -66,8 +105,28 @@ public class SubscriptionRequestServiceImpl implements SubscriptionRequestServic
         // TO DO: send mail
 
         Subscriber newSubscriber = new Subscriber(request.getUsername(),
-                encoder.encode(request.getPassword()), request.getOrganizationEmail(), m, UUID.randomUUID().toString(), generatePassword(40));
+                request.getPassword(), request.getOrganizationEmail(), m);
         newSubscriber.setRoles(new HashSet<>(Collections.singletonList(roleRepository.findByName("ROLE_SUBSCRIBER"))));
+
+        SubscriberDetails subscriberDetails = new SubscriberDetails();
+        subscriberDetails.setErrorUrl(request.getErrorUrl());
+        subscriberDetails.setSuccessUrl(request.getSuccessUrl());
+        subscriberDetails.setFailedUrl(request.getFailedUrl());
+        subscriberDetails.setClientId(request.getClientId());
+        subscriberDetails.setClientSecret(request.getClientSecret());
+        subscriberDetails.setBitcoinToken(request.getBitcoinToken());
+        subscriberDetails.setMerchantId(request.getMerchantId());
+        subscriberDetails.setMerchantPassword(request.getMerchantPassword());
+        subscriberDetails.setOrganizationDescription(request.getOrganizationDescription());
+        subscriberDetails.setOrganizationName(request.getOrganizationName());
+        subscriberDetails.setOrganizationEmail(request.getOrganizationEmail());
+
+        subscriberDetails = subscriberDetailsRepository.save(subscriberDetails);
+        newSubscriber.setSubscriberDetails(subscriberDetails);
+
+        newSubscriber.setCreatedAt(LocalDateTime.now());
+        newSubscriber.setUpdatedAt(LocalDateTime.now());
+        newSubscriber.setActive(true);
 
         userRepository.save(newSubscriber);
 
@@ -82,20 +141,5 @@ public class SubscriptionRequestServiceImpl implements SubscriptionRequestServic
         } catch (Exception e) {
             return Boolean.FALSE;
         }
-    }
-
-    private String generatePassword(int length) {
-        int leftLimit = 48; // numeral '0'
-        int rightLimit = 122; // letter 'z'
-        Random random = new Random();
-
-        String generatedString = random.ints(leftLimit, rightLimit + 1)
-                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-                .limit(length)
-                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                .toString();
-
-        System.out.println(generatedString);
-        return generatedString;
     }
 }

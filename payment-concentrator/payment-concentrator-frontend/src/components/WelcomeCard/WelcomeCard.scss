@@ -7,7 +7,6 @@ $gradient: linear-gradient(140deg, rgb(219, 98, 65) 0%, rgb(229, 91, 141) 100%);
 .Alert {
   height: 70px;
   width: 500px;
-  position: absolute !important;
   left: 0;
   top: 3%;
   z-index: 10;
@@ -51,10 +50,9 @@ $gradient: linear-gradient(140deg, rgb(219, 98, 65) 0%, rgb(229, 91, 141) 100%);
 
 .Label {
   color: white;
-  text-decoration: underline;
+  font-weight: bold;
   padding-bottom: 2px;
   display: block;
-  text-align: center;
 }
 
 .InputElement {
