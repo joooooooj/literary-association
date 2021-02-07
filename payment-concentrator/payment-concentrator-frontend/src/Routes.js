@@ -5,6 +5,7 @@ import LoginComponent from "./components/Login/Login";
 import PaymentMethodsComponent from "./components/PaymentMethods/PaymentMethods";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
 import ChoosePaymentMethod from "./components/Payment/ChoosePaymentMethod";
+import SubscriberHomePage from "./components/SubscriberHomePage/SubscriberHomePage";
 
 export default function Routes(props) {
     return (<Switch>
@@ -18,5 +19,6 @@ export default function Routes(props) {
         />
         {props.loggedIn !== null ?
             <Route component={AdminDashboard} path="/dashboard" exact/> : <Redirect to="/"/>}
+        <Route component={SubscriberHomePage} path="/home" exact/>
     </Switch>);
 }
