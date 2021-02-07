@@ -25,4 +25,10 @@ public class SubscriptionRequestDTO {
 
     @NotEmpty
     private Set<PaymentMethodDTO> paymentMethods;
+
+    @NotEmpty
+    private String username;
+
+    @NotEmpty
+    private String password;
 }

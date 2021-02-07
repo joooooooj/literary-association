@@ -29,18 +29,6 @@ export default function WelcomeCard() {
         setVisible(true);
     };
 
-    const organizationNameOnChangeHandler = (value) => {
-        setRequest({...request, organizationName: value})
-    }
-
-    const organizationEmailOnChangeHandler = (value) => {
-        setRequest({...request, organizationEmail: value})
-    }
-
-    const organizationDescriptionOnChangeHandler = (value) => {
-        setRequest({...request, organizationDescription: value})
-    }
-
     function methodsOnChangeHandler(event) {
         const selectedOptions = [...event.target.selectedOptions].map(o => o.value);
         console.log(selectedOptions);
@@ -51,8 +39,9 @@ export default function WelcomeCard() {
         setRequest({...request, paymentMethods: methods});
     }
 
-    const createRequestClickHandler = () => {
-        SubscriptionRequestsService.createRequest(request).then((data) => {
+    const createRequestClickHandler = (formData) => {
+        formData.paymentMethods = request.paymentMethods;
+        SubscriptionRequestsService.createRequest(formData)?.then((data) => {
             console.log(data);
             setShowAlert(true);
             setAlertVariant('success');
@@ -92,12 +81,44 @@ export default function WelcomeCard() {
             <div className="Subscribe" hidden={!visible}>
                 <Form onSubmit={handleSubmit(createRequestClickHandler)}>
                     <Form.Group
+                        className="InputElement">
+                        <Form.Label className="Label">Username</Form.Label>
+                        <Form.Control type="text" placeholder="Enter username"
+                                      name="username" ref={register({required: true})}
+                                      isInvalid={!!errors.username}/>
+                        {errors.organizationName &&
+                        <Form.Control.Feedback type="invalid">
+                            Username is required.
+                        </Form.Control.Feedback>}
+                    </Form.Group>
+                    <Form.Group
+                        className="InputElement">
+                        <Form.Label className="Label">Password</Form.Label>
+                        <Form.Control type="password" placeholder="Enter password"
+                                      name="password"
+                                      ref={register(
+                                            {
+                                              required: {
+                                                  value: true,
+                                                  message: "Password is required."
+                                              },
+                                              pattern: {
+                                                  value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
+                                                  message: "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character!"
+                                              }
+                                          })}
+                                      isInvalid={!!errors.password}/>
+                        {errors.password &&
+                        <Form.Control.Feedback type="invalid">
+                            {errors.password.message}
+                        </Form.Control.Feedback>}
+                    </Form.Group>
+                    <Form.Group
                         className="InputElement"
                         controlId="exampleForm.ControlInput1"
                     >
                         <Form.Label className="Label">Organization name</Form.Label>
                         <Form.Control type="text" placeholder="Enter organization name"
-                                      onChange={e => organizationNameOnChangeHandler(e.target.value)}
                                       name="organizationName" ref={register({required: true})}
                                       isInvalid={!!errors.organizationName}/>
                         {errors.organizationName &&
@@ -111,7 +132,6 @@ export default function WelcomeCard() {
                     >
                         <Form.Label className="Label">Organization email</Form.Label>
                         <Form.Control type="text" placeholder="Enter organization email"
-                                      onChange={e => organizationEmailOnChangeHandler(e.target.value)}
                                       name="organizationEmail" ref={register({required: true})}
                                       isInvalid={!!errors.organizationEmail}/>
                         {errors.organizationEmail &&
@@ -150,7 +170,6 @@ export default function WelcomeCard() {
                             rows={3}
                             placeholder="Describe what you do"
                             style={{resize: "none"}}
-                            onChange={e => organizationDescriptionOnChangeHandler(e.target.value)}
                             name="organizationDescription" ref={register({required: true})}
                             isInvalid={!!errors.organizationDescription}
                         />

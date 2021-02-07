@@ -30,6 +30,12 @@ public class SubscriptionRequest {
     @NotNull
     private String organizationEmail;
 
+    @Column
+    private String username;
+
+    @Column
+    private String password;
+
     @ManyToMany()
     @JoinTable(name = "subscription_requests_payment_methods",
             joinColumns = @JoinColumn(name = "request_id", referencedColumnName = "id"),
