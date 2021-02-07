@@ -1,5 +1,6 @@
 package com.la.service.impl;
 
+import com.la.model.dtos.PaymentMethodDTO;
 import com.la.model.dtos.SubscriptionRequestDTO;
 import com.la.model.mappers.SubscriptionRequestDTOMapper;
 import com.la.model.PaymentMethod;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.*;
 
@@ -41,7 +43,19 @@ public class SubscriptionRequestServiceImpl implements SubscriptionRequestServic
 
     @Override
     public Long createRequest(SubscriptionRequestDTO requestDTO) throws ParseException {
-        return (subscriptionRequestRepository.saveAndFlush(mapper.toEntity(requestDTO))).getId();
+        SubscriptionRequest newRequest = new SubscriptionRequest();
+        newRequest.setOrganizationDescription(requestDTO.getOrganizationDescription());
+        newRequest.setOrganizationEmail(requestDTO.getOrganizationEmail());
+        newRequest.setOrganizationName(requestDTO.getOrganizationName());
+        newRequest.setPassword(encoder.encode(requestDTO.getPassword()));
+        newRequest.setUsername(requestDTO.getUsername());
+        Set<PaymentMethod> paymentMethods = new HashSet<>();
+        for (PaymentMethodDTO dto : requestDTO.getPaymentMethods()) {
+            PaymentMethod method = new PaymentMethod(dto.getId(), dto.getName());
+            paymentMethods.add(method);
+        }
+        newRequest.setPaymentMethods(paymentMethods);
+        return (subscriptionRequestRepository.saveAndFlush(newRequest)).getId();
     }
 
     @Override
@@ -51,8 +65,8 @@ public class SubscriptionRequestServiceImpl implements SubscriptionRequestServic
 
         // TO DO: send mail
 
-        Subscriber newSubscriber = new Subscriber(request.getOrganizationName().toLowerCase(),
-                encoder.encode(generatePassword(10)), request.getOrganizationEmail(), m, UUID.randomUUID().toString(), generatePassword(40));
+        Subscriber newSubscriber = new Subscriber(request.getUsername(),
+                encoder.encode(request.getPassword()), request.getOrganizationEmail(), m, UUID.randomUUID().toString(), generatePassword(40));
         newSubscriber.setRoles(new HashSet<>(Collections.singletonList(roleRepository.findByName("ROLE_SUBSCRIBER"))));
 
         userRepository.save(newSubscriber);

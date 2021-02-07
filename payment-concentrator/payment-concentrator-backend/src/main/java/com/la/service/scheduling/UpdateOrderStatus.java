@@ -38,7 +38,7 @@ public class UpdateOrderStatus {
 
     Logger logger = LoggerFactory.getLogger(UpdateOrderStatus.class);
 
-    @Scheduled(fixedRate = 10000)
+    @Scheduled(fixedRate = 86400000)
     public void checkOrderStatus() {
         List<Transaction> transactionList = transactionRepository.findByStatusAndPaymentMethod(Status.PENDING, paymentMethodRepository.findByName("Bitcoin"));
         OrderResult orderResult;

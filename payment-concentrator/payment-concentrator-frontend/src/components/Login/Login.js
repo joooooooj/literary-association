@@ -22,22 +22,31 @@ export default function LoginComponent(props) {
     }
 
     const login = () => {
+        alert(JSON.stringify({
+            username : username,
+            password : password
+        }))
+        alert(password)
         fetch("https://localhost:8081/api/auth/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({username, password}),
+            body: JSON.stringify({
+                username : username,
+                password : password
+            }),
         })
             .then(response => response.json())
             .then(data => {
+                console.error('AAA:', data);
                 // localStorage.setItem("token", data.accessToken);
                 // localStorage.setItem("roles", data.roles);
                 a(data.accessToken);
                 setRedirect(true);
             })
             .catch((error) => {
-                console.error('Error:', error);
+                console.error('AAABBB:', error);
             });
     }
 
