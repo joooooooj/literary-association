@@ -15,7 +15,7 @@ public class SubmittedWork {
     @Column
     private String path;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "request_id")
     private WriterMembershipRequest writerMembershipRequest;
 

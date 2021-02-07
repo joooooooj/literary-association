@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private UserRepository<SysUser> userRepository;
 
     @Autowired
-    IdentityService identityService;
+    private IdentityService identityService;
 
     @Override
     public SysUser findByUsername(String username) {

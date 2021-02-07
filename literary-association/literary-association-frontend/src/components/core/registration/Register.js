@@ -1,56 +1,108 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Form} from "react-bootstrap";
-import {Link} from "react-router-dom";
-import Select from "react-select";
+import CustomFormField from "../CustomFormField";
+import {useForm} from "react-hook-form";
+import CustomForm from "../CustomForm";
 
 export default function Register() {
 
-    const options = [
-        { value: "Madrid_Spain", label: "Madrid, Spain" },
-        { value: "Mahuma_Aruba", label: "Mahuma, Aruba" },
-        { value: "Toronto_Canada", label: "Toronto, Canada" }
-    ];
+
+    const {register, errors, handleSubmit} = useForm();
+    const [registerForm, setRegisterForm] = useState(null);
+
+    const [isWriter, setIsWriter] = useState(false);
+    const [isBetaReader, setIsBetaReader] = useState(false);
+
+    useEffect(() => {
+        fetch("http://localhost:8080/api/auth/registration/user-input-details", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                setRegisterForm(data);
+                console.error(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
+
+    const prepareDataForSubmit = (data) => {
+        let final = [];
+        for (let prop in data) {
+            final.push({fieldId: prop, fieldValue: data[prop]})
+        }
+        return final;
+    }
+
+    const submitFormHandler = (data, flags) => {
+        if (data.status === 400) {
+            alert('Please use different username. This one is taken.');
+            return;
+        }
+        if (flags[1]) {
+            window.location.href = '/register-beta-reader?id=' + registerForm.processInstanceId;
+        } else {
+            window.location.replace('/register-success');
+        }
+    }
+
 
     return (
         <div className="col-4 content bg-dark p-1">
             <div className="m-5 custom-form border-light border pb-5">
-                <Form className="mt-5 mb-5 w-75 pb-5">
-                    <h3 className="text-left pb-3">Registration</h3>
-                    <Form.Group controlId="name" className="text-left">
-                        <Form.Label>Name</Form.Label>
-                        <Form.Control type="text" placeholder="Enter name" />
-                    </Form.Group>
-                    <Form.Group controlId="surname" className="text-left">
-                        <Form.Label>Surname</Form.Label>
-                        <Form.Control type="text" placeholder="Enter surname" />
-                    </Form.Group>
-                    <Form.Group controlId="city_state" className="text-left">
-                        <Form.Label>City and country</Form.Label>
-                        <Select className="text-dark" options={options}/>
-                    </Form.Group>
-                    <Form.Group controlId="email" className="text-left">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" />
-                    </Form.Group>
-                    <Form.Group controlId="username" className="text-left">
-                        <Form.Label>Username</Form.Label>
-                        <Form.Control type="username" placeholder="Enter username" />
-                    </Form.Group>
-                    <Form.Group controlId="password" className="text-left">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" />
-                    </Form.Group>
-                    <Link to="/register-success">
-                        <Button variant="success" type="submit" className="float-right w-100 mt-3">
-                        I wanna be writer
-                        </Button>
-                    </Link>
-                    <Link to="/register-reader">
-                        <Button variant="primary" type="submit" className="float-right w-100 mt-3">
-                            I wanna be reader
-                        </Button>
-                    </Link>
-                </Form>
+                {registerForm &&
+                <CustomForm
+                    formFieldsDTO={registerForm}
+                    loggedIn={localStorage.getItem("token")}
+                    submittedForm={submitFormHandler}
+                    isFileForm={false}
+                    checkFlags={true}
+                    buttons={
+                        [
+                            {
+                                flagIndex: 0,
+                                hasFlag: true,
+                                variant: "success",
+                                text: "I wanna be writer"
+                            },
+                            {
+                                hasFlag: false,
+                                variant: "warning",
+                                text: "I wanna be reader"
+                            },
+                            {
+                                flagIndex: 1,
+                                hasFlag: true,
+                                variant: "primary",
+                                text: "I wanna be beta reader"
+                            }
+                        ]}/>
+                    // <Form className="mt-5 mb-5 w-75 pb-5" onSubmit={handleSubmit(submitFormHandler)}>
+                    //     <h3 className="text-left pb-3">Registration</h3>
+                    //     {registerForm.formFields.map((formField, index) => {
+                    //         return (
+                    //             <CustomFormField key={index} formField={formField} errors={errors} register={register}/>
+                    //         )
+                    //     })
+                    //     }
+                    //     <Button variant="success" type="submit" className="float-right w-100 mt-3"
+                    //             onClick={() => setIsWriter(true)}
+                    //     >
+                    //         I wanna be writer
+                    //     </Button>
+                    //     <Button variant="warning" type="submit" className="float-right w-100 mt-3">
+                    //         I wanna be reader
+                    //     </Button>
+                    //     <Button variant="primary" type="submit" className="float-right w-100 mt-3"
+                    //             onClick={() => setIsBetaReader(true)}>
+                    //         I wanna be beta reader
+                    //     </Button>
+                    // </Form>
+                }
             </div>
         </div>
     );

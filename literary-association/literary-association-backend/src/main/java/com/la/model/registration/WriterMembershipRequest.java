@@ -19,6 +19,7 @@ import java.util.Date;
 public class WriterMembershipRequest extends SysUser implements Serializable {
 
     @Column
+    @Enumerated(EnumType.STRING)
     private WriterMembershipStatus status;
 
     @Column
@@ -32,4 +33,7 @@ public class WriterMembershipRequest extends SysUser implements Serializable {
 
     @Column
     private Date submissionDeadline;
+
+    @Column
+    private Integer filesPosted;
 }

@@ -14,7 +14,7 @@ import java.util.List;
 public class CreateCamundaUsers {
 
     @Autowired
-    UserRepository userRepository;
+    UserRepository<SysUser> userRepository;
 
     @Autowired
     UserService userService;

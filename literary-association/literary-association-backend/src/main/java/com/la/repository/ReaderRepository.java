@@ -11,6 +11,7 @@ import java.util.Set;
 
 @Repository
 public interface ReaderRepository extends UserRepository<Reader> {
+    Reader findByUsername(String username);
 
     List<Reader> findByBetaIsTrueAndBetaReaderGenresContains(Genre genre);
 

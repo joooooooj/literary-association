@@ -724,15 +724,15 @@
     <bpmn:sequenceFlow id="Flow_1yx5a71" sourceRef="Event_1555jlp" targetRef="Gateway_0jfckzk" />
     <bpmn:textAnnotation id="TextAnnotation_1k2g1w1">
       <bpmn:text>- Set "genres" variable
-- Check if user already started process
-- Set "writer" variable if didn't
-- Prepare and return FormFields
-- publish/writer/form/{token} (GET)</bpmn:text>
+        - Check if user already started process
+        - Set "writer" variable if didn't
+        - Prepare and return FormFields
+        - publish/writer/form/{token} (GET)</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_0b9525l">
       <bpmn:text>- Complete this task on form submit
-- Set "publishFormValues" variable
-- publish/writer/form/{taskId} (POST)</bpmn:text>
+        - Set "publishFormValues" variable
+        - publish/writer/form/{taskId} (POST)</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_01oyvm2">
       <bpmn:text>Send plagiarism API request 3 times, if not responding end process</bpmn:text>
