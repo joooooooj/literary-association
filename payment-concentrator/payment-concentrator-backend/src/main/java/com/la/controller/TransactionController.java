@@ -32,6 +32,7 @@ public class TransactionController {
         try {
             return new ResponseEntity<>(transactionService.getAll(), HttpStatus.OK);
         } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }

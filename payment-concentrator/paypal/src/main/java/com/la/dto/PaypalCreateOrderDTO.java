@@ -1,19 +1,14 @@
 package com.la.dto;
 
+import lombok.*;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class PaypalCreateOrderDTO {
     private String orderId;
     private String redirectUrl;
-
-    public PaypalCreateOrderDTO(String orderId, String redirectUrl) {
-        this.orderId = orderId;
-        this.redirectUrl = redirectUrl;
-    }
-
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public String getRedirectUrl() {
-        return redirectUrl;
-    }
+    private Long buyerRequestId;
 }

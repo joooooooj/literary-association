@@ -102,7 +102,7 @@ public class PaymentFilter extends ZuulFilter {
             logger.info("Date : {}, A user with id {} tried to create order.", LocalDateTime.now(), paypalOrderDTO.getUserId());
             context.set("merchantOrderId", paypalOrderDTO.getMerchantOrderId());
             context.set("merchantTimestamp", paypalOrderDTO.getMerchantTimestamp());
-
+            context.set("buyerRequestId", paypalOrderDTO.getBuyerRequestId());
         }
 
         if (request.getRequestURI().contains("pay-pal/capture")) {

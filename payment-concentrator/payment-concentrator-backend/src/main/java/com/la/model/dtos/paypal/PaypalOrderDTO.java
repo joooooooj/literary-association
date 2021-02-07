@@ -12,4 +12,5 @@ public class PaypalOrderDTO {
     private Long merchantOrderId;
     private String merchantTimestamp;
     private Double amount;
+    private Long buyerRequestId;
 }

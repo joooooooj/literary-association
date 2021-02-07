@@ -2,10 +2,14 @@ package com.la.security.filters;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.io.CharStreams;
+import com.la.model.BuyerRequest;
+import com.la.model.Subscriber;
 import com.la.model.dtos.paypal.PaypalCreateOrderDTO;
 import com.la.model.enums.Status;
 import com.la.model.Transaction;
+import com.la.repository.BuyerRequestRepository;
 import com.la.repository.PaymentMethodRepository;
+import com.la.repository.SubscriberRepository;
 import com.la.repository.TransactionRepository;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
@@ -21,6 +25,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 @Component
 @CrossOrigin(value = "https://localhost:3000")
@@ -31,6 +36,12 @@ public class PostPaymentFilter extends ZuulFilter {
 
     @Autowired
     private PaymentMethodRepository paymentMethodRepository;
+
+    @Autowired
+    private SubscriberRepository subscriberRepository;
+
+    @Autowired
+    private BuyerRequestRepository buyerRequestRepository;
 
     @Override
     public String filterType() {
@@ -90,9 +101,8 @@ public class PostPaymentFilter extends ZuulFilter {
             Transaction transaction = new Transaction();
             transaction.setAcqOrderId(orderDTO.getOrderId());
             transaction.setAcqTimestamp(LocalDateTime.now());
-         //   transaction.setMerchantOrderId(Long.parseLong(context.get("merchantOrderId").toString()));
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-         //   transaction.setMerchantTimestamp(LocalDateTime.parse(context.get("merchantTimestamp").toString(), formatter));
+            transaction.setTimestamp(LocalDateTime.now());
+            transaction.setBuyerRequest(buyerRequestRepository.findById(orderDTO.getBuyerRequestId()).get());
             transaction.setStatus(Status.PENDING);
             transaction.setPaymentMethod(paymentMethodRepository.findById(2L).get());
             transactionRepository.save(transaction);
