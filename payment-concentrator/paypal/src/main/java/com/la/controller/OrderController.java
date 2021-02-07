@@ -30,6 +30,7 @@ public class OrderController {
 
     @PostMapping(value = "/create")
     public ResponseEntity<?> createOrder(@RequestBody CreateOrderDTO orderDTO) {
+        System.err.println("hehic");
         Order order = null;
         // Construct a request object and set desired parameters
         // Here, OrdersCreateRequest() creates a POST request to /v2/checkout/orders
@@ -54,10 +55,11 @@ public class OrderController {
             order.links().forEach(link -> System.out.println(link.rel() + " => " + link.method() + ":" + link.href()));
 
             return new ResponseEntity<>(new PaypalCreateOrderDTO(order.id(), order.links().get(1).href()), HttpStatus.CREATED);
-        } catch (IOException ioe) {
+        } catch (Exception ioe) {
             ioe.printStackTrace();
             return new ResponseEntity<>("Order has not been created. You must first approve payment.", HttpStatus.BAD_REQUEST);
         }
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping(value = "/capture/{id}")
@@ -125,7 +127,7 @@ public class OrderController {
 
             Credentials.client.setSSLSocketFactory(sslSocketFactory);
         } catch (Exception exception) {
-            System.out.println("Exception occured while creating restTemplate "+exception);
+            System.out.println("Exception occured while creating restTemplate " + exception);
             exception.printStackTrace();
         }
     }

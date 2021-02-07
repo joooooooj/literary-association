@@ -45,11 +45,6 @@ export default function LoginComponent(props) {
             });
     }
 
-    // const logout = () => {
-    //     a(false);
-    //     setRedirect(false);
-    // }
-
     if (redirect) {
         return <Redirect to="/dashboard"/>
     }

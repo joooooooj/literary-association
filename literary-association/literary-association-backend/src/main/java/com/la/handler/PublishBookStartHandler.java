@@ -3,6 +3,7 @@ package com.la.handler;
 import java.util.List;
 
 import com.la.model.Genre;
+import com.la.model.users.SysUser;
 import com.la.repository.UserRepository;
 import com.la.service.GenreService;
 import com.la.service.UserService;
@@ -19,7 +20,7 @@ public class PublishBookStartHandler implements ExecutionListener {
     private GenreService genreService;
 
     @Autowired
-    UserRepository userRepository;
+    UserRepository<SysUser> userRepository;
 
     @Autowired
     UserService userService;

@@ -27,7 +27,7 @@ public class AuthServiceImpl implements AuthService {
     private TokenUtils tokenUtils;
 
     @Override
-    public UserTokenState login(JwtAuthenticationRequest authenticationRequest) {
+    public UserTokenState login(JwtAuthenticationRequest authenticationRequest) throws Exception {
         final Authentication authentication = authenticationManager.
                 authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
                         authenticationRequest.getPassword()));
@@ -35,7 +35,9 @@ public class AuthServiceImpl implements AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         SysUser sysUser = (SysUser) authentication.getPrincipal();
-
+        if (!sysUser.isActive()) {
+            throw new Exception();
+        }
         List<Role> roles = new ArrayList<>(sysUser.getRoles());
         String token = tokenUtils.generateToken(sysUser.getUsername(), roles);
         int expiresIn = tokenUtils.getExpiredIn();
