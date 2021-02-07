@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @ToString
 public class OrderResult {
-
     private Long id;
     private String status;
     private String price_currency;

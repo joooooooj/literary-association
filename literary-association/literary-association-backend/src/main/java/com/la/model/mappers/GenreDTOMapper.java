@@ -1,7 +1,7 @@
 package com.la.model.mappers;
 
-import com.la.model.dtos.GenreDTO;
 import com.la.model.Genre;
+import com.la.model.dtos.GenreDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

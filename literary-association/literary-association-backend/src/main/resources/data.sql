@@ -54,11 +54,12 @@ INSERT INTO `la`.`user_roles` (`user_id`, `role_id`) VALUES ('12', '4');
 INSERT INTO `la`.`user_roles` (`user_id`, `role_id`) VALUES ('13', '4');
 INSERT INTO `la`.`user_roles` (`user_id`, `role_id`) VALUES ('14', '4');
 INSERT INTO `la`.`user_roles` (`user_id`, `role_id`) VALUES ('15', '4');
+INSERT INTO `la`.`user_roles` (`user_id`, `role_id`) VALUES ('16', '4');
 
 -- Beta readers
-INSERT INTO `la`.`user_roles` (`user_id`, `role_id`) VALUES ('16', '6');
 INSERT INTO `la`.`user_roles` (`user_id`, `role_id`) VALUES ('17', '6');
 INSERT INTO `la`.`user_roles` (`user_id`, `role_id`) VALUES ('18', '6');
+INSERT INTO `la`.`user_roles` (`user_id`, `role_id`) VALUES ('19', '6');
 
 /*permissions*/
 
@@ -77,6 +78,13 @@ INSERT INTO `la`.`user_genre` (`user_id`, `genre_id`) VALUES ('8','3');
 
 /*beta_reader_genre*/
 INSERT INTO `la`.`beta_reader_genre` (`beta_reader_id`, `genre_id`) VALUES ('8','1');
+
+INSERT INTO `la`.`beta_reader_genre` (`beta_reader_id`, `genre_id`) VALUES ('17','1');
+INSERT INTO `la`.`beta_reader_genre` (`beta_reader_id`, `genre_id`) VALUES ('17','2');
+
+INSERT INTO `la`.`beta_reader_genre` (`beta_reader_id`, `genre_id`) VALUES ('18','1');
+
+INSERT INTO `la`.`beta_reader_genre` (`beta_reader_id`, `genre_id`) VALUES ('19','2');
 
 -- Publishers
 INSERT INTO `la`.`publisher` (`city`, `name`, `password`, `state`, `username`) VALUES ('Madrid', 'Vulkan', '$2a$10$xBbFGBwJcF9H3V/s2GfcnuVpM9niJ9oVrhY6CQjrrHZJYzYA6Z5nS', 'Spain', 'vulkan');

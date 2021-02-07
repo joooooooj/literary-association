@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Table, ButtonGroup} from "react-bootstrap";
+import {Button, ButtonGroup, Table} from "react-bootstrap";
 import PreviewPDF from "../../core/modals/PreviewPDF";
 import AddCorrections from "./AddCorrections";
 
@@ -25,20 +25,19 @@ export default function CorrectionsScripts(props) {
 
     useEffect(() => {
         getRequests();
-    },[])
+    }, [])
 
     const getRequests = () => {
-        fetch("http://localhost:8080/publish/requests/" + props.loggedIn, {
+        fetch("https://localhost:8080/publish/requests/" + props.loggedIn, {
             method: "GET",
             headers: {
-                "Authorization" : "Bearer " + props.loggedIn,
+                "Authorization": "Bearer " + props.loggedIn,
                 "Content-Type": "application/json",
             },
         })
             .then(response => response.json())
             .then(data => {
                 setRequests(data);
-                console.log(data);
             })
             .catch((error) => {
                 console.log(error);
@@ -48,14 +47,14 @@ export default function CorrectionsScripts(props) {
     const [correctionForm, setCorrectionForm] = useState({});
 
     const handleNeedCorrection = (needCorrection, taskId) => {
-        fetch("http://localhost:8080/publish/lector/need-correction/" + taskId, {
+        fetch("https://localhost:8080/publish/lector/need-correction/" + taskId, {
             method: "POST",
             headers: {
-                "Authorization" : "Bearer " + props.loggedIn,
+                "Authorization": "Bearer " + props.loggedIn,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                approved : needCorrection
+                approved: needCorrection
             })
         })
             .then(response => response.json())
@@ -64,13 +63,12 @@ export default function CorrectionsScripts(props) {
                     setCorrectionForm(data);
                     handleShowCorrections();
                 }
-                console.log(data);
             })
             .catch((error) => {
                 console.log(error);
             });
 
-        if (!needCorrection){
+        if (!needCorrection) {
             window.location.reload();
         }
     }
@@ -106,17 +104,20 @@ export default function CorrectionsScripts(props) {
                                 <td>
                                     {request.publishBookRequest.synopsis}
                                 </td>
-                                <td className="text-center" style={{verticalAlign:"middle"}}>
+                                <td className="text-center" style={{verticalAlign: "middle"}}>
                                     <ButtonGroup>
-                                        <Button variant="outline-warning" onClick={() => handleNeedCorrection(true, request.taskId)}>
+                                        <Button variant="outline-warning"
+                                                onClick={() => handleNeedCorrection(true, request.taskId)}>
                                             ADD CORRECTIONS
                                         </Button>
-                                        <Button variant="outline-success" onClick={() => handleNeedCorrection(false, request.taskId)}>
+                                        <Button variant="outline-success"
+                                                className={request.taskIsForm ? "hidden" : ""}
+                                                onClick={() => handleNeedCorrection(false, request.taskId)}>
                                             SEND TO EDITOR
                                         </Button>
                                     </ButtonGroup>
                                 </td>
-                                <td className="text-center" style={{verticalAlign:"middle"}}>
+                                <td className="text-center" style={{verticalAlign: "middle"}}>
                                     <Button variant="outline-info" onClick={() => handleShowDocument(request)}>
                                         READ SCRIPT
                                     </Button>

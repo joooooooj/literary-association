@@ -4,6 +4,7 @@ import com.la.model.publish.PublishBookRequest;
 import com.la.model.users.SysUser;
 import com.la.repository.UserRepository;
 import org.camunda.bpm.engine.TaskService;
+import org.camunda.bpm.engine.delegate.BpmnError;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +24,25 @@ public class ChooseMainEditorService implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        List<SysUser> userList = userRepository.findByType("EDITOR");
-        Random rand = new Random();
-        SysUser randUser = userList.get(rand.nextInt(userList.size()));
+        try {
+            List<SysUser> userList = userRepository.findByType("EDITOR");
+            Random rand = new Random();
+            SysUser randUser = userList.get(rand.nextInt(userList.size()));
 
-        delegateExecution.setVariable("editor", randUser.getUsername());
+            if (randUser == null) {
+                throw new BpmnError("UserNotFound");
+            }
 
-        PublishBookRequest publishBookRequest = (PublishBookRequest) delegateExecution.getVariable("publishBookRequest");
-        publishBookRequest.setEditor(randUser.getUsername());
-        delegateExecution.setVariable("publishBookRequest", publishBookRequest);
+            delegateExecution.setVariable("editor", randUser.getUsername());
 
-        System.err.println("Choosen editor with ID : " + delegateExecution.getVariable("editor"));
+            PublishBookRequest publishBookRequest = (PublishBookRequest) delegateExecution.getVariable("publishBookRequest");
+            publishBookRequest.setEditor(randUser.getUsername());
+            delegateExecution.setVariable("publishBookRequest", publishBookRequest);
+
+            System.err.println("Choosen editor with ID : " + delegateExecution.getVariable("editor"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new BpmnError("UserNotFound");
+        }
     }
 }

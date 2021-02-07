@@ -9,22 +9,24 @@ export default function ChoosePaymentMethod(props) {
     const [buyerRequest, setBuyerRequest] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:8081/api/auth/buyer-request/' + props.match.params.request_id, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log(JSON.stringify(data));
-                if (data.username != null) {
-                    setBuyerRequest(data);
+        if (props?.match?.params?.token) {
+            fetch('https://localhost:8081/buyer-request/' + props?.match?.params?.request_id, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + props.match.params.token
                 }
             })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+                .then(response => response.json())
+                .then(data => {
+                    if (data.username != null) {
+                        setBuyerRequest(data);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
     }, [])
 
     const methodAllowed = (method) => {
@@ -41,18 +43,18 @@ export default function ChoosePaymentMethod(props) {
     }
 
     const handlePayWithPayPalClick = () => {
-        fetch('http://localhost:8081/pay-pal/create', {
+        fetch('https://localhost:8081/pay-pal/create', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 userId: 2,
-                merchantOrderId: buyerRequest.merchantOrderId,
-                merchantTimestamp: buyerRequest.merchantTimestamp[0] + '-' + buyerRequest.merchantTimestamp[1]
-                    + '-' + buyerRequest.merchantTimestamp[2] + ' ' + buyerRequest.merchantTimestamp[3] + ':' + buyerRequest.merchantTimestamp[4]
-                    + ':' + buyerRequest.merchantTimestamp[5] + 'Z',
-                amount: buyerRequest.amount
+                merchantOrderId: buyerRequest.buyerRequestDTO.merchantOrderId,
+                merchantTimestamp: buyerRequest.buyerRequestDTO.merchantTimestamp[0] + '-' + buyerRequest.buyerRequestDTO.merchantTimestamp[1]
+                    + '-' + buyerRequest.buyerRequestDTO.merchantTimestamp[2] + ' ' + buyerRequest.buyerRequestDTO.merchantTimestamp[3] + ':' + buyerRequest.buyerRequestDTO.merchantTimestamp[4]
+                    + ':' + buyerRequest.buyerRequestDTO.merchantTimestamp[5] + 'Z',
+                amount: buyerRequest.buyerRequestDTO.amount
             })
         })
             .then(response => response.json())
@@ -65,7 +67,7 @@ export default function ChoosePaymentMethod(props) {
     }
 
     const handleBitcoinPayment = () => {
-        fetch('http://localhost:8081/api/auth/bitcoin/transaction/' + props.match.params.request_id, {
+        fetch('https://localhost:8081/api/auth/bitcoin/transaction/' + props.match.params.request_id, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -84,7 +86,7 @@ export default function ChoosePaymentMethod(props) {
     }
 
     const handleBankPayment = () => {
-        fetch('http://localhost:8081/api/auth/bank/transaction/' + props.match.params.request_id, {
+        fetch('https://localhost:8081/api/auth/bank/transaction/' + props.match.params.request_id, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -173,8 +175,8 @@ export default function ChoosePaymentMethod(props) {
                                             paddingLeft: "20px",
                                             paddingRight: "20px",
                                             width: "100px"
-                                        }}>
-                                    onClick = {() => handleBitcoinPayment()}>
+                                            }}
+                                        onClick = {() => handleBitcoinPayment()}>
                                     Pay
                                 </Button>
                             </div>

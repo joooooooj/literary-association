@@ -14,7 +14,7 @@ export default function PreviewPDF(props) {
     useEffect(() => {
         if (props.selectedRequest) {
             console.log(props.selectedRequest)
-            fetch("http://localhost:8080/publish/download/" + props.selectedRequest.processInstanceId + "__" + props.suffix + ".pdf", {
+            fetch("https://localhost:8080/publish/download/" + props.selectedRequest.processInstanceId + ".pdf", {
                 method: "GET",
                 headers: {
                     "Authorization": "Bearer " + props.loggedIn,
@@ -43,8 +43,8 @@ export default function PreviewPDF(props) {
     const [file, setFile] = useState(null);
 
     const handleDownload = () => {
-        if (props.selectedRequest) {
-            fetch("http://localhost:8080/publish/download/" + props.selectedRequest.processInstanceId + ".pdf", {
+        if (props.selectedRequest){
+            fetch("https://localhost:8080/publish/download/" + props.selectedRequest.processInstanceId + ".pdf", {
                 method: "GET",
                 headers: {
                     "Authorization": "Bearer " + props.loggedIn,
@@ -63,8 +63,7 @@ export default function PreviewPDF(props) {
     }
 
     const handleDecision = (decision) => {
-        let response = null;
-        fetch("http://localhost:8080/publish/editor/decision/2/" + props.selectedRequest.taskId, {
+        fetch("https://localhost:8080/publish/editor/decision/2/" + props.selectedRequest.taskId, {
             method: "POST",
             headers: {
                 "Authorization": "Bearer " + props.loggedIn,
@@ -74,13 +73,15 @@ export default function PreviewPDF(props) {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
-                response = data;
+                handleClose(data, decision);
             })
             .catch((error) => {
                 console.log(error);
             });
-        handleClose(response, decision);
+
+        if (decision) {
+            handleClose(null, decision);
+        }
     }
 
     return (
@@ -90,19 +91,17 @@ export default function PreviewPDF(props) {
                     className="center-document mt-0 pt-0"
                     file={file}
                     onLoadSuccess={onDocumentLoadSuccess}>
-                    {props.selectedRequest?.publishBookRequest?.status === "WAITING_READING" &&
-                    <ButtonGroup className="mb-3 mt-2">
-                        <Button variant="success" onClick={() => {
-                            handleDecision(true)
-                        }}>
-                            APPROVE
-                        </Button>
-                        <Button variant="danger" onClick={() => {
-                            handleDecision(false)
-                        }}>
-                            REJECT
-                        </Button>
-                    </ButtonGroup>
+                    {   props.selectedRequest?.publishBookRequest?.status === "WAITING_READING" &&
+                        <ButtonGroup className="mb-3 mt-2">
+                            <Button variant="success"
+                                    className={props.selectedRequest.taskIsForm ? "hidden" : ""}
+                                    onClick={() => {handleDecision(true)}}>
+                                APPROVE
+                            </Button>
+                            <Button variant="danger" onClick={() => {handleDecision(false)}}>
+                                REJECT
+                            </Button>
+                        </ButtonGroup>
                     }
                     <div className="row controls-center mt-2">
                         <i onClick={() => setPageNumber(pageNumber > 1 ? (pageNumber - 1) : 1)}

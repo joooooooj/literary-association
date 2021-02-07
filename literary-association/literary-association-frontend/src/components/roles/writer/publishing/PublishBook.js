@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from "react";
-import Confirmation from "../../../core/modals/Confirmation";
-import {Button, Form, Table} from "react-bootstrap";
-import {useForm} from "react-hook-form";
+import {Table} from "react-bootstrap";
 import CustomForm from "../../../core/CustomForm";
 
-export default function PublishBook(props){
+export default function PublishBook(props) {
 
     const [publishBookForm, setPublishBookForm] = useState(null);
 
@@ -12,20 +10,19 @@ export default function PublishBook(props){
 
     const [status, setStatus] = useState("");
 
-    useEffect (() =>{
-        fetch("http://localhost:8080/publish/writer/form/" + props.loggedIn, {
+    useEffect(() => {
+        fetch("https://localhost:8080/publish/writer/form/" + props.loggedIn, {
             method: "GET",
             headers: {
-                "Authorization" : "Bearer " + props.loggedIn,
+                "Authorization": "Bearer " + props.loggedIn,
                 "Content-Type": "application/json",
             },
         })
             .then(response => response.json())
             .then(data => {
-                if (data.formFields){
+                if (data.formFields) {
                     setPublishBookForm(data);
-                }
-                else {
+                } else {
                     handleRequestInfo();
                 }
             })
@@ -35,29 +32,27 @@ export default function PublishBook(props){
     }, [])
 
     const handleRequestInfo = () => {
-        fetch("http://localhost:8080/publish/writer/status/" + props.loggedIn, {
+        fetch("https://localhost:8080/publish/writer/status/" + props.loggedIn, {
             method: "GET",
             headers: {
-                "Authorization" : "Bearer " + props.loggedIn,
+                "Authorization": "Bearer " + props.loggedIn,
                 "Content-Type": "application/json",
             },
         })
             .then(response => response.json())
             .then(data => {
-               setRequestInfo(data);
-                if (data.status){
+                setRequestInfo(data);
+                if (data.status) {
                     setStatus(data.status);
                     if (data.status === "WAITING_SUBMIT" ||
                         data.status === "WAITING_COMMENT_CHECK" ||
                         data.status === "WAITING_CHANGES" ||
-                        data.status === "WAITING_CORRECTION"){
+                        data.status === "WAITING_CORRECTION") {
                         getFileFormField();
                     }
-                }
-                else {
+                } else {
                     setStatus("NO STATUS");
                 }
-               console.log(data);
             })
             .catch((error) => {
                 console.log(error);
@@ -65,17 +60,16 @@ export default function PublishBook(props){
     }
 
     const getFileFormField = () => {
-        fetch("http://localhost:8080/publish/writer/form/upload/" + props.loggedIn, {
+        fetch("https://localhost:8080/publish/writer/form/upload/" + props.loggedIn, {
             method: "GET",
             headers: {
-                "Authorization" : "Bearer " + props.loggedIn,
+                "Authorization": "Bearer " + props.loggedIn,
                 "Content-Type": "application/json",
             },
         })
             .then(response => response.json())
             .then(data => {
-               console.log(data);
-               setPublishBookForm(data);
+                setPublishBookForm(data);
             })
             .catch((error) => {
                 console.log(error);
@@ -173,7 +167,7 @@ export default function PublishBook(props){
                                         </td>
                                     </tr>
                                 )
-                                })
+                            })
                             }
                             </tbody>
                         </Table>
@@ -197,78 +191,78 @@ export default function PublishBook(props){
                     Publish book
                 </h2>
                 {!status && !publishBookForm &&
-                    <>
-                        <h5 className="text-warning mt-3 mb-3">
-                            Please reload page for more info ...
-                        </h5>
-                    </>
+                <>
+                    <h5 className="text-warning mt-3 mb-3">
+                        Please reload page for more info ...
+                    </h5>
+                </>
                 }
-                {   !status && publishBookForm &&
+                {!status && publishBookForm &&
+                <CustomForm formFieldsDTO={publishBookForm}
+                            loggedIn={props.loggedIn}
+                            submittedForm={submittedForm}
+                            isFileForm={false}
+                            checkFlags={false}
+                            buttons={
+                                [
+                                    {
+                                        variant: "outline-success",
+                                        text: "SEND REQUEST"
+                                    }
+                                ]
+                            }
+                    // buttons={
+                    //     [
+                    //         {
+                    //             flagIndex: 0,
+                    //             hasFlag: true,
+                    //             variant: "outline-success",
+                    //             text:"SEND REQUEST 1"
+                    //         },
+                    //         {
+                    //             hasFlag: false,
+                    //             variant: "outline-success",
+                    //             text:"SEND REQUEST 2"
+                    //         },
+                    //         {
+                    //             flagIndex: 1,
+                    //             hasFlag: true,
+                    //             variant: "outline-success",
+                    //             text:"SEND REQUEST 3"
+                    //         }
+                    //     ]
+                />
+                }
+                {status &&
+                <>
+                    <h5 className="text-light mb-3">
+                        Title : {requestInfo?.title}
+                    </h5>
+                    <h5 className="text-light mb-3">
+                        Genre : {requestInfo?.genre}
+                    </h5>
+                    <h5 className="text-light mb-3 w-25 text-justify">
+                        Synopsis : {requestInfo?.synopsis}
+                    </h5>
+                    {status === "NO STATUS" &&
+                    <h5 className="text-warning mt-3 mb-3">
+                        Main editor is reviewing your request ...
+                    </h5>
+                    }
+                </>
+                }
+                {(status === "WAITING_SUBMIT" || status === "WAITING_COMMENT_CHECK" || status === "WAITING_CORRECTION" || status === "WAITING_CHANGES") &&
+                <>
+                    <h5 className="text-danger mb-3">
+                        Submission deadline : {requestInfo.deadline}
+                    </h5>
+                    {publishBookForm &&
                     <CustomForm formFieldsDTO={publishBookForm}
                                 loggedIn={props.loggedIn}
                                 submittedForm={submittedForm}
-                                isFileForm={false}
-                                checkFlags={false}
-                                buttons={
-                                    [
-                                        {
-                                            variant: "outline-success",
-                                            text:"SEND REQUEST"
-                                        }
-                                    ]
-                                }
-                                // buttons={
-                                //     [
-                                //         {
-                                //             flagIndex: 0,
-                                //             hasFlag: true,
-                                //             variant: "outline-success",
-                                //             text:"SEND REQUEST 1"
-                                //         },
-                                //         {
-                                //             hasFlag: false,
-                                //             variant: "outline-success",
-                                //             text:"SEND REQUEST 2"
-                                //         },
-                                //         {
-                                //             flagIndex: 1,
-                                //             hasFlag: true,
-                                //             variant: "outline-success",
-                                //             text:"SEND REQUEST 3"
-                                //         }
-                                //     ]
-                                    />
-                }
-                {status &&
-                    <>
-                        <h5 className="text-light mb-3">
-                            Title : {requestInfo?.title}
-                        </h5>
-                        <h5 className="text-light mb-3">
-                            Genre : {requestInfo?.genre}
-                        </h5>
-                        <h5 className="text-light mb-3 w-25 text-justify">
-                            Synopsis : {requestInfo?.synopsis}
-                        </h5>
-                        { status === "NO STATUS" &&
-                            <h5 className="text-warning mt-3 mb-3">
-                                Main editor is reviewing your request ...
-                            </h5>
-                        }
-                    </>
-                }
-                {   (status === "WAITING_SUBMIT" || status === "WAITING_COMMENT_CHECK" || status === "WAITING_CORRECTION" || status === "WAITING_CHANGES") &&
-                    <>
-                        <h5 className="text-danger mb-3">
-                            Submission deadline : {requestInfo.deadline}
-                        </h5>
-                        { publishBookForm &&
-                            <CustomForm formFieldsDTO={publishBookForm}
-                                        loggedIn={props.loggedIn}
-                                        submittedForm={submittedForm}
-                                        isFileForm={true}/>
-                        }
-                    </>
+                                isFileForm={true}/>
+                    }
+                </>
                 }
                 {renderStatus(status)}
             </div>

@@ -1,6 +1,5 @@
 package com.la.model.publish;
 
-import com.la.dto.FormFieldsDTO;
 import lombok.*;
 
 @NoArgsConstructor
@@ -12,4 +11,5 @@ public class RequestView {
     private String processInstanceId;
     private String taskId;
     private PublishBookRequest publishBookRequest;
+    private Boolean taskIsForm;
 }

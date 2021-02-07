@@ -13,7 +13,7 @@ export default function ChooseBetaReaders(props) {
     }
 
     return (
-        <Modal centered show={props.show} onHide={handleClose} className="choose-beta-readers">
+        <Modal centered show={props.show} onHide={handleClose} backdrop="static" className="choose-beta-readers">
             <Modal.Body className="p-5">
                 <CustomForm formFieldsDTO={props.betaReadersForm}
                             loggedIn={props.loggedIn}
@@ -24,7 +24,7 @@ export default function ChooseBetaReaders(props) {
                                 [
                                     {
                                         variant: "outline-success",
-                                        text:"DONE"
+                                        text: "DONE"
                                     }
                                 ]
                             }/>

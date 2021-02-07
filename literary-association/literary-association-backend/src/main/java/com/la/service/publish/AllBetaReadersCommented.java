@@ -7,10 +7,14 @@ import org.camunda.bpm.engine.delegate.ExecutionListener;
 
 public class AllBetaReadersCommented implements ExecutionListener {
     @Override
-    public void notify(DelegateExecution delegateExecution) throws Exception {
-        System.err.println("ALL BETA READERS COMMENTED . . .");
-        PublishBookRequest publishBookRequest = (PublishBookRequest) delegateExecution.getVariable("publishBookRequest");
-        publishBookRequest.setStatus(PublishStatus.WAITING_COMMENT_CHECK.toString());
-        delegateExecution.setVariable("publishBookRequest", publishBookRequest);
+    public void notify(DelegateExecution delegateExecution) {
+        try {
+            System.err.println("ALL BETA READERS COMMENTED . . .");
+            PublishBookRequest publishBookRequest = (PublishBookRequest) delegateExecution.getVariable("publishBookRequest");
+            publishBookRequest.setStatus(PublishStatus.WAITING_COMMENT_CHECK.toString());
+            delegateExecution.setVariable("publishBookRequest", publishBookRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
