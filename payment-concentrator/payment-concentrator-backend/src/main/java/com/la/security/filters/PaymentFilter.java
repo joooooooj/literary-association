@@ -137,7 +137,7 @@ public class PaymentFilter extends ZuulFilter {
         try {
             paypalOrderDTO = new ObjectMapper().readValue(body, PaypalOrderDTO.class);
         } catch (JsonMappingException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return null;
         }
         return paypalOrderDTO;

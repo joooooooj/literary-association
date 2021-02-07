@@ -69,7 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .authorizeRequests().antMatchers("/bitcoin/**").permitAll().and()
 
-                .authorizeRequests().antMatchers("/pay-pal/**").permitAll().and()
+                .authorizeRequests().antMatchers("/pay-pal/**/**").permitAll().and()
 
                 .authorizeRequests().antMatchers("/payPal/**").permitAll()
 

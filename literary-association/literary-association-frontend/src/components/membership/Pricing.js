@@ -1,19 +1,32 @@
 import React, {useState} from "react";
 import {Button, Card, Form} from "react-bootstrap";
-import {Link} from "react-router-dom";
 
 export default function Pricing(props) {
 
     const handlePayMembership = (id) => {
-        fetch("http://localhost:8080/api/registration/writer/pay/" + id, {
+        // fetch("http://localhost:8080/api/registration/writer/pay/" + id, {
+        //     method: "POST",
+        //     headers: {
+        //         "Authorization": "Bearer " + JSON.parse(localStorage.getItem("token")),
+        //         "Content-Type": "application/json",
+        //     },
+        // })
+        //     .then(response => response.json())
+        //     .catch(error => console.log(error));
+        fetch("https://localhost:8081/pay-pal/subscribe/1", {
             method: "POST",
             headers: {
-                "Authorization": "Bearer " + JSON.parse(localStorage.getItem("token")),
                 "Content-Type": "application/json",
             },
         })
             .then(response => response.json())
-            .catch(error => console.log(error));
+            .then(data => {
+                console.error(data);
+                window.location.replace(data.redirectUrl);
+            })
+            .catch(error => {
+                console.error(error);
+            });
     }
 
     return (
@@ -28,12 +41,10 @@ export default function Pricing(props) {
                             and
                             get a chance to buy a book with 30% discount.
                         </Card.Text>
-                        <Link to="/">
-                            <Button variant="primary" type="submit" className="w-50 mt-3"
-                                    onClick={() => handlePayMembership(1)}>
-                                Buy
-                            </Button>
-                        </Link>
+                        <Button variant="primary" type="submit" className="w-50 mt-3"
+                                onClick={() => handlePayMembership(1)}>
+                            Buy
+                        </Button>
                     </Card.Body>
                 </Card>
             </div>
@@ -47,12 +58,10 @@ export default function Pricing(props) {
                             and
                             get a chance to buy a book with 50% discount.
                         </Card.Text>
-                        <Link to="/">
-                            <Button variant="primary" type="submit" className="w-50 mt-3"
-                                    onClick={() => handlePayMembership(2)}>
-                                Buy
-                            </Button>
-                        </Link>
+                        <Button variant="primary" type="submit" className="w-50 mt-3"
+                                onClick={() => handlePayMembership(2)}>
+                            Buy
+                        </Button>
                     </Card.Body>
                 </Card>
             </div>
@@ -66,12 +75,10 @@ export default function Pricing(props) {
                             number of books per year and
                             get a chance to buy a book with 75% discount.
                         </Card.Text>
-                        <Link to="/">
-                            <Button variant="primary" type="submit" className="w-50 mt-3"
-                                    onClick={() => handlePayMembership(3)}>
-                                Buy
-                            </Button>
-                        </Link>
+                        <Button variant="primary" type="submit" className="w-50 mt-3"
+                                onClick={() => handlePayMembership(3)}>
+                            Buy
+                        </Button>
                     </Card.Body>
                 </Card>
             </div>
