@@ -8,6 +8,7 @@ export default function LoginComponent(props) {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const [redirect, setRedirect] = useState(false);
+    const [redirectSubscriber, setRedirectSubscriber] = useState(false);
 
     const usernameOnChangeHandler = (value) => {
         setUsername(value);
@@ -17,7 +18,7 @@ export default function LoginComponent(props) {
         setPassword(value);
     }
 
-    const a = (value) => {
+    const saveToken = (value) => {
         props.log(value);
     }
 
@@ -33,22 +34,25 @@ export default function LoginComponent(props) {
             .then(data => {
                 // localStorage.setItem("token", data.accessToken);
                 // localStorage.setItem("roles", data.roles);
-                a(data.accessToken);
-                setRedirect(true);
+                saveToken(data.accessToken);
+                if (data.roles[0] === 'ROLE_SUBSCRIBER') {
+                    setRedirectSubscriber(true);
+                } else {
+                    setRedirect(true);
+                }
             })
             .catch((error) => {
                 console.error('Error:', error);
             });
     }
 
-    // const logout = () => {
-    //     a(false);
-    //     setRedirect(false);
-    // }
-
     if (redirect) {
         return <Redirect to="/dashboard"/>
     }
+    if (redirectSubscriber) {
+        return <Redirect to="/home"/>
+    }
+
 
     return (
 
