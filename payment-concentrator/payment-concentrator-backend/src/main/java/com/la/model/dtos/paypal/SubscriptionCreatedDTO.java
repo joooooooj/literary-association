@@ -1,4 +1,4 @@
-package com.la.dto;
+package com.la.model.dtos.paypal;
 
 
 import lombok.*;
