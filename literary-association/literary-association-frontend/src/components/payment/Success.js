@@ -15,7 +15,10 @@ export default function Success(props) {
                     userId: 2,
                     merchantOrderId: 1,
                     merchantTimestamp: "2020-12-12 00:00:00",
-                    amount: 100
+                    amount: 100,
+                    productId: 1,
+                    buyerRequestId: 1,
+                    username: "igor"
                 })
             })
                 .then(response => response.json())
