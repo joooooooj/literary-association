@@ -49,11 +49,8 @@ public class BankTransactionServiceImpl implements BankTransactionService {
                 transaction.setTimestamp(LocalDateTime.now());
                 Transaction t = transactionRepository.save(transaction);
 
-                System.err.println("MERCHANT ID : " + Long.parseLong(cipherService.decrypt(subscriberDetails.getMerchantId())));
-                System.err.println("MERCHANT PASSWORD : " + cipherService.decrypt(subscriberDetails.getMerchantPassword()));
-
-                return new BankRequestDTO(Long.parseLong(cipherService.decrypt(subscriberDetails.getMerchantId())),
-                                        cipherService.decrypt(subscriberDetails.getMerchantPassword()),
+                return new BankRequestDTO(Long.parseLong(subscriberDetails.getMerchantId()),
+                                        subscriberDetails.getMerchantPassword(),
                                         transaction.getId(),
                                         transaction.getTimestamp(),
                                         buyerRequest.get().getAmount());
