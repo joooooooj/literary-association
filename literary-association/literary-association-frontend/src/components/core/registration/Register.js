@@ -14,7 +14,7 @@ export default function Register() {
     const [isBetaReader, setIsBetaReader] = useState(false);
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/auth/registration/user-input-details", {
+        fetch("https://localhost:8080/api/auth/registration/user-input-details", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

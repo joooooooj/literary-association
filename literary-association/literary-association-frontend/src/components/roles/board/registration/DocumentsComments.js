@@ -15,7 +15,7 @@ export default function DocumentsComments(props) {
     const [commentForm, setCommentForm] = useState(null);
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/registration/leave-comment-form/" + props.selectedRequest.processInstanceId, {
+        fetch("https://localhost:8080/api/registration/leave-comment-form/" + props.selectedRequest.processInstanceId, {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + JSON.parse(localStorage.getItem("token")),

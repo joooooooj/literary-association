@@ -18,7 +18,7 @@ export default function SubmittedWork() {
 
     useEffect(() => {
         const token = JSON.parse(localStorage.getItem("token"));
-        fetch('http://localhost:8080/api/registration/request/self/' + token, {
+        fetch('https://localhost:8080/api/registration/request/self/' + token, {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + token,
@@ -29,7 +29,7 @@ export default function SubmittedWork() {
             .then(data => {
                 setMembershipRequest(data);
 
-                fetch("http://localhost:8080/api/registration/upload-work-form", {
+                fetch("https://localhost:8080/api/registration/upload-work-form", {
                     method: "GET",
                     headers: {
                         "Authorization": "Bearer " + token,
@@ -53,7 +53,7 @@ export default function SubmittedWork() {
 
     const handleFileUpload = () => {
         const token = JSON.parse(localStorage.getItem("token"));
-        fetch('http://localhost:8080/api/registration/request/self/' + token, {
+        fetch('https://localhost:8080/api/registration/request/self/' + token, {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + token,
@@ -64,7 +64,7 @@ export default function SubmittedWork() {
             .then(data => {
                 setMembershipRequest(data);
                 setPublishWorkForm(null);
-                fetch("http://localhost:8080/api/registration/upload-work-form", {
+                fetch("https://localhost:8080/api/registration/upload-work-form", {
                     method: "GET",
                     headers: {
                         "Authorization": "Bearer " + token,

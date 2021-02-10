@@ -115,7 +115,7 @@ public class RegistrationController {
         List<FormField> formFields = taskFormData.getFormFields();
 
         return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, processInstance.getId(),
-                "http://localhost:8080/api/registration/writer-upload/", "http://localhost:8080/api/registration/upload-submitted-work/"), HttpStatus.OK);
+                "https://localhost:8080/api/registration/writer-upload/", "https://localhost:8080/api/registration/upload-submitted-work/"), HttpStatus.OK);
     }
 
     // 7.1 KORAK / SLANJE UPLOADOVANIH PDF FAJLOVA
@@ -237,7 +237,7 @@ public class RegistrationController {
         formFields.get(1).getProperties().put("options", possibleOpinionsString);
 
         return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, processInstanceId,
-                "http://localhost:8080/api/registration/board-member/leave-comment", ""), HttpStatus.OK);
+                "https://localhost:8080/api/registration/board-member/leave-comment", ""), HttpStatus.OK);
 
     }
 

@@ -7,7 +7,7 @@ export default function ActivateAccount(props) {
         const userId = route.split('?')[1].split('&')[0].split('=')[1];
         console.log('token je ' + userId);
 
-        fetch('http://localhost:8080/api/auth/registration/activate-user/' + userId, {
+        fetch('https://localhost:8080/api/auth/registration/activate-user/' + userId, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

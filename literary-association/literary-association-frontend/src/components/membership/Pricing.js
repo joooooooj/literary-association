@@ -4,29 +4,29 @@ import {Button, Card, Form} from "react-bootstrap";
 export default function Pricing(props) {
 
     const handlePayMembership = (id) => {
-        // fetch("http://localhost:8080/api/registration/writer/pay/" + id, {
-        //     method: "POST",
-        //     headers: {
-        //         "Authorization": "Bearer " + JSON.parse(localStorage.getItem("token")),
-        //         "Content-Type": "application/json",
-        //     },
-        // })
-        //     .then(response => response.json())
-        //     .catch(error => console.log(error));
-        fetch("https://localhost:8081/pay-pal/subscribe/1", {
+        fetch("https://localhost:8080/api/registration/writer/pay/" + id, {
             method: "POST",
             headers: {
+                "Authorization": "Bearer " + JSON.parse(localStorage.getItem("token")),
                 "Content-Type": "application/json",
             },
         })
             .then(response => response.json())
-            .then(data => {
-                console.error(data);
-                window.location.replace(data.redirectUrl);
-            })
-            .catch(error => {
-                console.error(error);
-            });
+            .catch(error => console.log(error));
+        // fetch("https://localhost:8081/pay-pal/subscribe/1", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        // })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         console.error(data);
+        //         window.location.replace(data.redirectUrl);
+        //     })
+        //     .catch(error => {
+        //         console.error(error);
+        //     });
     }
 
     return (

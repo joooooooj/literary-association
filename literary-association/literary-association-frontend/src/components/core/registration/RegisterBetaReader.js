@@ -20,7 +20,7 @@ export default function RegisterReader(props) {
     useEffect(() => {
         const url = window.location.href;
         const IdFromURL = url.split('?')[1].split('=')[1];
-        fetch("http://localhost:8080/api/auth/registration/reader-preferences/" + IdFromURL, {
+        fetch("https://localhost:8080/api/auth/registration/reader-preferences/" + IdFromURL, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -48,7 +48,7 @@ export default function RegisterReader(props) {
         window.location.replace('/register-success');
 
         // let final = prepareDataForSubmit(data);
-        // fetch('http://localhost:8080/api/auth/registration/reader-wanted-genres/' + wantedGenresForm.taskId, {
+        // fetch('https://localhost:8080/api/auth/registration/reader-wanted-genres/' + wantedGenresForm.taskId, {
         //     method: "POST",
         //     headers: {
         //         "Content-Type": "application/json",

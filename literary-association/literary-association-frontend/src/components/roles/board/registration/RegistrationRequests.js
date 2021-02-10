@@ -10,7 +10,7 @@ export default function RegistrationRequests() {
     const [index, setIndex] = useState(null);
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/registration/writer-submitted-work", {
+        fetch("https://localhost:8080/api/registration/writer-submitted-work", {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + JSON.parse(localStorage.getItem("token")),
@@ -37,7 +37,7 @@ export default function RegistrationRequests() {
     }
 
     const resetRequests = () => {
-        fetch("http://localhost:8080/api/registration/writer-submitted-work", {
+        fetch("https://localhost:8080/api/registration/writer-submitted-work", {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + JSON.parse(localStorage.getItem("token")),
