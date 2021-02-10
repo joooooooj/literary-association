@@ -16,11 +16,12 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
+    "react-select": "^3.1.1",
     "sass": "^1.29.0",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set HTTPS=true&&set SSL_CRT_FILE=390812a9ef5ecc23faa55163a43b21ca.crt&&set SSL_KEY_FILE=390812a9ef5ecc23faa55163a43b21ca.key&&set PORT=3001&&react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
