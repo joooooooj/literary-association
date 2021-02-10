@@ -59,7 +59,7 @@ export default function Books(props) {
                             </Card.Body>
                             <Card.Footer>
                                 <h3 className="text-danger mb-5">{book?.price} $</h3>
-                                <Button variant="outline-danger" className="w-100" onClick={() => showBookDetails(book)}>
+                                <Button variant="danger" className="w-100" onClick={() => showBookDetails(book)}>
                                     SHOW MORE DETAILS
                                 </Button>
                             </Card.Footer>

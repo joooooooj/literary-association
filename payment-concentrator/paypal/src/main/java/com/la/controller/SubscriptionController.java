@@ -80,7 +80,7 @@ public class SubscriptionController {
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Accept", "*/*");
         headers.set("Accept-Language", "en_US");
-        headers.set("Authorization", "Bearer " + "A21AAK6UHoOtGMCFTTdVGet8NPwtbmgRdhYp-P8RtdvImm6KcTGaue876K9E4qCvScVfwU_RFr2MoKh5FAPL_hK8zUdBNUwcg");
+        headers.set("Authorization", "Bearer " + "A21AAJ-vITXvBRHVmBsgxxJzCJEd5Y4RRpmobHFgPwv_N6MfxlGsgWe-BspoSVHgTsGb1LDe7bdiV31YRO9jWJzx9rug1TzcQ");
         headers.set("PayPal-Request-Id", "PROD-9H810166MU5400145");
         HttpEntity<String> entity = new HttpEntity<String>(defJson, headers);
 
@@ -95,7 +95,7 @@ public class SubscriptionController {
         headers2.setContentType(MediaType.APPLICATION_JSON);
         headers2.set("Accept", "*/*");
         headers2.set("Accept-Language", "en_US");
-        headers2.set("Authorization", "Bearer " + "A21AAK6UHoOtGMCFTTdVGet8NPwtbmgRdhYp-P8RtdvImm6KcTGaue876K9E4qCvScVfwU_RFr2MoKh5FAPL_hK8zUdBNUwcg");
+        headers2.set("Authorization", "Bearer " + "A21AAJ-vITXvBRHVmBsgxxJzCJEd5Y4RRpmobHFgPwv_N6MfxlGsgWe-BspoSVHgTsGb1LDe7bdiV31YRO9jWJzx9rug1TzcQ");
         headers2.set("PayPal-Request-Id", "SUBSCRIPTION-21092019-001");
         HttpEntity<String> entity2 = new HttpEntity<String>(defJsonForSub, headers2);
         String jsonResponseForSub = restTemplate.postForObject(subscriptionUrl, entity2, String.class);

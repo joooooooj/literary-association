@@ -31,7 +31,7 @@ export default function Pricing(props) {
                     body: JSON.stringify({
                         productId: id,
                         merchantOrderId: data.orderId,
-                        amount: data.amout,
+                        amount: data.amount,
                         username: data.username,
                         userId: 2,
                         buyerRequestId: 1,
