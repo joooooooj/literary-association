@@ -1,18 +1,15 @@
-package com.la.model.dtos.paypal;
+package com.la.dto;
 
 import lombok.*;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-public class PaypalOrderDTO {
+public class CreateSubscriptionDTO {
     private Long productId;
-    private Long userId;
     private Long merchantOrderId;
-    private String merchantTimestamp;
     private Double amount;
-    private Long buyerRequestId;
     private String username;
 }

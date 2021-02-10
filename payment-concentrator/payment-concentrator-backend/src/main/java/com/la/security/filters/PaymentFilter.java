@@ -110,6 +110,10 @@ public class PaymentFilter extends ZuulFilter {
             context.set("orderId", request.getRequestURI().split("/")[3]);
         }
 
+        if (request.getRequestURI().contains("pay-pal/subscribe")) {
+            context.set("merchantOrderId", paypalOrderDTO.getMerchantOrderId());
+        }
+
 
         return null;
     }
@@ -136,6 +140,8 @@ public class PaymentFilter extends ZuulFilter {
         PaypalOrderDTO paypalOrderDTO = null;
         try {
             paypalOrderDTO = new ObjectMapper().readValue(body, PaypalOrderDTO.class);
+            System.out.println("kad parsira telo");
+            System.out.println(paypalOrderDTO);
         } catch (JsonMappingException e) {
 //            e.printStackTrace();
             return null;

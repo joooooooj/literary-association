@@ -33,4 +33,7 @@ public class BuyerRequest {
     @Column
     private float amount;
 
+    @Column
+    private String description;
+
 }

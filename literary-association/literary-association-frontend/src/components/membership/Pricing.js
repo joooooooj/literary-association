@@ -4,30 +4,52 @@ import {Button, Card, Form} from "react-bootstrap";
 export default function Pricing(props) {
 
     const handlePayMembership = (id) => {
-        fetch("https://localhost:8080/api/registration/writer/pay/" + id, {
-            method: "POST",
-            headers: {
-                "Authorization": "Bearer " + JSON.parse(localStorage.getItem("token")),
-                "Content-Type": "application/json",
-            },
-        })
-            .then(response => response.json())
-            .catch(error => console.log(error));
-        // fetch("https://localhost:8081/pay-pal/subscribe/1", {
+        // fetch("http://localhost:8080/api/registration/writer/pay/" + id, {
         //     method: "POST",
         //     headers: {
+        //         "Authorization": "Bearer " + JSON.parse(localStorage.getItem("token")),
         //         "Content-Type": "application/json",
         //     },
         // })
         //     .then(response => response.json())
-        //     .then(data => {
-        //         console.error(data);
-        //         window.location.replace(data.redirectUrl);
-        //     })
-        //     .catch(error => {
-        //         console.error(error);
-        //     });
+        //     .catch(error => console.log(error));
+
+        fetch("https://localhost:8080/api/auth/purchase-membership/" + id, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + JSON.parse(localStorage.getItem("token")),
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                fetch("https://localhost:8081/pay-pal/subscribe", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        productId: id,
+                        merchantOrderId: data.orderId,
+                        amount: data.amout,
+                        username: data.username,
+                        userId: 2,
+                        buyerRequestId: 1,
+                        merchantTimestamp: "2020-12-12 00:00:00",
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data2 => {
+                        console.error(data2);
+                        window.location.replace(data2.redirectUrl);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            })
+            .catch(error => console.log(error));
     }
+
 
     return (
         <div className="row ml-5 pricing">
