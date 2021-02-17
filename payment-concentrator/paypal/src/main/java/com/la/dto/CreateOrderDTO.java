@@ -1,10 +1,16 @@
 package com.la.dto;
 
+import lombok.*;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class CreateOrderDTO {
+    private Long userId;
+    private Long merchantOrderId;
+    private String merchantTimestamp;
     private Double amount;
-
-    public Double getAmount() {
-        return amount;
-    }
-
+    private Long buyerRequestId;
 }

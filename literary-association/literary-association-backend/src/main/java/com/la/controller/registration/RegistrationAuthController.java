@@ -45,7 +45,7 @@ public class RegistrationAuthController {
     @Autowired
     private IdentityService identityService;
 
-    private static String submitFormUrl = "http://localhost:8080/api/auth/registration/";
+    private static String submitFormUrl = "https://localhost:8080/api/auth/registration/";
 
 
     // 1. KORAK / DOBAVLJANJE FORME REGISTRACIJE SA ZANROVIMA
@@ -66,7 +66,7 @@ public class RegistrationAuthController {
 
         formFields.get(6).getProperties().put("options", genresString);
 
-        String submitFormUrl = "http://localhost:8080/api/auth/registration";
+        String submitFormUrl = "https://localhost:8080/api/auth/registration";
         return new ResponseEntity<>(new FormFieldsDTO(task.getId(), formFields, processInstance.getId(), submitFormUrl, ""), HttpStatus.OK);
     }
 

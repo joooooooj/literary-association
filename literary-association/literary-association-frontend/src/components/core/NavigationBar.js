@@ -8,7 +8,8 @@ export default function NavigationBar(props){
 
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="mb-5">
-            <Navbar.Brand href="#home">Books & Beyond</Navbar.Brand>
+            {/*<Navbar.Brand href="#home"o>Books & Beyond</Navbar.Brand>*/}
+            <Navbar.Brand href="#home"o>Bookies</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">

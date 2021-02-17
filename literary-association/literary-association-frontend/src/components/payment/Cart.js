@@ -51,7 +51,8 @@ export default function Cart(props) {
             body:
                 JSON.stringify({
                     amount: amount,
-                    bookList: cartItemsIds
+                    bookList: cartItemsIds,
+                    username: "vulkan"
                 })
         })
             .then(response => response.json())

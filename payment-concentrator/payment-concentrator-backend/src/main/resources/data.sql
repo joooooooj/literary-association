@@ -59,7 +59,7 @@ INSERT INTO `paymentconcentrator`.`subscription_requests_payment_methods` (`requ
 
 -- ############## Inserting generic subscriber ###################### --
 INSERT INTO `paymentconcentrator`.`subscriber_details` (`id`, `merchant_error_url`, `merchant_failed_url`, `merchant_id`, `merchant_password`, `merchant_success_url`) VALUES ('1', 'https://localhost:3000/error', 'https://localhost:3000/failed', '1', '$2a$10$perBHa7ac8GAUllOFTH46elUbG6ZLjs6VJFOu2mqm.knQLDIM8Asm', 'https://localhost:3000/success');
-INSERT INTO `paymentconcentrator`.`subscriber_details` (`id`, `merchant_error_url`, `merchant_failed_url`, `merchant_id`, `merchant_password`, `merchant_success_url`) VALUES ('2', 'https://localhost:3000/error', 'https://localhost:3000/failed', '2', '$2a$10$perBHa7ac8GAUllOFTH46elUbG6ZLjs6VJFOu2mqm.knQLDIM8Asm', 'https://localhost:3000/success');
+INSERT INTO `paymentconcentrator`.`subscriber_details` (`id`, `merchant_error_url`, `merchant_failed_url`, `merchant_id`, `merchant_password`, `merchant_success_url`) VALUES ('2', 'https://localhost:3003/error', 'https://localhost:3003/failed', '2', '$2a$10$perBHa7ac8GAUllOFTH46elUbG6ZLjs6VJFOu2mqm.knQLDIM8Asm', 'https://localhost:3003/success');
 
 INSERT INTO `paymentconcentrator`.`users` (`type`, `id`, `email`, `password`, `username`, `subscriber_details_id`, `active`, `attempts`) VALUES ('SUBSCRIBER', '2', 'vulkan@gmail.com', '$2a$10$perBHa7ac8GAUllOFTH46elUbG6ZLjs6VJFOu2mqm.knQLDIM8Asm', 'vulkan', '1', true, 0);
 INSERT INTO `paymentconcentrator`.`users` (`type`, `id`, `email`, `password`, `username`, `subscriber_details_id`, `active` , `attempts`) VALUES ('SUBSCRIBER', '3', 'delfi@gmail.com', '$2a$10$perBHa7ac8GAUllOFTH46elUbG6ZLjs6VJFOu2mqm.knQLDIM8Asm', 'delfi', '2', true, 0);
@@ -70,4 +70,4 @@ INSERT INTO `paymentconcentrator`.`user_roles` (`user_id`, `role_id`) VALUES ('3
 INSERT INTO `paymentconcentrator`.`subscriptions` (`subscriber_id`, `payment_method_id`) VALUES ('2','1');
 INSERT INTO `paymentconcentrator`.`subscriptions` (`subscriber_id`, `payment_method_id`) VALUES ('2','2');
 INSERT INTO `paymentconcentrator`.`subscriptions` (`subscriber_id`, `payment_method_id`) VALUES ('2','3');
-INSERT INTO `paymentconcentrator`.`subscriptions` (`subscriber_id`, `payment_method_id`) VALUES ('3','1');
+INSERT INTO `paymentconcentrator`.`subscriptions` (`subscriber_id`, `payment_method_id`) VALUES ('3','3');
