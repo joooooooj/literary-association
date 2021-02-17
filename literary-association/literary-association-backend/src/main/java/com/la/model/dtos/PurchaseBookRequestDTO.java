@@ -12,4 +12,5 @@ import java.util.List;
 public class PurchaseBookRequestDTO {
     private Double amount;
     private List<Long> bookList;
+    private String username;
 }
