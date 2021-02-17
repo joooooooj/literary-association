@@ -36,7 +36,7 @@ public class OrderController {
         // Here, OrdersCreateRequest() creates a POST request to /v2/checkout/orders
         OrderRequest orderRequest = new OrderRequest();
         orderRequest.checkoutPaymentIntent("CAPTURE");
-        orderRequest.applicationContext(new ApplicationContext().returnUrl("https://localhost:3000/success"));
+        orderRequest.applicationContext(new ApplicationContext().returnUrl("https://localhost:3000/success/" + orderDTO.getMerchantOrderId()));
         List<PurchaseUnitRequest> purchaseUnits = new ArrayList<>();
         purchaseUnits
                 .add(new PurchaseUnitRequest().amountWithBreakdown
@@ -54,7 +54,7 @@ public class OrderController {
             System.out.println("Order ID: " + order.id());
             order.links().forEach(link -> System.out.println(link.rel() + " => " + link.method() + ":" + link.href()));
 
-            return new ResponseEntity<>(new PaypalCreateOrderDTO(order.id(), order.links().get(1).href()), HttpStatus.CREATED);
+            return new ResponseEntity<>(new PaypalCreateOrderDTO(order.id(), order.links().get(1).href(), orderDTO.getBuyerRequestId()), HttpStatus.CREATED);
         } catch (Exception ioe) {
             ioe.printStackTrace();
             return new ResponseEntity<>("Order has not been created. You must first approve payment.", HttpStatus.BAD_REQUEST);
@@ -78,7 +78,7 @@ public class OrderController {
             order.purchaseUnits().get(0).payments().captures().get(0).links()
                     .forEach(link -> System.out.println(link.rel() + " => " + link.method() + ":" + link.href()));
 
-            return new ResponseEntity<>(new PaypalCreateOrderDTO(orderId, order.links().get(0).href()), HttpStatus.CREATED);
+            return new ResponseEntity<>(new PaypalCreateOrderDTO(orderId, order.links().get(0).href(), null), HttpStatus.CREATED);
         } catch (IOException ioe) {
             ioe.printStackTrace();
             return new ResponseEntity<>("Order has not been captured.", HttpStatus.BAD_REQUEST);
@@ -101,35 +101,4 @@ public class OrderController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-
-    private void setClientSSL() {
-        KeyStore keyStore;
-
-        try {
-            keyStore = KeyStore.getInstance("jks");
-            ClassPathResource classPathResource = new ClassPathResource("paypal-ms.jks");
-            InputStream inputStream = classPathResource.getInputStream();
-            keyStore.load(inputStream, "123456".toCharArray());
-
-            KeyManagerFactory kmf = KeyManagerFactory.getInstance(
-                    KeyManagerFactory.getDefaultAlgorithm());
-            kmf.init(keyStore, "123456".toCharArray());
-            KeyManager[] keyManagers = kmf.getKeyManagers();
-
-            TrustManagerFactory tmfactory = TrustManagerFactory.getInstance(
-                    TrustManagerFactory.getDefaultAlgorithm());
-            tmfactory.init(keyStore);
-            TrustManager[] trustManagers = tmfactory.getTrustManagers();
-
-            SSLContext sslContext = SSLContext.getInstance("TLS");
-            sslContext.init(keyManagers, trustManagers, null);
-            SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
-
-            Credentials.client.setSSLSocketFactory(sslSocketFactory);
-        } catch (Exception exception) {
-            System.out.println("Exception occured while creating restTemplate " + exception);
-            exception.printStackTrace();
-        }
-    }
-
 }

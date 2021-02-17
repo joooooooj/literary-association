@@ -76,7 +76,7 @@ public class PurchaseBookRequestServiceImpl implements PurchaseBookRequestServic
 //        request.setReader(reader);
         purchaseBookRequestRepository.saveAndFlush(request);
 
-        JwtAuthenticationRequest jwtAuthenticationRequest = new JwtAuthenticationRequest(username, password);
+        JwtAuthenticationRequest jwtAuthenticationRequest = new JwtAuthenticationRequest(purchaseBookRequestDTO.getUsername(), password);
 
         UserTokenState userTokenState = restTemplate.exchange("https://localhost:8081/api/auth/login",
                 HttpMethod.POST, new HttpEntity<>(jwtAuthenticationRequest), new ParameterizedTypeReference<UserTokenState>() {}).getBody();

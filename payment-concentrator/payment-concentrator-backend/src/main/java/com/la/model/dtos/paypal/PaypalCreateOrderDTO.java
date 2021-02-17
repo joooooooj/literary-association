@@ -10,4 +10,5 @@ import lombok.*;
 public class PaypalCreateOrderDTO {
     private String orderId;
     private String redirectUrl;
+    private Long buyerRequestId;
 }

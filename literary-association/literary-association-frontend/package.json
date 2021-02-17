@@ -22,7 +22,7 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "set HTTPS=true&&set SSL_CRT_FILE=54bbe8542618e93a474c4e38a51dca6b.crt&&set SSL_KEY_FILE=54bbe8542618e93a474c4e38a51dca6b.key&&react-scripts start",
+    "start": "set HTTPS=true&&set SSL_CRT_FILE=54bbe8542618e93a474c4e38a51dca6b.crt&&set SSL_KEY_FILE=54bbe8542618e93a474c4e38a51dca6b.key&&set PORT=3000&&react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

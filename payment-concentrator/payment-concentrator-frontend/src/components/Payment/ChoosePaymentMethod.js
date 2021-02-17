@@ -43,6 +43,7 @@ export default function ChoosePaymentMethod(props) {
     }
 
     const handlePayWithPayPalClick = () => {
+        // alert(props.match.params.request_id)
         fetch('https://localhost:8081/pay-pal/create', {
             method: 'POST',
             headers: {
@@ -54,7 +55,8 @@ export default function ChoosePaymentMethod(props) {
                 merchantTimestamp: buyerRequest.buyerRequestDTO.merchantTimestamp[0] + '-' + buyerRequest.buyerRequestDTO.merchantTimestamp[1]
                     + '-' + buyerRequest.buyerRequestDTO.merchantTimestamp[2] + ' ' + buyerRequest.buyerRequestDTO.merchantTimestamp[3] + ':' + buyerRequest.buyerRequestDTO.merchantTimestamp[4]
                     + ':' + buyerRequest.buyerRequestDTO.merchantTimestamp[5] + 'Z',
-                amount: buyerRequest.buyerRequestDTO.amount
+                amount: buyerRequest.buyerRequestDTO.amount,
+                buyerRequestId: props.match.params.request_id
             })
         })
             .then(response => response.json())

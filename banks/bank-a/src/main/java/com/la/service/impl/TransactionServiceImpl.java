@@ -110,7 +110,7 @@ public class TransactionServiceImpl implements TransactionService {
                     transaction.setPayment(payment);
                     transaction.setIssuerTimestamp(null);
                     transaction.setIssuerOrderId(null);
-                    transactionRepository.save(transaction);
+                    transaction = transactionRepository.save(transaction);
                     return new BankResponseDTO(payment.getMerchantOrderId(), transaction.getId(),
                             transaction.getTimestamp(),paymentId, Status.ERROR);
                 } else if (pccResponseDTO.getStatus().equals(Status.FAILED)) {
@@ -119,7 +119,7 @@ public class TransactionServiceImpl implements TransactionService {
                     transaction.setPayment(payment);
                     transaction.setIssuerTimestamp(pccResponseDTO.getIssuerTimestamp());
                     transaction.setIssuerOrderId(pccResponseDTO.getIssuerOrderId());
-                    transactionRepository.save(transaction);
+                    transaction = transactionRepository.save(transaction);
                     return new BankResponseDTO(payment.getMerchantOrderId(), transaction.getId(),
                             transaction.getTimestamp(),paymentId, Status.FAILED);
                 }
@@ -136,7 +136,7 @@ public class TransactionServiceImpl implements TransactionService {
             transaction.setIssuerOrderId(null);
             transaction.setIssuerTimestamp(null);
             transaction.setTimestamp(LocalDateTime.now());
-            transactionRepository.save(transaction);
+            transaction = transactionRepository.save(transaction);
         } catch (OperationsException e) {
             transaction.setAccount(account);
             transaction.setPayment(payment);
@@ -144,7 +144,7 @@ public class TransactionServiceImpl implements TransactionService {
             transaction.setIssuerOrderId(null);
             transaction.setIssuerTimestamp(null);
             transaction.setTimestamp(LocalDateTime.now());
-            transactionRepository.save(transaction);
+            transaction = transactionRepository.save(transaction);
             return new BankResponseDTO(payment.getMerchantOrderId(), transaction.getId(),
                     transaction.getTimestamp(),paymentId, Status.FAILED);
         } catch (ValidationException | IndexOutOfBoundsException e) {
@@ -153,14 +153,14 @@ public class TransactionServiceImpl implements TransactionService {
             transaction.setPayment(payment);
             transaction.setIssuerTimestamp(null);
             transaction.setIssuerOrderId(null);
-            transactionRepository.save(transaction);
+            transaction = transactionRepository.save(transaction);
             return new BankResponseDTO(payment.getMerchantOrderId(), transaction.getId(),
                     transaction.getTimestamp(),paymentId, Status.ERROR);
         } catch (Exception e) {
             e.printStackTrace();
             transaction.setTimestamp(LocalDateTime.now());
             transaction.setStatus(Status.ERROR);
-            transactionRepository.save(transaction);
+            transaction = transactionRepository.save(transaction);
             return new BankResponseDTO(null, transaction.getId(),
                     transaction.getTimestamp(),paymentId, Status.ERROR);
         }
@@ -203,7 +203,7 @@ public class TransactionServiceImpl implements TransactionService {
         transaction.setIssuerOrderId(null);
         transaction.setIssuerTimestamp(null);
         transaction.setPayment(null); //amount
-        this.transactionRepository.save(transaction);
+        transaction = transactionRepository.save(transaction);
 
         pccResponseDTO.setIssuerTimestamp(LocalDateTime.now());
         pccResponseDTO.setIssuerOrderId(transaction.getId());
@@ -212,14 +212,14 @@ public class TransactionServiceImpl implements TransactionService {
 
         if (account.getBalance() < pccRequestDTO.getAmount()) {
             transaction.setStatus(Status.FAILED);
-            this.transactionRepository.save(transaction);
+            transaction = transactionRepository.save(transaction);
             pccResponseDTO.setStatus(Status.FAILED);
         } else {
             transaction.setStatus(Status.SUCCESS);
-            this.transactionRepository.save(transaction);
+            transaction = transactionRepository.save(transaction);
             pccResponseDTO.setStatus(Status.SUCCESS);
             account.setBalance(account.getBalance() - pccRequestDTO.getAmount());
-            this.accountRepository.save(account);
+            accountRepository.save(account);
         }
         return pccResponseDTO;
     }

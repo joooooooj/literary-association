@@ -1,0 +1,149 @@
+10-02-2021 15:52:05.826 INFO  [main] com.la.BankAApp - No active profile set, falling back to default profiles: default
+10-02-2021 15:52:07.017 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+10-02-2021 15:52:07.179 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 147ms. Found 6 JPA repository interfaces.
+10-02-2021 15:52:07.650 INFO  [main] o.s.cloud.context.scope.GenericScope - BeanFactory id=4b2ea3de-e550-387d-a61e-a57c6153ca18
+10-02-2021 15:52:07.790 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'com.la.controller.feigns.PaymentConcetratorFeignClient' of type [org.springframework.cloud.openfeign.FeignClientFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+10-02-2021 15:52:08.188 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8084 (https)
+10-02-2021 15:52:08.199 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["https-jsse-nio-8084"]
+10-02-2021 15:52:08.200 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+10-02-2021 15:52:08.201 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.33]
+10-02-2021 15:52:08.403 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+10-02-2021 15:52:08.403 INFO  [main] o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2541 ms
+10-02-2021 15:52:08.591 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+10-02-2021 15:52:08.673 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.12.Final
+10-02-2021 15:52:08.810 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+10-02-2021 15:52:08.929 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+10-02-2021 15:52:09.090 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+10-02-2021 15:52:09.105 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+10-02-2021 15:52:12.835 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+10-02-2021 15:52:12.844 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+10-02-2021 15:52:14.186 INFO  [main] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+10-02-2021 15:52:14.193 INFO  [main] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+10-02-2021 15:52:15.271 INFO  [main] o.s.c.n.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
+10-02-2021 15:52:15.339 INFO  [main] c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
+10-02-2021 15:52:15.422 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using JSON encoding codec LegacyJacksonJson
+10-02-2021 15:52:15.423 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using JSON decoding codec LegacyJacksonJson
+10-02-2021 15:52:15.627 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using XML encoding codec XStreamXml
+10-02-2021 15:52:15.628 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using XML decoding codec XStreamXml
+10-02-2021 15:52:16.073 INFO  [main] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+10-02-2021 15:52:16.122 INFO  [main] c.netflix.discovery.DiscoveryClient - Disable delta property : false
+10-02-2021 15:52:16.122 INFO  [main] c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+10-02-2021 15:52:16.122 INFO  [main] c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+10-02-2021 15:52:16.122 INFO  [main] c.netflix.discovery.DiscoveryClient - Application is null : false
+10-02-2021 15:52:16.123 INFO  [main] c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+10-02-2021 15:52:16.123 INFO  [main] c.netflix.discovery.DiscoveryClient - Application version is -1: true
+10-02-2021 15:52:16.123 INFO  [main] c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+10-02-2021 15:52:16.288 INFO  [main] c.netflix.discovery.DiscoveryClient - The response status is 200
+10-02-2021 15:52:16.296 INFO  [main] c.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
+10-02-2021 15:52:16.306 INFO  [main] c.n.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
+10-02-2021 15:52:16.324 INFO  [main] c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1612968736322 with initial instances count: 1
+10-02-2021 15:52:16.327 INFO  [main] o.s.c.n.e.s.EurekaServiceRegistry - Registering application BANK-A with eureka with status UP
+10-02-2021 15:52:16.328 INFO  [main] c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1612968736328, current=UP, previous=STARTING]
+10-02-2021 15:52:16.330 INFO  [DiscoveryClient-InstanceInfoReplicator-0] c.netflix.discovery.DiscoveryClient - DiscoveryClient_BANK-A/DESKTOP-S8EDMMJ.mshome.net:bank-a:8084: registering service...
+10-02-2021 15:52:16.349 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["https-jsse-nio-8084"]
+10-02-2021 15:52:16.391 INFO  [DiscoveryClient-InstanceInfoReplicator-0] c.netflix.discovery.DiscoveryClient - DiscoveryClient_BANK-A/DESKTOP-S8EDMMJ.mshome.net:bank-a:8084 - registration status: 204
+10-02-2021 15:52:16.503 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8084 (https) with context path ''
+10-02-2021 15:52:16.505 INFO  [main] o.s.c.n.e.s.EurekaAutoServiceRegistration - Updating port to 8084
+10-02-2021 15:52:16.925 INFO  [main] com.la.BankAApp - Started BankAApp in 14.511 seconds (JVM running for 16.547)
+10-02-2021 15:57:16.129 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+10-02-2021 16:02:16.134 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+10-02-2021 16:06:42.125 INFO  [https-jsse-nio-8084-exec-6] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+10-02-2021 16:06:42.127 INFO  [https-jsse-nio-8084-exec-6] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+10-02-2021 16:06:42.158 INFO  [https-jsse-nio-8084-exec-6] o.s.web.servlet.DispatcherServlet - Completed initialization in 31 ms
+10-02-2021 16:07:03.551 INFO  [https-jsse-nio-8084-exec-8] c.n.config.ChainedDynamicProperty - Flipping property: pcc.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+10-02-2021 16:07:03.590 INFO  [https-jsse-nio-8084-exec-8] c.n.u.c.ShutdownEnabledTimer - Shutdown hook installed for: NFLoadBalancer-PingTimer-pcc
+10-02-2021 16:07:03.591 INFO  [https-jsse-nio-8084-exec-8] c.n.loadbalancer.BaseLoadBalancer - Client: pcc instantiated a LoadBalancer: DynamicServerListLoadBalancer:{NFLoadBalancer:name=pcc,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:null
+10-02-2021 16:07:03.606 INFO  [https-jsse-nio-8084-exec-8] c.n.l.DynamicServerListLoadBalancer - Using serverListUpdater PollingServerListUpdater
+10-02-2021 16:07:03.642 INFO  [https-jsse-nio-8084-exec-8] c.n.config.ChainedDynamicProperty - Flipping property: pcc.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+10-02-2021 16:07:03.648 INFO  [https-jsse-nio-8084-exec-8] c.n.l.DynamicServerListLoadBalancer - DynamicServerListLoadBalancer for client pcc initialized: DynamicServerListLoadBalancer:{NFLoadBalancer:name=pcc,current list of Servers=[192.168.21.33:8086],Load balancer stats=Zone stats: {defaultzone=[Zone:defaultzone;	Instance count:1;	Active connections count: 0;	Circuit breaker tripped count: 0;	Active connections per server: 0.0;]
+},Server stats: [[Server:192.168.21.33:8086;	Zone:defaultZone;	Total Requests:0;	Successive connection failure:0;	Total blackout seconds:0;	Last connection made:Thu Jan 01 01:00:00 CET 1970;	First connection made: Thu Jan 01 01:00:00 CET 1970;	Active Connections:0;	total failure count in last (1000) msecs:0;	average resp time:0.0;	90 percentile resp time:0.0;	95 percentile resp time:0.0;	min resp time:0.0;	max resp time:0.0;	stddev resp time:0.0]
+]}ServerList:org.springframework.cloud.netflix.ribbon.eureka.DomainExtractingServerList@28aaa274
+10-02-2021 16:07:04.611 INFO  [PollingServerListUpdater-0] c.n.config.ChainedDynamicProperty - Flipping property: pcc.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+10-02-2021 16:07:08.457 INFO  [https-jsse-nio-8084-exec-8] c.n.config.ChainedDynamicProperty - Flipping property: zuul-api-gateway.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+10-02-2021 16:07:08.464 INFO  [https-jsse-nio-8084-exec-8] c.n.u.c.ShutdownEnabledTimer - Shutdown hook installed for: NFLoadBalancer-PingTimer-zuul-api-gateway
+10-02-2021 16:07:08.466 INFO  [https-jsse-nio-8084-exec-8] c.n.loadbalancer.BaseLoadBalancer - Client: zuul-api-gateway instantiated a LoadBalancer: DynamicServerListLoadBalancer:{NFLoadBalancer:name=zuul-api-gateway,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:null
+10-02-2021 16:07:08.488 INFO  [https-jsse-nio-8084-exec-8] c.n.l.DynamicServerListLoadBalancer - Using serverListUpdater PollingServerListUpdater
+10-02-2021 16:07:08.501 INFO  [https-jsse-nio-8084-exec-8] c.n.config.ChainedDynamicProperty - Flipping property: zuul-api-gateway.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+10-02-2021 16:07:08.509 INFO  [https-jsse-nio-8084-exec-8] c.n.l.DynamicServerListLoadBalancer - DynamicServerListLoadBalancer for client zuul-api-gateway initialized: DynamicServerListLoadBalancer:{NFLoadBalancer:name=zuul-api-gateway,current list of Servers=[192.168.21.33:8081],Load balancer stats=Zone stats: {defaultzone=[Zone:defaultzone;	Instance count:1;	Active connections count: 0;	Circuit breaker tripped count: 0;	Active connections per server: 0.0;]
+},Server stats: [[Server:192.168.21.33:8081;	Zone:defaultZone;	Total Requests:0;	Successive connection failure:0;	Total blackout seconds:0;	Last connection made:Thu Jan 01 01:00:00 CET 1970;	First connection made: Thu Jan 01 01:00:00 CET 1970;	Active Connections:0;	total failure count in last (1000) msecs:0;	average resp time:0.0;	90 percentile resp time:0.0;	95 percentile resp time:0.0;	min resp time:0.0;	max resp time:0.0;	stddev resp time:0.0]
+]}ServerList:org.springframework.cloud.netflix.ribbon.eureka.DomainExtractingServerList@6c691da2
+10-02-2021 16:07:08.692 INFO  [https-jsse-nio-8084-exec-8] c.l.controller.TransactionController - Date : 2021-02-10T16:07:08.692300, Bank payment successful. Info : Successful bank transaction.
+10-02-2021 16:07:09.495 INFO  [PollingServerListUpdater-0] c.n.config.ChainedDynamicProperty - Flipping property: zuul-api-gateway.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+10-02-2021 16:07:16.151 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+10-02-2021 16:12:16.153 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+10-02-2021 16:17:16.155 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+10-02-2021 16:19:39.645 INFO  [https-jsse-nio-8084-exec-1] c.l.controller.TransactionController - Date : 2021-02-10T16:19:39.644530600, Bank payment successful. Info : Successful bank transaction.
+10-02-2021 16:22:16.157 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+10-02-2021 16:27:16.159 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+10-02-2021 17:25:18.636 INFO  [main] com.la.BankAApp - No active profile set, falling back to default profiles: default
+10-02-2021 17:25:19.587 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+10-02-2021 17:25:19.697 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 103ms. Found 6 JPA repository interfaces.
+10-02-2021 17:25:19.993 INFO  [main] o.s.cloud.context.scope.GenericScope - BeanFactory id=4b2ea3de-e550-387d-a61e-a57c6153ca18
+10-02-2021 17:25:20.072 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'com.la.controller.feigns.PaymentConcetratorFeignClient' of type [org.springframework.cloud.openfeign.FeignClientFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+10-02-2021 17:25:20.447 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8084 (https)
+10-02-2021 17:25:20.462 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["https-jsse-nio-8084"]
+10-02-2021 17:25:20.462 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+10-02-2021 17:25:20.462 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.33]
+10-02-2021 17:25:20.681 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+10-02-2021 17:25:20.681 INFO  [main] o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2014 ms
+10-02-2021 17:25:20.862 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+10-02-2021 17:25:20.972 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.12.Final
+10-02-2021 17:25:21.128 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+10-02-2021 17:25:21.268 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+10-02-2021 17:25:21.440 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+10-02-2021 17:25:21.456 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+10-02-2021 17:25:25.066 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+10-02-2021 17:25:25.066 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+10-02-2021 17:25:26.214 INFO  [main] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+10-02-2021 17:25:26.229 INFO  [main] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+10-02-2021 17:25:27.198 INFO  [main] o.s.c.n.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
+10-02-2021 17:25:27.276 INFO  [main] c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
+10-02-2021 17:25:27.354 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using JSON encoding codec LegacyJacksonJson
+10-02-2021 17:25:27.354 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using JSON decoding codec LegacyJacksonJson
+10-02-2021 17:25:27.620 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using XML encoding codec XStreamXml
+10-02-2021 17:25:27.620 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using XML decoding codec XStreamXml
+10-02-2021 17:25:28.057 INFO  [main] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+10-02-2021 17:25:28.104 INFO  [main] c.netflix.discovery.DiscoveryClient - Disable delta property : false
+10-02-2021 17:25:28.104 INFO  [main] c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+10-02-2021 17:25:28.104 INFO  [main] c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+10-02-2021 17:25:28.104 INFO  [main] c.netflix.discovery.DiscoveryClient - Application is null : false
+10-02-2021 17:25:28.104 INFO  [main] c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+10-02-2021 17:25:28.104 INFO  [main] c.netflix.discovery.DiscoveryClient - Application version is -1: true
+10-02-2021 17:25:28.104 INFO  [main] c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+10-02-2021 17:25:28.280 INFO  [main] c.netflix.discovery.DiscoveryClient - The response status is 200
+10-02-2021 17:25:28.295 INFO  [main] c.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
+10-02-2021 17:25:28.295 INFO  [main] c.n.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
+10-02-2021 17:25:28.327 INFO  [main] c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1612974328311 with initial instances count: 2
+10-02-2021 17:25:28.327 INFO  [main] o.s.c.n.e.s.EurekaServiceRegistry - Registering application BANK-A with eureka with status UP
+10-02-2021 17:25:28.327 INFO  [main] c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1612974328327, current=UP, previous=STARTING]
+10-02-2021 17:25:28.327 INFO  [DiscoveryClient-InstanceInfoReplicator-0] c.netflix.discovery.DiscoveryClient - DiscoveryClient_BANK-A/DESKTOP-S8EDMMJ.mshome.net:bank-a:8084: registering service...
+10-02-2021 17:25:28.342 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["https-jsse-nio-8084"]
+10-02-2021 17:25:28.378 INFO  [DiscoveryClient-InstanceInfoReplicator-0] c.netflix.discovery.DiscoveryClient - DiscoveryClient_BANK-A/DESKTOP-S8EDMMJ.mshome.net:bank-a:8084 - registration status: 204
+10-02-2021 17:25:28.491 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8084 (https) with context path ''
+10-02-2021 17:25:28.491 INFO  [main] o.s.c.n.e.s.EurekaAutoServiceRegistration - Updating port to 8084
+10-02-2021 17:25:28.772 INFO  [main] com.la.BankAApp - Started BankAApp in 12.706 seconds (JVM running for 14.488)
+10-02-2021 17:30:28.131 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+10-02-2021 17:30:49.754 INFO  [https-jsse-nio-8084-exec-6] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+10-02-2021 17:30:49.754 INFO  [https-jsse-nio-8084-exec-6] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+10-02-2021 17:30:49.785 INFO  [https-jsse-nio-8084-exec-6] o.s.web.servlet.DispatcherServlet - Completed initialization in 31 ms
+10-02-2021 17:31:14.366 INFO  [https-jsse-nio-8084-exec-9] c.n.config.ChainedDynamicProperty - Flipping property: pcc.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+10-02-2021 17:31:14.398 INFO  [https-jsse-nio-8084-exec-9] c.n.u.c.ShutdownEnabledTimer - Shutdown hook installed for: NFLoadBalancer-PingTimer-pcc
+10-02-2021 17:31:14.398 INFO  [https-jsse-nio-8084-exec-9] c.n.loadbalancer.BaseLoadBalancer - Client: pcc instantiated a LoadBalancer: DynamicServerListLoadBalancer:{NFLoadBalancer:name=pcc,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:null
+10-02-2021 17:31:14.413 INFO  [https-jsse-nio-8084-exec-9] c.n.l.DynamicServerListLoadBalancer - Using serverListUpdater PollingServerListUpdater
+10-02-2021 17:31:14.444 INFO  [https-jsse-nio-8084-exec-9] c.n.config.ChainedDynamicProperty - Flipping property: pcc.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+10-02-2021 17:31:14.460 INFO  [https-jsse-nio-8084-exec-9] c.n.l.DynamicServerListLoadBalancer - DynamicServerListLoadBalancer for client pcc initialized: DynamicServerListLoadBalancer:{NFLoadBalancer:name=pcc,current list of Servers=[192.168.21.33:8086],Load balancer stats=Zone stats: {defaultzone=[Zone:defaultzone;	Instance count:1;	Active connections count: 0;	Circuit breaker tripped count: 0;	Active connections per server: 0.0;]
+},Server stats: [[Server:192.168.21.33:8086;	Zone:defaultZone;	Total Requests:0;	Successive connection failure:0;	Total blackout seconds:0;	Last connection made:Thu Jan 01 01:00:00 CET 1970;	First connection made: Thu Jan 01 01:00:00 CET 1970;	Active Connections:0;	total failure count in last (1000) msecs:0;	average resp time:0.0;	90 percentile resp time:0.0;	95 percentile resp time:0.0;	min resp time:0.0;	max resp time:0.0;	stddev resp time:0.0]
+]}ServerList:org.springframework.cloud.netflix.ribbon.eureka.DomainExtractingServerList@33f03184
+10-02-2021 17:31:15.429 INFO  [PollingServerListUpdater-0] c.n.config.ChainedDynamicProperty - Flipping property: pcc.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+10-02-2021 17:31:15.928 INFO  [https-jsse-nio-8084-exec-9] c.n.config.ChainedDynamicProperty - Flipping property: zuul-api-gateway.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+10-02-2021 17:31:15.944 INFO  [https-jsse-nio-8084-exec-9] c.n.u.c.ShutdownEnabledTimer - Shutdown hook installed for: NFLoadBalancer-PingTimer-zuul-api-gateway
+10-02-2021 17:31:15.944 INFO  [https-jsse-nio-8084-exec-9] c.n.loadbalancer.BaseLoadBalancer - Client: zuul-api-gateway instantiated a LoadBalancer: DynamicServerListLoadBalancer:{NFLoadBalancer:name=zuul-api-gateway,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:null
+10-02-2021 17:31:15.944 INFO  [https-jsse-nio-8084-exec-9] c.n.l.DynamicServerListLoadBalancer - Using serverListUpdater PollingServerListUpdater
+10-02-2021 17:31:15.960 INFO  [https-jsse-nio-8084-exec-9] c.n.config.ChainedDynamicProperty - Flipping property: zuul-api-gateway.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+10-02-2021 17:31:15.975 INFO  [https-jsse-nio-8084-exec-9] c.n.l.DynamicServerListLoadBalancer - DynamicServerListLoadBalancer for client zuul-api-gateway initialized: DynamicServerListLoadBalancer:{NFLoadBalancer:name=zuul-api-gateway,current list of Servers=[192.168.21.33:8081],Load balancer stats=Zone stats: {defaultzone=[Zone:defaultzone;	Instance count:1;	Active connections count: 0;	Circuit breaker tripped count: 0;	Active connections per server: 0.0;]
+},Server stats: [[Server:192.168.21.33:8081;	Zone:defaultZone;	Total Requests:0;	Successive connection failure:0;	Total blackout seconds:0;	Last connection made:Thu Jan 01 01:00:00 CET 1970;	First connection made: Thu Jan 01 01:00:00 CET 1970;	Active Connections:0;	total failure count in last (1000) msecs:0;	average resp time:0.0;	90 percentile resp time:0.0;	95 percentile resp time:0.0;	min resp time:0.0;	max resp time:0.0;	stddev resp time:0.0]
+]}ServerList:org.springframework.cloud.netflix.ribbon.eureka.DomainExtractingServerList@535a0d4
+10-02-2021 17:31:16.116 INFO  [https-jsse-nio-8084-exec-9] c.l.controller.TransactionController - Date : 2021-02-10T17:31:16.116414800, Bank payment successful. Info : Successful bank transaction.
+10-02-2021 17:31:16.967 INFO  [PollingServerListUpdater-0] c.n.config.ChainedDynamicProperty - Flipping property: zuul-api-gateway.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+10-02-2021 17:35:28.139 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+10-02-2021 17:40:28.141 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration

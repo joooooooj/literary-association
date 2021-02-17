@@ -102,12 +102,16 @@ public class PaymentFilter extends ZuulFilter {
             logger.info("Date : {}, A user with id {} tried to create order.", LocalDateTime.now(), paypalOrderDTO.getUserId());
             context.set("merchantOrderId", paypalOrderDTO.getMerchantOrderId());
             context.set("merchantTimestamp", paypalOrderDTO.getMerchantTimestamp());
-
+            context.set("buyerRequestId", paypalOrderDTO.getBuyerRequestId());
         }
 
         if (request.getRequestURI().contains("pay-pal/capture")) {
             logger.info("Date : {}, A user with id {} tried to capture order.", LocalDateTime.now(), paypalOrderDTO.getUserId());
             context.set("orderId", request.getRequestURI().split("/")[3]);
+        }
+
+        if (request.getRequestURI().contains("pay-pal/subscribe")) {
+            context.set("merchantOrderId", paypalOrderDTO.getMerchantOrderId());
         }
 
 
@@ -136,6 +140,8 @@ public class PaymentFilter extends ZuulFilter {
         PaypalOrderDTO paypalOrderDTO = null;
         try {
             paypalOrderDTO = new ObjectMapper().readValue(body, PaypalOrderDTO.class);
+            System.out.println("kad parsira telo");
+            System.out.println(paypalOrderDTO);
         } catch (JsonMappingException e) {
 //            e.printStackTrace();
             return null;
